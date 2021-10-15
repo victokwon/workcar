@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" type="text/css" href="resources\css\commonAction\imemjoin.css" >
+ <link rel="stylesheet" type="text/css" href="resources\css\ca\imjoin.css" >
  
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
- <script type="text/javascript" src="resources\script\commonAction\imjoin.js"></script>
+ <script type="text/javascript" src="resources\script\ca\imjoin.js"></script>
 </head>
 <body>
  <div class="container">

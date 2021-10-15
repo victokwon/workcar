@@ -10,7 +10,7 @@ public class SampleController {
 	@RequestMapping(value = "/login")
 	public ModelAndView login(ModelAndView modelAndView) {
 		
-		modelAndView.setViewName("commonAction/login");
+		modelAndView.setViewName("ca/login");
 		
 		return modelAndView;
 	}
@@ -18,7 +18,7 @@ public class SampleController {
 	@RequestMapping(value = "/join")
 	public ModelAndView join(ModelAndView modelAndView) {
 		
-		modelAndView.setViewName("commonAction/join");
+		modelAndView.setViewName("ca/join");
 		
 		return modelAndView;
 	}
@@ -26,7 +26,7 @@ public class SampleController {
 	@RequestMapping(value = "/imJoin")
 	public ModelAndView imJoin(ModelAndView modelAndView) {
 		
-		modelAndView.setViewName("commonAction/imJoin");
+		modelAndView.setViewName("ca/imjoin");
 		
 		return modelAndView;
 	}
@@ -34,7 +34,7 @@ public class SampleController {
 	@RequestMapping(value = "/cmJoin")
 	public ModelAndView cmJoin(ModelAndView modelAndView) {
 		
-		modelAndView.setViewName("commonAction/cmJoin");
+		modelAndView.setViewName("ca/cmjoin");
 		
 		return modelAndView;
 	}
@@ -42,7 +42,7 @@ public class SampleController {
 	@RequestMapping(value = "/pwf")
 	public ModelAndView pwf(ModelAndView modelAndView) {
 		
-		modelAndView.setViewName("commonAction/pwf");
+		modelAndView.setViewName("ca/pwf");
 		
 		return modelAndView;
 	}

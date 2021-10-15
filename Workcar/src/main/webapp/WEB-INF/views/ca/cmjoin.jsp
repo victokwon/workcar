@@ -5,15 +5,15 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" type="text/css" href="resources\css\commonAction\cmemjoin.css" >
- <link rel="stylesheet" type="text/css" href="resources\css\commonAction\csch.css" >
+ <link rel="stylesheet" type="text/css" href="resources\css\ca\cmjoin.css" >
+ <link rel="stylesheet" type="text/css" href="resources\css\ca\csch.css" >
  
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<script type="text/javascript" src="resources\script\commonAction\cmJoin.js"></script>
-<script type="text/javascript" src="resources\script\commonAction\csch.js"></script> 
+<script type="text/javascript" src="resources\script\ca\cmjoin.js"></script>
+<script type="text/javascript" src="resources\script\ca\csch.js"></script> 
 </head>
 <body>
  <div class="pop-container">
