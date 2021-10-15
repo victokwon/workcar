@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="input">
-                        <input type="text" placeholder="생년월일">
+                        <input type="text" placeholder="생년월일"><div class="check"></div>
                     </div>
                     <div class="form-group">
                         <div>
@@ -37,7 +37,7 @@
                         </div>
                     </div>
                     <div class="input">
-                        <input type="button" onclick="execDaumPostcode()" value="주소검색" id="locationSchBtn">
+                        <input type="button" onclick="execDaumPostcode()" value="주소검색" id="locationSchBtn"><div class="check"></div>
                     </div>
                     <div class="dtl">
                         <div class="input">
@@ -49,6 +49,7 @@
                     </div>
                     <div class="input">
                         <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="" readonly>
+                        <div class="check"></div>
                     </div>
                     <input type="hidden" id="extraAddress">
                     

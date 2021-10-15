@@ -75,6 +75,7 @@
                     </div>
                     <div class="input">
                         <input type="button" id="cSch" value="기업검색">
+                        <div class="check"></div>
                     </div>
                     <div class="dtl">
                         <div class="input">
@@ -93,6 +94,7 @@
                     </div>
                     <div class="input">
                         <input type="text" placeholder="직책">
+                        <div class="check"></div>
                     </div>
                     <div class="input">
                         <input type="button" onclick="execDaumPostcode()" value="주소검색" id="locationSchBtn">
@@ -107,6 +109,7 @@
                     </div>
                     <div class="input">
                         <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="" readonly>
+                        <div class="check"></div>
                     </div>
                     <input type="hidden" id="extraAddress">
                     

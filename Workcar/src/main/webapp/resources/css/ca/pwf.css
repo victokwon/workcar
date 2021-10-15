@@ -51,6 +51,7 @@ html {
 }
 /* 로그인 세부 */
 .input {
+	position: relative;
   height: 60px;
 }
 .input > input {
@@ -110,6 +111,19 @@ a {
   font-weight: bold;
   text-decoration: underline;
 }
+.check {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  display: block;
+  z-index: 9999;
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/check.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 @media screen and (max-width: 900px) {
   .out-container {
     border-radius: 10px;
@@ -154,5 +168,9 @@ a {
   }
   .text {
     margin: 5px;
+  }
+    .check {
+    width: 25px;
+    height: 25px;
   }
 }

@@ -45,6 +45,7 @@ html {
 }
 /* 로그인 세부 */
 .pop-input {
+	position: relative;
   height: 50px;
 }
 .pop-input input[readonly] {
@@ -127,7 +128,19 @@ tbody tr:hover {
   font-weight: bold;
   cursor: pointer;
 }
-
+.check {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  display: block;
+  z-index: 9999;
+  width: 50px;
+  height: 50px;
+  background-image: url(../img/check.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 @media screen and (max-width: 900px) {
   .pop-out-container {
     border-radius: 10px;
@@ -172,5 +185,9 @@ tbody tr:hover {
   }
   .pop-text {
     margin: 5px;
+  }
+    .check {
+    width: 25px;
+    height: 25px;
   }
 }
