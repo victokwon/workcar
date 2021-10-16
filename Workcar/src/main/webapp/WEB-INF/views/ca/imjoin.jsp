@@ -5,11 +5,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
- <link rel="stylesheet" type="text/css" href="resources\css\ca\imjoin.css" >
+ <link rel="stylesheet" type="text/css" href="resources/css/ca/imjoin.css" >
  
 <script type="text/javascript"
-	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
- <script type="text/javascript" src="resources\script\ca\imjoin.js"></script>
+	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
+	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+ <script type="text/javascript" src="resources/script/ca/imjoin.js"></script>
+ <script type="text/javascript">
+ 
+ 
+ function changeCheck(flag, target) {
+	  $(target).next().attr("style", "background-image: url(resources/images/ca/check.png)");
+	  /* 	 if($(this).attr("name")=="id"){
+				 idOverlapCheck()
+			 return;
+		 } */
+	  if (flag) {
+		  console.log($(target))
+	    $(target).next().attr("style", "background-image: url(resources/images/ca/ccheck.png)");
+	  }
+	}
+ </script>
 </head>
 <body>
  <div class="container">
@@ -27,7 +43,8 @@
                     </div>
 
                     <div class="input">
-                        <input type="text" placeholder="생년월일"><div class="check"></div>
+                        <input type="text" placeholder="생년월일">
+                        <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
                     </div>
                     <div class="form-group">
                         <div>
@@ -37,7 +54,8 @@
                         </div>
                     </div>
                     <div class="input">
-                        <input type="button" onclick="execDaumPostcode()" value="주소검색" id="locationSchBtn"><div class="check"></div>
+                        <input type="button" onclick="execDaumPostcode()" value="주소검색" id="locationSchBtn">
+                        <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
                     </div>
                     <div class="dtl">
                         <div class="input">
@@ -49,7 +67,7 @@
                     </div>
                     <div class="input">
                         <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="" readonly>
-                        <div class="check"></div>
+                        <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
                     </div>
                     <input type="hidden" id="extraAddress">
                     

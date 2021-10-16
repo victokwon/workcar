@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Sample_SQL">
+	<select id="idCheck" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) AS idCnt
+		FROM MEMBER
+		WHERE NAME LIKE '%'||#{ID}||'%'
+	</select>
+
+	<insert id="joinMember" parameterType="hashmap">
+		INSERT INTO MEMBER (MEM_NO, NAME, ID, PASS, EMAIL, PHONE, INFOR_AGR, ACT_AGR, MEM_GBN)
+		VALUES (MEMBER_SEQ.NEXTVAL, 
+			#{NM},
+			#{ID},
+			#{PW},
+			#{EM},
+			#{PH},
+			#{inforAgr}, 
+			#{actAgr},
+			#{MT}
+		)
+	</insert>
+	
+	<select id="login" parameterType="hashmap" resultType="hashmap">
+		SELECT MEM_NO, NAME
+		FROM MEMBER
+		WHERE WDRAWL_DATE IS NULL
+		AND ID = #{ID}
+		AND PASS = #{PW}
+	</select>
+</mapper>

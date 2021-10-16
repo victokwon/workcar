@@ -55,8 +55,8 @@ input[type="checkbox"] ~ label {
   line-height: 30px;
 }
 input[type="checkbox"] ~ label:hover,
-#iM:checked ~ #iML,
-#cM:checked ~ #cML {
+#IM:checked ~ #IML,
+#CM:checked ~ #CML {
   background-color: #1b50ee;
 }
 

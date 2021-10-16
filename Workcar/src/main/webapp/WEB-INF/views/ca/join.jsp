@@ -22,11 +22,11 @@ $(function () {
 	/* 체크변경 */
 	function changeCheck(flag, target) {
 	  $(target).next().attr("style", "background-image: url(resources/images/ca/check.png)");
-	  /* 	 if($(this).attr("name")=="id"){
+  	 if($(this).attr("name")=="ID"){
 				 idOverlapCheck()
 			 return;
-		 } */
-	  if (flag) {
+  	 }
+  	 if (flag) {
 		  console.log($(target))
 	    $(target).next().attr("style", "background-image: url(resources/images/ca/ccheck.png)");
 	  }
@@ -42,13 +42,11 @@ $(function () {
 	    dataType: "json",
 	    url: "idCheckAjax",
 	    success: function (res) {
-	      if (res.idCnt > 0) {
-	        $(this).next().attr("style","background-image: url(resources/images/ca/fcheck.png)");
-	      } else {
-	        if (idCheck()) {
-	          $(this).next().attr("style","background-image: url(resources/images/ca/ccheck.png)");
-	        }
-	      }
+		      if (res.idCnt > 0) {
+	    	  	alert("중복된 아이디");
+		  	    $("#ID").focus();
+		        $(this).next().attr("style","background-image: url(resources/images/ca/fcheck.png)");
+		      } 
 	    },
 	    error: function (request, status, error) {
 	      console.log(error);
@@ -75,15 +73,15 @@ $(function () {
 	/* 아이디 유효성 */
 	function idCheck() {
 	  var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
-	  if ($("#id").val() == "") {
+	  if ($("#ID").val() == "") {
 	    alert("아이디 입력바람");
-	    $("#id").focus();
+	    $("#ID").focus();
 	    return false;
 	  }
-	  if (!getCheck.test($("#id").val())) {
+	  if (!getCheck.test($("#ID").val())) {
 	    alert("형식에 맞게 입력해주세요");
-	    $("#id").val("");
-	    $("#id").focus();
+	    $("#ID").val("");
+	    $("#ID").focus();
 	    return false;
 	  }
 	  return true;
@@ -91,32 +89,32 @@ $(function () {
 	/* 비밀번호 유효성 */
 	function pwCheck() {
 	  var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
-	  if ($("#password").val() == "") {
+	  if ($("#PW").val() == "") {
 	    alert("패스워드 입력바람");
-	    $("#password").focus();
+	    $("#PW").focus();
 	    return false;
 	  }
-	  if ($("#id").val() == $("#pw").val()) {
+	  if ($("#ID").val() == $("#PW").val()) {
 	    alert("아이디와 비밀번호가 같습니다");
-	    $("#pw").val("");
-	    $("#pw").focus();
+	    $("#PW").val("");
+	    $("#PW").focus();
 	    return false;
 	  }
-	  if (!getCheck.test($("#pw").val())) {
+	  if (!getCheck.test($("#PW").val())) {
 	    alert("형식에 맞게 입력해주세요");
-	    $("#pw").val("");
-	    $("#pw").focus();
+	    $("#PW").val("");
+	    $("#PW").focus();
 	    return false;
 	  }
 	  return true;
 	}
 	/* 비밀번호 확인 */
 	function pwcCheck() {
-	  if ($("#pw").val() != $("#pwc").val()) {
+	  if ($("#PW").val() != $("#PWC").val()) {
 	    alert("비밀번호가 상이합니다");
-	    $("#pw").val("");
-	    $("#pwc").val("");
-	    $("#pw").focus();
+	    $("#PW").val("");
+	    $("#PWC").val("");
+	    $("#PW").focus();
 	    return false;
 	  }
 	  return true;
@@ -124,15 +122,15 @@ $(function () {
 	/* 이름 유효성 */
 	function nmCheck() {
 	  var getCheck = RegExp(/^[a-zA-Z0-9가-힣]{3,12}$/);
-	  if ($("#name").val() == "") {
+	  if ($("#NM").val() == "") {
 	    alert("이름을 입력해주세요");
-	    $("#name").focus();
+	    $("#NM").focus();
 	    return false;
 	  }
-	  if (!getCheck.test($("#nm").val())) {
+	  if (!getCheck.test($("#NM").val())) {
 	    alert("이름형식에 맞게 입력해주세요");
-	    $("#nm").val("");
-	    $("#nm").focus();
+	    $("#NM").val("");
+	    $("#NM").focus();
 	    return false;
 	  }
 	  return true;
@@ -140,15 +138,15 @@ $(function () {
 	/* 이메일 유효성 */
 	function emCheck() {
 	  var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-	  if ($("#em").val() == "") {
+	  if ($("#EM").val() == "") {
 	    alert("이메일을 입력해주세요");
-	    $("#em").focus();
+	    $("#EM").focus();
 	    return false;
 	  }
-	  if (!getMail.test($("#em").val())) {
+	  if (!getMail.test($("#EM").val())) {
 	    alert("이메일형식에 맞게 입력해주세요");
-	    $("#em").val("");
-	    $("#em").focus();
+	    $("#EM").val("");
+	    $("#EM").focus();
 	    return false;
 	  }
 	  return true;
@@ -156,24 +154,24 @@ $(function () {
 	/* 전화번호 */
 	function phCheck() {
 	  var getCheck = RegExp(/^[0-9]{10,11}$/);
-	  if ($("#ph").val() == "") {
+	  if ($("#PH").val() == "") {
 	    alert("전화번호를 입력해주세요");
-	    $("#ph").focus();
+	    $("#PH").focus();
 	    return false;
 	  }
-	  if (!getCheck.test($("#ph").val())) {
+	  if (!getCheck.test($("#PH").val())) {
 	    alert("전화번호형식에 맞게 입력해주세요");
-	    $("#ph").val("");
-	    $("#ph").focus();
+	    $("#PH").val("");
+	    $("#PH").focus();
 	    return false;
 	  }
 	  return true;
 	}
 	/* 회원선택 */
 	function typeCheck(){
-	 	if($("#iM").is(":checked")) {
+	 	if($("#IM").is(":checked")) {
 			return true;
-		}else if($("#cM").is(":checked")){
+		}else if($("#CM").is(":checked")){
 			return true;
 		}else {
 			alert("회원종류를 선택하지 않았습니다.");
@@ -191,13 +189,13 @@ $(function () {
 				</div>
 				<form class="user" id="joinForm" action="joins" method="post">
 					<div class="input-member">
-						<input type="checkbox" name="mt" id="iM" value="0">
-						<label for="iM" id="iML">개인</label>
-						<input type="checkbox" name="mt" id="cM" value="1">
-						<label for="cM" id="cML">기업</label>
+						<input type="checkbox" name="MT" id="IM" value="0">
+						<label for="IM" id="IML">개인</label>
+						<input type="checkbox" name="MT" id="CM" value="1">
+						<label for="CM" id="CML">기업</label>
 					</div>
 					<div class="input">
-						<input type="text" placeholder="Name" id="nm" name="nm" onchange="changeCheck(nmCheck(), nm)">
+						<input type="text" placeholder="Name" id="NM" name="NM" onchange="changeCheck(nmCheck(), NM)">
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="input">
@@ -205,33 +203,35 @@ $(function () {
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="input">
-						<input type="password" placeholder="Password" id="pw" name="pw" onchange="changeCheck(pwCheck(), pw)">
+						<input type="password" placeholder="Password" id="PW" name="PW" onchange="changeCheck(pwCheck(), PW)">
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="input">
-						<input type="password" placeholder="Password confirm" id="pwc" onchange="changeCheck(pwcCheck(), pwc)">
+						<input type="password" placeholder="Password confirm" id="PWC" onchange="changeCheck(pwcCheck(), PWC)">
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="input">
-						<input type="text" placeholder="E-mail" id="em" name="em" onchange="changeCheck(emCheck(), em)">
+						<input type="text" placeholder="E-mail" id="EM" name="EM" onchange="changeCheck(emCheck(), EM)">
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="input">
-						<input type="text" placeholder="Phone Number" id="ph" name="ph" onchange="changeCheck(phCheck(), ph)">
+						<input type="text" placeholder="Phone Number" id="PH" name="PH" onchange="changeCheck(phCheck(), PH)">
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="form-group">
 						<div>
-							관심내역 수신동의 <input type="radio" name="custom1" id="custom1Y"
-								value="0" checked="checked"><label for="custom1Y">동의</label>
-							<input type="radio" name="custom1" id="custom1N" value="1"><label
-								for="custom1N">비동의</label>
+							관심내역 수신동의 
+							<input type="radio" name="inforAgr" id="c1Y" value="0" checked="checked">
+							<label for="c1Y">동의</label>
+							<input type="radio" name="inforAgr" id="c1N" value="1">
+							<label for="c1N">비동의</label>
 						</div>
 						<div>
-							활동내역 수신동의 <input type="radio" name="custom2" id="custom2Y"
-								value="0" checked="checked"><label for="custom2Y">동의</label>
-							<input type="radio" name="custom2" id="custom2N" value="1"><label
-								for="custom2N">비동의</label>
+							활동내역 수신동의
+							<input type="radio" name="actAgr" id="c2Y" value="0" checked="checked">
+							<label for="c2Y">동의</label>
+							<input type="radio" name="actAgr" id="c2N" value="1">
+							<label for="c2N">비동의</label>
 						</div>
 					</div>
 					<a id="joinBtn" href="#"> 회원가입 </a>

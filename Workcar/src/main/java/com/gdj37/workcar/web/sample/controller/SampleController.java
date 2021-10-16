@@ -1,47 +1,103 @@
 package com.gdj37.workcar.web.sample.controller;
 
 import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj37.workcar.util.Utils;
+import com.gdj37.workcar.web.sample.controller.service.ISampleService;
 
 @Controller
 public class SampleController {
 	
+	@Autowired ISampleService iSampleService;
+	
 	@RequestMapping(value = "/login")
-	public ModelAndView login(ModelAndView modelAndView) {
-		
-		modelAndView.setViewName("ca/login");
-		
-		return modelAndView;
+	public ModelAndView login(ModelAndView mav, HttpSession session) {
+//		세션 로그인 정보 저장
+		if(session.getAttribute("sMNo") == null ) {
+			mav.setViewName("ca/login");
+		}else {
+			mav.setViewName("redirect:join");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value = "/logins")
+	public ModelAndView logins(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		try {
+			String pw = Utils.encryptAES128(params.get("PW"));
+			params.put("PW", pw);
+			
+			HashMap<String, String> data = iSampleService.login(params);
+
+			if(data!=null) {
+				session.setAttribute("sMNo", data.get("MEM_NO"));
+				session.setAttribute("sMNm", data.get("NAME"));
+				mav.setViewName("redirect:join");
+			}else {
+				mav.addObject("msg","로그인실패");
+				mav.setViewName("ca/join");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mav;
 	}
 	
 	@RequestMapping(value = "/join")
-	public ModelAndView join(ModelAndView modelAndView) {
+	public ModelAndView join(ModelAndView mav) {
 		
-		modelAndView.setViewName("ca/join");
+		mav.setViewName("ca/join");
 		
-		return modelAndView;
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/idCheckAjax",method = RequestMethod.POST, produces = "text/html;charset=UTF-8" )
+	public String idCheckAjax(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable  {
+		ObjectMapper mapper = new ObjectMapper();
+		
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		try {
+			int idCnt = iSampleService.SampleIdCheck(params);
+			modelMap.put("idCnt",idCnt);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return mapper.writeValueAsString(modelMap);
 	}
 	
 	@RequestMapping(value = "/joins")
-	public ModelAndView joins(ModelAndView modelAndView,@RequestParam HashMap<String, String> params) {
+	public ModelAndView joins(ModelAndView mav,@RequestParam HashMap<String, String> params) throws Throwable {
 		System.out.println(params);
 		
-		
+		params.put("PW", Utils.encryptAES128(params.get("PW")));
+		int joinCnt = iSampleService.joinMember(params);
 		
 		String view =  "ca/";
-		if(Integer.parseInt(params.get("mt"))  == 0 ) {
+		if(Integer.parseInt(params.get("MT"))  == 0 ) {
 			view += "imjoin";
-		}else if(Integer.parseInt(params.get("mt"))  == 1 ){
+		}else if(Integer.parseInt(params.get("MT"))  == 1 ){
 			view += "cmjoin";
 		}
-		System.out.println(view);
-		modelAndView.setViewName(view);
 		
-		return modelAndView;
+		params.clear();
+		mav.setViewName(view);
+		
+		return mav;
 	}
 	
 //	@RequestMapping(value = "/imJoin")
@@ -61,11 +117,11 @@ public class SampleController {
 //	}
 	
 	@RequestMapping(value = "/pwf")
-	public ModelAndView pwf(ModelAndView modelAndView) {
+	public ModelAndView pwf(ModelAndView mav) {
 		
-		modelAndView.setViewName("ca/pwf");
+		mav.setViewName("ca/pwf");
 		
-		return modelAndView;
+		return mav;
 	}
 	
 }
