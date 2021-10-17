@@ -1,6 +1,7 @@
 package com.gdj37.workcar.web.sample.controller.service;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,36 @@ public class SampleService implements ISampleService {
 	}
 
 	@Override
-	public int joinMember(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.joinMember(params);
+	public int joinMem(HashMap<String, String> params) throws Throwable {
+		return iSampleDAO.joinMem(params);
+	}
+	@Override
+	public int joinIMem(HashMap<String, String> params) throws Throwable {
+		return iSampleDAO.joinIMem(params);
+	}
+	@Override
+	public int joinCMem(HashMap<String, String> params) throws Throwable {
+		return iSampleDAO.joinCMem(params);
 	}
 
 	@Override
 	public HashMap<String, String> login(HashMap<String, String> params) throws Throwable {
 		return iSampleDAO.login(params);
 	}
+
+	@Override
+	public int cInfoCheck(HashMap<String, String> params) throws Throwable {
+		return iSampleDAO.cInfoCheck(params);
+	}
+
+	@Override
+	public int joinCInfo(HashMap<String, String> params) throws Throwable {
+		return iSampleDAO.joinCInfo(params);
+	}
+
+//	@Override
+//	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params) throws Throwable {
+//		return iSampleDAO.cInfoList(params);
+//	}
+
 }

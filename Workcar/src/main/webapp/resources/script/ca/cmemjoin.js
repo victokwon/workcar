@@ -26,10 +26,11 @@ function execDaumPostcode() {
         document.getElementById("extraAddress").value = "";
       }
 
-      $("#postcode").val(data.zonecode);
-      $("#address").val(addr);
-      $("#detailAddress").attr("readonly", false);
-      $("#detailAddress").focus();
+    $("#zip").val(data.zonecode);
+      $("#addr").val(addr);
+      $("#dtlAddr").attr("readonly", false);
+      $("#dtlAddr").focus();
+      $("#addrSchBtn").next().attr("style", "background-image: url(resources/images/ca/ccheck.png)");
     },
   }).open();
 }

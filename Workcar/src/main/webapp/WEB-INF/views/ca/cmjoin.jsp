@@ -12,20 +12,81 @@
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-<script type="text/javascript" src="resources/script/ca/cmjoin.js"></script>
+<script type="text/javascript" src="resources/script/ca/cmemjoin.js"></script>
 <script type="text/javascript" src="resources/script/ca/csch.js"></script> 
 <script type="text/javascript">
+$(function () {
+	  $("#cMemJoinBtn").on("click", function () {
+	    if (check()) {
+	    	formSubmit()
+	    }
+	  });
+	});
+
+/* 입력 변화 감지 -> 체크 이미지 변경 */
 function changeCheck(flag, target) {
 	  $(target).next().attr("style", "background-image: url(resources/images/ca/check.png)");
-	  /* 	 if($(this).attr("name")=="id"){
-				 idOverlapCheck()
-			 return;
-		 } */
 	  if (flag) {
-		  console.log($(target))
+		  /* console.log($(target)) */
 	    $(target).next().attr("style", "background-image: url(resources/images/ca/ccheck.png)");
 	  }
+	  return
 	}
+/* 전체 유효성 */
+function check() {
+	  if (
+	  cNameCheck()&&
+	  posCheck()&&
+	  addrCheck()&&
+	  dtlAddrCheck() 
+	  ) {
+	    return true;
+	  } else {
+	    return false;
+	  }
+	}
+/* 기업검색 여부 확인 */	
+function cNameCheck(){
+	  if ($("#cName").val() == "") {
+		    alert("기업검색을 해주세요");
+		    $("#cSchBtn").focus();
+		    return false;
+		  }
+	  return true;
+}
+/* 직책 유효성 */
+function posCheck(){
+	var getCheck = RegExp(/^[a-zA-Z0-9가-힣]{1,10}$/);
+	  if ($("#pos").val() == "") {
+		    alert("직책을 입력해주세요");
+		    $("#pos").focus();
+		    return false;
+		  }
+	  if (!getCheck.test($("#pos").val())) {
+		    alert("직책혁식에 맞게 입력해주세요");
+		    $("#pos").focus();
+		    return false;
+		  }
+	  return true;
+}
+/* 주소검색 여부 확인 */
+function addrCheck(){
+	  if ($("#zip").val() == "") {
+		    alert("주소검색을 해주세요");
+		    $("#addrSchBtn").focus();
+		    return false;
+		  }
+	  return true;
+}
+/* 상세주소 유효성 */
+function dtlAddrCheck() {
+if ($("#dtlAddr").val() == "") {
+	    alert("상세주소를 입력해주세요");
+	    $("#dtlAddr").focus();
+	    return false;
+	  }
+return true;
+}
 </script>
 </head>
 <body>
@@ -36,16 +97,13 @@ function changeCheck(flag, target) {
                     <h1>기업검색</h1>
                 </div>
 
-                <form class="pop-user" id="companyNm">
+                <form class="pop-user" id="companySchForm">
+                	<input type="hidden" name="page" id="page">
+                	<input type="hidden" name="itemCnt" id="itemCnt">
                     <div class="pop-input">
                         <input type="button" id="schBtn" value="검색">
-                        <input type="text" placeholder="기업명">
+                        <input type="text" name="cName" id="cName" placeholder="기업명">
                     </div>
-                </form>
-
-                <form action="#" id="companyDtl">
-                    <!-- 여기서 form으로 데이터를 1차적으로 넣는다? -->
-                    <input type="hidden" name="crno" id="crno" value=""> <!-- 법인등록번호 crno -->
                 </form>
 
                 <!-- 5개 리스트 -->
@@ -80,55 +138,70 @@ function changeCheck(flag, target) {
                     <h1>회원가입</h1>
                 </div>
                 <form id="regiForm" class="user" method="get">
-                    <input type="hidden" name="type" id="type">
+                	<input type="hidden" name="memNo" value="${param.memNo}">
+                    <input type="hidden" name="joinType" value="cMem">
                     <div class="input-member">
                         <input type="checkbox" name="iM" id="iM" readonly>
                         <label for="iM" id="iML">기업회원 세부입력</label>
                         <!-- <input type="checkbox" name="cM" id="cM"><label for="cM" id="cML">기업</label> -->
                     </div>
                     <div class="input">
-                        <input type="button" id="cSch" value="기업검색">
+                        <input type="button" id="cSchBtn" value="기업검색" >
                        <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
                     </div>
                     <div class="dtl">
                         <div class="input">
-                            <input type="text" placeholder="기업명" readonly>
+                            <input type="text" placeholder="기업명" name="cName" id="cName" readonly>
                         </div>
                         <div class="input">
-                            <input type="text" placeholder="법인등록번호" readonly>
-                        </div>
-
-                        <div class="input">
-                            <input type="text" placeholder="상장여부" readonly>
+                            <input type="text" placeholder="법인등록번호" name="corpNo" id="corpNo" readonly>
                         </div>
                         <div class="input">
-                            <input type="text" placeholder="근로자수" readonly>
+                            <input type="text" placeholder="상장여부" name="listChk" id="listChk" readonly>
                         </div>
-                    </div>
-                    <div class="input">
-                        <input type="text" placeholder="직책">
-                       <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
-                    </div>
-                    <div class="input">
-                        <input type="button" onclick="execDaumPostcode()" value="주소검색" id="locationSchBtn">
+                        <div class="input">
+                            <input type="text" placeholder="근로자수" name="wrkCnt" id="wrkCnt" readonly>
+                        </div>
                     </div>
                     <div class="dtl">
                         <div class="input">
-                            <input type="text" name="postcode" id="postcode" placeholder="우편번호" value="" readonly>
+                            <input type="text" placeholder="사업자등록번호" name="cName" id="cName" readonly>
                         </div>
                         <div class="input">
-                            <input type="text" name="address" id="address" placeholder="주소" value="" readonly>
+                            <input type="text" placeholder="법인등록번호" name="corpNo" id="corpNo" readonly>
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="상장여부" name="listChk" id="listChk" readonly>
+                        </div>
+                        <div class="input">
+                            <input type="text" placeholder="근로자수" name="wrkCnt" id="wrkCnt" readonly>
                         </div>
                     </div>
                     <div class="input">
-                        <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소" value="" readonly>
+                        <input type="text" placeholder="직책" name="pos" id="pos" onchange="changeCheck(posCheck(), pos)">
+                       <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
+                    </div>
+                    <div class="input">
+                        <input type="button" onclick="execDaumPostcode()" value="주소검색" id="addrSchBtn">
+                        <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
+                    </div>
+                    <div class="dtl">
+                        <div class="input zip">
+                            <input type="text" name="zip" id="zip" placeholder="우편번호" value="" readonly>
+                        </div>
+                        <div class="input addr">
+                            <input type="text" name="addr" id="addr" placeholder="주소" value="" readonly>
+                        </div>
+                    </div>
+                    <div class="input">
+                        <input type="text" name="dtlAddr" id="dtlAddr" placeholder="상세주소" value="" readonly onchange="changeCheck(dtlAddrCheck(), dtlAddr)">
                         <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
                     </div>
                     <input type="hidden" id="extraAddress">
                     
                     <!-- 회원가입 넘기기 -->
                     
-                    <a href="#" id="regi">
+                    <a href="#" id="cMemJoinBtn">
                         회원가입
                     </a>
                 </form>

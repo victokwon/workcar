@@ -1,13 +1,13 @@
 $(function () {
-  $("#iM").on("change", function () {
-    if ($("#iM").is(":checked")) {
-      $("#cM").prop("checked", false);
+  $("#IM").on("change", function () {
+    if ($("#IM").is(":checked")) {
+      $("#CM").prop("checked", false);
     }
     $("#type").val($(this).attr("name"));
   });
-  $("#cM").on("change", function () {
-    if ($("#cM").is(":checked")) {
-      $("#iM").prop("checked", false);
+  $("#CM").on("change", function () {
+    if ($("#CM").is(":checked")) {
+      $("#IM").prop("checked", false);
     }
     $("#type").val($(this).attr("name"));
   });

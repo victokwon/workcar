@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Sample_SQL">
+
 	<select id="idCheck" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*) AS idCnt
 		FROM MEMBER
-		WHERE NAME LIKE '%'||#{ID}||'%'
+		WHERE ID LIKE '%'||#{ID}||'%'
+		AND LENGTH(ID) = #{IDL}
+	</select>
+	
+	<select id="cInfoCheck" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) AS cInfoCnt
+		FROM C_INFO
+		WHERE CORP_NO LIKE '%'||#{corpNo}||'%'
 	</select>
 
-	<insert id="joinMember" parameterType="hashmap">
+	<insert id="joinMem" parameterType="hashmap">
 		INSERT INTO MEMBER (MEM_NO, NAME, ID, PASS, EMAIL, PHONE, INFOR_AGR, ACT_AGR, MEM_GBN)
 		VALUES (MEMBER_SEQ.NEXTVAL, 
 			#{NM},
@@ -21,11 +29,46 @@
 		)
 	</insert>
 	
+	<insert id="joinIMem" parameterType="hashmap">
+		INSERT INTO I_MEMBER (MEM_NO, BIRTH, GENDER, ZIP, ADDR, ADDR_DTL)
+		VALUES ( 
+			#{memNo},
+			#{birth},
+			#{gender},
+			#{zip},
+			#{addr},
+			#{dtlAddr}
+		)
+	</insert>
+	
+	<insert id="joinCMem" parameterType="hashmap">
+		INSERT INTO C_MEMBER (MEM_NO, CORP_NO, POS)
+		VALUES (
+			#{memNo},
+			#{corpNo},
+			#{pos}
+		)
+	</insert>
+	
+	<insert id="joinCInfo" parameterType="hashmap">
+		INSERT INTO C_INFO (CORP_NO, C_NAME, LIST_CHK, WRK_CNT, ZIP, ADDR, ADDR_DTL)
+		VALUES (
+			#{corpNo},
+			#{cName},
+			#{listChk},
+			#{wrkCnt},
+			#{zip},
+			#{addr},
+			#{dtlAddr}
+		)
+	</insert>
+		
 	<select id="login" parameterType="hashmap" resultType="hashmap">
-		SELECT MEM_NO, NAME
+		SELECT MEM_NO, NAME, MEM_GBN
 		FROM MEMBER
 		WHERE WDRAWL_DATE IS NULL
 		AND ID = #{ID}
 		AND PASS = #{PW}
 	</select>
+	
 </mapper>

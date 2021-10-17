@@ -18,7 +18,7 @@ label {
 .out-container {
   border-radius: 10px;
   width: 1000px;
-  height: 600px;
+  height: 620px;
   background-color: white;
   position: absolute;
   top: calc(50% - 300px);
@@ -28,7 +28,7 @@ label {
 
 .input input[readonly] {
   background-color: #eee;
-  color: white;
+  color: black;
 }
 .input input[type="button"] {
   box-sizing: border-box;
@@ -83,11 +83,17 @@ input[type="checkbox"] ~ label {
   margin: auto;
   display: flex;
 }
-/* 로그인 세부 */
 .input {
-	position: relative;
   width: 100%;
+  position: relative;
   height: 60px;
+}
+
+.dtl .zip{
+  width: 25%;
+}
+.dtl .addr{
+  width: 75%;
 }
 .input > input {
   width: 100%;
@@ -102,6 +108,7 @@ hr {
   margin: 10px 0;
 }
 .form-group {
+	position: relative;
   margin: 10px;
   margin-bottom: 20px;
   width: 100%;
@@ -183,6 +190,8 @@ a {
   .input {
     height: 30px;
   }
+
+
   .input > input {
     height: 25px;
     padding: 0 20px;

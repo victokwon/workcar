@@ -38,10 +38,10 @@ label {
   display: flex;
   margin: 10px 0;
 }
-input[type="checkbox"] {
+.input-member input[type="radio"] {
   display: none;
 }
-input[type="checkbox"] ~ label {
+.input-member input[type="radio"] ~ label {
   display: inline-block;
   width: 50%;
   height: 30px;
@@ -54,9 +54,9 @@ input[type="checkbox"] ~ label {
   text-align: center;
   line-height: 30px;
 }
-input[type="checkbox"] ~ label:hover,
-#IM:checked ~ #IML,
-#CM:checked ~ #CML {
+.input-member input[type="radio"] ~ label:hover,
+.input-member #IM:checked ~ #IML,
+.input-member #CM:checked ~ #CML {
   background-color: #1b50ee;
 }
 
@@ -160,7 +160,7 @@ a {
     padding: 10px 0;
     padding-bottom: 10px;
   }
-  input[type="checkbox"] ~ label {
+.form-group input[type="radio"] ~ label {
     height: 15px;
     font-size: 15px;
     line-height: 15px;

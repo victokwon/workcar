@@ -9,56 +9,66 @@
 
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="resources\script\ca\join.js"></script>
 <script type="text/javascript">
 $(function () {
-	  $("#joinBtn").on("click", function () {
+	   $("#memJoinBtn").on("click", function () {
 	    if (check()) {
-	      $("#joinForm").submit();
+	    	formSubmit()
 	    }
-	  });
+	  }); 
+	  
 	});
 
-	/* 체크변경 */
+	/* 회원가입 비동기*/
+	function formSubmit(){
+		 var params = $("#memJoinForm").serialize();
+
+		  $.ajax({
+		    data: params,
+		    type: "post",
+		    dataType: "json",
+		    url: "joins",
+		    success: function (res) {
+		    	if(res.result == "success"){
+		    		$("#memNo").val(res.data.MEM_NO)
+		    		formGo(res.data.MEM_GBN)
+		    	}else if(res.result == "failed"){
+		    		alert("회원가입에 실패했습니다.")
+		    	}
+		    },
+		    error: function (request, status, error) {
+		      console.log(error);
+		    }
+		  });
+	}
+	
+	/* 이동값 확인 및 데이터 전송 */
+	function formGo(gbn) {
+		if(gbn == '0'){
+			alert("개인회원 세부입력 페이지로 이동합니다")
+			$("#joinGoForm").attr("action", "imJoin")
+		}else if(gbn == '1'){
+			alert("기업회원 세부입력 페이지로 이동합니다")
+			$("#joinGoForm").attr("action", "cmJoin")
+		}
+		$("#joinGoForm").submit()
+	}
+	
+	/* 변경 이벤트 확인 -> 체크 이미지 변경*/
 	function changeCheck(flag, target) {
 	  $(target).next().attr("style", "background-image: url(resources/images/ca/check.png)");
-  	 if($(this).attr("name")=="ID"){
-				 idOverlapCheck()
-			 return;
-  	 }
   	 if (flag) {
 		  console.log($(target))
 	    $(target).next().attr("style", "background-image: url(resources/images/ca/ccheck.png)");
 	  }
 	}
-
-	/* 중복아이디  */
-	function idOverlapCheck() {
-	  var params = $("#joinForm").serialize();
-
-	  $.ajax({
-	    data: params,
-	    type: "post",
-	    dataType: "json",
-	    url: "idCheckAjax",
-	    success: function (res) {
-		      if (res.idCnt > 0) {
-	    	  	alert("중복된 아이디");
-		  	    $("#ID").focus();
-		        $(this).next().attr("style","background-image: url(resources/images/ca/fcheck.png)");
-		      } 
-	    },
-	    error: function (request, status, error) {
-	      console.log(error);
-	    },
-	  });
-	}
+	
 	/* 유효성 검사 함수*/
 	/* 전체 유효성 */
 	function check() {
 	  if (
 	 	nmCheck() &&
-	    idCheck() &&
+	    idTCheck() && 
 	    pwCheck() &&
 	    pwcCheck() &&
 	    emCheck() &&
@@ -70,6 +80,35 @@ $(function () {
 	    return false;
 	  }
 	}
+	/* 중복아이디  */
+	function idTCheck() {
+	  var params = $("#memJoinForm").serialize();
+
+	  $.ajax({
+	    data: params,
+	    type: "post",
+	    dataType: "json",
+	    url: "idCheckAjax",
+	    success: function (res) {
+		      if (res.idCnt > 0) {
+	    	  	alert("중복된 아이디");
+		  	    $("#ID").focus();
+		        $("#ID").next().attr("style","background-image: url(resources/images/ca/fcheck.png)");
+		        return false
+		      } else{
+		    	  if(!idCheck()){
+	    		  	$("#ID").next().attr("style", "background-image: url(resources/images/ca/check.png)");
+	    		  	return false
+		    	  }
+	    			$("#ID").next().attr("style", "background-image: url(resources/images/ca/ccheck.png)");
+		      }
+	    },
+	    error: function (request, status, error) {
+	      console.log(error);
+	    }
+    });
+	  return true
+	}
 	/* 아이디 유효성 */
 	function idCheck() {
 	  var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
@@ -80,7 +119,7 @@ $(function () {
 	  }
 	  if (!getCheck.test($("#ID").val())) {
 	    alert("형식에 맞게 입력해주세요");
-	    $("#ID").val("");
+	    $("#ID").val(""); 
 	    $("#ID").focus();
 	    return false;
 	  }
@@ -169,9 +208,7 @@ $(function () {
 	}
 	/* 회원선택 */
 	function typeCheck(){
-	 	if($("#IM").is(":checked")) {
-			return true;
-		}else if($("#CM").is(":checked")){
+		if($("input:radio[name=MT]").is(":checked")){
 			return true;
 		}else {
 			alert("회원종류를 선택하지 않았습니다.");
@@ -187,11 +224,15 @@ $(function () {
 				<div class="text-header">
 					<h1>회원가입</h1>
 				</div>
-				<form class="user" id="joinForm" action="joins" method="post">
+				<form action="#" id="joinGoForm" >
+					<input type="hidden" id="memNo" name="memNo">
+				</form>
+				<form class="user" id="memJoinForm" action="#" method="post">
+					<input type="hidden" name="joinType" value="mem">
 					<div class="input-member">
-						<input type="checkbox" name="MT" id="IM" value="0">
+						<input type="radio" name="MT" id="IM" value="0">
 						<label for="IM" id="IML">개인</label>
-						<input type="checkbox" name="MT" id="CM" value="1">
+						<input type="radio" name="MT" id="CM" value="1">
 						<label for="CM" id="CML">기업</label>
 					</div>
 					<div class="input">
@@ -199,7 +240,7 @@ $(function () {
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="input">
-						<input type="text" placeholder="ID" id="ID" name="ID" onchange="changeCheck(idCheck(), ID)">
+						<input type="text" placeholder="ID" id="ID" name="ID" onchange="changeCheck(idTCheck(), ID)">
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="input">
@@ -234,7 +275,7 @@ $(function () {
 							<label for="c2N">비동의</label>
 						</div>
 					</div>
-					<a id="joinBtn" href="#"> 회원가입 </a>
+					<a id="memJoinBtn" href='javascript:void(0);'> 회원가입 </a>
 				</form>
 				<hr>
 				<div class="text">

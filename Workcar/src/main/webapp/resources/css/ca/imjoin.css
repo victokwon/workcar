@@ -28,7 +28,7 @@ label {
 
 .input input[readonly] {
   background-color: #eee;
-  color: white;
+  color: black;
 }
 .input input[type="button"] {
   box-sizing: border-box;
@@ -84,12 +84,20 @@ input[type="checkbox"] ~ label {
 .dtl {
   display: flex;
 }
-/* 로그인 세부 */
+
 .input {
-	position: relative;
   width: 100%;
+  position: relative;
   height: 60px;
 }
+
+.dtl .zip{
+  width: 25%;
+}
+.dtl .addr{
+  width: 75%;
+}
+
 .input > input {
   width: 100%;
   height: 50px;
@@ -102,7 +110,25 @@ input[type="checkbox"] ~ label {
 hr {
   margin: 10px 0;
 }
-
+.form-group {
+	    height: 50px;
+position: relative;
+  margin: 10px 0;
+  margin-bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  color: #777;
+  font-size: 20px;
+  line-height: 50px
+  /* align-content: center;
+  flex-wrap: wrap; */
+}
+.genderBox{
+	padding-left: 5px;
+	display: inline-block;
+	height: 100%
+}
 /* 로그인 */
 .user a {
   margin: 10px 0;
@@ -160,6 +186,11 @@ a {
     left: calc(50% - 250px);
     padding: 30px 0;
   }
+  .form-group {
+	    height: 30px;
+	    line-height: 30px;
+	    font-size: 15px;
+}
   .text-header {
     padding: 10px 0;
     padding-bottom: 10px;
@@ -192,7 +223,7 @@ a {
     background-color: #1b50ee;
   }
   .text {
-    margin: 5px;
+    margin-bottom: 3px;
   }
   .input input[type="button"] {
     box-sizing: border-box;
