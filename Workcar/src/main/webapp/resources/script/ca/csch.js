@@ -25,12 +25,16 @@ function schCInfo() {
     type: "POST",
     data: params,
     url: "getApiDataAjax",
-    dataType: "text",
+    dataType: "json",
     success: function (res) {
     console.log("a");
-     console.log(JSON.parse(res));
+     $("#itemCnt").val(res.response.totalCount)
+     drawCInfoList()
+     console.log(res.response.body);
+     console.log(res.response.body.items);
     },
     error: function (request, status, error) {
+      console.log(request);
       console.log(error);
     }
   });
@@ -92,7 +96,7 @@ function companyList(list) {
   $("tbody").html(html);
 }
 
-function drawPage(pb) {
+function drawPaging(pb) {
 		var html = ""
 			
 			html += "<span page=\"1\">처음</span>"
