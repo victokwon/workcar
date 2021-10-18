@@ -1,4 +1,4 @@
-package com.gdj37.workcar.web.sample.controller.dao;
+package com.gdj37.workcar.web.login.dao;
 
 import java.util.HashMap;
 import java.util.List;

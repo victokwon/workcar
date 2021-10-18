@@ -1,4 +1,4 @@
-package com.gdj37.workcar.web.sample.controller;
+package com.gdj37.workcar.web.login.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
 import com.gdj37.workcar.util.Utils;
-import com.gdj37.workcar.web.sample.controller.service.ISampleService;
+import com.gdj37.workcar.web.login.service.ISampleService;
 import com.google.gson.Gson;
 
 import org.apache.cxf.io.CachedOutputStream;
@@ -149,16 +149,17 @@ public class SampleController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
-	@RequestMapping(value = "/getApiDataAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
 	@ResponseBody
+	@RequestMapping(value = "/getApiDataAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
 	public String cInfoListAjax(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpServletResponse response) throws Throwable {
 		String addr = "http://apis.data.go.kr/1160100/service/GetCorpBasicInfoService/getCorpOutline?";
 		String serviceKey = "r0G1+ZSkNEfXTCLmqfXjwKV1t3qGIp2NfBpG9FJuGEdgzz3BZCRt0aT86BoeL5JyNwEAlQmYQXLUupdB2u6vug==";
 		String page = "1";
 		String cName ="";
-		String data = "";
+		
 		StringBuilder sb = new StringBuilder();
 		
+		 
 		try {
 			if(params.get("page") != "") {
 				page = params.get("page");
@@ -166,6 +167,7 @@ public class SampleController {
 			cName = params.get("cName");
 			
 	        StringBuilder urlBuilder = new StringBuilder(addr);
+//	        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + serviceKey); 
 	        urlBuilder.append(URLEncoder.encode("ServiceKey","UTF-8") + "=" + URLEncoder.encode(serviceKey, "UTF-8")); /*공공데이터포털에서 받은 인증키*/
 	        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(page, "UTF-8")); /*페이지번호*/
 	        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("5", "UTF-8")); /*한 페이지 결과 수*/
@@ -175,13 +177,10 @@ public class SampleController {
 	        URL url = new URL(urlBuilder.toString());
 	        System.out.println(url);
 	        
-	   
 	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 	        conn.setRequestMethod("GET");
 	        conn.setRequestProperty("Content-type", "application/json");
-	        
 	        System.out.println("Response code: " + conn.getResponseCode());
-	        
 	        BufferedReader rd;
 	        
 	        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
@@ -194,24 +193,19 @@ public class SampleController {
 	        while ((line = rd.readLine()) != null) {
 	            sb.append(line);
 	        }
-//	        
+	        
 	        rd.close();
 	        conn.disconnect();
-	        
-	        System.out.println(sb.toString());
-//	        1. 최상위 json
-//	        2. response -  header, body - array
-//	        3. body - items, numOfRows, pageNo, totalCount - array
-//	        4. items - item ... array
 	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
+		
 		return sb.toString();
 	}
 	
-	@RequestMapping(value = "/cInfoListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
+	@RequestMapping(value = "/cInfoList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
 	@ResponseBody
 	public String cInfoList(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpServletResponse response) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
