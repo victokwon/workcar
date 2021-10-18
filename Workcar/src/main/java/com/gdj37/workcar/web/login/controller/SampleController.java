@@ -1,4 +1,4 @@
-package com.gdj37.workcar.web.sample.controller;
+package com.gdj37.workcar.web.login.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
 import com.gdj37.workcar.util.Utils;
-import com.gdj37.workcar.web.sample.controller.service.ISampleService;
+import com.gdj37.workcar.web.login.service.ISampleService;
 import com.google.gson.Gson;
 
 import org.apache.cxf.io.CachedOutputStream;
@@ -156,11 +156,9 @@ public class SampleController {
 		String serviceKey = "r0G1+ZSkNEfXTCLmqfXjwKV1t3qGIp2NfBpG9FJuGEdgzz3BZCRt0aT86BoeL5JyNwEAlQmYQXLUupdB2u6vug==";
 		String page = "1";
 		String cName ="";
-		CInfoBean cInfoBean;
 		
 		StringBuilder sb = new StringBuilder();
 		
-		 PrintWriter out = response.getWriter();
 		 
 		try {
 			if(params.get("page") != "") {
