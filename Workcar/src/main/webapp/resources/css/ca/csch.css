@@ -26,6 +26,15 @@ html {
   left: calc(50% - 350px);
   padding: 30px 0;
 }
+.company_wrap{
+	display: flex;
+	
+}
+.company_wrap table{
+	width: 100%;
+	margin: 0 auto;
+}
+
 .pop-in-container {
   display: flex;
   flex-direction: column;
@@ -116,13 +125,18 @@ a {
   font-weight: bold;
   text-decoration: underline;
 }
+thead, tbody{
+	width : 100%;
+}
 tr,
 th {
+	width : 50%;
   user-select: none;
   border-bottom: 2px solid #555;
 }
 td {
   font-size: 10px;
+  width: 45%;
 }
 tbody tr:hover {
   font-weight: bold;
@@ -141,16 +155,20 @@ tbody tr:hover {
   background-size: contain;
   background-repeat: no-repeat;
 }
-@media screen and (max-width: 900px) {
+
+.pop-container .paging_wrap span:hover{
+	font-weight: bold;
+	cursor: pointer;
+}
+@media screen and (max-width: 900px) { 
   .pop-out-container {
     border-radius: 10px;
     width: 500px;
-    height: 300px;
+    height: 350px;
     background-color: white;
     position: absolute;
     top: calc(50% - 150px);
     left: calc(50% - 250px);
-    padding: 30px 0;
   }
   .pop-text-header {
     padding: 10px 0;

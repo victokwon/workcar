@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Sample_SQL">
+<mapper namespace="CA_SQL">
 
 	<select id="idCheck" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*) AS idCnt
@@ -51,7 +51,7 @@
 	</insert>
 	
 	<insert id="joinCInfo" parameterType="hashmap">
-		INSERT INTO C_INFO (CORP_NO, C_NAME, LIST_CHK, WRK_CNT, ZIP, ADDR, ADDR_DTL)
+		INSERT INTO C_INFO (CORP_NO, C_NAME, LIST_CHK, WRK_CNT, ZIP, ADDR, ADDR_DTL, C_BOSS,C_BIZNO)
 		VALUES (
 			#{corpNo},
 			#{cName},
@@ -59,7 +59,9 @@
 			#{wrkCnt},
 			#{zip},
 			#{addr},
-			#{dtlAddr}
+			#{dtlAddr},
+			#{enpRprFnm},
+			#{bzno}
 		)
 	</insert>
 		

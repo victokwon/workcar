@@ -47,4 +47,10 @@ public class PagingBean {
 	public void setEndPcount(int endPcount) {
 		this.endPcount = endPcount;
 	}
+	@Override
+	public String toString() {
+		return "PagingBean [startCount=" + startCount + ", endCount=" + endCount + ", maxPcount=" + maxPcount
+				+ ", startPcount=" + startPcount + ", endPcount=" + endPcount + "]";
+	}
+	
 }

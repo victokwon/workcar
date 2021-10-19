@@ -222,7 +222,7 @@ $(function () {
 		<div class="out-container">
 			<div class="in-container">
 				<div class="text-header">
-					<h1>회원가입</h1>
+					<h1>일력거 회원가입</h1>
 				</div>
 				<form action="#" id="joinGoForm" >
 					<input type="hidden" id="memNo" name="memNo">

@@ -126,12 +126,14 @@ public class SampleController {
 				
 			case "cMem":
 				if(iSampleService.cInfoCheck(params) == 0) {
+					System.out.println(params);
 					joinCnt = iSampleService.joinCInfo(params);
 					if (joinCnt == 0) {
 						result = "failed_c";
 						break;
 					}
 				}
+				System.out.println(params);
 				joinCnt = iSampleService.joinCMem(params);
 				break;
 				
@@ -164,7 +166,7 @@ public class SampleController {
 			if(params.get("page") != "") {
 				page = params.get("page");
 			}
-			cName = params.get("cName");
+			cName = params.get("schCName");
 			
 	        StringBuilder urlBuilder = new StringBuilder(addr);
 //	        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + serviceKey); 
@@ -205,11 +207,12 @@ public class SampleController {
 		return sb.toString();
 	}
 	
-	@RequestMapping(value = "/cInfoList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
+	@RequestMapping(value = "/apiPagingAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
 	@ResponseBody
-	public String cInfoList(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpServletResponse response) throws Throwable {
+	public String cInfoList(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
 		int page = 1;
 		 
 		try {
@@ -218,12 +221,14 @@ public class SampleController {
 	        
 	        PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
 	        
+	        
+	        modelMap.put("page", page);
 	        modelMap.put("pb", pb);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		return mapper.writeValueAsString(mapper);
+		return mapper.writeValueAsString(modelMap);
 	}
 	
 	

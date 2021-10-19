@@ -10,7 +10,7 @@
  
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<!-- <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> 
 
 <script type="text/javascript" src="resources/script/ca/cmemjoin.js"></script>
 <script type="text/javascript" src="resources/script/ca/csch.js"></script> 
@@ -22,6 +22,28 @@ $(function () {
 	    }
 	  });
 	});
+	
+function formSubmit(){
+	 var params = $("#cMemJoinForm").serialize();
+	 
+	 	$.ajax({
+		    data: params,
+		    type: "post",
+		    dataType: "json",
+		    url: "joins",
+		    success: function (res) {
+		    	if(res.result == "success"){
+		    		alert("회원가입 성공! 로그인 화면으로 이동합니다")
+		    		location.href = "login"
+		    	}else if(res.result == "failed"){
+		    		alert("회원가입에 실패했습니다.")
+		    	}
+		    },
+		    error: function (request, status, error) {
+		      console.log(error);
+		    }
+		  });
+}
 
 /* 입력 변화 감지 -> 체크 이미지 변경 */
 function changeCheck(flag, target) {
@@ -98,11 +120,11 @@ return true;
                 </div>
 
                 <form class="pop-user" id="companySchForm">
-                	<input type="hidden" name="page" id="page">
+                	<input type="hidden" name="page" id="page" value="1">
                 	<input type="hidden" name="itemCnt" id="itemCnt">
                     <div class="pop-input">
                         <input type="button" id="schBtn" value="검색">
-                        <input type="text" name="cName" id="cName" placeholder="기업명">
+                        <input type="text" name="schCName" id="schCName" placeholder="기업명">
                     </div>
                 </form>
 
@@ -110,7 +132,7 @@ return true;
                 <div class="company_wrap">
                     <table>
                         <thead>
-                            <tr crno="1">
+                            <tr>
                                 <th>기업명</th>
                                 <th>법인번호</th>
                             </tr>
@@ -135,15 +157,14 @@ return true;
         <div class="out-container">
             <div class="in-container">
                 <div class="text-header">
-                    <h1>회원가입</h1>
+                    <h1>일력거 회원가입</h1>
                 </div>
-                <form id="regiForm" class="user" method="get">
-                	<input type="hidden" name="memNo" value="${param.memNo}">
+                <form id="cMemJoinForm" class="user" method="get">
+               		<input type="hidden" name="memNo" value="${param.memNo}">
                     <input type="hidden" name="joinType" value="cMem">
                     <div class="input-member">
-                        <input type="checkbox" name="iM" id="iM" readonly>
-                        <label for="iM" id="iML">기업회원 세부입력</label>
-                        <!-- <input type="checkbox" name="cM" id="cM"><label for="cM" id="cML">기업</label> -->
+                        <input type="checkbox" name="cM" id="cM" readonly>
+                        <label for="cM" id="cML">기업회원 세부입력</label>
                     </div>
                     <div class="input">
                         <input type="button" id="cSchBtn" value="기업검색" >
@@ -162,19 +183,20 @@ return true;
                         <div class="input">
                             <input type="text" placeholder="근로자수" name="wrkCnt" id="wrkCnt" readonly>
                         </div>
+                        <input type="hidden" name="bzno" id="bzno">
                     </div>
                     <div class="dtl">
                         <div class="input">
-                            <input type="text" placeholder="사업자등록번호" name="cName" id="cName" readonly>
+                            <input type="text" placeholder="홈페이지주소" name="enpHmpgUrl" id="enpHmpgUrl" readonly>
                         </div>
                         <div class="input">
-                            <input type="text" placeholder="법인등록번호" name="corpNo" id="corpNo" readonly>
+                            <input type="text" placeholder="중소기업여부" name="smenpYn" id="smenpYn" readonly>
                         </div>
                         <div class="input">
-                            <input type="text" placeholder="상장여부" name="listChk" id="listChk" readonly>
+                            <input type="text" placeholder="대표자성명" name="enpRprFnm" id="enpRprFnm" readonly>
                         </div>
                         <div class="input">
-                            <input type="text" placeholder="근로자수" name="wrkCnt" id="wrkCnt" readonly>
+                            <input type="text" placeholder="업종코드" name="sicNm" id="sicNm" readonly>
                         </div>
                     </div>
                     <div class="input">

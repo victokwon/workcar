@@ -120,7 +120,7 @@ function formSubmit(){
         <div class="out-container">
             <div class="in-container">
                 <div class="text-header">
-                    <h1>회원가입</h1>
+                    <h1>일력거 회원가입</h1>
                 </div>
                 <form class="user" id="iMemJoinForm" action="joins" method="post">
                 	<input type="hidden" name="memNo" value="${param.memNo}">
