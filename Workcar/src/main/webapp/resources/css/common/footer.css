@@ -1,5 +1,7 @@
 /*Css footer start */
 footer {
+	display: block;
+	min-width: 1286px;
   height: 80px;
   text-align: center;
 }
@@ -8,12 +10,28 @@ footer {
   display: flex;
   align-items: center;
   height: 25px;
-  border: rgb(29, 18, 5) 1px ridge;
+  background-color: #ccd9f5;
+  color: white;
+/*   border-top: #ccd9f5 1px ridge;
+  border-bottom: #ccd9f5 1px ridge; */
   justify-content: center;
+}
+.inner_content div:hover {
+cursor: pointer;
+font-weight: bold;
 }
 
 .inner_content div {
   display: flex;
   margin: 5px;
   font-size: 12px;
+}
+.footer_dtl_wrap{
+	padding: 10px 0;
+}
+@media screen and (max-width: 650px) {
+	footer {
+	min-width: 550px;
+}
+	
 }

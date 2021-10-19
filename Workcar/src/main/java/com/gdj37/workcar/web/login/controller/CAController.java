@@ -37,7 +37,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 @Controller
-public class SampleController {
+public class CAController {
 
 	@Autowired
 	ISampleService iSampleService;
@@ -51,7 +51,7 @@ public class SampleController {
 			mav.setViewName("ca/login");
 		} else {
 //			메인화면으로 주소 변경
-			mav.setViewName("redirect:join");
+			mav.setViewName("redirect:mainpage");
 		}
 		return mav;
 	}
@@ -72,14 +72,22 @@ public class SampleController {
 				mav.setViewName("redirect:join");
 			} else {
 				mav.addObject("msg", "로그인실패");
-				mav.setViewName("ca/join");
+				mav.setViewName("redirect:login");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return mav;
 	}
-
+	
+	@RequestMapping(value = "/logout")
+	public ModelAndView join(ModelAndView mav,HttpSession session) {
+		session.invalidate();
+//		이전 주소 가지고 와서 view에 정보 입력 이전페이지로 이동
+		mav.setViewName("redirect:mainpage");
+		return mav;
+	}
+	
 	@RequestMapping(value = "/join")
 	public ModelAndView join(ModelAndView mav) {
 		mav.setViewName("ca/join");

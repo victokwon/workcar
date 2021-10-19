@@ -11,12 +11,30 @@
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
-
+.hambuger:hover{
+	cursor: pointer;
+}
 .sdienav_ul {
   position: absolute;
   top: 30px;
   height: 60%;
 }
+
+.sidenav ul div:hover {
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	background-color: #6b71ba;
+}
+
+.sidenav ul li:hover {
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	background-color: #6b71ba;
+}
+
+
 
 /* The navigation menu links */
 .sidenav a {

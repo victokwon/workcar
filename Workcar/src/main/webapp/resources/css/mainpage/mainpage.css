@@ -1,0 +1,336 @@
+html {
+  height: 100%;
+  background-color: white;
+}
+body {
+  height: 100%;
+  background-color: white;
+}
+body > .main_wrap {
+  width: 100%;
+  height: calc(100% - 180px);
+  background-color: #fff;
+  border-bottom: 1px solid #aaa;
+}
+
+main {
+  /* 화면 길이 맞추기 */
+  display: block;
+  height: calc(100% - 259px);
+  margin: 20px 0 ;
+  min-height: 600px;
+}
+
+.main {
+  display: block;
+  height: auto;
+  width: 1286px;
+  margin: 0 auto;
+  justify-items: center;
+}
+
+.contents {
+  background: #fff;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  height: auto;
+  min-height: auto;
+  overflow-x: hidden;
+}
+
+.contents > .wrap {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 250px;
+  box-sizing: border-box;
+  background: #fff;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.contents > .wrap span {
+  position: absolute;
+  bottom: 0;
+  z-index: 3;
+  display: block;
+  font-size: 30px;
+  padding: 10px;
+  color: white;
+  width: 100%;
+  height: auto;
+  font-weight: bold;
+}
+
+.contents > .wrap .main_contents_job {
+  z-index: 1;
+  width: 33.3%;
+  height: 100%;
+  position: absolute;
+  left: 0%;
+  transition: 0.7s;
+
+  background-image: url(../../images/mainpage/1.jpg);
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.contents > .wrap .main_contents_people {
+  z-index: 1;
+  width: 33.4%;
+  height: 100%;
+  position: absolute;
+  left: 33.3%;
+  transition: 0.7s;
+
+  background-image: url(../../images/mainpage/2.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.contents > .wrap .main_contents_company {
+  z-index: 1;
+  width: 33.3%;
+  height: 100%;
+  position: absolute;
+  right: 0%;
+  transition: 0.7s;
+
+  background-image: url(../../images/mainpage/3.jpg);
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.contents > .wrap .main_contents_job:hover {
+  cursor: pointer;
+  width: 100%;
+  z-index: 2;
+}
+.contents > .wrap .main_contents_people:hover {
+  cursor: pointer;
+  left: 0%;
+  width: 100%;
+  z-index: 2;
+}
+.contents > .wrap .main_contents_company:hover {
+  cursor: pointer;
+  right: 0%;
+  width: 100%;
+  z-index: 2;
+}
+/* 카드 */
+.main .iM {
+  display: flex;
+}
+.main .cM {
+  display: flex;
+}
+.main .mM {
+  display: flex;
+}
+
+.menu_cards {
+  margin-bottom: 30px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  box-sizing: content-box;
+  justify-content: space-between;
+  margin-top: 30px; 
+}
+
+.menu_card {
+  border: 1px solid #ccd9f5;
+  border-radius: 12px;
+}
+
+.menu_card:hover {
+  background-color: #ccd9f5;
+  cursor: pointer;
+}
+
+.menu_card > .wrap {
+  position: relative;
+  width: 294px;
+  box-sizing: border-box;
+  height: 180px;
+  margin: 10px 0;
+
+  overflow: hidden;
+
+  background-size: contain;
+  /* background-position: center center; */
+}
+
+.img_settings {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/mainpage/img_settings.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.img_resume {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/mainpage/img_resume.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.img_activity {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/mainpage/img_activity.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.img_attention {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/mainpage/img_attention.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.img_report {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/mainpage/img_report.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.img_job_post {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/mainpage/img_job_post.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.img_member {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/mainpage/img_member.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+.img_grade {
+  width: 100%;
+  height: 100%;
+  background-image: url("../../images/mainpage/img_grade.png");
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.menu_card .card_text {
+  color: #444;
+  font-size: large;
+  font-weight: bolder;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.footer {
+  height: 70px;
+  width: 100%;
+  background-color: #eee;
+}
+@media screen and (max-width: 650px) {
+main {
+  min-height: 500px;
+}
+  .menu_cards{
+  margin-top:  0px;
+  }
+  .contents > .wrap .main_contents_job{
+  z-index: 1;
+    width: 100%;
+    height: 33.3%;
+    position: absolute;
+    top: 0%;
+    transition: 0.7s;
+    background-image: url(../../images/mainpage/1.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .contents > .wrap .main_contents_people{
+  z-index: 1;
+    width: 100%;
+    height: 33.4%;
+    position: absolute;
+    left: 0;
+    top: 33.3%;
+    transition: 0.7s;
+    background-image: url(../../images/mainpage/2.jpg);
+        background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .contents > .wrap .main_contents_company{
+  z-index: 1;
+  width: 100%;
+    height: 33.3%;
+    position: absolute;
+    top: 66.6%;
+    transition: 0.7s;
+    background-image: url(../../images/mainpage/3.jpg);
+        background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  .contents > .wrap .main_contents_job:hover {
+  cursor: pointer;
+  height: 100%;
+  top:0;
+  z-index: 2;
+}
+.contents > .wrap .main_contents_people:hover {
+  cursor: pointer;
+  top:0;
+  height: 100%;
+  z-index: 2;
+}
+.contents > .wrap .main_contents_company:hover {
+  cursor: pointer;
+  top:0;
+  height: 100%;
+  z-index: 2;
+}
+.contents > .wrap{
+	height: 300px;
+}
+.main{
+	width: 100%;
+}
+.menu_card > .wrap{
+display: none;
+}
+.menu_card .card_text{
+	width: 90px;	
+	height:100%; 
+	padding: 0 2px;
+}
+.card_text span{
+	height:100%;
+	line-height: 70px; 
+}
+
+.menu_card{
+	margin: 0 5px;
+}
+}
+
+
+/*  @media screen and (max-height: 900px) {
+  main {
+    height: 600px;
+  } 
+} */
