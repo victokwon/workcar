@@ -13,6 +13,9 @@
  <script type="text/javascript" src="resources/script/ca/imemjoin.js"></script>
  <script type="text/javascript">
  $(function () {
+	if($("#memNO").val()==""){
+		location.href = "join"
+	}
 	  $("#iMemJoinBtn").on("click", function () {
 	    if (check()) {
 	    	formSubmit()

@@ -16,6 +16,9 @@
 <script type="text/javascript" src="resources/script/ca/csch.js"></script> 
 <script type="text/javascript">
 $(function () {
+	if($("#memNO").val()==""){
+		location.href = "join"
+	}
 	  $("#cMemJoinBtn").on("click", function () {
 	    if (check()) {
 	    	formSubmit()
@@ -160,7 +163,7 @@ return true;
                     <h1>일력거 회원가입</h1>
                 </div>
                 <form id="cMemJoinForm" class="user" method="get">
-               		<input type="hidden" name="memNo" value="${param.memNo}">
+               		<input type="hidden" name="memNo" id="memNO" value="${param.memNo}">
                     <input type="hidden" name="joinType" value="cMem">
                     <div class="input-member">
                         <input type="checkbox" name="cM" id="cM" readonly>
