@@ -39,12 +39,12 @@
 /* Centered section inside the top navigation */
 .topnav-centered div {
   float: none;
-  background-image: url("../img/logo.png");
+  background-image: url("");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
-  width: 52px;
-  height: 52px;
+  background-size: contain;
+  width: 80px;
+  height: 40px;
   position: absolute;
   top: 50%;
   left: 50%;
