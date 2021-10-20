@@ -43,18 +43,10 @@ header{
 /* Centered section inside the top navigation */
 .topnav-centered div {
   float: none;
-<<<<<<< HEAD
   background-image: url(../../images/common/logo.png);
-=======
-  background-image: url("");
->>>>>>> branch 'main' of https://github.com/victokwon/workcar.git
   background-position: center;
   background-repeat: no-repeat;
-<<<<<<< HEAD
   background-size: cover;
-=======
-  background-size: contain;
->>>>>>> branch 'main' of https://github.com/victokwon/workcar.git
   width: 80px;
   height: 40px;
   position: absolute;
