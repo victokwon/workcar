@@ -267,8 +267,8 @@ public class CAController {
 		
 //		메일 보내기 설정
 		String host = "smtp.naver.com"; 
-		final String username = "victokwon"; 
-		final String password = "vmfhwprxm1!";
+		final String username = "victokwon93"; 
+		final String password = "vmfhwprxm!";
 //		메일 보낼 내용
 		String recipient =params.get("EM");
 		String title ="";
@@ -348,7 +348,7 @@ public class CAController {
 	        	mail.setSentDate(new Date());
 	            InternetAddress from = new InternetAddress();
 	            
-	            from = new InternetAddress("Manager<victokwon@naver.com>");
+	            from = new InternetAddress("Manager<victokwon93@naver.com>");
 	            mail.setFrom(from);
 	 
 	            InternetAddress to = new InternetAddress(recipient);
