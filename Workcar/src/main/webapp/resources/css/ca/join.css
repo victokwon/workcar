@@ -159,6 +159,7 @@ a {
   .text-header {
     padding: 10px 0;
     padding-bottom: 10px;
+    
   }
 .form-group input[type="radio"] ~ label {
     height: 15px;

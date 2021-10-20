@@ -10,6 +10,7 @@ public class MainpageController {
 	@RequestMapping(value = {"mainpage","/"})
 	public ModelAndView mainpage(ModelAndView mav) {
 		mav.setViewName("mainpage/mainpage");
+		
 		return mav;
 	}
 }

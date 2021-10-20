@@ -1,7 +1,5 @@
 .search_wrap {
   z-index: 9900;
-  /* position: sticky; */
-  /* top: 60px; */
   background-color: #fff;
   border-bottom: 1px solid #ccd9f5;
   min-width: 1060px;

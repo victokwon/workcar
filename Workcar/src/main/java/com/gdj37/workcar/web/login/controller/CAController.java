@@ -50,7 +50,7 @@ public class CAController {
 		if (session.getAttribute("sMNo") == null) {
 			mav.setViewName("ca/login");
 		} else {
-//			메인화면으로 주소 변경
+//		메인화면으로 주소 변경
 			mav.setViewName("redirect:mainpage");
 		}
 		return mav;

@@ -2,6 +2,7 @@ $(function () {
   $("#IM").on("change", function () {
     if ($("#IM").is(":checked")) {
       $("#CM").prop("checked", false);
+      
     }
     $("#type").val($(this).attr("name"));
   });

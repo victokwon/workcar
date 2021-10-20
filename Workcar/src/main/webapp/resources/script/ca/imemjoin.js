@@ -3,7 +3,7 @@ function execDaumPostcode() {
     oncomplete: function (data) {
       var addr = ""; // 주소 변수
       var extraAddr = ""; // 참고항목 변수
-
+ 
       if (data.userSelectedType === "R") {
         addr = data.roadAddress;
       } else {
