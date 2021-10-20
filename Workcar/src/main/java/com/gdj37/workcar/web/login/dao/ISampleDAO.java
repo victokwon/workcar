@@ -17,6 +17,8 @@ public interface ISampleDAO {
 
 	public int joinCInfo(HashMap<String, String> params)throws Throwable;
 
+	public int updatePass(HashMap<String, String> params)throws Throwable;
+
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params)throws Throwable;
 
 

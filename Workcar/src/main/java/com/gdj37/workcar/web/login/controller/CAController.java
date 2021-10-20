@@ -1,20 +1,19 @@
 package com.gdj37.workcar.web.login.controller;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,19 +22,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj37.workcar.common.CommonProperties;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
 import com.gdj37.workcar.util.Utils;
 import com.gdj37.workcar.web.login.service.ISampleService;
-import com.google.gson.Gson;
 
-import org.apache.cxf.io.CachedOutputStream;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
+//RESULT_SUCCESS/RESULT_ERROR
+//VIEWCOUNT/PAGECOUNT
 @Controller
 public class CAController {
 
@@ -227,7 +228,7 @@ public class CAController {
 			page = Integer.parseInt(params.get("page"));
 	        int cnt = Integer.parseInt(params.get("itemCnt"));
 	        
-	        PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
+	        PagingBean pb = iPagingService.getPagingBean(page, cnt, CommonProperties.VIEWCOUNT, CommonProperties.PAGECOUNT);
 	        
 	        
 	        modelMap.put("page", page);
@@ -259,5 +260,111 @@ public class CAController {
 
 		return mav;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/mailAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
+	public String mailAjax(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpServletResponse response, HttpServletRequest request) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+//		메일 보내기 설정
+		String host = "smtp.naver.com"; 
+		final String username = "victokwon"; 
+		final String password = "vmfhwprxm1!";
+//		메일 보낼 내용
+		String recipient ="";
+		String title ="";
+		String content ="";
+//		상황 플래그
+		boolean mailFlag = false;
+		String result = CommonProperties.RESULT_SUCCESS;
+//		임시문자
+		String tempWord = "";
+		
+		Properties props = System.getProperties();
+		
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.naver.com");
+		props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "587");
+			
+//        메일 보낼 준비 작업
+        switch (params.get("mailGbn")) {
+		case "인증":
+			tempWord = Utils.tempWordCreate(5);
+			recipient = params.get("EM");
+			title = "일려거 인증 메일";
+			content += "일력거 이메일 인증번호\n";
+			content += "인증 번호: ";
+			content += tempWord + "\n";
+			content += "홈페이지로 이동하여 인증을 완료해주세요";
+			
+			modelMap.put("tempWord", tempWord);
+			
+			mailFlag = true;
+			break;
+			
+		case "비밀번호 찾기":
+			tempWord = Utils.tempWordCreate(10);
+			
 
+			recipient = params.get("EM");
+			title = "일려거 임시비밀번호 발급";
+			content += "일력거 임시비밀번호\n";
+			content += "임시비밀번호: ";
+			content += tempWord + "\n";
+			content += "홈페이지로 이동하여 로그인 후 비밀번호를 변경주세요.";
+			
+			modelMap.put("tempWord", tempWord);
+			
+			params.put("PW", Utils.encryptAES128(tempWord));
+			
+			int cnt = iSampleService.updatePass(params);
+			
+			if (cnt == 0) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			
+			mailFlag = true;
+			break;
+		}
+        
+        
+        
+        
+		if(mailFlag) {
+	        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator(){
+	        	String un = username;
+	        	String pw = password;
+	        	protected PasswordAuthentication getPasswordAuthentication() {
+	        		return new PasswordAuthentication(un, pw);
+	        	}
+	        });
+	        MimeMessage mail = new MimeMessage(session);
+	        try {
+	        	mail.setSentDate(new Date());
+	            InternetAddress from = new InternetAddress();
+	            
+	            from = new InternetAddress("sender<victokwon@naver.com>");
+	            mail.setFrom(from);
+	 
+	            InternetAddress to = new InternetAddress(recipient);
+	            mail.setRecipient(Message.RecipientType.TO, to);
+	 
+	            mail.setSubject(title, "UTF-8");
+	            mail.setText(content, "UTF-8");
+	            mail.setHeader("content-Type", "text/html");
+	 
+	            javax.mail.Transport.send(mail);
+	        }catch (Exception e) {
+	        	result = CommonProperties.RESULT_ERROR;
+	        	e.printStackTrace();
+			}
+		}else {
+		   result = CommonProperties.RESULT_FAILED;
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

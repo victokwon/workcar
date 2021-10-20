@@ -45,6 +45,11 @@ public class SampleService implements ISampleService {
 		return iSampleDAO.joinCInfo(params);
 	}
 
+	@Override
+	public int updatePass(HashMap<String, String> params) throws Throwable {
+		return iSampleDAO.updatePass(params);
+	}
+
 //	@Override
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params) throws Throwable {
 //		return iSampleDAO.cInfoList(params);

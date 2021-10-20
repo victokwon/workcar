@@ -46,6 +46,11 @@ public class SampleDAO implements ISampleDAO{
 		return sqlSession.selectOne("CA_SQL.cInfoCheck", params);
 	}
 
+	@Override
+	public int updatePass(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("CA_SQL.updatePass", params);
+	}
+
 //	@Override
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params) throws Throwable {
 //		return sqlSession.selectList("CA_SQL.cInfoList", params);

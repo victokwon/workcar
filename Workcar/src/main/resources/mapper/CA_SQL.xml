@@ -73,4 +73,8 @@
 		AND PASS = #{PW}
 	</select>
 	
+	<update id="updatePass" parameterType="hashmap">
+		UPDATE MEMBER SET PASS = #{PW}
+		WHERE MEM_NO = #{memNo}
+	</update>
 </mapper>
