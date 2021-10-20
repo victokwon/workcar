@@ -1,0 +1,231 @@
+.main {
+    position: relative;
+    display: flex;
+    float: left;
+    width: 100%;
+}
+
+.left_main_menu {
+    position: sticky;
+    top: 0px;
+    width: 15%;
+    margin: 20px;
+    overflow-y: auto;
+}
+
+.main_profile {
+    width: 60%;
+}
+
+/* Clear floats after the columns */
+.main:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.right_main_menu {
+    font-weight: bold;
+    font-size: 12px;
+    width: 25%;
+    margin: 40px;
+}
+
+/* Pagination links */
+.pagination a {
+    color: black;
+    float: left;
+    padding: 2px 10px;
+    font-size: 12px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+/* Style the active/current link */
+.pagination a.active {
+    background-color: dodgerblue;
+    color: white;
+}
+
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {
+    background-color: #ddd;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding in columns */
+.row {
+    margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Style the counter cards */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* this adds the "card" effect */
+    padding: 4px;
+    text-align: left;
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    font-size: 16px;
+}
+
+.card p {
+    font-size: 4px;
+}
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+    .left_main_menu {
+        display: none;
+    }
+}
+
+.vertical-menu {
+    width: 200px;
+    /* Set a width if you like */
+}
+
+.vertical-menu a {
+    background-color: #eee;
+    /* Grey background color */
+    color: black;
+    /* Black text color */
+    display: block;
+    /* Make the links appear below each other */
+    padding: 12px;
+    /* Add some padding */
+    text-decoration: none;
+    /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+    background-color: #ccc;
+    /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+    text-align: center;
+    background-color: #6B71F2;
+    /* Add a green color to the "active/current" link */
+    color: white;
+}
+
+.main_profile {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+
+}
+
+.main_profile_div {
+    justify-content: center;
+    display: flex;
+}
+
+.main_title {
+    text-align: center;
+    display: flex;
+    width: 600px;
+    height: 50px;
+    font-weight: bolder;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.main_title p {
+    color: black;
+    width: 600px;
+    height: auto;
+    opacity: 1;
+    justify-content: center;
+
+}
+
+.main_detail_1,
+.main_detail_2 {
+    text-align: left;
+    margin: 20px;
+}
+
+.main_footer_line {
+    width: 800px;
+    margin-right: 450px;
+}
+
+.star_rating .checked {
+    color: orange;
+}
+
+.main_rating {
+    text-align: left;
+    margin: 40px;
+}
+
+.right_main_apply {
+    background-color: #6B71F2;
+    color: black;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 40px;
+
+}
+
+.right_main_apply:hover {
+    color: white;
+}
+
+.main_detail_repport {
+    background-color: #6B71F2;
+    color: black;
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.main_detail_repport:hover {
+    color: white;
+}
+
+hr {
+    border: 2px solid;
+    color: green;
+}

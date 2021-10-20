@@ -1,0 +1,298 @@
+        /* Set height of body and the document to 100% to enable "full page tabs" */
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial;
+        }
+
+        .main_info {
+            background: #88a2f2;
+            width: 1000px;
+            height: 900px;
+            margin: 0 auto;
+            border-radius: 8px;
+        }
+
+        /* Style tab links */
+        .main_button {
+            background-color: #555;
+            color: white;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 17px;
+            width: 25%;
+        }
+
+        .main_button:hover {
+            background-color: #88a2f2;
+        }
+
+        /* Style the tab content (and add height:100% for full page content) */
+        .main_content {
+            color: white;
+            display: none;
+            padding: 20px 20px;
+            height: 350px;
+            background-color: rgb(rgb(161, 128, 128), rgb(106(121, 121, 177)5, 106), rgb(94, 94, 155));
+            margin: 0 auto;
+            width: 1000px;
+            border-radius: 8px;
+
+
+        }
+
+        .vertical_menu {
+            width: 200px;
+            /* Set a width if you like */
+        }
+
+        .vertical_menu a {
+            background-color: whitesmoke;
+            /* Grey background color */
+            color: black;
+            /* Black text color */
+            display: block;
+            /* Make the links appear below each other */
+            padding: 12px;
+            /* Add some padding */
+            text-decoration: none;
+            /* Remove underline from links */
+            border-radius: 3px;
+        }
+
+        .vertical_menu a:hover {
+            border: 2px solid #1b50ee;
+            background-color: #3765f0;
+            color: white;
+        }
+
+        .vertical_menu a.active {
+            background-color: #04AA6D;
+            /* Add a green color to the "active/current" link */
+            color: white;
+        }
+
+        .main_box {
+            display: flex;
+            margin: 0 20px;
+            width: 100%;
+            justify-content: space-evenly;
+            align-items: center;
+            border-radius: 8px;
+        }
+        .main_box_frame {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .main_content_button {
+            width: 200px;
+            height: 100%;
+            position: relative;
+            display: flex;
+        }
+
+        .main_content_button_div {
+            right: 30px;
+            bottom: 30px;
+            position: absolute;
+        }
+
+        .main_content_button2 div {
+            right: 20px;
+        }
+
+        .main_content_button_div button {
+            margin: 10px;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: blue;
+            box-shadow: 1px 1px black;
+            color: white;
+            font-weight: bold;
+        }
+
+        .main_box_text {
+            display: grid;
+        }
+
+        .main_box_text input {
+            margin: 10px;
+            border-radius: 4px;
+        }
+
+        .main_box .main_box_text div {
+            color: black;
+            font-weight: bold;
+            font-size: 13px;
+            align-items: flex-end;
+        }
+        .main_box_text .text_Logo {
+            width: 145px;
+            height: 100px;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .main_regi {
+            display: flex;
+            width: 800px;
+            margin: 0 auto;
+            border-radius: 10px;
+        }
+
+        .main_box_txt1 {
+            margin-top: 15px;
+        }
+
+        .main_box_txt2,
+        .main_box_txt3,
+        .main_box_txt4,
+        .main_box_txt6 {
+            margin-top: 26px;
+        }
+
+        .main_box_txt5,
+        .main_box_txt8 {
+            margin-top: 27px;
+        }
+
+        .main_box_txt7 {
+            margin-top: 26px;
+        }
+
+        .main_box_txt9 {
+            margin-top: 22px;
+        }
+
+        .main_box_title {
+            margin: 20px;
+            color: black;
+        }
+
+        .main_button_box {
+            margin: 0 auto;
+            width: 1000px;
+            text-align: center;
+        }
+
+        .user_wrap {
+            height: auto;
+            margin: 0 auto;
+            padding: 20px 0 20px 20px;
+            border-bottom: 3px solid #eee;
+            width: 1000px;
+            justify-items: center;
+            /* justify-items: center; */
+        }
+
+        .user_box {
+            /* position: relative; */
+            padding: 10px 10px 10px 10px;
+            background-color: #eee;
+            border-radius: 10px;
+            height: 100px;
+            width: 400px;
+            margin: 0 0;
+        }
+
+        .user_profile {
+            /* position: absolute; */
+            box-sizing: border-box;
+            border-radius: 50%;
+            float: left;
+            display: block;
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+        }
+
+        .user {
+            float: right;
+            width: calc(100% - 90px);
+            height: 100%;
+        }
+
+        .user_name {
+            height: 50%;
+            background-color: #fff;
+        }
+
+        .user_status {
+            height: 50%;
+            background-color: #fff;
+        }
+
+        main>.main_wrap {
+            font-size: 16px;
+            font-weight: bolder;
+            /* padding-top: 50px; */
+            width: 100%;
+            height: calc(100% - 180px);
+            background-color: #fff;
+        }
+
+        .main_box_title2 {
+            margin-left: 0px;
+        }
+
+        .main_box_card {
+            display: flex;
+            border-radius: 4px;
+            width: 100%;
+            height: 100px;
+            /* margin: 120px 40px 0px 0px; */
+            background-color: whitesmoke;
+            align-items: center;
+        }
+
+        .main_box_contents {
+            width: 20%;
+            justify-content: center;
+            display: flex;
+        }
+        .main_box_contents_grid {
+            display: grid;
+        }
+        .act_content_button {
+            justify-content: flex-end;
+            display: flex;
+            align-items: end;
+        }
+
+        .act_button {
+            border-radius: 5px;
+            background-color: blue;
+            box-shadow: 1px 1px black;
+            color: white;
+            font-weight: bold;
+        }
+
+        .act_content_button {
+            margin: 30px 0px 0px 35px;
+        }
+        .act_button_visit {
+            display: grid;
+            width: 100px;
+            height: 40px;
+        }
+        .main_box_inter2 {
+            display: none;
+        }
+        .inter_content_add {
+            display: flex;
+            justify-content: flex-end;
+        }
+        .inter_content_add > p {
+            background-color: blue;
+            color: white;
+            font-weight: bold;
+            border-radius: 4px;
+            width: 20px;
+            text-align: center;
+        }

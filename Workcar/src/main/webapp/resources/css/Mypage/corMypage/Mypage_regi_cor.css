@@ -1,0 +1,867 @@
+  
+  
+  body {
+      text-decoration: none;
+  }
+
+  /* Style tab links */
+  .main_button {
+    background-color: #555; 
+    color: white;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    font-size: 17px;
+    width: 25%;
+}
+
+.main_button:hover {
+    background-color: #88a2f2;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.main_content {
+    color: white;
+    display: none;
+    padding: 20px 20px;
+    height: 350px;
+    margin: 0 auto;
+    width: 1000px;
+    border-radius: 8px;
+
+
+}
+
+.vertical_menu {
+    width: 200px;
+    /* Set a width if you like */
+}
+
+.vertical_menu a {
+    background-color: whitesmoke;
+    /* Grey background color */
+    color: black;
+    /* Black text color */
+    display: block;
+    /* Make the links appear below each other */
+    padding: 12px;
+    /* Add some padding */
+    text-decoration: none;
+    /* Remove underline from links */
+    border-radius: 3px;
+}
+
+.vertical_menu a:hover {
+    border: 2px solid #1b50ee;
+    background-color: #3765f0;
+    color: white;
+}
+
+.vertical_menu a.active {
+    background-color: #04AA6D;
+    /* Add a green color to the "active/current" link */
+    color: white;
+}
+
+
+.main_box {
+    display: flex;
+    margin: 0 20px;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 8px;
+    flex-direction: column;
+}
+.main_box_frame {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.main_info {
+    background: #88a2f2;
+    width: 1000px;
+    height: 900px;
+    /* height: 900px; */
+    margin: 0 auto;
+    border-radius: 8px;
+}
+.main_box_title_position {
+    text-align: left;
+    width: 100%;
+    font-size: 20px;
+    color: black;
+}
+.main_button_box {
+    margin: 0 auto;
+    width: 1000px;
+    text-align: center;
+}
+.main_box_contents {
+    width: 20%;
+    justify-content: center;
+    display: flex;
+}
+.main_box_contents_grid {
+    display: grid;
+}
+.main_box_regi2, .main_box_regi3, .main_box_regi4 {
+    display: none;
+}
+.main_box_regi3 {
+    align-items: end;
+}
+.main_box_texts {
+    display: flex ;
+}
+.main_box_text {
+    display: grid;
+    color: black;
+    font-weight: bold;
+    width: 150px;
+}
+.main_box_text_grid {
+    justify-content: center;
+    display: grid;
+    color: black;
+    font-weight: bold;
+}
+.main_box_text_grid input {
+    width: 200px;
+    height: 30px;
+    border: 1px solid white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.main_box_text_grid p {
+    margin-top: 40px;
+}
+.main_box_text1 {
+    margin-bottom: 35px;
+}
+.main_box_text2 , .main_box_text3, .main_box_text4, .main_box_text6 {
+    margin-bottom: 30px;
+}
+.main_box_text5 , .main_box_text7 {
+    margin-bottom: 32px;
+}
+.main_box_text8, .main_box_text9 {
+    margin-bottom: 30px;
+}
+
+
+.main_box_text_button {
+    display: grid;
+}
+.main_content_button_div {
+    display: flex;
+    margin: 0px 0px 0px 150px;
+}
+.main_content_button_div1 {
+    margin: 0px 0px 0px 550px;
+}
+
+.main_content_button_div button {
+font-size: 14px;
+background: blue;
+border-radius: 4px;
+color: white;
+font-weight: bold;
+height: 40px;
+margin: 0px 0px 0px 20px;
+}
+.main_content_button {
+
+    display: flex;
+    align-items: end;
+}
+
+
+.email_permission {
+
+    background: lightgray;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    height: auto;
+
+}
+
+/* 스위치 버튼 */
+input[type="checkbox"] {
+    display: none;
+  }
+  
+  .label__on-off {
+      overflow: hidden;
+      position: relative;
+      display: inline-block;
+      width: 58px;
+      height: 26px;
+      -webkit-border-radius: 13px;
+      -moz-border-radius: 13px;
+      border-radius: 13px;
+      background-color: #ed4956;
+      color: #fff;
+      font-weight: bold;
+      cursor: pointer;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -ms-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s;
+  }
+  
+  .label__on-off > * {
+      vertical-align: sub;
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -ms-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s;
+      font-size: 14px;
+  }
+  
+  .label__on-off .marble {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      display: block;
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+      box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+  }
+  
+  .label__on-off .on {
+      display: none;
+      padding-left: 12px;
+  }
+  
+  .label__on-off .off {
+      padding-left: 30px;
+      line-height: 25px;
+  }
+  
+  .input__on-off:checked + .label__on-off {
+      background-color: #0bba82;
+  }
+  
+  .input__on-off:checked + .label__on-off .on {
+      display: inline-block;
+  }
+  
+  .input__on-off:checked + .label__on-off .off {
+      display: none;
+  }
+  
+  .input__on-off:checked + .label__on-off .marble {
+      left: 33px;
+  }
+  .on {
+    float: left;
+    margin-top: 5px;
+  }
+  .off {
+    margin: 0px 7px 0px 0px;
+  }
+
+  .user_wrap {
+    height: auto;
+    margin: 0 auto;
+    padding: 20px 0 20px 20px;
+    border-bottom: 3px solid #eee;
+    width: 1000px;
+    justify-items: center;
+    /* justify-items: center; */
+}
+
+.user_box {
+    /* position: relative; */
+    padding: 10px 10px 10px 10px;
+    background-color: #eee;
+    border-radius: 10px;
+    height: 100px;
+    width: 400px;
+    margin: 0 0;
+}
+
+.user_profile {
+    /* position: absolute; */
+    box-sizing: border-box;
+    border-radius: 50%;
+    float: left;
+    /* top: 10px;
+left: 10px; */
+    display: block;
+    width: 80px;
+    height: 80px;
+    background-color: #fff;
+}
+
+.user {
+    float: right;
+    width: calc(100% - 90px);
+    height: 100%;
+}
+
+.user_name {
+    height: 50%;
+    background-color: #fff;
+}
+
+.user_status {
+    height: 50%;
+    background-color: #fff;
+}
+
+main>.main_wrap {
+    font-size: 16px;
+    font-weight: bolder;
+    /* padding-top: 50px; */
+    width: 100%;
+    height: calc(100% - 180px);
+    background-color: #fff;
+}
+.form-group {
+    font-size: 12px;
+}
+.form-group div {
+    line-height: 20px;
+    height: 30px;
+    padding: 5px;
+}
+.form-group input[type="radio"]{
+    margin: 5px 3px;
+    width: 15px;
+    height: 15px;
+}
+  /* 모달 */
+
+ .modal-header {
+    background: #3765f0;
+    color: white;
+ }
+ .modal-title {
+     font-weight: bold;
+}
+  .modal_last_pw {
+    display: flex;
+    margin: 0px 0px 40px 0px;
+}
+.modal_last_notification {
+    display: flex;
+}
+.modal_last_notification p {
+    text-align: left;
+}
+.modal_notification {
+    width: 250px;
+}
+.modal_subject {
+    display: flex;
+    align-items: center;
+    margin: 0px 20px 0px 0px;
+}
+.modal_text_area {
+    border-radius: 4px;
+    border: 1px solid navajowhite;
+}
+.modal-btn {
+    margin: 0px 20px 0px 0px;
+}
+.modal_button {
+    display: flex;
+    justify-content: flex-end;
+    /* align-items: end; */
+    margin: 20px;
+}
+
+/* 기업정보 입력 */
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+main {
+  position: relative;
+  z-index: 1;
+}
+.main_info {
+  background: #88a2f2;
+  width: 1000px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.main_button {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.main_button:hover {
+  background-color: #88a2f2;
+}
+
+.main_content {
+  /* color: white; */
+  padding: 20px 20px;
+  height: 100%;
+  margin: 0 auto;
+  width: 1000px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.vertical_menu {
+  width: 200px;
+}
+
+.main_box {
+  margin: 0 20px;
+  width: 80%;
+  height: 100%;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  align-items: flex-start;
+}
+
+/* 소메뉴 수정 */
+
+.vertical_menu a {
+  background-color: whitesmoke;
+  color: black;
+  display: block;
+  width: 100%;
+  height: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin: auto 0;
+}
+
+.vertical_menu a:hover {
+  border: 2px solid #1b50ee;
+  background-color: #3765f0;
+  color: white;
+}
+.main_regi_secession_button button {
+    width: 80px;
+    background-color: blue;
+    color: white;
+}
+.main_content button {
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: 1px solid #333;
+  color: black;
+  margin: 0px 10px 0px 0px;
+}
+.main_content button:hover {
+  box-sizing: border-box;
+  border: 1px solid #1b50ee;
+  background-color: #3765f0;
+  color: white;
+}
+
+.main_button_box {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+/* 유저정보 */
+.user_wrap {
+  height: auto;
+  margin: 0 auto;
+  padding: 20px 0 20px 20px;
+  width: 1000px;
+  justify-items: center;
+}
+
+.user_box {
+  padding: 10px 10px 10px 10px;
+  background-color: #eee;
+  border-radius: 10px;
+  height: 100px;
+  width: 400px;
+  margin: 0 0;
+}
+
+.user_profile {
+  box-sizing: border-box;
+  border-radius: 50%;
+  float: left;
+  display: block;
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+}
+
+.user {
+  float: right;
+  width: calc(100% - 90px);
+  height: 100%;
+}
+
+.user_name {
+  height: 50%;
+  background-color: #fff;
+}
+
+.user_status {
+  height: 50%;
+  background-color: #fff;
+}
+
+main > .main_wrap {
+  font-size: 16px;
+  font-weight: bolder;
+  /* padding-top: 50px; */
+  width: 100%;
+  height: calc(100% - 180px);
+  background-color: #fff;
+}
+
+.button_container {
+  display: flex;
+  flex-direction: column;
+  width: calc(30% - 60px);
+  margin: 15px;
+}
+
+.job_post_title > input {
+  height: 100%;
+}
+
+/* 이력서 디테일 */
+
+.apply_dtl {
+  float: left;
+  margin: auto;
+}
+.apply_dtl_name {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.apply_dtl_date {
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.main_box .resume {
+  width: 100%;
+}
+
+.main_box .content {
+  width: 100%;
+  height: auto;
+  background-color: #3765f0;
+  /* border: 1px solid black; */
+  margin-bottom: 20px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.main_box .content .dtl {
+  border-radius: 10px 10px 0px 0px;
+  background-color: #c4c7f2;
+  /* 높이 100% 수정해야함 */
+  height: 100%;
+  width: 100%;
+}
+.main_box .content .dtl .con {
+  /* background-color: black; */
+  height: calc(100% - 50px);
+  padding: 0 20px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 이력서 디테일 세부사항 */
+form {
+  width: 100%;
+}
+
+.main_box > .tilte {
+  margin-bottom: 20px;
+}
+
+/* 지원자정보,구직희망사항 */
+
+.tilte .job_post_title > input {
+  margin: auto;
+  border: 0;
+  padding: 0;
+  background-color: white;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.tilte .button_box {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: auto;
+}
+
+.tilte .button_box input {
+  border: 1px solid #777;
+  background-color: #eee;
+  border-radius: 5px;
+  color: black;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.tilte .button_box input:hover {
+  background-color: #3765f0;
+  color: white;
+  cursor: pointer;
+}
+
+.company {
+  height: auto;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.company > button {
+  bottom: 0;
+}
+
+.text {
+  line-height: 35px;
+  width: 150px;
+  border-right: 1px solid #999;
+}
+.input {
+  height: auto;
+  line-height: 30px;
+  margin-left: 20px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.input input[type="text"],
+.input select {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 150px;
+  height: 100%;
+  border: 0px;
+}
+
+#minSal,
+#maxSal,
+#minCareer,
+#maxCareer {
+  text-align: center;
+  width: 50px;
+  height: 25px;
+  border: 0px;
+  margin: 0 10px;
+  padding: 0;
+}
+
+input[disabled] {
+  font-size: 12px;
+  border: 0px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 130px;
+  height: 100%;
+  background-color: #888;
+  color: #eee;
+}
+
+input[readonly] {
+  font-size: 12px;
+  border: 0px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 130px;
+  height: 100%;
+  background-color: #888;
+  color: #fff;
+}
+
+label {
+  user-select: none;
+}
+
+.input label,
+.input input[type="checkbox"],
+.input input[type="radio"] {
+  margin: 0;
+}
+
+/* 첨부파일 */
+.main_box .apply_dtl_attch .header {
+  background-color: #3765f0;
+  padding: 5px 0;
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  color: white;
+}
+.plus_btn,
+.minus_btn {
+  box-sizing: border-box;
+  border: 1px solid #777;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+  margin: auto;
+}
+
+.plus_btn:hover,
+.minus_btn:hover {
+  cursor: pointer;
+  border: 1px solid #1b50ee;
+  background-color: #3765f0;
+  line-height: 29px;
+  color: white;
+}
+
+.add_box {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.minus_btn {
+  margin: 10px 20px;
+}
+.plus_btn {
+  margin: 10px auto;
+}
+.file_box {
+  display: flex;
+  background-color: #eee;
+}
+.file_box .text {
+  background-color: #c4c7f2;
+  width: auto;
+  padding: 10px 20px;
+}
+#att {
+  display: none;
+}
+
+#fileSNm {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 50%;
+  line-height: 30px;
+  border: 1px solid #777;
+}
+.add_box .text {
+  width: 100%;
+  border: 0px;
+}
+.add_box .file_container {
+  height: 30px;
+  display: flex;
+  margin: auto;
+  width: calc(100% - 70px);
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+.text_box input[type="text"] {
+  font-size: 12px;
+  border: 0px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: calc(100% - 100px);
+  height: 30px;
+  margin: 10px;
+}
+/* 로고 */
+.input .logo {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  background-image: url(../img/profile.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+/* 진행사항 */
+.method,
+.apply {
+  height: auto;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.right .input input[type="text"] {
+  width: 70px;
+}
+
+/* 사업장 주소 */
+.location_dtl {
+  width: 170px;
+  height: 30px;
+  background-color: #888;
+  color: #eee;
+  margin-top: 10px;
+  text-align: center;
+}
+
+/* 사업내용 */
+.company textarea {
+  resize: none;
+  width: 100%;
+  height: 100px;
+  border: 1px solid #777;
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+.logo ~ button,
+.location_dtl ~ button {
+  margin: 5px 0;
+}
+.dtl > button {
+  width: 70px;
+  margin: 10px;
+  float: right;
+}

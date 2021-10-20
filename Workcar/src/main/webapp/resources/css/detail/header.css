@@ -1,0 +1,83 @@
+.side_bcc {
+  height: 100%;
+  width: 0;
+  background-color: black;
+  opacity: 0.7;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0px;
+}
+.topnav {
+    position: relative;
+    background-color: #6b71ba;
+    overflow: hidden;
+    height: 40px;
+    min-width: 600px;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    color: #f2f2f2;
+    text-align: center;
+    padding: 10px 20px 0px 0px;
+    text-decoration: none;
+    font-size: 13px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    color: black;
+  }
+  
+  /* Centered section inside the top navigation */
+  .topnav-centered div {
+    float: none;
+    background-image: url("../img/logo.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width:80px;
+    height: 40px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  /* Right-aligned section inside the top navigation */
+  .topnav-right {
+    float: right;
+    display:flex;
+  }
+  /* Responsive navigation menu - display links on top of each other instead of next to each other (for mobile devices) */
+  @media screen and (max-width: 600px) {
+    .topnav a, .topnav-right {
+      display: block;
+    }
+  
+    .topnav-centered a {
+      position: relative;
+      top: 0;
+      left: 0;
+      transform: none;
+    }
+  }
+  .hambuger div {
+    width: 25px;
+    height: 5px;
+    background-color: black;
+    margin: 2px 0;
+    border-radius: 30px;
+  }
+  .hambuger{
+    float: left;
+    margin: 10px;
+  }
+ 
+
+
+
+
+
+
