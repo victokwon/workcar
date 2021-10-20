@@ -121,6 +121,7 @@
 				</form>
 				<hr>
 				<div class="text">
+					<a class="small" href="idf">아이디찾기</a>
 					<a class="small" href="join">회원가입</a>
 				</div>
 				<div class="text">

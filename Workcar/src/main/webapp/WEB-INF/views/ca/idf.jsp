@@ -10,7 +10,6 @@
  
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
-	<script type="text/javascript" src="resources\script\ca\popup.js"></script>
 	<script type="text/javascript">
 	$(function() {
 		$(".pop-container").on('keydown', function(event) {
@@ -127,6 +126,7 @@
                 </form>
                 <hr>
                 <div class="text">
+                	<a class="small" href="pwf">비밀번호찾기</a>
                     <a class="small" href="join">회원가입</a>
                 </div>
                 <div class="text">

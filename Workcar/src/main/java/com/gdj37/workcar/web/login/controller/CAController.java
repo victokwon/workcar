@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.CommonProperties;
 import com.gdj37.workcar.common.bean.PagingBean;
@@ -97,7 +98,7 @@ public class CAController {
 
 	@ResponseBody
 	@RequestMapping(value = "/idCheckAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	public String idCheckAjax(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String idCheckAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		try {
@@ -162,7 +163,7 @@ public class CAController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getApiDataAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
-	public String cInfoListAjax(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpServletResponse response) throws Throwable {
+	public String cInfoListAjax(@RequestParam HashMap<String, String> params, HttpServletResponse response) throws Throwable {
 		String addr = "http://apis.data.go.kr/1160100/service/GetCorpBasicInfoService/getCorpOutline?";
 		String serviceKey = "r0G1+ZSkNEfXTCLmqfXjwKV1t3qGIp2NfBpG9FJuGEdgzz3BZCRt0aT86BoeL5JyNwEAlQmYQXLUupdB2u6vug==";
 		String page = "1";
@@ -218,7 +219,7 @@ public class CAController {
 	
 	@RequestMapping(value = "/apiPagingAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
 	@ResponseBody
-	public String cInfoList(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String cInfoList( @RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
@@ -258,10 +259,15 @@ public class CAController {
 		mav.setViewName("ca/pwf");
 		return mav;
 	}
+	@RequestMapping(value = "/idf")
+	public ModelAndView idf(ModelAndView mav) {
+		mav.setViewName("ca/idf");
+		return mav;
+	}
 	
 	@ResponseBody
 	@RequestMapping(value = "/mailAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
-	public String mailAjax(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpServletResponse response, HttpServletRequest request) throws Throwable {
+	public String mailAjax(@RequestParam HashMap<String, String> params, HttpServletResponse response, HttpServletRequest request,HttpSession s) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
@@ -295,7 +301,7 @@ public class CAController {
 			content += "인증 번호: ";
 			content += tempWord ;
 			
-			modelMap.put("tempWord", tempWord);
+			s.setAttribute("tempWord", tempWord);
 			
 			mailFlag = true;
 			break;
@@ -369,5 +375,29 @@ public class CAController {
 		modelMap.put("result", result);
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	@RequestMapping(value = "/mailConfirmAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
+	@ResponseBody
+	public String mailConfirmAjax(@RequestParam HashMap<String, String> params,HttpSession session) throws Throwable  {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		String userEmc = params.get("EMC");
+		
+		try {
+			if(userEmc.equals(session.getAttribute("tempWord"))) {
+				result = CommonProperties.RESULT_SUCCESS;
+			}else {
+				result = CommonProperties.RESULT_FAILED;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			result = CommonProperties.RESULT_ERROR;	
+		}
+		
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	
 }
