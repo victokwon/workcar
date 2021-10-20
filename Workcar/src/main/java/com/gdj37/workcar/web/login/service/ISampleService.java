@@ -18,6 +18,8 @@ public interface ISampleService {
 
 	public int updatePass(HashMap<String, String> params)throws Throwable;
 
+	public String findID(HashMap<String, String> params)throws Throwable;
+
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params)throws Throwable;
 
 

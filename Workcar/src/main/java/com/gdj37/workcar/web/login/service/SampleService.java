@@ -50,6 +50,11 @@ public class SampleService implements ISampleService {
 		return iSampleDAO.updatePass(params);
 	}
 
+	@Override
+	public String findID(HashMap<String, String> params) throws Throwable {
+		return iSampleDAO.findID(params);
+	}
+
 //	@Override
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params) throws Throwable {
 //		return iSampleDAO.cInfoList(params);

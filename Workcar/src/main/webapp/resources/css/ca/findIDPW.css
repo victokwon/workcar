@@ -52,7 +52,6 @@ html {
 /* 로그인 세부 */
 .input {
 	position: relative;
-  height: 60px;
 }
 .input > input {
   width: 100%;
@@ -62,6 +61,7 @@ html {
   box-sizing: border-box;
   border: 1px solid #eee;
   padding: 0 20px;
+  margin-top: 10px;
 }
 hr {
   margin: 10px 0;
@@ -139,12 +139,10 @@ a {
     padding: 10px 0;
     padding-bottom: 20px;
   }
-  .input {
-    height: 30px;
-  }
   .input > input {
     height: 25px;
     padding: 0 20px;
+        margin-top: 3px;
   }
   hr {
     margin: 10px 0;

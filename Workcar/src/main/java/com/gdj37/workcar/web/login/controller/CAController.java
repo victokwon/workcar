@@ -70,7 +70,7 @@ public class CAController {
 				session.setAttribute("sMNo", data.get("MEM_NO"));
 				session.setAttribute("sMNm", data.get("NAME"));
 				session.setAttribute("sMTy", data.get("MEM_GBN"));
-				mav.setViewName("redirect:join");
+				mav.setViewName("redirect:mainpage");
 			} else {
 				mav.addObject("msg", "로그인실패");
 				mav.setViewName("redirect:login");
@@ -255,9 +255,7 @@ public class CAController {
 
 	@RequestMapping(value = "/pwf")
 	public ModelAndView pwf(ModelAndView mav) {
-
 		mav.setViewName("ca/pwf");
-
 		return mav;
 	}
 	
@@ -272,7 +270,7 @@ public class CAController {
 		final String username = "victokwon"; 
 		final String password = "vmfhwprxm1!";
 //		메일 보낼 내용
-		String recipient ="";
+		String recipient =params.get("EM");
 		String title ="";
 		String content ="";
 //		상황 플래그
@@ -290,32 +288,26 @@ public class CAController {
 			
 //        메일 보낼 준비 작업
         switch (params.get("mailGbn")) {
-		case "인증":
+		case "certi":
 			tempWord = Utils.tempWordCreate(5);
 			recipient = params.get("EM");
 			title = "일려거 인증 메일";
-			content += "일력거 이메일 인증번호\n";
 			content += "인증 번호: ";
-			content += tempWord + "\n";
-			content += "홈페이지로 이동하여 인증을 완료해주세요";
+			content += tempWord ;
 			
 			modelMap.put("tempWord", tempWord);
 			
 			mailFlag = true;
 			break;
 			
-		case "비밀번호 찾기":
+		case "pwf":
 			tempWord = Utils.tempWordCreate(10);
 			
 
 			recipient = params.get("EM");
 			title = "일려거 임시비밀번호 발급";
-			content += "일력거 임시비밀번호\n";
 			content += "임시비밀번호: ";
-			content += tempWord + "\n";
-			content += "홈페이지로 이동하여 로그인 후 비밀번호를 변경주세요.";
-			
-			modelMap.put("tempWord", tempWord);
+			content += tempWord;
 			
 			params.put("PW", Utils.encryptAES128(tempWord));
 			
@@ -327,10 +319,21 @@ public class CAController {
 			
 			mailFlag = true;
 			break;
+			
+		case "idf":
+			String ID = iSampleService.findID(params);
+			
+			if(ID == null || ID =="") {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			title = "일려거 아이디 찾기";
+			content += params.get("NM");
+			content += "님 아이디: ";
+			content += ID;
+			
+			mailFlag = true;
+			break;
 		}
-        
-        
-        
         
 		if(mailFlag) {
 	        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator(){
@@ -345,7 +348,7 @@ public class CAController {
 	        	mail.setSentDate(new Date());
 	            InternetAddress from = new InternetAddress();
 	            
-	            from = new InternetAddress("sender<victokwon@naver.com>");
+	            from = new InternetAddress("Manager<victokwon@naver.com>");
 	            mail.setFrom(from);
 	 
 	            InternetAddress to = new InternetAddress(recipient);
