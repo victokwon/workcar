@@ -1,0 +1,536 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+  background-color: white;
+}
+main {
+    position: relative;
+    z-index: 1;
+  }
+.main {
+    position: relative;
+    display: flex;
+    float: left;
+    width: 100%;
+}
+.main_content{
+    width:70%
+}
+
+/* 메인탑 start*/
+.main_profile_div {
+    /* text-align: center; */
+    background: white;
+    width:100%;
+    margin-top: 10px;
+}
+
+.main_title {
+    display: flex;
+    width:100%;
+    height: 60px;
+    font-weight: bolder;
+    justify-content: center;
+    min-width: 700px;
+    /* margin-left:-30px; */
+}
+.main_title > h2{
+    background-color:#88a2f2;
+    padding:16px;
+    border-radius: 8px;
+    color:black;
+    height:20px;
+    line-height:25px;
+}
+.main_title > span{
+    background-color:#777;
+    padding:16px;
+    color:white;
+    height:50px;
+    margin:0px 10px;
+    border-radius: 8px;
+}
+.main_title > select{
+    height:50px;
+    width:130px;
+    border-radius: 3px;
+    font-size:17px;
+    font-weight:bold;
+}
+.main_title .attned_hr_btn,
+.main_title .jc_propo_btn{
+    font-size: 17px;
+    font-weight:bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    border: 1px solid #333;
+    color: black;
+    width:auto;
+    height:50px;
+    margin-left:10px;
+}
+.main_title .main_title_btn{
+  display: flex;
+ 
+}
+.prcss_btn:hover{
+    box-sizing: border-box;
+    border: 1px solid #1b50ee;
+    background-color: #3765f0;
+    color: white;
+}
+/* 메인탑 end*/
+/* 왼쪽메뉴 start*/
+/* main{
+    height:1500px;
+} */
+.left_main_menu {
+    width: 230px;
+    background-color:#999;
+    height:650px;
+    margin-right:20px;
+    
+}
+.vertical-menu {
+    width: 200px;
+    margin:10px;
+}
+
+.vertical-menu a {
+    background-color: #eee;
+    /* Grey background color */
+    color: black;
+    /* Black text color */
+    display: block;
+    /* Make the links appear below each other */
+    padding: 12px;
+    /* Add some padding */
+    text-decoration: none;
+    /* Remove underline from links */
+}
+
+.vertical_menu a:hover {
+    border: 2px solid #1b50ee;
+    background-color: #3765f0;
+    color: white;
+  }
+
+.vertical-menu a.active {
+    text-align: center;
+    background-color: #6B71F2;
+    /* Add a green color to the "active/current" link */
+    color: white;
+}
+.total_cnt{
+    background-color:#555;
+    color:white;
+    width: 100px;
+    display:inline-block;
+    text-align: center;
+    height:30px;
+    font-size:17px;
+    padding:5px;
+    font-weight:bold;
+    border-radius:8px 8px 0 0;
+}
+/* Style the counter cards */
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    /* this adds the "card" effect */
+    padding: 4px;
+    text-align: left;
+    background-color: #f1f1f1;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 16px;
+}
+
+/* .main_profile {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    width:60%;
+
+} */
+/* Clear floats after the columns */
+/* .main:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.right_main_menu {
+    font-weight: bold;
+    font-size: 12px;
+    width: 25%;
+    margin: 40px;
+}
+ */
+
+
+/* Float four columns side by side */
+/* .column {
+    float: left;
+    width: 25%;
+    padding: 0 10px;
+} */
+
+/* Remove extra left and right margins, due to padding in columns */
+/* .row {
+    margin: 0 -5px;
+} */
+
+/* Clear floats after the columns */
+/* .row:after {
+    content: "";
+    display: table;
+    clear: both;
+} */
+
+
+
+/* Responsive columns - one column layout (vertical) on small screens */
+@media screen and (max-width: 900px) {
+    .column {
+        width: 100%;
+        display: block;
+        margin-bottom: 20px;
+    }
+    .left_main_menu {
+        display: none;
+    }
+    .main_title{
+        width:600px;
+    }
+}
+/* @media only screen and (max-width: 300px) {
+    .prev, .next {font-size: 11px}
+  } */
+/* 지원자정보 */
+#main_apply .main_box {
+    flex-direction: column;
+  }
+  
+  #main_apply .main_box .resume {
+    width: 100%;
+  }
+  
+  #main_apply .main_box .content {
+    width: 100%;
+    height: auto;
+    background-color: #3765f0;
+    /* border: 1px solid black; */
+    margin-bottom: 20px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  
+  #main_apply .main_box .apply_dtl_header {
+    border-radius: 10px;
+  }
+  
+  #main_apply .main_box .content .dtl {
+    border-radius: 10px 10px 0px 0px;
+    background-color: #c4c7f2;
+    /* 높이 100% 수정해야함 */
+    height: 100%;
+    width: 100%;
+    min-width: 700px;
+  }
+  #main_apply .main_box .content .dtl .header {
+    height: 50px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #3765f0;
+    /* border-bottom: 2px #444 solid; */
+    border-radius: 10px 10px 0px 0px;
+    text-align: left;
+    padding-left: 20px;
+    line-height: 50px;
+  }
+  #main_apply .main_box .content .dtl .con {
+    /* background-color: black; */
+    height: calc(100% - 50px);
+    padding: 0 20px;
+    padding-top: 10px;
+    display: flex;
+  }
+  
+form {
+    width: 100%;
+  }
+  
+  .con .profile {
+    background-image: url("../../resources/images/detail/profile.png");
+    background-position: center;
+    background-size: contain;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+  }
+  .input_box {
+    width: auto;
+    margin-left: 30px;
+    padding: 0;
+  }
+  .input_box > .name,
+  .input_box > .gender,
+  .input_box > .birth,
+  .input_box > .phone,
+  .input_box > .email,
+  .input_box > .location,
+  .input_box > .edu,
+  .input_box > .job,
+  .input_box > .hope_loc,
+  .input_box > .work_format,
+  .input_box > .sal {
+    height: 30px;
+    display: flex;
+    margin-bottom: 30px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .input_box .text {
+    line-height: 35px;
+    width: 100px;
+    border-right: 1px solid #999;
+  }
+  .input_box .input {
+    line-height: 30px;
+    margin-left: 20px;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .input_box .input input[type="text"],
+  .input_box .input select {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0px 10px;
+    width: 150px;
+    height: 100%;
+    border: 0px;
+  }
+  input[readonly] {
+    font-size: 12px;
+    border: 0px;
+    font-weight: bold;
+    padding: 0px 10px;
+    width: 130px;
+    height: 100%;
+    background-color: #888;
+    color: #eee;
+  }
+  
+  .input_box .input label,
+  .input_box .input input[type="radio"] {
+    margin: 0;
+  }
+  /* 자격증 */
+  .add_box {
+    flex-direction: column;
+  }
+  .add_box input, .add_box textarea{
+      user-select: none;
+  }
+
+  .add_box .data_container span{
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 30px;
+    border:1px solid black;
+    padding:0 10px;
+    margin:0 5px;
+  }
+  .add_box .input_box {
+    position: relative;
+    display: flex;
+    width: 90%;
+    height: auto;
+    margin: 0 auto;
+    background-color: #eee;
+    margin-bottom:10px;
+    padding:10px;
+  }
+  .add_box .input_box .data_container {
+    height: 30px;
+    display: flex;
+    margin: auto;
+  }
+  .data_container input[type="text"] {
+    margin-left: 10px;
+    width: 80px;
+  }
+  .data_container input[readonly] {
+    width: 100px;
+  }
+  /* 경력사항 */
+  .add_box .more {
+    height: auto;
+    display:inline;
+  }
+  .add_box .more .data_container {
+    flex-direction: column;
+    height: auto;
+    width: 100%;
+  }
+  .add_box .more .data_container .detail {
+    font-size: 15px;
+    font-weight: bold;
+    width:100%;
+    height: auto;
+    padding: 10px;
+    padding-bottom: 0px;
+  }
+  .add_box .more .data_container .detail input {
+    text-align: center;
+    width: 100px;
+    height: 20px;
+    border: 0;
+    margin: 0 10px;
+  }
+  .data_container .detail textarea {
+    width: calc(100% - 4px);
+    height: 50px;
+    margin: 10px 0;
+  }
+  /* 자기소개서 */
+  .add_box .text_box {
+    height: auto;
+    position: relative;
+    padding: 10px;
+  }
+  .text_box {
+    flex-direction: column;
+  }
+  .text_box input[type="text"] {
+    font-size: 12px;
+    border: 0px;
+    font-weight: bold;
+    padding: 0px 10px;
+    width: calc(100% - 100px);
+    height: 30px;
+    margin: 10px;
+  }
+  .add_box .text_box .data_container {
+    width: 100%;
+    /* padding: 20px; */
+    height: auto;
+  }
+  .data_container textarea {
+    resize: none;
+    margin: 0 10px;
+    width: 95%;
+    height: 200px;
+    border: 1px solid #777;
+    border-radius: 7px;
+    box-sizing: border-box;
+  }
+  .r {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin-right: 10px;
+  }
+  
+
+/* 외국어 */
+.data_container label {
+    font-size: 15px;
+    line-height: 30px;
+    margin: 0 20px;
+  }
+/* 첨부파일 */
+/* 첨부파일 */
+#att {
+    display: none;
+  }
+  #fileSNm {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    width: calc(100% - 137px);
+    line-height: 30px;
+    border: 1px solid #777;
+  }
+  .add_box .input_box .file_container {
+    width: calc(100% - 70px);
+    padding: 0 20px;
+    justify-content: space-between;
+  }
+  .main_content button {
+    font-size: 15px;
+    /* width: auto;
+    height: auto; */
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    border: 1px solid #333;
+    color: black;
+    margin: auto 0;
+  }
+  .main_content button:hover {
+    box-sizing: border-box;
+    border: 1px solid #1b50ee;
+    background-color: #3765f0;
+    color: white;
+  }
+/* .main_detail_1,
+.main_detail_2 {
+    text-align: left;
+    margin: 20px;
+}
+
+.main_footer_line {
+    width: 800px;
+    margin-right: 450px;
+}
+
+.star_rating .checked {
+    color: orange;
+}
+
+.main_rating {
+    text-align: left;
+    margin: 40px;
+}
+
+.right_main_apply {
+    background-color: #6B71F2;
+    color: black;
+    border-radius: 5px;
+    height: 30px;
+    width: 100px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 40px;
+
+}
+
+.right_main_apply:hover {
+    color: white;
+}
+
+.main_detail_repport {
+    background-color: #6B71F2;
+    color: black;
+    border-radius: 5px;
+    height: 30px;
+    width: 200px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+.main_detail_repport:hover {
+    color: white;
+}
+
+hr {
+    border: 2px solid;
+    color: green;
+} */

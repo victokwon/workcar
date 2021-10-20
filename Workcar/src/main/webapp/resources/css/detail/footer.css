@@ -1,0 +1,21 @@
+  /* 푸터 */
+  /*Css footer start */
+  footer {
+    text-align: center;
+    background-color: white;
+  }
+  
+  .inner_content {
+    display: flex;
+    align-items: center;
+    height: 25px;
+    border: rgb(29, 18, 5) 1px ridge;
+    justify-content: center;
+    
+  }
+  
+  .inner_content div {
+    display: flex;
+    margin: 5px;
+    font-size: 12px;
+  }
