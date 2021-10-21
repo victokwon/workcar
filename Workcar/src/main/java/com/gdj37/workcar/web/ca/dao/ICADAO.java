@@ -1,18 +1,19 @@
-package com.gdj37.workcar.web.login.service;
+package com.gdj37.workcar.web.ca.dao;
 
 import java.util.HashMap;
 
-public interface ISampleService {
+public interface ICADAO {
 
 	public int SampleIdCheck(HashMap<String, String> params) throws Throwable;
 
-	public int joinMem(HashMap<String, String> params)throws Throwable;
-	public int joinIMem(HashMap<String, String> params)throws Throwable;
-	public int joinCMem(HashMap<String, String> params)throws Throwable;
+	public int joinMem(HashMap<String, String> params) throws Throwable;
+	public int joinIMem(HashMap<String, String> params) throws Throwable;
+	public int joinCMem(HashMap<String, String> params) throws Throwable;
 
 	public HashMap<String, String> login(HashMap<String, String> params)throws Throwable;
 
 	public int cInfoCheck(HashMap<String, String> params)throws Throwable;
+
 
 	public int joinCInfo(HashMap<String, String> params)throws Throwable;
 

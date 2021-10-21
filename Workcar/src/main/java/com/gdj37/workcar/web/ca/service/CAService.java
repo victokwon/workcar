@@ -1,63 +1,63 @@
-package com.gdj37.workcar.web.login.service;
+package com.gdj37.workcar.web.ca.service;
 
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.gdj37.workcar.web.login.dao.ISampleDAO;
+import com.gdj37.workcar.web.ca.dao.ICADAO;
 
 @Service
-public class SampleService implements ISampleService {
+public class CAService implements ICAService {
 
-	@Autowired ISampleDAO iSampleDAO;
+	@Autowired ICADAO iCADAO;
 
 	@Override
 	public int SampleIdCheck(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.SampleIdCheck(params);
+		return iCADAO.SampleIdCheck(params);
 	}
 
 	@Override
 	public int joinMem(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.joinMem(params);
+		return iCADAO.joinMem(params);
 	}
 	@Override
 	public int joinIMem(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.joinIMem(params);
+		return iCADAO.joinIMem(params);
 	}
 	@Override
 	public int joinCMem(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.joinCMem(params);
+		return iCADAO.joinCMem(params);
 	}
 
 	@Override
 	public HashMap<String, String> login(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.login(params);
+		return iCADAO.login(params);
 	}
 
 	@Override
 	public int cInfoCheck(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.cInfoCheck(params);
+		return iCADAO.cInfoCheck(params);
 	}
 
 	@Override
 	public int joinCInfo(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.joinCInfo(params);
+		return iCADAO.joinCInfo(params);
 	}
 
 	@Override
 	public int updatePass(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.updatePass(params);
+		return iCADAO.updatePass(params);
 	}
 
 	@Override
 	public String findID(HashMap<String, String> params) throws Throwable {
-		return iSampleDAO.findID(params);
+		return iCADAO.findID(params);
 	}
 
 //	@Override
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params) throws Throwable {
-//		return iSampleDAO.cInfoList(params);
+//		return iCADAO.cInfoList(params);
 //	}
 
 }

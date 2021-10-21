@@ -1,4 +1,4 @@
-package com.gdj37.workcar.web.login.controller;
+package com.gdj37.workcar.web.ca.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,13 +22,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.CommonProperties;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
 import com.gdj37.workcar.util.Utils;
-import com.gdj37.workcar.web.login.service.ISampleService;
+import com.gdj37.workcar.web.ca.service.ICAService;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
@@ -42,7 +41,7 @@ import javax.mail.internet.MimeMessage;
 public class CAController {
 
 	@Autowired
-	ISampleService iSampleService;
+	ICAService iCAService;
 	@Autowired
 	IPagingService iPagingService;
 
@@ -65,7 +64,7 @@ public class CAController {
 			String pw = Utils.encryptAES128(params.get("PW"));
 			params.put("PW", pw);
 
-			HashMap<String, String> data = iSampleService.login(params);
+			HashMap<String, String> data = iCAService.login(params);
 
 			if (data != null) {
 				session.setAttribute("sMNo", data.get("MEM_NO"));
@@ -104,7 +103,7 @@ public class CAController {
 		try {
 			String IDL = Integer.toString(params.get("ID").length());
 			params.put("IDL", IDL);
-			int idCnt = iSampleService.SampleIdCheck(params);
+			int idCnt = iCAService.SampleIdCheck(params);
 			modelMap.put("idCnt", idCnt);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,26 +124,26 @@ public class CAController {
 			switch (params.get("joinType")) {
 			case "mem":
 				params.put("PW", Utils.encryptAES128(params.get("PW")));
-				joinCnt = iSampleService.joinMem(params);
-				data = iSampleService.login(params);
+				joinCnt = iCAService.joinMem(params);
+				data = iCAService.login(params);
 				break;
 				
 			case "iMem":
 				System.out.println(params);
-				joinCnt = iSampleService.joinIMem(params);
+				joinCnt = iCAService.joinIMem(params);
 				break;
 				
 			case "cMem":
-				if(iSampleService.cInfoCheck(params) == 0) {
+				if(iCAService.cInfoCheck(params) == 0) {
 					System.out.println(params);
-					joinCnt = iSampleService.joinCInfo(params);
+					joinCnt = iCAService.joinCInfo(params);
 					if (joinCnt == 0) {
 						result = "failed_c";
 						break;
 					}
 				}
 				System.out.println(params);
-				joinCnt = iSampleService.joinCMem(params);
+				joinCnt = iCAService.joinCMem(params);
 				break;
 				
 			}
@@ -317,7 +316,7 @@ public class CAController {
 			
 			params.put("PW", Utils.encryptAES128(tempWord));
 			
-			int cnt = iSampleService.updatePass(params);
+			int cnt = iCAService.updatePass(params);
 			
 			if (cnt == 0) {
 				result = CommonProperties.RESULT_FAILED;
@@ -327,7 +326,7 @@ public class CAController {
 			break;
 			
 		case "idf":
-			String ID = iSampleService.findID(params);
+			String ID = iCAService.findID(params);
 			
 			if(ID == null || ID =="") {
 				result = CommonProperties.RESULT_FAILED;
