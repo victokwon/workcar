@@ -25,6 +25,7 @@ $(function () {
 		});
 		
 		$("#popConfBtn").on("click", function() {
+			$("#popConfBtn").hide();
 			$(".pop-container").hide();
 		});
 		
@@ -67,8 +68,9 @@ $(function () {
 			dataType : "json",
 			success : function(res) {
 				if (res.result == "SUCCESS") {
-					$(".pop-text-header").children("h1").html("전송완료")
 					$(".pop-container").show();
+					$(".pop-text-header").children("h1").html("전송완료")
+					$("#popConfBtn").show();
 				} else if (res.result == "FAILED") {
 					$(".pop-text-header").children("h1").html("발송실패")
 				}
@@ -295,7 +297,7 @@ $(function () {
 		<div class="pop-out-container">
 			<div class="pop-in-container">
 				<div class="pop-text-header">
-					<h1>발송완료</h1>
+					<h1>잠시만기다려주세요.</h1>
 					<a href='javascript:void(0);' id="popConfBtn">확인</a>
 				</div>
 				<hr>
