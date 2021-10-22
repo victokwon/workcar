@@ -1,0 +1,180 @@
+@charset "UTF-8";
+
+        .inter_content {
+            width: 950px;
+        } 
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            font-size: 15px;
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            height: 100px;
+            margin-top: 10px;
+        }
+        
+        /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+        .accordion:hover {
+            background-color: rgb(169, 219, 52);
+        }
+        
+        /* Style the accordion panel. Note: hidden by default */
+        .panel {
+            padding: 10px;
+            background-color: silver;
+            display: none;
+            overflow: hidden;
+            color: black;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .table1 {
+            text-align: center;
+        }
+        
+        .updateBtn {
+            background-color: rgb(66, 125, 235);
+            float: right;
+            margin-right: 10px;
+            
+        }
+
+        .delBtn {
+            background-color: rgb(66, 125, 235);
+            float: right;
+            
+        }
+
+        .page {
+            text-align: center;
+            margin: 0 auto;
+            width: 50%;
+        }
+
+        .pagination {
+            list-style: none;
+            display: inline-block;
+            padding: 0;
+            margin-top: 20px;
+        }
+
+        .pagination li {
+            display: inline;
+            text-align: center;
+        }
+
+        /* 숫자 */
+        .pagination a {
+            float: left;
+            display: block;
+            font-size: 14px;
+            text-decoration: none;
+            padding: 5px 12px;
+            color: #96a0ad;
+            line-height: 1.5;
+        }
+/*         
+        .first {
+            margin-right: 15px;
+        }
+        .last {
+            margin-left: 15px;
+        }
+        .first:hover, .last:hover, .left:hover, .right:hover {
+            color: #2e9cdf;
+        } */
+
+        .pagination a.active {
+            cursor: default;
+            color: #ffffff;
+        }
+        .pagination a:active {
+            outline: none;
+        }
+        .modal .num {
+            margin-left: 3px;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border-radius: 100%;
+        }
+
+        .modal .num:hover {
+            background-color: #2e9cdf;
+            color: #ffffff;
+        }
+
+        .modal .num.active, .modal .num:active {
+            background-color: #2e9cdf;
+            cursor: pointer;
+        }
+
+        /* .arrow-left {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid blue;
+        } */
+
+        .q_inp {
+            width: 100%;
+            height: 20px;
+            font-size: 16px;
+        }
+
+        .a_inp {
+            width: 100%;
+            height: 200px;
+            font-size: 16px;
+        }
+
+        .addBtn {
+            width: 130px;
+            height: 50px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #2e9cdf;
+            float: right;
+        }
+
+        .writeBtn {
+            width: 130px;
+            height: 50px;
+            font-size: 18px;
+            color: #ffffff;
+            background-color: #2e9cdf;
+            float: right;
+        }
+        .write {
+            display: none;
+        }
+        .list {
+            display: block;
+        }
+
+        .searchBtn {
+            width: 70px;
+            height: 20px;
+            font-size: 12px;
+            color: #ffffff;
+            background-color: #2e9cdf;
+            
+        }
+        .table {
+            background-color: #eee;
+            width: 100%;
+            color: #444444;
+            border: none;
+        }
+        th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
