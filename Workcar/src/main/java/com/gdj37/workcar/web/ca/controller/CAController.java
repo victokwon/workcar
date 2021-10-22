@@ -65,12 +65,28 @@ public class CAController {
 			params.put("PW", pw);
 
 			HashMap<String, String> data = iCAService.login(params);
-
+			int checkJoin = 0;
+			
 			if (data != null) {
-				session.setAttribute("sMNo", data.get("MEM_NO"));
-				session.setAttribute("sMNm", data.get("NAME"));
-				session.setAttribute("sMTy", data.get("MEM_GBN"));
-				mav.setViewName("redirect:mainpage");
+				params.put("memNo", String.valueOf(data.get("MEM_NO")));
+				mav.addObject("memNo", data.get("MEM_NO"));
+				
+				String memGbn = String.valueOf(data.get("MEM_GBN"));
+				
+				if( memGbn.equals("0")) {
+					checkJoin = iCAService.checkImJoin(params);
+					mav.setViewName("ca/imjoin");
+				}else if( memGbn.equals("1") ||  memGbn.equals("2") ) {
+					checkJoin = iCAService.checkCmJoin(params);
+					mav.setViewName("ca/cmjoin");
+				}
+				
+				if(checkJoin != 0) {
+					session.setAttribute("sMNo", data.get("MEM_NO"));
+					session.setAttribute("sMNm", data.get("NAME"));
+					session.setAttribute("sMTy", data.get("MEM_GBN"));
+					mav.setViewName("redirect:mainpage");
+				}
 			} else {
 				mav.addObject("msg", "로그인실패");
 				mav.setViewName("redirect:login");

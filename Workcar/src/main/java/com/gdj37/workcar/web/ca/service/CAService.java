@@ -55,6 +55,15 @@ public class CAService implements ICAService {
 		return iCADAO.findID(params);
 	}
 
+	@Override
+	public int checkImJoin(HashMap<String, String> params) throws Throwable {
+		return iCADAO.checkImJoin(params);
+	}
+	@Override
+	public int checkCmJoin(HashMap<String, String> params) throws Throwable {
+		return iCADAO.checkCmJoin(params);
+	}
+
 //	@Override
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params) throws Throwable {
 //		return iCADAO.cInfoList(params);

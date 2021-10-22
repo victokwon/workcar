@@ -20,6 +20,9 @@ public interface ICAService {
 
 	public String findID(HashMap<String, String> params)throws Throwable;
 
+	public int checkImJoin(HashMap<String, String> params) throws Throwable;
+	public int checkCmJoin(HashMap<String, String> params) throws Throwable;
+
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params)throws Throwable;
 
 

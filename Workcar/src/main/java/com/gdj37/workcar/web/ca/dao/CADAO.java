@@ -56,6 +56,14 @@ public class CADAO implements ICADAO{
 		return sqlSession.selectOne("CA_SQL.findID", params);
 	}
 
+	@Override
+	public int checkImJoin(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("CA_SQL.checkImJoin", params);
+	}
+	@Override
+	public int checkCmJoin(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("CA_SQL.checkCmJoin", params);
+	}
 //	@Override
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params) throws Throwable {
 //		return sqlSession.selectList("CA_SQL.cInfoList", params);

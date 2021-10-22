@@ -86,4 +86,20 @@
 		WHERE ID = #{ID}
 		AND EMAIL = #{EM}
 	</update>
+	
+	<select id="checkImJoin" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER M
+            JOIN I_MEMBER IM
+            ON (M.MEM_NO = IM.MEM_NO)
+        WHERE M.MEM_NO = #{memNo}
+	</select>
+	
+	<select id="checkCmJoin" parameterType="hashmap" resultType="int">
+        SELECT COUNT(*)
+        FROM MEMBER M
+            JOIN C_MEMBER CM
+            ON (M.MEM_NO = CM.MEM_NO)
+        WHERE M.MEM_NO = #{memNo}
+	</select>
 </mapper>
