@@ -1,0 +1,66 @@
+.pop_container {
+  position: relative;
+  width: 700px;
+  height: 300px;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+}
+.pop_container .header {
+  width: 100%;
+  height: 100px;
+  background-color: #3965e8;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 100px;
+}
+.pop_container .input_box {
+  display: flex;
+  height: 40px;
+  width: 80%;
+  margin: auto;
+}
+
+.pop_container .input_box .text {
+  width: 20%;
+  height: 100%;
+  line-height: 40px;
+  text-align: center;
+  font-size: 17px;
+}
+
+.pop_container .input_box .input {
+  width: 70%;
+  height: 100%;
+}
+.pop_container .input_box .input select {
+  width: 100%;
+  height: 100%;
+}
+
+.pop_container button {
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: 1px solid #333;
+  color: black;
+  margin: auto 0;
+}
+
+.pop_container button:hover {
+  box-sizing: border-box;
+  border: 1px solid #1b50ee;
+  background-color: #3765f0;
+  color: white;
+}
+.pop_container .btn_box {
+  width: 80%;
+  margin: 10px auto;
+}
+.pop_container .btn_box button {
+  float: right;
+  margin: 5px;
+}

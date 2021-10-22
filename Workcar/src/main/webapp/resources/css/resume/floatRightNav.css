@@ -1,0 +1,45 @@
+/* 오른쪽 플로팅 메뉴 */
+.float_right_nav a {
+  text-decoration: none;
+  color: black;
+}
+
+.float_right_nav div:hover a {
+  color: white;
+}
+
+main {
+  position: relative;
+}
+#floatRightNavWrap {
+  display: block;
+}
+.float_right_nav_wrap {
+  z-index: 0;
+  position: fixed;
+  top: 252px;
+  left: calc(50% + 520px);
+  width: 100%;
+  height: 100%;
+}
+.float_right_nav {
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  position: absolute;
+  width: 150px;
+  background-color: white;
+  border: 1px solid #222;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.float_right_nav div {
+  padding: 10px;
+  text-align: center;
+}
+.float_right_nav div:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}

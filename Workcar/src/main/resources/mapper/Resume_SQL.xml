@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Resume_SQL">
+	<select id="resumeList" parameterType="hashmap" resultType="hashmap">
+		SELECT MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, 
+			TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
+		FROM RESUM 
+		WHERE DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+		ORDER BY RESUM_NO
+	</select>
+	
+	<select id="getResumeCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM RESUM 
+		WHERE DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+	</select>
+	
+	<update id="applyResume" parameterType="hashmap">
+		UPDATE RESUM SET
+			<choose> 
+				<when test="actGbn eq 0">
+					OPN_CHK = #{openYN}
+				</when>
+				<when test="actGbn eq 1">
+					DEL_CHK = 1
+				</when>
+			</choose>
+		WHERE RESUM_NO = #{resumeNo}
+		AND MEM_NO = #{memNo}
+	</update>
+	
+	<!-- 이력서 상세보기 개인정보-->
+	<select id="getResumeDtl" parameterType="hashmap" resultType="hashmap">
+		SELECT R.MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, CITY_NO, R.REGION_NO, GRADU,GENDER, BIRTH,SECTOR_NO,
+			NAME, PHONE, EMAIL, PAY_GBN, PAY_MIN, PAY_MAX,
+		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
+		FROM RESUM R
+			JOIN MEMBER M
+			ON (R.MEM_NO = M.MEM_NO)
+			JOIN I_MEMBER IM
+			ON (R.MEM_NO = IM.MEM_NO)
+			JOIN REGION RE
+			ON (R.REGION_NO = RE.REGION_NO)
+		WHERE DEL_CHK = 0
+			AND R.MEM_NO = #{memNo}
+	</select>
+	
+	<select id="getResumeDtl2" parameterType="hashmap" resultType="hashmap">
+		SELECT R.MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, CITY_NO, R.REGION_NO, GRADU,GENDER, BIRTH,SECTOR_NO,
+			NAME, PHONE, EMAIL, PAY_GBN, PAY_MIN, PAY_MAX,
+		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
+		FROM RESUM R
+			JOIN MEMBER M
+			ON (R.MEM_NO = M.MEM_NO)
+			JOIN I_MEMBER IM
+			ON (R.MEM_NO = IM.MEM_NO)
+			JOIN REGION RE
+			ON (R.REGION_NO = RE.REGION_NO)
+		WHERE DEL_CHK = 0
+			AND R.MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
+	<!-- 근무형태 -->
+	<select id="resumeDtlWork" parameterType="hashmap" resultType="hashmap">
+		SELECT WORK_TYPE
+		FROM RESUM R JOIN RESUM_WORK RW
+			ON (R.RESUM_NO = RW.RESUM_NO) 
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
+	<!-- 이력서 상세보기 자격증-->
+	<select id="resumeDtlQual" parameterType="hashmap" resultType="hashmap">
+		SELECT QUAL_NO, TO_CHAR(PASS_DATE,'YYYY-MM-DD') AS PASS_DATE, ISSU_AGCY
+		FROM RESUM R JOIN RESUM_QUAL RQ 
+			ON (R.RESUM_NO = RQ.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
+	<!-- 이력서 상세보기 외국어-->
+	<select id="resumeDtlFlang" parameterType="hashmap" resultType="hashmap">
+		SELECT FLANG_NO, FLANG_TYPE, FLANG_GRADE
+		FROM RESUM R JOIN RESUM_FLANG RF 
+			ON (R.RESUM_NO = RF.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
+	<!-- 이력서 상세보기 경력-->
+	<select id="resumeDtlCarr" parameterType="hashmap" resultType="hashmap">
+		SELECT C_NAME, DPART, POS, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE, TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, TURE_CHK, CARR_CNTT
+		FROM RESUM R JOIN RESUM_CARR RC
+			ON (R.RESUM_NO = RC.RESUM_NO) 
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
+	<!-- 이력서 상세보기 학력-->
+	<select id="resumeDtlEdu" parameterType="hashmap" resultType="hashmap">
+		SELECT SCH_NAME, SOL, MAJOR, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE, TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, EDU_ETC
+		FROM RESUM R JOIN RESUM_EDU RE 
+			ON (R.RESUM_NO = RE.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
+	<!-- 이력서 상세보기 직무교육-->
+	<select id="resumeDtlIedu" parameterType="hashmap" resultType="hashmap">
+		SELECT IEDU_NAME, COSE_NAME, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE, TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, EDU_CNTT
+		FROM RESUM R JOIN RESUM_IEDU RI 
+			ON (R.RESUM_NO = RI.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
+	<!-- 이력서 상세보기 자기소개-->
+	<select id="resumeDtlSintro" parameterType="hashmap" resultType="hashmap">
+		SELECT SINTRO_NAME, SINTRO_CNTT
+		FROM RESUM R JOIN RESUM_SINTRO RS 
+			ON (R.RESUM_NO = RS.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
+	<!-- 이력서 상세보기 첨부파일-->
+	<select id="resumeDtlAttach" parameterType="hashmap" resultType="hashmap">
+		SELECT ATTCH_NAME
+		FROM RESUM R JOIN RESUM_ATTCH RA 
+			ON (R.RESUM_NO = RA.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+</mapper>

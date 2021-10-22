@@ -1,0 +1,237 @@
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+main {
+  position: relative;
+  z-index: 1;
+}
+.main_info {
+  background: #88a2f2;
+  width: 1000px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.main_button {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.main_button:hover {
+  background-color: #88a2f2;
+}
+
+.main_content {
+  /* color: white; */
+  padding: 20px 20px;
+  height: 100%;
+  margin: 0 auto;
+  width: 1000px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+#main_regi .vertical_menu {
+  width: 200px;
+}
+
+#main_apply .vertical_menu {
+  width: 100%;
+}
+#main_regi .main_box {
+  display: flex;
+  flex-direction: column;
+  margin: 0 20px;
+  width: 80%;
+  height: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 8px;
+  background-color: #c4c7f2;
+  box-shadow: 0.5px 0.5px #444;
+  align-items: flex-start;
+}
+
+#main_apply .main_box {
+  display: none;
+
+  margin: 0 20px;
+  width: 80%;
+  height: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 8px;
+  /* box-shadow: 0.5px 0.5px #444; */
+  align-items: flex-start;
+}
+
+/* 소메뉴 수정 */
+
+.vertical_menu a {
+  background-color: whitesmoke;
+  color: black;
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin: auto 0;
+}
+
+.vertical_menu a:hover {
+  border: 2px solid #1b50ee;
+  background-color: #3765f0;
+  color: white;
+}
+
+.apply_content {
+	border: 1px solid #6b71ba;
+  background-color: whitesmoke;
+  color: black;
+  width: 100%;
+  height: 70px;
+  line-height: 70px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+.apply_content:hover{
+background-color: #ccc;		
+}
+
+.opencase {
+  font-size: 15px;
+  height: auto;
+  padding: 5px 10px;
+  margin: auto 0;
+}
+.apply_name {
+  width: 50%;
+  float: left;
+}
+
+.apply_list {
+  display: none;
+}
+
+.main_content button {
+  font-size: 15px;
+  /* width: auto;
+  height: auto; */
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: 1px solid #333;
+  color: black;
+  margin: auto 0;
+}
+.vertical_menu table {
+  width: 100%;
+}
+
+tr > td {
+  display: inline-block;
+  margin: 0 auto;
+}
+
+.apply_content .apply_btn {
+  line-height: 50px;
+  height: 50px;
+}
+.apply_btn {
+  /* margin: 0 10px; */
+  padding: 10px;
+  float: right;
+}
+.main_content button:hover {
+  box-sizing: border-box;
+  border: 1px solid #1b50ee;
+  background-color: #3765f0;
+  color: white;
+}
+
+.apply_add {
+  width: 20%;
+  margin: 20px auto 0 auto;
+}
+
+.main_button_box {
+  margin: 0 auto;
+  width: 1000px;
+} 
+
+.user_wrap {
+  height: auto;
+  margin: 0 auto;
+  padding: 20px 0 20px 20px;
+  width: 1000px;
+  justify-items: center;
+  /* justify-items: center; */
+}
+
+.user_box {
+  /* position: relative; */
+  padding: 10px 10px 10px 10px;
+  background-color: #eee;
+  border-radius: 10px;
+  height: 100px;
+  width: 400px;
+  margin: 0 0;
+}
+
+.user_profile {
+  /* position: absolute; */
+  box-sizing: border-box;
+  border-radius: 50%;
+  float: left;
+  /* top: 10px;
+left: 10px; */
+  display: block;
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+}
+
+.user {
+  float: right;
+  width: calc(100% - 90px);
+  height: 100%;
+}
+
+.user_name {
+  height: 50%;
+  background-color: #fff;
+}
+
+.user_status {
+  height: 50%;
+  background-color: #fff;
+}
+main > .main_wrap {
+  font-size: 16px;
+  font-weight: bolder;
+  /* padding-top: 50px; */
+  width: 100%;
+  height: calc(100% - 180px);
+  background-color: #fff;
+}
+

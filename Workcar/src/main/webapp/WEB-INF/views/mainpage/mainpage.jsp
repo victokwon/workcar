@@ -23,7 +23,7 @@
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
-	src="resources\script\mainpage\mainpage.js"></script>
+	src="resources\script\common\sidebar.js"></script>
 
 <script type="text/javascript">
  	$(function () {
@@ -211,7 +211,7 @@
 									<span>계정관리</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card" onclick="linkGo('resumeList')">
 								<div class="wrap">
 									<div class="img_resume"></div>
 								</div>
