@@ -11,7 +11,7 @@ import com.gdj37.workcar.web.search.dao.IEmploySearchDAO;
 @Service
 public class EmploySearchService implements IEmploySearchService{
 	@Autowired
-	IEmploySearchDAO iEmploySearchDAO;
+	public IEmploySearchDAO iEmploySearchDAO;
 
 	@Override
 	public int getEmpSch1Cnt(HashMap<String, String> params) throws Throwable {

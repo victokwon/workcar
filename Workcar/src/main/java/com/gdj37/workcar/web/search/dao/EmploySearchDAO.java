@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class EmploySearchDAO implements IEmploySearchDAO{
 	@Autowired
-	SqlSession sqlSession;
+	public SqlSession sqlSession;
 
 	@Override
 	public int getEmpSch1Cnt(HashMap<String, String> params) throws Throwable {
@@ -19,6 +19,6 @@ public class EmploySearchDAO implements IEmploySearchDAO{
 
 	@Override
 	public List<HashMap<String, String>> getEmpSch1List(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectOne("EmploySearch.getEmpSch1List", params);
+		return sqlSession.selectList("EmploySearch.getEmpSch1List", params);
 	}
 }
