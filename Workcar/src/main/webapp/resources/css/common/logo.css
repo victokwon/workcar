@@ -1,0 +1,17 @@
+	 .logo {
+	  background-image: url(../../images/common/worklogo.png);
+	  background-position: center;
+	  background-repeat: no-repeat;
+	  background-size: cover;
+	  
+	  width: 120px;
+	  height: 40px;
+		  
+	  position: absolute;
+	  top: 20px;
+	  left: calc(50% - 60px);
+	  z-index: 9999;
+	}
+	.logo:hover{
+		cursor: pointer;
+	}

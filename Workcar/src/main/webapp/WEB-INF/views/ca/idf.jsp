@@ -8,10 +8,12 @@
  <link rel="stylesheet" type="text/css" href="resources\css\ca\findIDPW.css" >
  <link rel="stylesheet" type="text/css" href="resources\css\ca\popup.css">
  
+ <link rel="stylesheet" type="text/css" href="resources\css\common\logo.css">
+ 
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
-	$(function() {
+		$(function() {
 		$(".pop-container").on('keydown', function(event) {
 			if (event.keyCode === 13) {
 				event.preventDefault();
@@ -62,7 +64,7 @@
 	}
 	/* 이름 유효성 */
 	function nmCheck() {
-	  var getCheck = RegExp(/^[a-zA-Z0-9가-힣]{3,12}$/);
+	  var getCheck = RegExp(/^[a-zA-Z0-9가-힣]{2,12}$/);
 	  if ($("#NM").val() == "") {
 	    alert("이름을 입력해주세요");
 	    $("#NM").focus();
@@ -92,9 +94,13 @@
 	  }
 	  return true;
 	}
+	function linkGo(url) {
+		location.href = url
+	}
 	</script>
 </head>
 <body>
+<div class="logo" onclick="linkGo('mainpage')"></div>
 	<div class="pop-container">
         <div class="pop-out-container">
             <div class="pop-in-container">
@@ -114,7 +120,7 @@
                     <h1>아이디 찾기</h1>
                     <h2>이메일로 아이디를 전송합니다.</h2>
                 </div>
-                <form class="user" action="#" method="post" id="pwfForm">
+                <form class="user" action="#" method="post" id="findForm">
                     <div class="input">
                    		<input type="text" id="NM" name="NM" placeholder="Name">
                         <input type="text" id="EM" name="EM" placeholder="E-mail">

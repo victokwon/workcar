@@ -29,5 +29,7 @@ public interface IResumeService {
 
 	public HashMap<String, String> getResumeDtl(HashMap<String, String> params)throws Throwable;
 
+	public List<HashMap<String, String>> resumeDtlLoc(HashMap<String, String> params)throws Throwable;
+
 
 }

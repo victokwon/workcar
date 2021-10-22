@@ -71,5 +71,10 @@ public class ResumeDAO implements IResumeDAO{
 	public HashMap<String, String> getResumeDtl(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectOne("Resume_SQL.getResumeDtl",params);
 	}
+
+	@Override
+	public List<HashMap<String, String>> resumeDtlLoc(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Resume_SQL.resumeDtlLoc",params);
+	}
 	
 }

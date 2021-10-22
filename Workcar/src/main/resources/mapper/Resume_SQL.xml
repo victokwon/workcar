@@ -59,6 +59,20 @@
 			AND R.RESUM_NO = #{resumeNo}
 	</select>
 	
+	<select id="resumeDtlLoc" parameterType="hashmap" resultType="hashmap">
+		SELECT C.CITY_NAME, RE.REGION_NAME
+		FROM RESUM R 
+            JOIN RESUM_LOC RL
+			ON (R.RESUM_NO = RL.RESUM_NO) 
+            JOIN REGION RE
+            ON (RE.REGION_NO = RL.REGION_NO)
+            JOIN CITY C
+            ON (C.CITY_NO = RE.CITY_NO)
+		WHERE R.DEL_CHK = 0
+			AND MEM_NO = #{memNo}
+			AND R.RESUM_NO = #{resumeNo}
+	</select>
+	
 	<!-- 이력서 상세보기 자격증-->
 	<select id="resumeDtlQual" parameterType="hashmap" resultType="hashmap">
 		SELECT QUAL_NO, TO_CHAR(PASS_DATE,'YYYY-MM-DD') AS PASS_DATE, ISSU_AGCY

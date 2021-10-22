@@ -24,8 +24,8 @@ public class ResumeController {
 	@RequestMapping(value = "/resumeList")
 	public ModelAndView mypageResume(ModelAndView mav, @RequestParam HashMap<String, String> params,
 			HttpSession session) throws Throwable {
-		System.out.println(session.getAttribute("sMTy"));
-		if (session.getAttribute("sMTy").equals("0")) {
+		System.out.println(params);
+		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
 				String memNo = String.valueOf(session.getAttribute("sMNo"));
 				params.put("memNo", memNo);
@@ -37,22 +37,11 @@ public class ResumeController {
 				mav.addObject("list", list);
 				mav.setViewName("/resume/resumeList");
 			} catch (Exception e) {
-				System.out.println("시밣1");
 				mav.setViewName("redirect:login");
 				e.printStackTrace();
 			}
 		} else {
-			System.out.println("시밣2");
-			String memNo = String.valueOf(session.getAttribute("sMNo"));
-			params.put("memNo", memNo);
-
-			int cnt = iResumeService.getResumeCnt(params);
-			List<HashMap<String, String>> list = iResumeService.resumeList(params);
-
-			mav.addObject("cnt", cnt);
-			mav.addObject("list", list);
-			mav.setViewName("/resume/resumeList");
-//			mav.setViewName("redirect:login");
+			mav.setViewName("redirect:login");
 		}
 		return mav;
 	}
@@ -78,9 +67,8 @@ public class ResumeController {
 	@RequestMapping(value = "/resumeDtl")
 	public ModelAndView resumeDtl(ModelAndView mav, @RequestParam HashMap<String, String> params,HttpSession session) throws Throwable {
 		System.out.println(params);
-		if (session.getAttribute("sMTy") != null) {
+		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
-				System.out.println(params);
 //					이력서 리스트
 				List<HashMap<String, String>> list = iResumeService.resumeList(params);
 //					이력서 숫자 카운트
@@ -94,13 +82,15 @@ public class ResumeController {
 				List<HashMap<String, String>> iedu = iResumeService.resumeDtlIedu(params);
 				List<HashMap<String, String>> sintro = iResumeService.resumeDtlSintro(params);
 				List<HashMap<String, String>> attach = iResumeService.resumeDtlAttach(params);
+				List<HashMap<String, String>> loc = iResumeService.resumeDtlLoc(params);
 
 				mav.addObject("CNT", cnt);
 				mav.addObject("LIST", list);
 				mav.addObject("DATA", data);
 				
 				mav.addObject("WORK", work);
-
+				mav.addObject("LOC", loc);
+				
 				mav.addObject("QUAL", qual);
 				mav.addObject("FLANG", flang);
 				mav.addObject("CARR", CARR);
@@ -108,48 +98,19 @@ public class ResumeController {
 				mav.addObject("IEDU", iedu);
 				mav.addObject("SINTRO", sintro);
 				mav.addObject("ATTACH", attach);
-
-				mav.setViewName("/resume/resumeDtl");
+				
+				if(params.get("dtlGbn") == "U") {
+					mav.setViewName("/resume/resumeDtlUpdate");
+				}else {
+					mav.setViewName("/resume/resumeDtl");
+				}
 			} catch (Exception e) {
-				mav.setViewName("redirect:login");
+				mav.setViewName("redirect:mainpage");
 				e.printStackTrace();
 			}
 		} else {
 			System.out.println(params);
-//			이력서 리스트
-		List<HashMap<String, String>> list = iResumeService.resumeList(params);
-//			이력서 숫자 카운트
-		int cnt = iResumeService.getResumeCnt(params);
-		
-		HashMap<String, String> data = iResumeService.getResumeDtl(params);
-		List<HashMap<String, String>> work = iResumeService.resumeDtlWork(params);
-		List<HashMap<String, String>> qual = iResumeService.resumeDtlQual(params);
-		List<HashMap<String, String>> flang = iResumeService.resumeDtlFlang(params);
-		List<HashMap<String, String>> carr = iResumeService.resumeDtlCarr(params);
-		List<HashMap<String, String>> edu = iResumeService.resumeDtlEdu(params);
-		List<HashMap<String, String>> iedu = iResumeService.resumeDtlIedu(params);
-		List<HashMap<String, String>> sintro = iResumeService.resumeDtlSintro(params);
-		List<HashMap<String, String>> attach = iResumeService.resumeDtlAttach(params);
-		
-//		연락처 처리
-		String phone = data.get("PHONE");
-		System.out.println(phone);
-		
-		mav.addObject("CNT", cnt);
-		mav.addObject("DATA", data);
-		mav.addObject("LIST", list);
-		mav.addObject("WORK", work);
-
-		mav.addObject("QUAL", qual);
-		mav.addObject("FLANG", flang);
-		mav.addObject("CARR", carr);
-		mav.addObject("EDU", edu);
-		mav.addObject("IEDU", iedu);
-		mav.addObject("SINTRO", sintro);
-		mav.addObject("ATTACH", attach);
-
-		mav.setViewName("/resume/resumeDtl");
-//			mav.setViewName("redirect:login");
+			mav.setViewName("redirect:mainpage");
 		}
 		return mav;
 	}

@@ -275,7 +275,7 @@ public class CAController {
 			HttpServletRequest request, HttpSession s) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
-
+		System.out.println(params);
 //		메일 보내기 설정
 		String host = "smtp.naver.com";
 		final String username = "victokwon93";

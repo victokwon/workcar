@@ -35,13 +35,6 @@
 		$("#resumeList").on("click","div",function(){
 			let resumeNo = $(this).attr("resumeNo")
 			$("#resumeNo").val(resumeNo)
-			$("#dtlGbn").val("D")
-			$("#resumeGo").attr("action", "resumeDtl")
-			$("#resumeGo").submit()
-		})
-		
-		$("#updateBtn").on("click",function(){
-			$("#dtlGbn").val("U")
 			$("#resumeGo").attr("action", "resumeDtl")
 			$("#resumeGo").submit()
 		})
@@ -59,7 +52,6 @@
 	<form action="#" id="resumeGo" method="post">
 		<input type="hidden" id="memNo" name="memNo" value="${sMNo}">
 		<input type="hidden" id="resumeNo" name="resumeNo" value="${DATA.RESUM_NO }">
-		<input type="hidden" id="dtlGbn" name="dtlGbn" >
 	</form>
 
 	<div id="mySidenav" class="sidenav">
@@ -220,8 +212,8 @@
 							<span class="apply_dtl_date">&nbsp;[${DATA.OPN_CHK}]</span>
 						</div>
 						<div class="apply_btn">
-							<button type="button" id="updateBtn">수정</button>
-							<button type="button" id="listBtn" onclick="linkGo('resumeList')">목록</button>
+							<button type="button" id="saveBtn">저장</button>
+							<button type="button" id="cancelBtn" >취소</button>
 						</div>
 					</div>
 					<!-- form 설정 -->
@@ -233,31 +225,50 @@
 								<div class="input_box">
 									<div class="name">
 										<div class="text">성명</div>
-										<div class="input">${DATA.NAME }</div>
+										<div class="input">
+   											<input type="text" value="${DATA.NAME}" >
+										</div>
 									</div>
 									<div class="gender">
 										<div class="text">성별</div>
 										<div class="input">${DATA.GENDER}</div>
+										<div class="input">
+   											<input type="text" value="${DATA.NAME}" >
+										</div>										
 									</div>
 									<div class="birth">
 										<div class="text">출생년도</div>
 										<div class="input">${DATA.BIRTH}</div>
+										<div class="input">
+   											<input type="text" value="${DATA.NAME}" >
+										</div>										
 									</div>
 									<div class="phone">
 										<div class="text">연락처</div>
 										<div class="input">${DATA.PHONE}</div>
+										<div class="input">
+   											<input type="text" value="${DATA.NAME}" >
+										</div>										
 									</div>
 									<div class="email">
 										<div class="text">이메일</div>
 										<div class="input">${DATA.EMAIL}</div>
+										<div class="input">
+   											<input type="text" value="${DATA.NAME}" >
+										</div>										
 									</div>
 									<div class="location">
 										<div class="text">거주지역</div>
-										<div class="input">${DATA.CITY_NO}&nbsp;/&nbsp;${DATA.REGION_NO}</div>
+										<div class="input">
+   											${DATA.CITY_NO}&nbsp;/&nbsp;${DATA.REGION_NO}
+										</div>										
 									</div>
 									<div class="edu">
 										<div class="text">최종학력</div>
 										<div class="input">${DATA.GRADU}</div>
+										<div class="input">
+   											<input type="text" value="${DATA.GRADU}" >
+										</div>											
 									</div>
 								</div>
 							</div>

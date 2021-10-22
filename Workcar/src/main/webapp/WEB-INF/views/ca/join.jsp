@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources\css\ca\join.css">
 <link rel="stylesheet" type="text/css" href="resources\css\ca\popup.css">
-
+<link rel="stylesheet" type="text/css" href="resources\css\common\logo.css">
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
@@ -290,9 +290,14 @@ $(function () {
 			return false;	
 		}
 	}
+	
+	function linkGo(url) {
+		location.href = url
+	}
  </script>
 </head>
 <body>
+<div class="logo" onclick="linkGo('mainpage')"></div>
 <div class="pop-container">
 		<div class="pop-out-container">
 			<div class="pop-in-container">

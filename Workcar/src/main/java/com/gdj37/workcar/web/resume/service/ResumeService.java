@@ -72,5 +72,10 @@ public class ResumeService implements IResumeService {
 	public HashMap<String, String> getResumeDtl(HashMap<String, String> params) throws Throwable {
 		return iResumeDAO.getResumeDtl(params);
 	}
+
+	@Override
+	public List<HashMap<String, String>> resumeDtlLoc(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.resumeDtlLoc(params);
+	}
 	
 }

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
  <link rel="stylesheet" type="text/css" href="resources/css/ca/imjoin.css" >
- 
+ <link rel="stylesheet" type="text/css" href="resources\css\common\logo.css">
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
@@ -115,10 +115,13 @@ function formSubmit(){
 		return false
 	}
 }
-
+	function linkGo(url) {
+		location.href = url
+	}
  </script>
 </head>
 <body>
+<div class="logo" onclick="linkGo('mainpage')"></div>
  	<div class="container">
         <div class="out-container">
             <div class="in-container">
