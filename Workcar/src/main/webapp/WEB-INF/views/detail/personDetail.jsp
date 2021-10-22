@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,10 +14,88 @@
     <link rel="stylesheet" href="resources/css/detail/paging.css">
     <link rel="stylesheet" href="resources/css/detail/Human_Resources_Detail.css">
     <link rel="stylesheet" href="resources/css/detail/floatRightNav.css">
-    
+    <script type="text/javascript"
+		src="resources/script/jquery/jquery-1.12.4.min.js"></script>
    
 </head>
+<script>
+$(function () {
+	 reloadList(); 
+	 
+	 $(".page1").on("click", "span", function(){
+	      $("#page").val($(this).attr("page"));
+	      
+	      reloadList();
+	   });
+})
+function reloadList() {
+	var params = $("#actionForm").serialize();    /* serialize:데이터를 문자열로 변환시켜주는 함수 */
+													/* form의 데이터를 문자열로 변환 */
+	/* j쿼리에 있는 ajax를 호출한 것 */
+	$.ajax({
+		url: "personListAjax", /* 접속주소 */
+		type: "post",   /* 전송방식 */
+		dataType: "json", /* 받아 올 데이터 형태(타입) */
+		data: params,  /* 보낼 데이터(문자열 형태) */
+		success: function(res){ /* ajax 통신이 성공 시 다음 함수 실행 */
+			console.log(res.list)
+			console.log(res.pb)
+			drawList(res.list);
+			drawPaging(res.pb);
+		}, 
+	error: function(request,status,error){ /* ajax 통신이 실패 시 다음 함수 실행 */
+		console.log(error);
+	}
+	})
+}
+
+function drawList(abcd) {
+	var html="";
+	 
+	for(var data of abcd) {        
+		html += " <a href=\"#\" class=\"card\">                ";
+		html += "     <p>이력서번호 : ${data.RESUM_NO}</p>            ";
+        html += "     <p>인재명 : ${data.NAME}</p>            ";
+        html += "     <p>희망직종 : ${data.SECTOR_NO} </p>      ";
+        html += "     <p>희망근무지역 : ${data.REGION_NO} </p>  ";
+        html += "     <p>등록일 : ${data.DT} </p>              ";
+     	html += " </a>        ";
+	}                                
+	
+	$(".mySlides").html(html);
+}
+
+
+function drawPaging(pb) {
+	   var html = "";
+	   
+	   if($("#page").val() == "1") {
+	      html += "<span page=\"1\" class=\"prev\" \">&#10094;</span>      ";
+	   } else {
+	      html += "<span class=\"prev\" page=\"" + ($("#page").val() * 1 - 1) + "\">&#10094;</span>      ";
+	   }                                  
+	                                    
+	   for(var j = pb.startPcount ; j <= pb.endPcount ; j++) {
+	      if($("#page").val() == j) {
+	         html += "<span class=\"dot\"  page=\"" + j + "\" style=\"background-color:#717171\"> </span>  ";
+	      } else {
+	         html += "<span class=\"dot\"  page=\"" + j + "\"> </span>  ";
+	      }
+	   }                                    
+	   
+	   if($("#page").val() == pb.maxPcount) {
+	      html += "<span class=\"next\"  page=\"" + pb.maxPcount + "\">&#10095;</span>      ";
+	   } else {
+	      html += "<span class=\"next\"  page=\"" + ($("#page").val() * 1 + 1) + "\">&#10095;</span>      ";
+	   }
+	   
+	   $(".page1").html(html);
+	}
+</script>
 <body>
+<form action="#" id="actionForm" method="post">
+	<input type="hidden" id="page" name="page" value="${page}">
+</form>
 <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div id="sdienav_ul">
@@ -82,49 +161,21 @@
 
         <div class="left_main_menu">
             <div class="vertical-menu">
-                <span class="total_cnt">총 0건</span>
+                <span class="total_cnt">총 ${cnt}건</span>
                 <div class="mySlides">
-                    <a href="#" class="card">
-                        <p>인재명 :</p>
-                        <p>희망직종 :</p>
-                        <p>희망근무지역 :</p>
-                        <p>등록일 :</p>
-                    </a>
-                    <a href="#" class="card">
-                        <p>인재명 :</p>
-                        <p>희망직종 :</p>
-                        <p>희망근무지역 :</p>
-                        <p>등록일 :</p>
-                    </a>
-                    <a href="#" class="card">
-                        <p>인재명 :</p>
-                        <p>희망직종 :</p>
-                        <p>희망근무지역 :</p>
-                        <p>등록일 :</p>
-                    </a>
-                    <a href="#" class="card">
-                        <p>인재명 :</p>
-                        <p>희망직종 :</p>
-                        <p>희망근무지역 :</p>
-                        <p>등록일 :</p>
-                    </a>
-                    <a href="#" class="card">
-                        <p>인재명 :</p>
-                        <p>희망직종 :</p>
-                        <p>희망근무지역 :</p>
-                        <p>등록일 :</p>
-                    </a>
+               		<%-- <c:forEach var="data9" items="${data9}">
+	                    <a href="#" class="card">
+	                        <p>인재명 : ${data9.NAME}</p>
+	                        <p>희망직종 :${data9.SECTOR_NO}</p>
+	                        <p>희망근무지역 :${data9.REGION_NO}</p>
+	                        <p>등록일 : ${data9.DT}</p>
+	                    </a>
+                    </c:forEach> --%>
                 </div>
-                <div class="mySlides"></div>
-                <div class="mySlides"></div>
-            </div>
             <!-- 페이징 -->
-            <div class="page">
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <span class="dot" onclick="currentSlide(1)"></span>
-                <span class="dot" onclick="currentSlide(2)"></span>
-                <span class="dot" onclick="currentSlide(3)"></span>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <div class="page1">
+            </div>
+            </div>
             </div>
         </div>
         <!-- left menu -->
@@ -145,20 +196,20 @@
                                     <div class="gender">
                                         <div class="text">성별</div>
                                         <div class="input">
-                                            <label for="male">${data2.GENDER}</label>
+                                            <label for="male">${data.GENDER}</label>
                                         </div>
                                     </div>
                                     
                                     <div class="location">
                                         <div class="text">거주지역</div>
                                         <div class="input">
-                                            독도
+                                            ${data.ADDR} ${data.ADDR_DTL}
                                         </div>
                                     </div>
                                     <div class="edu">
                                         <div class="text">최종학력</div>
                                         <div class="input">
-                                            한국대학교
+                                            ${data.GRADU}
                                         </div>
                                     </div>
                                 </div>
@@ -175,25 +226,24 @@
                                     <div class="job">
                                         <div class="text">희망직종</div>
                                         <div class="input">
-                                            웹개발자
+                                           ${data2.SNO}
                                         </div>
                                     </div>
                                     <div class="hope_loc">
-                                        <div class="text">근무지역</div>
+                                        <div class="text">희망근무지역</div>
                                         <div class="input">
-                                            서울 강서 강남
+                                            ${data2.RNO}
                                         </div>
                                     </div>
                                     <div class="work_format">
                                         <div class="text">근무형태</div>
                                         <div class="input">
-                                            <label for="workFormat0">정규직</label>
+                                             ${data2.WTYPE}
                                         </div>
                                     </div>
                                     <div class="sal">
                                         <div class="text">희망연봉</div>
-                                        <div class="input">최저 <input type="text" name="" value="3000">만원 - 최고
-                                            <input type="text" name="" value="3500">만원
+                                        <div class="input">${data2.RPAYMIN}만원 - ${data2.RPAYMAX}만원
                                         </div>
                                     </div>
                                 </div>
@@ -208,12 +258,14 @@
                             <div class="con add_box">
                                 <!-- js를 통해 추가되는 내용 -->
                                 <div class="input_box">
-                                    <div class="data_container">
-                                        <!-- 자격증 검색 api 팝업창 -->
-                                        <span>운전면허증 </span>
-                                        <span>경찰청 </span>
-                                        <span>2020.01.02 </span>
-                                    </div>
+                               		 <c:forEach var="data3" items="${data3}">
+	                                    <div class="data_container">
+	                                        <!-- 자격증 검색 api 팝업창 -->
+	                                        <span>${data3.RT}</span>
+	                                        <span>${data3.PD}</span>
+	                                        <span>${data3.IA}</span>
+	                                    </div>
+                                      </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -226,13 +278,15 @@
                             <div class="con add_box">
                                 <!-- js를 통해 추가되는 내용 -->
                                 <div class="input_box ">
+                                <c:forEach var="data8" items="${data8}">
                                     <div class="data_container">
-                                        <span>영어</span>
-                                        <label for="RLv">읽기/쓰기 :</label>
-                                        <span>상</span>
-                                        <label for="SLv">회화 :</label>
-                                        <span>상</span>
+                                        <span>${data8.FNAME}</span>
+                                        <span>읽기/쓰기 :</span>
+                                        <span>${data8.FG}</span>
+                                        <span>회화 :</span>
+                                        <span>${data8.FG}</span>
                                     </div>
+                                    </c:forEach>
                                 </div>
                             </div>
                         </div>
@@ -249,23 +303,22 @@
                                 <div class="data_container data_conainer_box">
                                     <div class="detail">
                                         기업
-                                        <span>구글코리아</span>
+                                        <span>${data4.RCNAME}</span>
                                     </div>
                                     <div class="detail">
                                         부서
-                                        <span>개발1팀</span>
+                                        <span>${data4.RCDP}</span>
                                         직책
-                                        <span>주임</span>
+                                        <span>${data4.RCP}</span>
                                     </div>
                                     <div class="detail">
                                         재직기간
-                                        <input type="text" placeholder="시작 년/월" value="2021년/01월">~
-                                        <input type="text" placeholder="종료 년/월" value="2021년/10월">
+                                        ${data4.RCST} ~ ${data4.RCED}
                                     </div>
                                     <div class="detail">
                                         직무내용
                                         <textarea name="" placeholder="직무내용" spellcheck="false"
-                                            disabled>밥먹고 잠자기</textarea>
+                                            disabled>${data4.RCCT}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -283,23 +336,23 @@
                                     <div class="data_container ">
                                         <div class="detail">
                                             학교
-                                            <input type="text" placeholder="학교명" value="한국대학교">
+                                            <input type="text" placeholder="학교명" value="${data5.SCNAME}">
                                         </div>
                                         <div class="detail">
                                             학부
-                                            <input type="text" placeholder="학부명" value="경영">
+                                            <input type="text" placeholder="학부명" value="${data5.RESOL}">
                                             학과
-                                            <input type="text" placeholder="학과명" value="경영학">
+                                            <input type="text" placeholder="학과명" value="${data5.REMAJOR}">
                                         </div>
                                         <div class="detail">
                                             재학기간
-                                            <input type="text" placeholder="시작 년/월" value="2017년/02">~
-                                            <input type="text" placeholder="종료 년/월" value="2021년/02">
+                                            <input type="text" placeholder="시작 년/월" value="${data5.REST}">~
+                                            <input type="text" placeholder="종료 년/월" value="${data5.REED}">
                                         </div>
                                         <div class="detail">
                                             특이사항
                                             <textarea name="" placeholder="특이사항" spellcheck="false"
-                                                readonly>없음</textarea>
+                                                readonly>${data5.REEE}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -318,20 +371,20 @@
                                     <div class="data_container ">
                                         <div class="detail">
                                             기관
-                                            <input type="text" placeholder="기관명">
+                                            <input type="text" placeholder="${data6.EDUNAME}">
                                         </div>
                                         <div class="detail">
                                             훈련과정
-                                            <input type="text" placeholder="훈련과정명">
+                                            <input type="text" placeholder="${data6.COSENAME}">
                                         </div>
                                         <div class="detail">
                                             교육기간
-                                            <input type="text" placeholder="시작 년/월">~
-                                            <input type="text" placeholder="종료 년/월">
+                                            <input type="text" placeholder="${data6.ST}">~
+                                            <input type="text" placeholder="${data6.ED}">
                                         </div>
                                         <div class="detail">
                                             교육내용
-                                            <textarea name="" placeholder="교육내용" spellcheck="false"></textarea>
+                                            <textarea name="" placeholder="${data6.CNT}" spellcheck="false"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -347,10 +400,10 @@
                             <div class="con add_box">
                                 <!-- js를 통해 추가되는 내용 -->
                                 <div class="input_box text_box">
-                                    <input type="text" placeholder="자기소개서 제목 입력" value="밥도잘먹더라">
+                                    <input type="text" placeholder="자기소개서 제목 입력" value="${data7.HENAME}" disabled>
                                     <div class="data_container">
                                         <textarea name="" placeholder="자기소개서 내용 입력" spellcheck="false"
-                                            readonly>밥도잘먹고 잠도 잘자더라</textarea>
+                                            readonly>${data7.SINTRONAME}</textarea>
                                     </div>
                                 </div>
                             </div>
@@ -407,8 +460,6 @@
         <h2 class="footer_main_wirte">Coding is too hard </h2>
         <p class="footer_sub_wirte">please make it complete within the time frame</p>
     </footer>
-	<script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="resources/script/detail/header.js"></script>
-    <script src="resources/script/detail/paging.js"></script> 
 </body>
 </html>

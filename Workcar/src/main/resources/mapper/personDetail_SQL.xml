@@ -2,13 +2,68 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="persondetail">
 	<select id="getM1" parameterType="hashmap" resultType="hashmap">
-		select name
-		from member
-		where mem_no=45
+		select m.name, im.gender , im.addr, im.addr_dtl , r.gradu gradu
+		from member m  join 
+		i_member im on m.mem_no = im.mem_no
+		join resum r on r.mem_no = im.mem_no
+		where r.resum_no = 1
 	</select>
 	<select id="getM2" parameterType="hashmap" resultType="hashmap">
-		select gender
-		from i_member
-		where mem_no=45
+	select rw.work_type wtype , r.pay_max rpaymax , r.pay_min rpaymin, r.sector_no sno, r.region_no rno
+	from resum r 
+	join resum_work rw 
+	on r.resum_no = rw.resum_no 
 	</select>
+	<select id="getM3" parameterType="hashmap" resultType="hashmap">
+	select rq.rating rt, to_char(rq.pass_date,'yy/mm/dd') pd, rq.issu_agcy ia
+	from resum_qual rq join resum r on 
+	rq.resum_no = r.resum_no
+	</select>
+	<select id="getM4" parameterType="hashmap" resultType="hashmap">
+	select rc.c_name rcname, rc.dpart rcdp, to_char(rc.st_date,'yy-mm-dd') rcst , to_char(rc.end_date,'yy-mm-dd') rced, rc.carr_cntt rcct, rc.pos rcp 
+	from resum_carr rc
+	join member m on m.mem_no = 1
+	</select>
+	<select id="getM5" parameterType="hashmap" resultType="hashmap">
+	select re.sch_name  as scname, re.sol resol, re.major remajor, to_char(re.st_date,'yy/mm/dd') rest, to_char(re.end_date,'yy/mm/dd') reed, re.edu_etc reee
+	from resum_edu re
+	join member m on m.mem_no = 1 
+	</select>
+	<select id="getM6" parameterType="hashmap" resultType="hashmap">
+	select iedu_name eduname, cose_name cosename, to_char(st_date,'yy/mm/dd') st, to_char(end_date,'yy/mm/dd') ed,edu_cntt cnt 
+	from resum_iedu 
+	</select>
+	<select id="getM7" parameterType="hashmap" resultType="hashmap">
+	select rs.sintro_name hename , rs.sintro_cntt sintroname
+	from member m join resum r on m.mem_no = r.mem_no
+	join resum_sintro rs on r.resum_no = rs.resum_no
+	</select>
+	<select id="getM8" parameterType="hashmap" resultType="hashmap">
+	select rf.flang_no fn, rf.flang_type ft, rf.flang_grade fg, fl.flang_name fname
+	from member m join resum r on m.mem_no = r.mem_no
+	join resum_flang rf on r.resum_no = rf.resum_no
+	join flang fl on rf.flang_no = fl.flang_no
+	</select>
+	<select id="getM9" parameterType="hashmap" resultType="hashmap">
+		SELECT resum_no, name, sector_no, region_no, DT
+		FROM (
+		SELECT resum_no, m.name, r.sector_no, r.region_no, TO_CHAR(r.reg_date, 'YYYY-MM-DD') AS DT,
+		ROW_NUMBER() OVER (ORDER BY r.resum_no DESC) AS RNUM
+		FROM resum r join member m
+			on (r.mem_no = m.mem_no)
+		WHERE opn_chk = 1
+        and r.mem_no = 1
+        
+        ) mr
+		WHERE mr.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<select id="getB1Cnt" parameterType="hashmap"
+		resultType="Integer">
+		SELECT COUNT(*) AS CNT
+		FROM resum
+		WHERE opn_chk = 1
+	</select>
+	
+	
 </mapper>
