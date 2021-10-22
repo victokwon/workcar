@@ -21,10 +21,10 @@
 		UPDATE RESUM SET
 			<choose> 
 				<when test="actGbn eq 0">
-					OPN_CHK = #{openYN}
+					DEL_CHK = 1
 				</when>
 				<when test="actGbn eq 1">
-					DEL_CHK = 1
+					OPN_CHK = #{openYN}
 				</when>
 			</choose>
 		WHERE RESUM_NO = #{resumeNo}
@@ -34,7 +34,7 @@
 	<!-- 이력서 상세보기 개인정보-->
 	
 	<select id="getResumeDtl" parameterType="hashmap" resultType="hashmap">
-		SELECT R.MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, CITY_NO, R.REGION_NO, GRADU,GENDER, BIRTH,SECTOR_NO,
+   		SELECT R.MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, CITY_NAME, REGION_NAME, CITY_NO, R.REGION_NO, GRADU,GENDER, BIRTH,SECTOR_NO,
 			NAME, PHONE, EMAIL, PAY_GBN, PAY_MIN, PAY_MAX,
 		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
 		FROM RESUM R
@@ -42,7 +42,10 @@
 			ON (R.MEM_NO = M.MEM_NO)
 			JOIN I_MEMBER IM
 			ON (R.MEM_NO = IM.MEM_NO)
-			JOIN REGION RE
+			JOIN (SELECT CITY_NAME, REGION_NAME, REGION_NO, RE.CITY_NO
+                    FROM REGION RE
+					JOIN CITY C
+					ON(C.CITY_NO = RE.CITY_NO)) RE
 			ON (R.REGION_NO = RE.REGION_NO)
 		WHERE DEL_CHK = 0
 			AND R.MEM_NO = #{memNo}
@@ -60,7 +63,7 @@
 	</select>
 	
 	<select id="resumeDtlLoc" parameterType="hashmap" resultType="hashmap">
-		SELECT C.CITY_NAME, RE.REGION_NAME
+		SELECT C.CITY_NAME, RE.REGION_NAME, LOC_NO, LOC_RESUM_NO, RE.CITY_NO, RE.REGION_NO
 		FROM RESUM R 
             JOIN RESUM_LOC RL
 			ON (R.RESUM_NO = RL.RESUM_NO) 
@@ -69,8 +72,8 @@
             JOIN CITY C
             ON (C.CITY_NO = RE.CITY_NO)
 		WHERE R.DEL_CHK = 0
-			AND MEM_NO = #{memNo}
 			AND R.RESUM_NO = #{resumeNo}
+			AND LOC_RESUM_NO = #{no}
 	</select>
 	
 	<!-- 이력서 상세보기 자격증-->
@@ -142,4 +145,24 @@
 			AND MEM_NO = #{memNo}
 			AND R.RESUM_NO = #{resumeNo}
 	</select>
+	
+	<select id="getAddContCnt" parameterType="hashmap" resultType="hashmap">
+        SELECT QUAL_CNT, FLANG_CNT, CARR_CNT, EDU_CNT, IEDU_CNT, SINTRO_CNT, ATTCH_CNT 
+        FROM
+        (SELECT COUNT(*) QUAL_CNT FROM RESUM_QUAL WHERE RESUM_NO = #{resumeNo}) Q,
+        (SELECT COUNT(*) FLANG_CNT FROM RESUM_FLANG WHERE RESUM_NO =  #{resumeNo}) F,
+        (SELECT COUNT(*) CARR_CNT FROM RESUM_CARR WHERE RESUM_NO =  #{resumeNo}) C,
+        (SELECT COUNT(*) EDU_CNT FROM RESUM_EDU WHERE RESUM_NO =  #{resumeNo}) E,
+        (SELECT COUNT(*) IEDU_CNT FROM RESUM_IEDU WHERE RESUM_NO =  #{resumeNo}) I,
+        (SELECT COUNT(*) SINTRO_CNT FROM RESUM_SINTRO WHERE RESUM_NO =  #{resumeNo}) S,
+        (SELECT COUNT(*) ATTCH_CNT FROM RESUM_ATTCH WHERE RESUM_NO =  #{resumeNo}) A		
+	</select>
+	
+	<select id="getRegion" parameterType="hashmap" resultType="hashmap">
+		SELECT REGION_NO, REGION_NAME
+		FROM REGION
+		WHERE CITY_NO = #{cityNo}
+		ORDER BY REGION_NO
+	</select>
+	
 </mapper>

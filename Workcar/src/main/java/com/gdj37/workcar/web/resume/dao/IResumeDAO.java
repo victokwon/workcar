@@ -29,7 +29,11 @@ public interface IResumeDAO {
 
 	HashMap<String, String> getResumeDtl(HashMap<String, String> params)throws Throwable;
 
-	List<HashMap<String, String>> resumeDtlLoc(HashMap<String, String> params)throws Throwable;
+	 HashMap<String, String> resumeDtlLoc(HashMap<String, String> params)throws Throwable;
+
+	HashMap<String, String> getAddContCnt(HashMap<String, String> params)throws Throwable;
+
+	List<HashMap<String, String>> getRegion(HashMap<String, String> params) throws Throwable;
 
 
 }

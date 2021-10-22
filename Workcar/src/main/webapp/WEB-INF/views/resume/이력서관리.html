@@ -538,9 +538,7 @@
                         </div>
                     </form>
                     <!-- form 설정 -->
-                    <form action="fileUploadAjax" id="fileForm" method="post" enctype="multi/form-data">
-                        <input type="file" accept="image/*" name="att" id="att">
-                    </form>
+
                     <form action="">
                         <div class="content apply_dtl_attch" id="resumeAttach">
                             <div class="dtl">
@@ -556,6 +554,9 @@
                                             <input type="hidden" id="fileLNm">
                                             <button type="button">파일업로드</button>
                                         </div>
+                                        <form action="fileUploadAjax" id="fileForm" method="post" enctype="multi/form-data">
+                       						<input type="file" accept="image/*" name="att" id="att">
+										</form>
                                     </div>
 
                                     <input type="button" class="plus_btn" id="addBtn7" value="＋">

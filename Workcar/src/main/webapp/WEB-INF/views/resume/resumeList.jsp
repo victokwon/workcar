@@ -34,7 +34,7 @@
 		$("tr").on("click","#delBtn",function(){
 			let resumeNo = $(this).parent().parent().attr("resumeNo")
 			$("#resumeNo").val(resumeNo)
-			$("#actGbn").val(1)
+			$("#actGbn").val(0)
 			$("#resumeGo").attr("action", "applyResume")
 			$("#resumeGo").submit()
 		})
@@ -42,7 +42,7 @@
 		$("tr").on("click","#applyBtn",function(){
 			let resumeNo = $(this).parent().parent().attr("resumeNo")
 			$("#resumeNo").val(resumeNo)
-			$("#actGbn").val(0)
+			$("#actGbn").val(1)
 			$("#openYN").val($(this).parent().children("select").val())
 			$("#resumeGo").attr("action", "applyResume")
 			$("#resumeGo").submit()
@@ -51,7 +51,7 @@
 		$("tr").on("click","#resumeDtlBtn",function(){
 			let resumeNo = $(this).parent().parent().attr("resumeNo")
 			$("#resumeNo").val(resumeNo)
-			$("#actGbn").val(3)
+			$("#actGbn").val("Dtl")
 			$("#resumeGo").attr("action", "resumeDtl")
 			$("#resumeGo").submit()
 		})
@@ -201,7 +201,7 @@
 						<input type="hidden" id="memNo" name="memNo" value="${sMNo}">
 						<input type="hidden" id="resumeNo" name="resumeNo">
 						<input type="hidden" id="openYN" name="openYN"> 
-						<input type="hidden" id="actGbn" name="actGbn">
+						<input type="hidden" id="actGbn" name="actGbn" >
 					</form>
 					<table>
 						<!-- 이력서 리스트 출력 -->

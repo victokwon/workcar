@@ -16,7 +16,9 @@ main {
   margin: 0 auto;
   border-radius: 8px;
 }
-
+.locSelectBox{
+	height: 100%;
+}
 .main_button {
   background-color: #555;
   color: white;
@@ -31,6 +33,13 @@ main {
 
 .main_button:hover {
   background-color: #88a2f2;
+}
+ .con .input_box > .hope_loc {
+	height: auto;
+}
+
+.locSelectBox{
+	height: 30px;
 }
 
 .main_content {
@@ -482,6 +491,7 @@ label {
   flex-direction: column;
 }
 .add_box .input_box {
+	padding: 10px;
   position: relative;
   display: flex;
   width: 90%;
@@ -530,6 +540,8 @@ label {
   padding-bottom: 0px;
 }
 .add_box .more .data_container .detail input {
+	color: black;
+	font-weight: bold;
   text-align: center;
   width: 100px;
   height: 20px;
@@ -550,6 +562,9 @@ label {
 }
 .text_box {
   flex-direction: column;
+}
+.qual_input{
+	width: 25%;
 }
 .text_box input[type="text"] {
   font-size: 12px;
@@ -576,7 +591,7 @@ label {
 }
 .r {
   position: absolute;
-  top: 20px;
+  top: 10px;
   right: 20px;
   margin-right: 10px;
 }

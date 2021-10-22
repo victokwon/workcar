@@ -2,15 +2,20 @@ package com.gdj37.workcar.web.resume.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj37.workcar.common.CommonProperties;
 import com.gdj37.workcar.common.service.IPagingService;
 import com.gdj37.workcar.web.resume.service.IResumeService;
 
@@ -82,14 +87,27 @@ public class ResumeController {
 				List<HashMap<String, String>> iedu = iResumeService.resumeDtlIedu(params);
 				List<HashMap<String, String>> sintro = iResumeService.resumeDtlSintro(params);
 				List<HashMap<String, String>> attach = iResumeService.resumeDtlAttach(params);
-				List<HashMap<String, String>> loc = iResumeService.resumeDtlLoc(params);
 
 				mav.addObject("CNT", cnt);
 				mav.addObject("LIST", list);
 				mav.addObject("DATA", data);
 				
 				mav.addObject("WORK", work);
-				mav.addObject("LOC", loc);
+
+				params.put("no", "1");
+				HashMap<String, String> loc1 = iResumeService.resumeDtlLoc(params);
+				System.out.println(loc1);
+				mav.addObject("LOC1", loc1);
+				
+				params.put("no", "2");
+				HashMap<String, String> loc2 = iResumeService.resumeDtlLoc(params);
+				System.out.println(loc2);
+				mav.addObject("LOC2", loc2);
+				
+				params.put("no", "3");
+				HashMap<String, String> loc3 = iResumeService.resumeDtlLoc(params);
+				System.out.println(loc3);
+				mav.addObject("LOC3", loc3);
 				
 				mav.addObject("QUAL", qual);
 				mav.addObject("FLANG", flang);
@@ -99,9 +117,11 @@ public class ResumeController {
 				mav.addObject("SINTRO", sintro);
 				mav.addObject("ATTACH", attach);
 				
-				if(params.get("dtlGbn").equals("U") ) {
+				if(params.get("actGbn").equals("Up") ) {
+					HashMap<String, String> conCnt = iResumeService.getAddContCnt(params);
+					mav.addObject("conCnt", conCnt);
 					mav.setViewName("/resume/resumeDtlUpdate");
-				}else {
+				}else if(params.get("actGbn").equals("Dtl") ){
 					mav.setViewName("/resume/resumeDtl");
 				}
 			} catch (Exception e) {
@@ -114,4 +134,28 @@ public class ResumeController {
 		}
 		return mav;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getRegionAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getRegionAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		System.out.println(params);
+		try {
+			System.out.println(params);
+			List<HashMap<String, String>> list = iResumeService.getRegion(params);
+			if(list == null) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			modelMap.put("list", list);
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;				
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

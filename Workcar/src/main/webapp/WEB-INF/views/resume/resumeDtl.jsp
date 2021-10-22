@@ -35,13 +35,13 @@
 		$("#resumeList").on("click","div",function(){
 			let resumeNo = $(this).attr("resumeNo")
 			$("#resumeNo").val(resumeNo)
-			$("#dtlGbn").val("D")
+			$("#actGbn").val("Dtl")
 			$("#resumeGo").attr("action", "resumeDtl")
 			$("#resumeGo").submit()
 		})
 		
 		$("#updateBtn").on("click",function(){
-			$("#dtlGbn").val("U")
+			$("#actGbn").val("Up")
 			$("#resumeGo").attr("action", "resumeDtl")
 			$("#resumeGo").submit()
 		})
@@ -59,7 +59,7 @@
 	<form action="#" id="resumeGo" method="post">
 		<input type="hidden" id="memNo" name="memNo" value="${sMNo}">
 		<input type="hidden" id="resumeNo" name="resumeNo" value="${DATA.RESUM_NO }">
-		<input type="hidden" id="dtlGbn" name="dtlGbn" >
+		<input type="hidden" id="actGbn" name="actGbn" >
 	</form>
 
 	<div id="mySidenav" class="sidenav">
@@ -253,7 +253,7 @@
 									</div>
 									<div class="location">
 										<div class="text">거주지역</div>
-										<div class="input">${DATA.CITY_NO}&nbsp;/&nbsp;${DATA.REGION_NO}</div>
+										<div class="input">${DATA.CITY_NAME}&nbsp;/&nbsp;${DATA.REGION_NAME}</div>
 									</div>
 									<div class="edu">
 										<div class="text">최종학력</div>
@@ -328,15 +328,9 @@
 									<div class="input_box ">
 										<c:forEach var="data" items="${FLANG }">
 											<div class="data_container">
-												<input type="text" disabled="disabled" value="${data.FLANG_NO }">
-												<c:if test="${data.FLANG_TYPE eq 0}">
-													<input type="text" disabled="disabled" value="읽기/쓰기"> 
-													<input type="text" disabled="disabled" value="${data.FLANG_GRADE }">
-												</c:if>
-												<c:if test="${data.FLANG_TYPE eq 1}">
-													<input type="text" disabled="disabled" value="회화"> 
-													<input type="text" disabled="disabled" value="${data.FLANG_GRADE }">
-												</c:if>
+												<input type="text" disabled="disabled" value="${data.FLANG_NO }"> 
+												<input type="text" disabled="disabled" value="${data.FLANG_TYPE }">
+												<input type="text" disabled="disabled" value="${data.FLANG_GRADE }">
 											</div>
 										</c:forEach>
 									</div>
