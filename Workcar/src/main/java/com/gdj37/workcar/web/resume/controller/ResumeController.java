@@ -99,7 +99,7 @@ public class ResumeController {
 				mav.addObject("SINTRO", sintro);
 				mav.addObject("ATTACH", attach);
 				
-				if(params.get("dtlGbn") == "U") {
+				if(params.get("dtlGbn").equals("U") ) {
 					mav.setViewName("/resume/resumeDtlUpdate");
 				}else {
 					mav.setViewName("/resume/resumeDtl");

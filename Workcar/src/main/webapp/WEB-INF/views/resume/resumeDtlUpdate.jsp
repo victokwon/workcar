@@ -38,12 +38,12 @@
 			$("#resumeGo").attr("action", "resumeDtl")
 			$("#resumeGo").submit()
 		})
-		
 	})
 
 	function linkGo(url) {
 		location.href = url
 	}
+	
 </script>
 </head>
 
@@ -213,7 +213,7 @@
 						</div>
 						<div class="apply_btn">
 							<button type="button" id="saveBtn">저장</button>
-							<button type="button" id="cancelBtn" >취소</button>
+							<button type="button" id="cancelBtn">취소</button>
 						</div>
 					</div>
 					<!-- form 설정 -->
@@ -225,37 +225,23 @@
 								<div class="input_box">
 									<div class="name">
 										<div class="text">성명</div>
-										<div class="input">
-   											<input type="text" value="${DATA.NAME}" >
-										</div>
+										<div class="input">${DATA.NAME}</div>
 									</div>
 									<div class="gender">
 										<div class="text">성별</div>
 										<div class="input">${DATA.GENDER}</div>
-										<div class="input">
-   											<input type="text" value="${DATA.NAME}" >
-										</div>										
 									</div>
 									<div class="birth">
 										<div class="text">출생년도</div>
 										<div class="input">${DATA.BIRTH}</div>
-										<div class="input">
-   											<input type="text" value="${DATA.NAME}" >
-										</div>										
 									</div>
 									<div class="phone">
 										<div class="text">연락처</div>
 										<div class="input">${DATA.PHONE}</div>
-										<div class="input">
-   											<input type="text" value="${DATA.NAME}" >
-										</div>										
 									</div>
 									<div class="email">
 										<div class="text">이메일</div>
 										<div class="input">${DATA.EMAIL}</div>
-										<div class="input">
-   											<input type="text" value="${DATA.NAME}" >
-										</div>										
 									</div>
 									<div class="location">
 										<div class="text">거주지역</div>
@@ -265,7 +251,6 @@
 									</div>
 									<div class="edu">
 										<div class="text">최종학력</div>
-										<div class="input">${DATA.GRADU}</div>
 										<div class="input">
    											<input type="text" value="${DATA.GRADU}" >
 										</div>											
@@ -312,7 +297,6 @@
 						</div>
 					</div>
 					
-					<c:if test="${!empty QUAL}">
 						<div class="content apply_dtl_lisence" id="resumeLisence">
 							<div class="dtl">
 								<div class="header">자격증</div>
@@ -329,14 +313,12 @@
 								</div>
 							</div>
 						</div>
-					</c:if>
 					
-					<c:if test="${!empty FLANG}">
 						<div class="content apply_dtl_forei" id="resumeForeign">
 							<div class="dtl">
 								<div class="header">외국어능력</div>
-								<div class="con add_box">
-									<div class="input_box ">
+								<div class="con add_box flang">
+									<div class="input_box">
 										<c:forEach var="data" items="${FLANG }">
 											<div class="data_container">
 												<input type="text" disabled="disabled" value="${data.FLANG_NO }">
@@ -354,9 +336,7 @@
 								</div>
 							</div>
 						</div>
-					</c:if>
 					
-					<c:if test="${!empty CARR}">
 						<div class="content apply_dtl_history" id="resumeHistory">
 							<div class="dtl">
 								<div class="header">경력사항</div>
@@ -386,9 +366,7 @@
 								</div>
 							</div>
 						</div>
-					</c:if>
 					
-					<c:if test="${!empty EDU}">
 						<div class="content apply_dtl_Edu" id="resumeEdu">
 							<div class="dtl">
 								<div class="header">학력사항</div>
@@ -417,9 +395,7 @@
 								</div>
 							</div>
 						</div>
-					</c:if>
 					
-					<c:if test="${!empty iedu}">
 						<div class="content apply_dtl_job_edu" id="resumeJobEdu">
 							<div class="dtl">
 								<div class="header">직무교육</div>
@@ -447,9 +423,7 @@
 								</div>
 							</div>
 						</div>
-					</c:if>
 					
-					<c:if test="${!empty SINTRO}">
 						<div class="content apply_dtl_intro" id="resumeIntro">
 							<div class="dtl">
 								<div class="header">자기소개서</div>
@@ -465,9 +439,7 @@
 								</div>
 							</div>
 						</div>
-					</c:if>
 					
-					<c:if test="${!empty ATTACH}">
 						<div class="content apply_dtl_attch" id="resumeAttach">
 							<div class="dtl">
 								<div class="header">첨부파일</div>
@@ -482,7 +454,6 @@
 								</div>
 							</div>
 						</div>
-					</c:if>
 				</div>
 			</div>
 
