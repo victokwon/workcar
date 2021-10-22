@@ -94,7 +94,6 @@ function drawList(list) {
 }
 function drawPaging(pb) {
 	var html = "";
-	
 	/* html += "<span page=\"1\">처음</span>      "; */
 	
 	if($("#page").val() == "1") {
@@ -112,13 +111,16 @@ function drawPaging(pb) {
 	   }
 	}                                    
 	
-	if($("#page").val == pb.maxPcount) {
-	   html += "<span class=\"next\"  page=\"" + pb.maxPcount + "\">&#10095;</span>      ";
+	if($("#page").val() == pb.maxPcount) {
+	   html += "<span class=\"next\"  page=\""
+	   html += pb.maxPcount
+	   html += "\">&#10095;</span>      "
 	} else {
-	   html += "<span class=\"next\"  page=\"" + ($("#page").val() * 1 + 1) + "\">&#10095;</span>      ";
+	   html += "<span class=\"next\"  page=\"" 
+	   html += ($("#page").val() * 1 + 1)
+	   html += "\">&#10095;</span>      ";
 	}
 	
-	/* html += "<span page=\"" + pb.maxPcount + "\">마지막</span>    "; */
 	
 	$(".page").html(html);
 }
