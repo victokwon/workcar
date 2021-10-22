@@ -24,5 +24,11 @@ public class SpaceADao implements ISpaceADao {
 		return  sqlSession.selectList("space.getAList", params);
 	}
 
+	@Override
+	public HashMap<String, String> getA(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("space.getA", params);
+	}
+
 	
 }

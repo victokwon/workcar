@@ -80,6 +80,26 @@ public class SpaceAController {
 	
 	}
 	
+	@RequestMapping(value = "/ntcAB")
+	public ModelAndView ntcAB(@RequestParam HashMap<String, String> params,
+								ModelAndView mav) throws Throwable {
+		if(params.get("no") != null) {
+			
+			//조회수 증가
+			//iSpaceAService.updateAHit(params);
+			
+			//데이터 조회
+			HashMap<String, String> data = iSpaceAService.getA(params);
+			mav.addObject("data", data);
+			mav.setViewName("space/ntcAB");
+		} else {
+			mav.setViewName("redirect:ntcSpaceABList");
+		}
+		
+	
+		return mav;
+	}
+	
 	@RequestMapping(value = "/quesSpace")
 	public ModelAndView quesSpace(ModelAndView mav) {
 		mav.setViewName("space/quesSpace");

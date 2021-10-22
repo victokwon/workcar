@@ -9,6 +9,8 @@ public interface ISpaceAService {
 
 	public List<HashMap<String, String>> getAList(HashMap<String, String> params) throws Throwable;
 
+	public HashMap<String, String> getA(HashMap<String, String> params) throws Throwable;
+
 	
 	
 }

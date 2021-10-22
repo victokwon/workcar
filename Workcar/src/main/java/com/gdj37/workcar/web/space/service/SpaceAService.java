@@ -26,6 +26,12 @@ public class SpaceAService implements ISpaceAService {
 		return iSpaceADao.getAList(params);
 	}
 
+	@Override
+	public HashMap<String, String> getA(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iSpaceADao.getA(params);
+	}
+
 	
 	
 	

@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="resources/css/common/default.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/header.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css" />
+<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/space/mainbox.css" />
 <link rel="stylesheet" type="text/css" href="resources/css/space/space.css" />
 <script type="text/javascript" 
@@ -246,6 +247,28 @@ $(document).ready(function() {
             </div>
          </div>
       </main>
+      <!-- 푸터 -->
+	<footer>
+		<!-- 링크작업 -->
+		<div class="inner_content">
+			<div id="ntc">공지사항</div>
+			<div id="paticp">참여마당</div>
+			<div id="pvc">개인정보처리방침</div>
+			<div id="tou">이용약관</div>
+		</div>
+		<div class="footer_dtl_wrap">
+			<div class="footer_dtl_contents">
+				<div class="footer_logo"></div>
+				<div class="footer_dtl_contents_1">명칭 (주)일력거 | 사업자등록번호
+					123-456-7891011</div>
+				<div class="footer_dtl_contents_2">등록일자 2021년 9월 ?일 | 발행
+					(주)일력거 | 편집 (주)일력거</div>
+				<div class="footer_dtl_contents_3">발행소 서울시 금천구 가산디지털2로 구디아카데미
+					| 전화번호 02-1234-5678</div>
+				<div class="copyright">©WorkRickshaw. All rights reserved.</div>
+			</div>
+		</div>
+	</footer>
             <!-- 바닐라스크립트 로드 -->
     <script type="text/javascript" src="resources/script/Mypage/header.js.js"></script>
     <script type="text/javascript" src="resources/script/space/mainbox.js"></script>
