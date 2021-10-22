@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,60 +18,221 @@
 		src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 
 <script type="text/javascript">
+$(document).ready(function(){
+	if("${param.searchGbn}" != ""){
+		$("#searchGbn").val("${params.searchGbn}");
+	}
+	
+	reloadList();
+	
+	$("#searchBtn").on("click", function(){
+		$("#page").val("1");
+		$("#oldTxt").val($("#searchTxt").val());
+		reloadList();
+	});
+	//키방지
+	$("#searchTxt").on("keypress", function(event){
+		if(event.keyCode ==13 ){
+		$("#searchBtn").click();
+	  
+		return false;
+		}
+	});
+	$(".page").on("click", "span", function(){
+		$("#page").val($(this).attr("page"));
+		$("#searchTxt").val($("#oldTxt").val()); 
+		
+		reloadList();
+	});	
+	$("tbody").on("click", "tr", function(){
+	 $("#no").val($(this).attr("no"));
+	 
+	 /* $("#actionForm").attr("action","testAB"); */
+	 $("#actionForm").submit();
+	 //눌렀을때 번호를 저장하고 그것에 따라 상세보기에 보내겠다.
+	});
+});
+//데이터 취득
+function reloadList(){
+	var params1 = $("#actionForm1").serialize();
+ 	var params2 = $("#actionForm2").serialize();
+	var params3 = $("#actionForm3").serialize();
+	
+	$.ajax({
+		url : "EmploySearchListAjax",
+		type : "post",
+		dataType : "json",
+		data : params1+"&"+params2+"&"+params3,
+		success : function(res){
+			drawList(res.list);
+			drawPaging(res.pb);
+		},
+		error: function(request,status,error){
+			console.log(error);
+		}
+	});
+}
+//목록 그리기
+function drawList(list) {
+	var html = "";
+	
+	for(var data of list) {
+		html += "<td class=\"column\">";
+		html += "<div class=\"content\">";
+		html += "<div>"+ data.EMP_NO +"</div>";
+		html += "<img src=\"resources/images/common/logo.png\" />     ";
+			if(data.CORP_IMG != null){
+				"<img src=\"resources/images/upload/" + data.CORP_IMG + ".png\" />     ";				
+			}
+		html += "<h3>" + data.C_NAME + "</h3>"; 
+		html += "<span>" + data.EMP_TITLE + "</span>";
+		html += "</div>";
+		html += "</td>";
+	}
+	
+	$(".row").html(html);
+}
+function drawPaging(pb) {
+	var html = "";
+	
+	/* html += "<span page=\"1\">처음</span>      "; */
+	
+	if($("#page").val() == "1") {
+	   html += "<span page=\"1\" class=\"prev\" \">&#10094;</span>      ";
+	} else {
+	   html += "<span class=\"prev\" page=\"" + ($("#page").val() * 1 - 1) + "\">&#10094;</span>      ";
+	}                                 // *1 해주면 int 로 자동변환됨. -는 상관없음. 
+	                                 // +는 문자열 결합으로 인식시켜버림.
+	                                 
+	for(var j = pb.startPcount ; j <= pb.endPcount ; j++) {
+	   if($("#page").val() == j) {
+	      html += "<span class=\"dot\"  page=\"" + j + "\" style=\"background-color:#717171\"> </span>  ";
+	   } else {
+	      html += "<span class=\"dot\"  page=\"" + j + "\"> </span>  ";
+	   }
+	}                                    
+	
+	if($("#page").val == pb.maxPcount) {
+	   html += "<span class=\"next\"  page=\"" + pb.maxPcount + "\">&#10095;</span>      ";
+	} else {
+	   html += "<span class=\"next\"  page=\"" + ($("#page").val() * 1 + 1) + "\">&#10095;</span>      ";
+	}
+	
+	/* html += "<span page=\"" + pb.maxPcount + "\">마지막</span>    "; */
+	
+	$(".page").html(html);
+}
 
 </script>
 </head>
 <body>
  <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div id="sdienav_ul">
-            <ul>
-                <div>채용정보</div>
-                <li>통합검색</li>
-                <li>조회수 100</li>
-                <li>평점 100</li>
-            </ul>
-
-            <ul>
-                <div>기업정보</div>
-                <li>통합검색</li>
-            </ul>
-            <ul>
-                <div>인재정보</div>
-                <li>통합검색</li>
-            </ul>
-            <ul>
-                <div>참여공간</div>
-                <li>공지사항</li>
-                <li>자주하는 질문</li>
-            </ul>
-        </div>
-    </div>
-    <div class="side_bcc" id="side_bcc"></div>
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <div id="sdienav_ul">
+         <!-- 링크작업 -->
+         <ul>
+            <div id="">채용정보</div>
+            <li id="">통합검색</li>
+            <li id="">조회수 100</li>
+            <li id="">평점 100</li>
+         </ul>
+         <ul>
+            <div id="">기업정보</div>
+            <li id="">통합검색</li>
+         </ul>
+         <ul>
+            <div id="">인재정보</div>
+            <li id="">통합검색</li>
+         </ul>
+         <ul>
+            <div id="">참여공간</div>
+            <li id="">공지사항</li>
+            <li id="">자주하는 질문</li>
+         </ul>
+         <c:choose>
+            <c:when test="${sMTy eq 0}">
+               <ul>
+                  <div id="">마이페이지</div>
+                  <li id="">계정관리</li>
+                  <li id="">이력서관리</li>
+                  <li id="">활동내역</li>
+                  <li id="">관심정보</li>
+               </ul>
+            </c:when>
+            <c:when test="${sMTy eq 1 || sMTy eq 2}">
+               <ul>
+                  <div id="">마이페이지</div>
+                  <li id="">계정관리</li>
+                  <li id="">채용공고</li>
+                  <li id="">활동내역</li>
+                  <li id="">관심정보</li>
+               </ul>
+            </c:when>
+            <c:when test="${sMTy eq 3}">
+               <ul>
+                  <div id="">마이페이지</div>
+                  <li id="">계정관리</li>
+                  <li id="">회원관리</li>
+                  <li id="">신고관리</li>
+                  <li id="">평점관리</li>
+               </ul>
+            </c:when>
+         </c:choose>
+      </div>
+   </div>
+   <div class="side_bcc" id="side_bcc" onclick="closeNav()"></div>
 
     <header>
-        <!-- 네비게이션바 -->
-        <div class="topnav">
+      <!-- 네비게이션바 -->
+      <div class="topnav">
 
-            <!-- 로고 -->
-            <div class="topnav-centered">
-                <div class="logo_img" style="background-image: url(resources/images/empsch/logo.png)"></div>
-            </div>
+         <!-- 로고 -->
+         <div class="topnav-centered">
+            <div class="logo_img"></div>
+         </div>
 
-            <!-- 왼쪽 -->
-            <div class="hambuger" onclick="openNav()">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+         <!-- 왼쪽 -->
+         <div class="hambuger" onclick="openNav()" id="hambuger_left">
+            <div></div>
+            <div></div>
+            <div></div>
+         </div>
 
-            <!-- 오른쪽 -->
-            <div class="topnav-right">
-                <a href="#login"><strong>Login</strong></a>
-                <a href="#about"><strong>회원가입</strong></a>
-            </div>
-        </div>
-    </header>
+         <!-- 오른쪽 -->
+         <!-- 링크작업 -->
+         <c:choose>
+            <c:when test="${sMTy eq 0}">
+               <div class="topnav-right">
+                  <div class="alarm"></div>
+                  <a href="#iMemMypage"><strong>마이페이지</strong></a>
+                  <div class="profile"></div>
+                  <strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+               </div>
+            </c:when>
+            <c:when test="${sMTy eq 1 || sMTy eq 2}">
+               <div class="topnav-right">
+                  <div class="alarm"></div>
+                  <a href="#cMemMypage"><strong>마이페이지</strong></a>
+                  <div class="profile"></div>
+                  <strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+               </div>
+            </c:when>
+            <c:when test="${sMTy eq 3}">
+               <div class="topnav-right">
+                  <div class="alarm"></div>
+                  <a href="#mngMypage"><strong>마이페이지</strong></a>
+                  <div class="profile"></div>
+                  <strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+               </div>
+            </c:when>
+            <c:otherwise>
+               <div class="topnav-right">
+                  <a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
+               </div>
+            </c:otherwise>
+         </c:choose>
+      </div>
+   </header>
 
     <main>
         <div class="main_wrap">
@@ -83,15 +245,17 @@
             <div class="main_info">
                 <div id="main_search" class="main_content">
                     <div class="search_top">
-                        <form action="#" id="actionForm" method="post" class="tab_search_btn">
+                        <form action="#" id="actionForm1" method="post" class="tab_search_btn">
                             <select name="searchGbn" class="search_select" id="searchGbn">
-                                <option value="0">기업명</option>
-                                <option value="1">공고명</option>
+                                <option value="0">전체</option>
+                                <option value="1">기업명</option>
+                                <option value="2">공고명</option>
                             </select>
                            <input type="text" placeholder="기업명 / 채용공고명" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
-                           <button type="submit"><i class="fa fa-search"></i></button>
+                           <button type="button" id="searchBtn"><i class="fa fa-search"></i></button>
                            <input type="hidden" id="oldTxt" value="${param.searchTxt}" />
-                           <input type="hidden" id="page"  id="page" value="${page}" />
+                           <input type="hidden" name="page"  id="page" value="${page}" />
+                           <input type="hidden" name="no" id="no" />
                            
 						</form>
                        
@@ -99,262 +263,120 @@
                     <!-- 검색 -->
                     <!-- 메인컨텐츠 -->
                     <div class="main_section">
-                        <form>
-                            <span>공고일 / 마감일 :</span>
-                            <span>공고일</span>
-                            <select name="start_date" id="start_date">
-                                <option value="start_date1">날짜선택</option>
-                            </select>
-                            <span>~</span>
-                            <span>마감일</span>
-                            <select name="closing_date" id="closing_date">
-                                <option value="closing_date1">날짜선택</option>
-                            </select>
-                        </form>
-                        <form>
-                            <span>직종분류 :</span>
-                            <select name="fst_cate" id="fst_cate">
-                                <option value="fst_cate1">1차 분류</option>
-                            </select>
-                            <select name="scd_cate" id="scd_cate">
-                                <option value="scd_cate1">2차 분류</option>
-                            </select>
-                            <select name="trd_cate" id="trd_cate">
-                                <option value="trd_cate1">3차 분류</option>
-                            </select>
-                        </form>
-                        <form>
-                            <span>근무지역 :</span>
-                            <select name="bic_city" id="bic_city">
-                                <option value="city1">도/광역시</option>
-                            </select>
-                            <select name="city_fst" id="city_fst">
-                                <option value="city_fst1">시/군/구</option>
-                            </select>
-                            <select name="city_scd" id="city_scd">
-                                <option value="city_scd">시/군/구</option>
-                            </select>
-                            <select name="city_trd" id="city_trd">
-                                <option value="city_trd1">시/군/구</option>
-                            </select>
-                        </form>
-                        <form>
-                            <span>급여(월급) :</span>
-                            <label> 전체 <input type="checkbox" name="sal" class="ckbox" value="all" /></label>
-                            <span>최저</span>
-                            <input type="text" class="input_box" placeholder="최저금액"> 만원 ~ 최고
-                            <input type="text" class="input_box" placeholder="최고금액"> 만원
-                        </form>
-                        <form>
-                            <span>경력 :</span>
-                            <label> 전체 <input type="checkbox" name="carr" class="ckbox" value="carr_all" /></label>
-                            <label> / 신입 <input type="checkbox" name="carr" class="ckbox" value="carr_ncomer" /></label>
-                            <label> / 경력 <input type="checkbox" name="carr" class="ckbox" value="carr_carr" /></label>
-                            <input type="text" class="input_box" placeholder="0" class="year_input"> 년 ~
-                            <input type="text" class="input_box" placeholder="10" class="year_input"> 년
-                        </form>
-                        <form>
-                            <span>고용형태 :</span>
-                            <label> 전체 <input type="checkbox" name="emp" class="ckbox" value="emp_all" /></label>
-                            <label> / 정규직 <input type="checkbox" name="emp" class="ckbox"value="emp_ftime" /></label>
-                            <label> / 계약직 <input type="checkbox" name="emp" class="ckbox" value="emp_cwrk" /></label>
-                            <label> / 시간제 <input type="checkbox" name="emp" class="ckbox" value="emp_ptime" /></label>
-                            <label> / 기타 <input type="checkbox" name="emp" class="ckbox" value="emp_etc" /></label>
+                        <form action="#" id="actionForm2" method="post">
+                        	<div>
+	                            <span>공고일 / 마감일 :</span>
+	                            <span>공고일</span>
+	                            <select name="start_date" id="start_date">
+	                                <option value="start_date1">날짜선택</option>
+	                            </select>
+	                            <span>~</span>
+	                            <span>마감일</span>
+	                            <select name="closing_date" id="closing_date">
+	                                <option value="closing_date1">날짜선택</option>
+	                            </select>
+                        	</div>
+                            <div>
+	                            <span>직종분류 :</span>
+	                            <select name="fst_cate" id="fst_cate">
+	                                <option value="fst_cate1">1차 분류</option>
+	                            </select>
+	                            <select name="scd_cate" id="scd_cate">
+	                                <option value="scd_cate1">2차 분류</option>
+	                            </select>
+	                            <select name="trd_cate" id="trd_cate">
+	                                <option value="trd_cate1">3차 분류</option>
+	                            </select>
+                            </div>
+                            <div>
+	                            <span>근무지역 :</span>
+	                            <select name="bic_city" id="bic_city">
+	                                <option value="city1">도/광역시</option>
+	                            </select>
+	                            <select name="city_fst" id="city_fst">
+	                                <option value="city_fst1">시/군/구</option>
+	                            </select>
+	                            <select name="city_scd" id="city_scd">
+	                                <option value="city_scd">시/군/구</option>
+	                            </select>
+	                            <select name="city_trd" id="city_trd">
+	                                <option value="city_trd1">시/군/구</option>
+	                            </select>
+                            </div>                        
+                        	<div>
+	                            <span>급여(월급) :</span>
+	                            <label> 전체 <input type="checkbox" name="sal" class="ckbox" value="all" /></label>
+	                            <span>최저</span>
+	                            <input type="text" class="input_box" placeholder="최저금액"> 만원 ~ 최고
+	                            <input type="text" class="input_box" placeholder="최고금액"> 만원
+                        	</div>
+                        	<div>
+	                            <span>경력 :</span>
+	                            <label> 전체 <input type="checkbox" name="carr" class="ckbox" value="carr_all" /></label>
+	                            <label> / 신입 <input type="checkbox" name="carr" class="ckbox" value="carr_ncomer" /></label>
+	                            <label> / 경력 <input type="checkbox" name="carr" class="ckbox" value="carr_carr" /></label>
+	                            <input type="text" class="input_box" placeholder="0" class="year_input"> 년 ~
+	                            <input type="text" class="input_box" placeholder="10" class="year_input"> 년
+                        	</div>
+                        	<div>
+	                            <span>고용형태 :</span>
+	                            <label> 전체 <input type="checkbox" name="emp" class="ckbox" value="emp_all" /></label>
+	                            <label> / 정규직 <input type="checkbox" name="emp" class="ckbox"value="emp_ftime" /></label>
+	                            <label> / 계약직 <input type="checkbox" name="emp" class="ckbox" value="emp_cwrk" /></label>
+	                            <label> / 시간제 <input type="checkbox" name="emp" class="ckbox" value="emp_ptime" /></label>
+	                            <label> / 기타 <input type="checkbox" name="emp" class="ckbox" value="emp_etc" /></label>
+                        	</div>
                         </form>
 
                     </div>
                     <div id="more">
-                    	<form>
-                            <span>최종학력 :</span>
-                            <label> 전체 <input type="checkbox" name="gradu" class="ckbox" value="gradu_all" /></label>
-                            <label> / 고등학교 <input type="checkbox" name="gradu" class="ckbox"value="gradu_hc" /></label>
-                            <label> / 전문대학 <input type="checkbox" name="gradu" class="ckbox" value="gradu_jc" /></label>
-                            <label> / 대학교 <input type="checkbox" name="gradu" class="ckbox" value="gradu_univ" /></label>
-                            <label> / 석사 <input type="checkbox" name="gradu" class="ckbox" value="gradu_master" /></label>
-                            <label> / 박사 <input type="checkbox" name="gradu" class="ckbox" value="gradu_doc" /></label>
-                        </form>
-                        <form>
-                            <span>기업분류 :</span>
-                            <label> 무관 <input type="checkbox" name="c_cate" class="ckbox" value="c_cate_invant" /></label>
-                            <label> 중소 <input type="checkbox" name="c_cate" class="ckbox" value="c_cate_middle_small" /></label>
-                        </form>
-                        <form>
-                            <!-- <input type="button" class="minus_btn" id="delBtn" value="－"> -->
-                            <span>자격증 :</span>
-                            <label> 전체 <input type="checkbox" name="qual" class="ckbox" value="qual_all" /></label>
-                            <input type="text" class="input_box" placeholder="자격증">
-                            <select name="qual_bic_cate" >
-                                <option value="qual_bic_cate1">대분류</option>
-                            </select>
-                            <select name="qual_small_cate" >
-                                <option value="qual_small_cate1">소분류</option>
-                            </select>
-                            <label> / 급수 <input type="checkbox" name="qual" class="ckbox" value="qual_rating" /></label>
-                            <input type="button" class="plus_btn" id="addBtn1" value="＋">
+                    	<form action="#" id="actionForm3" method="post">
+                    		<div>
+	                            <span>최종학력 :</span>
+	                            <label> 전체 <input type="checkbox" name="gradu" class="ckbox" value="gradu_all" /></label>
+	                            <label> / 고등학교 <input type="checkbox" name="gradu" class="ckbox"value="gradu_hc" /></label>
+	                            <label> / 전문대학 <input type="checkbox" name="gradu" class="ckbox" value="gradu_jc" /></label>
+	                            <label> / 대학교 <input type="checkbox" name="gradu" class="ckbox" value="gradu_univ" /></label>
+	                            <label> / 석사 <input type="checkbox" name="gradu" class="ckbox" value="gradu_master" /></label>
+	                            <label> / 박사 <input type="checkbox" name="gradu" class="ckbox" value="gradu_doc" /></label>
+                    		</div>
+                    		<div>
+	                            <span>기업분류 :</span>
+	                            <label> 무관 <input type="checkbox" name="c_cate" class="ckbox" value="c_cate_invant" /></label>
+	                            <label> 중소 <input type="checkbox" name="c_cate" class="ckbox" value="c_cate_middle_small" /></label>
+                    		</div>
+                        	<div>
+	                            <!-- <input type="button" class="minus_btn" id="delBtn" value="－"> -->
+	                            <span>자격증 :</span>
+	                            <label> 전체 <input type="checkbox" name="qual" class="ckbox" value="qual_all" /></label>
+	                            <input type="text" class="input_box" placeholder="자격증">
+	                            <input type="button" class="plus_btn" id="addBtn1" value="＋">
+                        	
+                        	</div>
                         </form>
 	
                     </div>
                     <button onclick="moreBtn()" id="img_btn"><img src="resources/images/empsch/down.png" alt="down" id="icon"></button>
                     <!-- Portfolio Gallery Grid -->
                     <div class="card_list  ">
+                    	
                         <div class="card_list_char">
                             <h2>검색 리스트</h3>
                         </div>
                         <div class="mySlides">
-                            <div class="row">
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/samsung.png" alt="samsung">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/apple.png" alt="apple">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/lg.png" alt="lg">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/samsung.png" alt="samsung">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/apple.png" alt="apple">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/lg.png" alt="lg">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/samsung.png" alt="samsung">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/apple.png" alt="apple">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/lg.png" alt="lg">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                            </div>
+                        	<table>
+                        		<thead></thead>
+                        		<tbody>
+                        			<tr class="row"></tr>
+                        		</tbody>
+                        	</table>
                         </div>
-                        <!-- 두번째 -->
-                        <div class="mySlides">
-                            <div class="row">
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/apple.png" alt="apple">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/samsung.png" alt="samsung">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/lg.png" alt="lg">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/apple.png" alt="apple">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/lg.png" alt="lg">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/samsung.png" alt="samsung">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/lg.png" alt="lg">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/samsung.png" alt="samsung">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="content">
-                                        <img src="img/apple.png" alt="apple">
-                                        <h3>My Work</h3>
-                                        <p>Lorem ipsum..</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- 세번째 -->
-                        <div class="mySlides"></div>
+                        <!-- 페이징 -->
+	                    <div class="page">
+	                    </div>
                     </div>
 
-                    <!-- 페이징 -->
-                    <div class="page">
-                        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                        <span class="dot" onclick="currentSlide(1)"></span>
-                        <span class="dot" onclick="currentSlide(2)"></span>
-                        <span class="dot" onclick="currentSlide(3)"></span>
-                        <a class="next" onclick="plusSlides(1)">&#10095;</a>
-                    </div>
+                    
                 </div>
 
 
@@ -407,6 +429,5 @@
     
 	<script type="text/javascript" src="resources/script/empsch/Employ_search.js"></script>
 	<script type="text/javascript" src="resources/script/empsch/header.js"></script>
-	<script type="text/javascript" src="resources/script/empsch/paging.js"></script>
 </body>
 </html>
