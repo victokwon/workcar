@@ -23,7 +23,7 @@
 
 /* Style the tab content (and add height:100% for full page content) */
 .main_content {
-    color: white;
+    color: #555;
     display: none;
     padding: 20px 20px;
     height: 350px;
@@ -598,7 +598,8 @@ main > .main_wrap {
 }
 .main_box .content .dtl .con {
   /* background-color: black; */
-  height: calc(100% - 50px);
+  /* height: calc(100% - 50px); */
+  height: 100%;
   padding: 0 20px;
   padding-top: 10px;
   display: flex;
@@ -649,6 +650,7 @@ form {
 }
 
 .company {
+
   height: auto;
   display: flex;
   margin-bottom: 10px;
@@ -702,7 +704,7 @@ input[disabled] {
   width: 130px;
   height: 100%;
   background-color: #888;
-  color: #eee;
+  color: #eee !important ; 
 }
 
 input[readonly] {
@@ -713,7 +715,7 @@ input[readonly] {
   width: 130px;
   height: 100%;
   background-color: #888;
-  color: #fff;
+  color: #fff !important ;
 }
 
 label {
