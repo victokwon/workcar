@@ -25,3 +25,38 @@ function openPage(pageName,elmnt,color) {
         $("#more").show()
     }
 }
+$(function(){
+	$(".sal").on("change", "input", function () {
+		if ($("#sal1").is(":checked")) {
+			$("#minSal").attr("disabled", false);
+			$("#maxSal").attr("disabled", false);
+		} else {
+		      $("#minSal").attr("disabled", true);
+		      $("#maxSal").attr("disabled", true);
+    	}
+	});
+	$(".career").on("change", "input", function () {
+		if ($("#career2").is(":checked")) {
+		  $("#minCareer").attr("disabled", false);
+		  $("#maxCareer").attr("disabled", false);
+		} else {
+		  $("#minCareer").attr("disabled", true);
+		  $("#maxCareer").attr("disabled", true);
+		}
+	});
+	$("#addBtn1").on("click", function () {
+	    let html = "";
+	    html += '<div class="data_container ">';
+	    html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
+	    html += '<input type="text" class="input_box" placeholder="자격증">';
+	    html += '<input type="text" class="input_box" value="데이터 / 자격증명" readonly>';
+	    html += " </div>";
+  
+  
+    	$(this).parent().append(html);
+	});
+	$(".lisence_box").on("click", ".minus_btn", function () {
+		$(this).parent().html("");
+	});
+	
+})
