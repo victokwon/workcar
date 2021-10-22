@@ -28,11 +28,6 @@ public class ResumeDAO implements IResumeDAO{
 	}
 
 	@Override
-	public List<HashMap<String, String>> getResumeDtl(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectList("Resume_SQL.getResumeDtl",params);
-	}
-
-	@Override
 	public List<HashMap<String, String>> resumeDtlQual(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("Resume_SQL.resumeDtlQual",params);
 	}
@@ -73,8 +68,8 @@ public class ResumeDAO implements IResumeDAO{
 	}
 
 	@Override
-	public HashMap<String, String> getResumeDtl2(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectOne("Resume_SQL.getResumeDtl2",params);
+	public HashMap<String, String> getResumeDtl(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Resume_SQL.getResumeDtl",params);
 	}
 	
 }

@@ -11,8 +11,6 @@ public interface IResumeDAO {
 
 	int applyResume(HashMap<String, String> params)throws Throwable;
 
-	List<HashMap<String, String>> getResumeDtl(HashMap<String, String> params)throws Throwable;
-
 	List<HashMap<String, String>> resumeDtlQual(HashMap<String, String> params) throws Throwable;
 
 	List<HashMap<String, String>> resumeDtlFlang(HashMap<String, String> params) throws Throwable;
@@ -29,7 +27,7 @@ public interface IResumeDAO {
 
 	List<HashMap<String, String>> resumeDtlCarr(HashMap<String, String> params) throws Throwable;
 
-	HashMap<String, String> getResumeDtl2(HashMap<String, String> params)throws Throwable;
+	HashMap<String, String> getResumeDtl(HashMap<String, String> params)throws Throwable;
 
 
 }

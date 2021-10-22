@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css"
 	href="resources\css\common\sidebar.css">
 <link rel="stylesheet" type="text/css"
-	href="resources\css\resume\resumeInsert.css">
+	href="resources\css\resume\resumeDtl.css">
 <link rel="stylesheet" type="text/css"
 	href="resources\css\resume\floatRightNav.css">
 
@@ -32,33 +32,11 @@
 			alert(${msg})
 		}
 		
-		$("tr").on("click","#delBtn",function(){
-			let resumeNo = $(this).parent().parent().attr("resumeNo")
+		$("#resumeList").on("click","div",function(){
+			let resumeNo = $(this).attr("resumeNo")
 			$("#resumeNo").val(resumeNo)
-			$("#actGbn").val(1)
-			$("#resumeGo").attr("action", "applyResume")
-			$("#resumeGo").submit()
-		})
-		
-		$("tr").on("click","#applyBtn",function(){
-			let resumeNo = $(this).parent().parent().attr("resumeNo")
-			$("#resumeNo").val(resumeNo)
-			$("#actGbn").val(0)
-			$("#openYN").val($(this).parent().children("select").val())
-			$("#resumeGo").attr("action", "applyResume")
-			$("#resumeGo").submit()
-		})
-		
-		$("tr").on("click","#resumeDtlBtn",function(){
-			let resumeNo = $(this).parent().parent().attr("resumeNo")
-			$("#resumeNo").val(resumeNo)
-			$("#actGbn").val(3)
 			$("#resumeGo").attr("action", "resumeDtl")
 			$("#resumeGo").submit()
-		})
-		
-		$("#addBtn").on("click",function(){
-			 
 		})
 		
 	})
@@ -82,7 +60,7 @@
 		<div id="sdienav_ul">
 			<!-- 링크작업 -->
 			<ul>
-				<div onclick="linkGo()">채용정보</div>
+				<div >채용정보</div>
 				<li id="">통합검색</li>
 				<li id="">조회수 100</li>
 				<li id="">평점 100</li>
@@ -197,7 +175,7 @@
 		<div id="test"></div>
 		<div class="main_button_box">
 			<button type="button" class="main_button">계정관리</button>
-			<button type="button" class="main_button" id="defaultOpen">이력서관리</button>
+			<button type="button" class="main_button" id="defaultOpen" onclick="linkGo('resumeList')">이력서관리</button>
 			<button type="button" class="main_button">활동내역</button>
 			<button type="button" class="main_button">관심정보</button>
 		</div>
@@ -205,19 +183,23 @@
 
 			<div id="main_apply" class="main_content">
 				<div class="vertical_menu">
-					<table>
+					<table id="resumeList">
 						<c:forEach var="data" items="${LIST }">
 							<tr>
-								<div resumeNo="${data.RESUM_NO }">
-									<a href="#">${data.RESUM_NAME }</a>
-								</div>
+								<td>
+									<div resumeNo="${data.RESUM_NO }">
+										<a href="#">${data.RESUM_NAME }</a>
+									</div>
+								</td>
 							</tr>
 						</c:forEach>
 						<c:if test="${CNT < 5  }">
 							<tr>
-								<div class="apply_list">
-									<a href="resumeDtl" id="addBtn"> 추가 </a>
-								</div>
+								<td>
+									<div class="apply_list">
+										<a href="resumeDtl" id="addBtn"> 추가 </a>
+									</div>
+								</td>
 							</tr>
 						</c:if>
 					</table>
@@ -226,8 +208,9 @@
 				<div class="main_box">
 					<div class="content apply_dtl_header" id="resumeName">
 						<div class="apply_dtl">
-							<span class="apply_dtl_name">${DATA.RESUM_NAME}</span><br> <span
-								class="apply_dtl_date">최종수정일 | ${DATA.CHN_DATE}</span>
+							<span class="apply_dtl_name">${DATA.RESUM_NAME}</span><br> 
+							<span class="apply_dtl_date">최종수정일 | ${DATA.CHN_DATE}</span>
+							<span class="apply_dtl_date">&nbsp;[${DATA.OPN_CHK}]</span>
 						</div>
 						<div class="apply_btn">
 							<button type="button" id="updateBtn">수정</button>

@@ -59,7 +59,7 @@ public class ResumeController {
 
 	@RequestMapping(value = "/applyResume")
 	public ModelAndView applyResume(ModelAndView mav, @RequestParam HashMap<String, String> params,HttpSession session) throws Throwable {
-		if (session.getAttribute("sMTy").equals("0")) {
+		if (session.getAttribute("sMTy") != null ) {
 			try {
 				int cnt = iResumeService.applyResume(params);
 				if (cnt == 0) {
@@ -78,14 +78,14 @@ public class ResumeController {
 	@RequestMapping(value = "/resumeDtl")
 	public ModelAndView resumeDtl(ModelAndView mav, @RequestParam HashMap<String, String> params,HttpSession session) throws Throwable {
 		System.out.println(params);
-		if (session.getAttribute("sMTy").equals("0")) {
+		if (session.getAttribute("sMTy") != null) {
 			try {
 				System.out.println(params);
 //					이력서 리스트
-				List<HashMap<String, String>> list = iResumeService.getResumeDtl(params);
+				List<HashMap<String, String>> list = iResumeService.resumeList(params);
 //					이력서 숫자 카운트
 				int cnt = iResumeService.getResumeCnt(params);
-				HashMap<String, String> data = iResumeService.getResumeDtl2(params);
+				HashMap<String, String> data = iResumeService.getResumeDtl(params);
 				List<HashMap<String, String>> work = iResumeService.resumeDtlWork(params);
 				List<HashMap<String, String>> qual = iResumeService.resumeDtlQual(params);
 				List<HashMap<String, String>> flang = iResumeService.resumeDtlFlang(params);
@@ -97,6 +97,8 @@ public class ResumeController {
 
 				mav.addObject("CNT", cnt);
 				mav.addObject("LIST", list);
+				mav.addObject("DATA", data);
+				
 				mav.addObject("WORK", work);
 
 				mav.addObject("QUAL", qual);
@@ -115,11 +117,11 @@ public class ResumeController {
 		} else {
 			System.out.println(params);
 //			이력서 리스트
-		List<HashMap<String, String>> list = iResumeService.getResumeDtl(params);
+		List<HashMap<String, String>> list = iResumeService.resumeList(params);
 //			이력서 숫자 카운트
 		int cnt = iResumeService.getResumeCnt(params);
 		
-		HashMap<String, String> data = iResumeService.getResumeDtl2(params);
+		HashMap<String, String> data = iResumeService.getResumeDtl(params);
 		List<HashMap<String, String>> work = iResumeService.resumeDtlWork(params);
 		List<HashMap<String, String>> qual = iResumeService.resumeDtlQual(params);
 		List<HashMap<String, String>> flang = iResumeService.resumeDtlFlang(params);

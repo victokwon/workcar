@@ -32,22 +32,8 @@
 	</update>
 	
 	<!-- 이력서 상세보기 개인정보-->
-	<select id="getResumeDtl" parameterType="hashmap" resultType="hashmap">
-		SELECT R.MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, CITY_NO, R.REGION_NO, GRADU,GENDER, BIRTH,SECTOR_NO,
-			NAME, PHONE, EMAIL, PAY_GBN, PAY_MIN, PAY_MAX,
-		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
-		FROM RESUM R
-			JOIN MEMBER M
-			ON (R.MEM_NO = M.MEM_NO)
-			JOIN I_MEMBER IM
-			ON (R.MEM_NO = IM.MEM_NO)
-			JOIN REGION RE
-			ON (R.REGION_NO = RE.REGION_NO)
-		WHERE DEL_CHK = 0
-			AND R.MEM_NO = #{memNo}
-	</select>
 	
-	<select id="getResumeDtl2" parameterType="hashmap" resultType="hashmap">
+	<select id="getResumeDtl" parameterType="hashmap" resultType="hashmap">
 		SELECT R.MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, CITY_NO, R.REGION_NO, GRADU,GENDER, BIRTH,SECTOR_NO,
 			NAME, PHONE, EMAIL, PAY_GBN, PAY_MIN, PAY_MAX,
 		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE

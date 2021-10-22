@@ -10,7 +10,6 @@ public interface IResumeService {
 
 	public int applyResume(HashMap<String, String> params) throws Throwable;
 
-	public List<HashMap<String, String>> getResumeDtl(HashMap<String, String> params)throws Throwable;
 
 	public List<HashMap<String, String>> resumeDtlQual(HashMap<String, String> params) throws Throwable;
 
@@ -28,7 +27,7 @@ public interface IResumeService {
 
 	public List<HashMap<String, String>> resumeDtlCarr(HashMap<String, String> params)throws Throwable;
 
-	public HashMap<String, String> getResumeDtl2(HashMap<String, String> params)throws Throwable;
+	public HashMap<String, String> getResumeDtl(HashMap<String, String> params)throws Throwable;
 
 
 }
