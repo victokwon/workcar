@@ -73,4 +73,17 @@
 		AND PASS = #{PW}
 	</select>
 	
+	<select id="findID" parameterType="hashmap" resultType="string">
+		SELECT ID
+		FROM MEMBER
+		WHERE WDRAWL_DATE IS NULL
+		AND NAME = #{NM}
+		AND EMAIL = #{EM}
+	</select>
+	
+	<update id="updatePass" parameterType="hashmap">
+		UPDATE MEMBER SET PASS = #{PW}
+		WHERE ID = #{ID}
+		AND EMAIL = #{EM}
+	</update>
 </mapper>

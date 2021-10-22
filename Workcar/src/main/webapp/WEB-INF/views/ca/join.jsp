@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="resources\css\ca\join.css">
+<link rel="stylesheet" type="text/css" href="resources\css\ca\popup.css">
 
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
@@ -15,10 +16,25 @@ $(function () {
 	    if (check()) {
 	    	formSubmit()
 	    }
-	  }); 
-	  
+	   }); 
+	   
+		$("#EMCSend").on("click", function() {
+			if (emCheck()) {
+				mailAjax()
+			}
+		});
+		
+		$("#popConfBtn").on("click", function() {
+			$("#popConfBtn").hide();
+			$(".pop-container").hide();
+		});
+		
+		$("#EMCConf").on("click",function(){
+			 mailConfirm()
+		}) 
 	});
-
+	
+	
 	/* 회원가입 비동기*/
 	function formSubmit(){
 		 var params = $("#memJoinForm").serialize();
@@ -41,6 +57,57 @@ $(function () {
 		    }
 		  });
 	}
+
+	function mailAjax() {
+		let mail = $("#EM").val()
+		
+		$.ajax({
+			type : "POST",
+			data : "mailGbn=certi&EM=" + mail ,
+			url : "mailAjax",
+			dataType : "json",
+			success : function(res) {
+				if (res.result == "SUCCESS") {
+					$(".pop-container").show();
+					$(".pop-text-header").children("h1").html("전송완료")
+					$("#popConfBtn").show();
+				} else if (res.result == "FAILED") {
+					$(".pop-text-header").children("h1").html("발송실패")
+				}
+			},
+			error : function(request, status, error) {
+				console.log(error);
+			}
+		});
+	}
+	
+	function mailConfirm() {
+		let EMC = $("#EMC").val()
+		
+		$.ajax({
+			type : "POST",
+			data : "EMC=" + EMC ,
+			url : "mailConfirmAjax",
+			dataType : "json",
+			success : function(res) {
+				console.log(res)
+				if (res.result == "SUCCESS") {
+					$(".pop-text-header").children("h1").html("인증완료")
+					$(".pop-container").show();
+					$("#EMC").prop('readonly', true);
+				    $("#EMC").next().attr("style", "background-image: url(resources/images/ca/ccheck.png)");
+					$("#EMCSend").attr("type","text");
+					$("#EMCConf").attr("type","text");
+				} else if (res.result == "FAILED") {
+					$(".pop-container").show();
+					$(".pop-text-header").children("h1").html("인증실패")
+				}
+			},
+			error : function(request, status, error) {
+				console.log(error);
+			}
+		});
+	}
 	
 	/* 이동값 확인 및 데이터 전송 */
 	function formGo(gbn) {
@@ -58,7 +125,6 @@ $(function () {
 	function changeCheck(flag, target) {
 	  $(target).next().attr("style", "background-image: url(resources/images/ca/check.png)");
   	 if (flag) {
-		  console.log($(target))
 	    $(target).next().attr("style", "background-image: url(resources/images/ca/ccheck.png)");
 	  }
 	}
@@ -73,7 +139,8 @@ $(function () {
 	    pwcCheck() &&
 	    emCheck() &&
 	    phCheck() &&
-	    typeCheck()
+	    typeCheck()&&
+	    emcCheck()
 	  ) {
 	    return true;
 	  } else {
@@ -190,6 +257,14 @@ $(function () {
 	  }
 	  return true;
 	}
+	/* 이메일 인증 확인 */
+	function emcCheck(){
+		if($("#EMCSend").attr("type")=="text"){
+			return true;	
+		}
+		$("#EM").focus();
+		return false;
+	}
 	/* 전화번호 */
 	function phCheck() {
 	  var getCheck = RegExp(/^[0-9]{10,11}$/);
@@ -218,6 +293,17 @@ $(function () {
  </script>
 </head>
 <body>
+<div class="pop-container">
+		<div class="pop-out-container">
+			<div class="pop-in-container">
+				<div class="pop-text-header">
+					<h1>잠시만기다려주세요.</h1>
+					<a href='javascript:void(0);' id="popConfBtn">확인</a>
+				</div>
+				<hr>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<div class="out-container">
 			<div class="in-container">
@@ -256,6 +342,12 @@ $(function () {
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
 					<div class="input">
+						<input type="text" placeholder="E-mail 인증번호" id="EMC" name="EMC">
+						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
+						<input type="button" class="emcBtn" id="EMCSend" value="전송" readonly="readonly">
+						<input type="button" class="emcBtn" id="EMCConf" value="확인" readonly="readonly">
+					</div>
+					<div class="input">
 						<input type="text" placeholder="Phone Number" id="PH" name="PH" onchange="changeCheck(phCheck(), PH)">
 						<div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
 					</div>
@@ -279,7 +371,8 @@ $(function () {
 				</form>
 				<hr>
 				<div class="text">
-					<a class="small" href="pwf">비밀번호 찾기</a>
+					<a class="small" href="idf">아이디찾기</a>
+					<a class="small" href="pwf">비밀번호찾기</a>
 				</div>
 				<div class="text">
 					<a class="small" href="login">로그인</a>

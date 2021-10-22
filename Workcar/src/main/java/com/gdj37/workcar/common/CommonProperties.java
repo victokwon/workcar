@@ -1,18 +1,22 @@
 package com.gdj37.workcar.common;
 
 public class CommonProperties {
+	
+		
 	/**
 	 * 기본 셋
 	 */
-	//기본 리스트 사이즈
-	public static final int VIEWCOUNT = 10;
+//	기본 리스트 사이즈
+	public static final int VIEWCOUNT = 5;
 	//기본 페이지 사이즈
-	public static final int PAGECOUNT = 10;
+	public static final int PAGECOUNT = 5;
 	
 	/**
 	 * Ajax Result
 	 */
 	public static final String RESULT_SUCCESS = "SUCCESS";
+	
+	public static final String RESULT_FAILED = "FAILED";
 	
 	public static final String RESULT_ERROR = "ERROR";
 	

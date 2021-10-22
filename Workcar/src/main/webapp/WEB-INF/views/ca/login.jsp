@@ -88,7 +88,8 @@
                 </form>
                 <hr>
                 <div class="text">
-                    <a class="small" href="pwf">비밀번호 찾기</a>
+                	<a class="small" href="idf">아이디찾기</a>
+                    <a class="small" href="pwf">비밀번호찾기</a>
                 </div>
                 <div class="text">
                     <a class="small" href="join">회원가입</a>

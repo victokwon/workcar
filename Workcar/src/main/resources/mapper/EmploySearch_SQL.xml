@@ -3,25 +3,50 @@
 <mapper namespace="EmploySearch">
 	<select id="getEmpSch1Cnt" parameterType="hashmap" resultType="Integer">
 		SELECT COUNT(*) AS CNT
-		FROM EMP_ANNC  EA INNER JOIN SECTOR S
-		    ON EA.SECTOR_NO = S.SECTOR_NO
-		    INNER JOIN C_SECTOR CS
-		    ON S.SECTOR_NO = CS.SECTOR_NO
+		FROM EMP_ANNC EA INNER JOIN C_MEMBER CM 
+		        ON EA.MEM_NO = CM.MEM_NO
 		    INNER JOIN C_INFO CI
-		    ON CS.CORP_NO = CI.CORP_NO
+		        ON CM.CORP_NO = CI.CORP_NO
 		WHERE DEL_CHK = 0
-       <!--  <if test="searchTxt != null and searchTxt != ''">
+        <if test="searchTxt != null and searchTxt != ''">
 			<choose>
 				<when test="searchGbn eq 0">
-					AND ci.c_name LIKE '%' || #{searchTxt} || '%'
+					AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
+					OR EA.EMP_TITLE LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchGbn eq 1">
-					AND EA.TITLE LIKE '%' || #{searchTxt} || '%'
+					AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 2">
+					AND EA.EMP_TITLE LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
-		</if> -->
+		</if>
 	</select>
 	<select id="getEmpSch1List" parameterType="hashmap" resultType="hashmap">
-		
+		SELECT E.EMP_NO, E.CORP_IMG, E.C_NAME, E.EMP_TITLE
+		FROM (SELECT EA.EMP_NO, CI.CORP_IMG, CI.C_NAME, EA.EMP_TITLE,
+		        ROW_NUMBER() OVER(ORDER BY EA.EMP_NO DESC) AS ENUM
+		        FROM EMP_ANNC EA INNER JOIN C_MEMBER CM 
+		            ON EA.MEM_NO = CM.MEM_NO
+		        INNER JOIN C_INFO CI
+		            ON CM.CORP_NO = CI.CORP_NO
+		        WHERE EA.DEL_CHK = 0
+		        <if test="searchTxt != null and searchTxt != ''">
+					<choose>
+						<when test="searchGbn eq 0">
+							AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
+							OR EA.EMP_TITLE LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn eq 1">
+							AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
+						</when>
+						<when test="searchGbn eq 2">
+							AND EA.EMP_TITLE LIKE '%' || #{searchTxt} || '%'
+						</when>
+					</choose>
+				</if>
+		        )E
+		WHERE E.ENUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 </mapper>

@@ -144,7 +144,7 @@ main > .main_wrap {
 /* 기본 */
 /* 검색 end */
 /* 상세검색 체크확인내용 */
-.main_section  {
+.main_section, #more {
   width:800px;
   height:250px;
   background-color:#c4c7f2;
@@ -155,7 +155,8 @@ main > .main_wrap {
   margin:auto;
 }
 
-.main_section select{
+.main_section select,
+#more select{
   height:30px;
   border-radius: 8px;
   margin-top:5px;
@@ -163,7 +164,8 @@ main > .main_wrap {
 .main_section .date{
   font-weight:bolder;
 }
-.main_section .input_box{
+.main_section .input_box,
+#more .input_box{
   height: 25px;
   width:25%;
   border-radius: 8px;
@@ -171,7 +173,8 @@ main > .main_wrap {
   border: 1px solid grey;
   text-align: center;
 }
-.main_section .ckbox{
+.main_section .ckbox,
+#more .ckbox{
     position: relative;
     height: 25px;
     top:7px;
@@ -179,7 +182,8 @@ main > .main_wrap {
     border-radius: 8px;
     border: 1px solid grey;
 }
-.main_section label{
+.main_section label,
+#more label{
     position:relative;
 }
 .main_section .year_input{
@@ -273,7 +277,11 @@ main > .main_wrap {
 .plus_btn {
   margin: 10px auto;
 } */
+
 /* 카드형식 이미지 */
+table{
+	width:100%;
+}
 .card_list{
   background-color:#c4c7f2;
   margin-top:20px;
@@ -284,7 +292,7 @@ main > .main_wrap {
 }
 .card_list .content:hover{
   border:8px solid #88a2f2;
-  margin:-8px;
+  margin: -8px 0px;
 }
 .card_list .content img{
   max-width:100%;
@@ -302,8 +310,8 @@ main > .main_wrap {
 
 /* Create four equal columns that floats next to each other */
 .column {
-  float: left;
-  width: 33.3%;
+  width:30%;
+  display:inline-block;
 }
 
 /* Clear floats after rows */

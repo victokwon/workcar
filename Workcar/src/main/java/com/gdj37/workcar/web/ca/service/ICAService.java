@@ -1,8 +1,8 @@
-package com.gdj37.workcar.web.login.service;
+package com.gdj37.workcar.web.ca.service;
 
 import java.util.HashMap;
 
-public interface ISampleService {
+public interface ICAService {
 
 	public int SampleIdCheck(HashMap<String, String> params) throws Throwable;
 
@@ -15,6 +15,10 @@ public interface ISampleService {
 	public int cInfoCheck(HashMap<String, String> params)throws Throwable;
 
 	public int joinCInfo(HashMap<String, String> params)throws Throwable;
+
+	public int updatePass(HashMap<String, String> params)throws Throwable;
+
+	public String findID(HashMap<String, String> params)throws Throwable;
 
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params)throws Throwable;
 

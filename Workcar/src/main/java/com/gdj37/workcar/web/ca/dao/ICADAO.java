@@ -1,8 +1,8 @@
-package com.gdj37.workcar.web.login.dao;
+package com.gdj37.workcar.web.ca.dao;
 
 import java.util.HashMap;
 
-public interface ISampleDAO {
+public interface ICADAO {
 
 	public int SampleIdCheck(HashMap<String, String> params) throws Throwable;
 
@@ -16,6 +16,10 @@ public interface ISampleDAO {
 
 
 	public int joinCInfo(HashMap<String, String> params)throws Throwable;
+
+	public int updatePass(HashMap<String, String> params)throws Throwable;
+
+	public String findID(HashMap<String, String> params)throws Throwable;
 
 //	public List<HashMap<String, String>> cInfoList(HashMap<String, String> params)throws Throwable;
 

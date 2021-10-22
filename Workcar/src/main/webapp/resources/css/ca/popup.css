@@ -1,0 +1,84 @@
+body,
+html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.pop-container {
+  display: none;
+  z-index: 9999;
+  position: fixed;
+  top: 50%;
+  left: 50%; 
+}
+
+.pop-out-container {
+  border-radius: 10px;
+  width: 300px;
+  height: 150px;
+  background-color: white;
+  position: fixed;
+  box-sizing: border-box;
+  border: 2px solid #88a2f2;
+  top: calc(50% - 75px);
+  left: calc(50% - 150px);
+  padding: 10px 0;
+}
+
+.pop-in-container {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: auto;
+  margin: auto 50px;
+}
+/* 로그인 대가리 */
+.pop-text-header {
+  margin: auto;
+  padding: 10px 0;
+}
+.pop-text-header h1 {
+  margin: auto;
+  display: flex;
+}
+.pop-text-header a {
+width: 40px;
+  margin: 10px auto;
+  display: flex;
+}
+
+.pop-text-header a:hover {
+  color: #1542c9;
+  font-weight: bold;
+  text-decoration: underline;
+}
+/* 로그인 세부 */
+hr {
+  margin: 10px 0;
+}
+
+a {
+  color: #1b50ee;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 900px) { 
+  .pop-out-container {
+	  width: 300px;
+	  height: 150px;
+	  background-color: white;
+	  box-sizing: border-box;
+	  border: 2px solid #88a2f2;
+	  top: calc(50% - 75px);
+	  left: calc(50% - 150px);
+  }
+  .pop-text-header {
+    padding: 10px 0;
+    padding-bottom: 20px;
+  }
+  hr {
+    margin: 10px 0;
+  }
+}

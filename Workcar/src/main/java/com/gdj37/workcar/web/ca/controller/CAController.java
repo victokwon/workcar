@@ -1,20 +1,19 @@
-package com.gdj37.workcar.web.login.controller;
+package com.gdj37.workcar.web.ca.controller;
 
 import java.io.BufferedReader;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,24 +22,26 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj37.workcar.common.CommonProperties;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
 import com.gdj37.workcar.util.Utils;
-import com.gdj37.workcar.web.login.service.ISampleService;
-import com.google.gson.Gson;
+import com.gdj37.workcar.web.ca.service.ICAService;
 
-import org.apache.cxf.io.CachedOutputStream;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
+//RESULT_SUCCESS/RESULT_ERROR
+//VIEWCOUNT/PAGECOUNT
 @Controller
 public class CAController {
 
 	@Autowired
-	ISampleService iSampleService;
+	ICAService iCAService;
 	@Autowired
 	IPagingService iPagingService;
 
@@ -63,13 +64,13 @@ public class CAController {
 			String pw = Utils.encryptAES128(params.get("PW"));
 			params.put("PW", pw);
 
-			HashMap<String, String> data = iSampleService.login(params);
+			HashMap<String, String> data = iCAService.login(params);
 
 			if (data != null) {
 				session.setAttribute("sMNo", data.get("MEM_NO"));
 				session.setAttribute("sMNm", data.get("NAME"));
 				session.setAttribute("sMTy", data.get("MEM_GBN"));
-				mav.setViewName("redirect:join");
+				mav.setViewName("redirect:mainpage");
 			} else {
 				mav.addObject("msg", "로그인실패");
 				mav.setViewName("redirect:login");
@@ -96,13 +97,13 @@ public class CAController {
 
 	@ResponseBody
 	@RequestMapping(value = "/idCheckAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	public String idCheckAjax(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String idCheckAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		try {
 			String IDL = Integer.toString(params.get("ID").length());
 			params.put("IDL", IDL);
-			int idCnt = iSampleService.SampleIdCheck(params);
+			int idCnt = iCAService.SampleIdCheck(params);
 			modelMap.put("idCnt", idCnt);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -123,26 +124,26 @@ public class CAController {
 			switch (params.get("joinType")) {
 			case "mem":
 				params.put("PW", Utils.encryptAES128(params.get("PW")));
-				joinCnt = iSampleService.joinMem(params);
-				data = iSampleService.login(params);
+				joinCnt = iCAService.joinMem(params);
+				data = iCAService.login(params);
 				break;
 				
 			case "iMem":
 				System.out.println(params);
-				joinCnt = iSampleService.joinIMem(params);
+				joinCnt = iCAService.joinIMem(params);
 				break;
 				
 			case "cMem":
-				if(iSampleService.cInfoCheck(params) == 0) {
+				if(iCAService.cInfoCheck(params) == 0) {
 					System.out.println(params);
-					joinCnt = iSampleService.joinCInfo(params);
+					joinCnt = iCAService.joinCInfo(params);
 					if (joinCnt == 0) {
 						result = "failed_c";
 						break;
 					}
 				}
 				System.out.println(params);
-				joinCnt = iSampleService.joinCMem(params);
+				joinCnt = iCAService.joinCMem(params);
 				break;
 				
 			}
@@ -161,7 +162,7 @@ public class CAController {
 	
 	@ResponseBody
 	@RequestMapping(value = "/getApiDataAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
-	public String cInfoListAjax(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpServletResponse response) throws Throwable {
+	public String cInfoListAjax(@RequestParam HashMap<String, String> params, HttpServletResponse response) throws Throwable {
 		String addr = "http://apis.data.go.kr/1160100/service/GetCorpBasicInfoService/getCorpOutline?";
 		String serviceKey = "r0G1+ZSkNEfXTCLmqfXjwKV1t3qGIp2NfBpG9FJuGEdgzz3BZCRt0aT86BoeL5JyNwEAlQmYQXLUupdB2u6vug==";
 		String page = "1";
@@ -217,7 +218,7 @@ public class CAController {
 	
 	@RequestMapping(value = "/apiPagingAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
 	@ResponseBody
-	public String cInfoList(ModelAndView mav, @RequestParam HashMap<String, String> params) throws Throwable {
+	public String cInfoList( @RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		
@@ -227,7 +228,7 @@ public class CAController {
 			page = Integer.parseInt(params.get("page"));
 	        int cnt = Integer.parseInt(params.get("itemCnt"));
 	        
-	        PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
+	        PagingBean pb = iPagingService.getPagingBean(page, cnt, CommonProperties.VIEWCOUNT, CommonProperties.PAGECOUNT);
 	        
 	        
 	        modelMap.put("page", page);
@@ -254,10 +255,148 @@ public class CAController {
 
 	@RequestMapping(value = "/pwf")
 	public ModelAndView pwf(ModelAndView mav) {
-
 		mav.setViewName("ca/pwf");
-
 		return mav;
 	}
+	@RequestMapping(value = "/idf")
+	public ModelAndView idf(ModelAndView mav) {
+		mav.setViewName("ca/idf");
+		return mav;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/mailAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
+	public String mailAjax(@RequestParam HashMap<String, String> params, HttpServletResponse response, HttpServletRequest request,HttpSession s) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		
+//		메일 보내기 설정
+		String host = "smtp.naver.com"; 
+		final String username = "victokwon93"; 
+		final String password = "vmfhwprxm!";
+//		메일 보낼 내용
+		String recipient =params.get("EM");
+		String title ="";
+		String content ="";
+//		상황 플래그
+		boolean mailFlag = false;
+		String result = CommonProperties.RESULT_SUCCESS;
+//		임시문자
+		String tempWord = "";
+		
+		Properties props = System.getProperties();
+		
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtp.host", "smtp.naver.com");
+		props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "587");
+			
+//        메일 보낼 준비 작업
+        switch (params.get("mailGbn")) {
+		case "certi":
+			tempWord = Utils.tempWordCreate(5);
+			recipient = params.get("EM");
+			title = "일려거 인증 메일";
+			content += "인증 번호: ";
+			content += tempWord ;
+			
+			s.setAttribute("tempWord", tempWord);
+			
+			mailFlag = true;
+			break;
+			
+		case "pwf":
+			tempWord = Utils.tempWordCreate(10);
+			
 
+			recipient = params.get("EM");
+			title = "일려거 임시비밀번호 발급";
+			content += "임시비밀번호: ";
+			content += tempWord;
+			
+			params.put("PW", Utils.encryptAES128(tempWord));
+			
+			int cnt = iCAService.updatePass(params);
+			
+			if (cnt == 0) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			
+			mailFlag = true;
+			break;
+			
+		case "idf":
+			String ID = iCAService.findID(params);
+			
+			if(ID == null || ID =="") {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			title = "일려거 아이디 찾기";
+			content += params.get("NM");
+			content += "님 아이디: ";
+			content += ID;
+			
+			mailFlag = true;
+			break;
+		}
+        
+		if(mailFlag) {
+	        Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator(){
+	        	String un = username;
+	        	String pw = password;
+	        	protected PasswordAuthentication getPasswordAuthentication() {
+	        		return new PasswordAuthentication(un, pw);
+	        	}
+	        });
+	        MimeMessage mail = new MimeMessage(session);
+	        try {
+	        	mail.setSentDate(new Date());
+	            InternetAddress from = new InternetAddress();
+	            
+	            from = new InternetAddress("Manager<victokwon93@naver.com>");
+	            mail.setFrom(from);
+	 
+	            InternetAddress to = new InternetAddress(recipient);
+	            mail.setRecipient(Message.RecipientType.TO, to);
+	 
+	            mail.setSubject(title, "UTF-8");
+	            mail.setText(content, "UTF-8");
+	            mail.setHeader("content-Type", "text/html");
+	 
+	            javax.mail.Transport.send(mail);
+	        }catch (Exception e) {
+	        	result = CommonProperties.RESULT_ERROR;
+	        	e.printStackTrace();
+			}
+		}else {
+		   result = CommonProperties.RESULT_FAILED;
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "/mailConfirmAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8" )
+	@ResponseBody
+	public String mailConfirmAjax(@RequestParam HashMap<String, String> params,HttpSession session) throws Throwable  {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		String userEmc = params.get("EMC");
+		
+		try {
+			if(userEmc.equals(session.getAttribute("tempWord"))) {
+				result = CommonProperties.RESULT_SUCCESS;
+			}else {
+				result = CommonProperties.RESULT_FAILED;
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+			result = CommonProperties.RESULT_ERROR;	
+		}
+		
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
 }
