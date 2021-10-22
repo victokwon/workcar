@@ -57,9 +57,8 @@ int page = 1; //현재 P변수
 		HashMap<String, String> data7 = iPersonService.getM7(params);
 		
 		List<HashMap<String, String>> list2 = iPersonService.getM8(params);
-		List<HashMap<String, String>> list3 = iPersonService.getM9(params);
 		
-		mav.addObject("data", data1);
+		mav.addObject("data1", data1);
 		mav.addObject("data2", data2);
 		
 		mav.addObject("data3", list1);
@@ -69,7 +68,6 @@ int page = 1; //현재 P변수
 		mav.addObject("data6",data6);
 		mav.addObject("data7",data7);
 		mav.addObject("data8",list2);
-		mav.addObject("data9",list3);
 		mav.addObject("cnt",cnt);
 		
 		mav.addObject("page",page);

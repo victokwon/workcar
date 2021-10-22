@@ -45,9 +45,9 @@
 	join flang fl on rf.flang_no = fl.flang_no
 	</select>
 	<select id="getM9" parameterType="hashmap" resultType="hashmap">
-		SELECT resum_no, name, sector_no, region_no, DT
+		SELECT name, sector_no, region_no, DT, rnum
 		FROM (
-		SELECT resum_no, m.name, r.sector_no, r.region_no, TO_CHAR(r.reg_date, 'YYYY-MM-DD') AS DT,
+		SELECT m.name, r.sector_no, r.region_no, TO_CHAR(r.reg_date, 'YYYY-MM-DD') AS DT,
 		ROW_NUMBER() OVER (ORDER BY r.resum_no DESC) AS RNUM
 		FROM resum r join member m
 			on (r.mem_no = m.mem_no)

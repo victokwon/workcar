@@ -49,16 +49,17 @@ function reloadList() {
 	})
 }
 
-function drawList(abcd) {
+function drawList(list) {
+	console.log(list);
 	var html="";
 	 
-	for(var data of abcd) {        
+	for(var data of list) {        
 		html += " <a href=\"#\" class=\"card\">                ";
-		html += "     <p>이력서번호 : ${data.RESUM_NO}</p>            ";
-        html += "     <p>인재명 : ${data.NAME}</p>            ";
-        html += "     <p>희망직종 : ${data.SECTOR_NO} </p>      ";
-        html += "     <p>희망근무지역 : ${data.REGION_NO} </p>  ";
-        html += "     <p>등록일 : ${data.DT} </p>              ";
+		html += "     <p>이력서번호 :  "+ data.RNUM + "</p>            ";
+        html += "     <p>인재명 :"+ data.NAME +"</p>            ";
+        html += "     <p>희망직종 :"+ data.SECTOR_NO+" </p>      ";
+        html += "     <p>희망근무지역 :"+ data.REGION_NO +" </p>  ";
+        html += "     <p>등록일 :"+ data.DT +" </p>              ";
      	html += " </a>        ";
 	}                                
 	
@@ -91,6 +92,7 @@ function drawPaging(pb) {
 	   
 	   $(".page1").html(html);
 	}
+
 </script>
 <body>
 <form action="#" id="actionForm" method="post">
@@ -191,25 +193,25 @@ function drawPaging(pb) {
                                 <div class="input_box">
                                     <div class="name">
                                         <div class="text">성명</div>
-                                        <div class="input">${data.NAME}</div>
+                                        <div class="input">${data1.NAME}</div>
                                     </div>
                                     <div class="gender">
                                         <div class="text">성별</div>
                                         <div class="input">
-                                            <label for="male">${data.GENDER}</label>
+                                            <label for="male">${data1.GENDER}</label>
                                         </div>
                                     </div>
                                     
                                     <div class="location">
                                         <div class="text">거주지역</div>
                                         <div class="input">
-                                            ${data.ADDR} ${data.ADDR_DTL}
+                                            ${data1.ADDR} ${data1.ADDR_DTL}
                                         </div>
                                     </div>
                                     <div class="edu">
                                         <div class="text">최종학력</div>
                                         <div class="input">
-                                            ${data.GRADU}
+                                            ${data1.GRADU}
                                         </div>
                                     </div>
                                 </div>
