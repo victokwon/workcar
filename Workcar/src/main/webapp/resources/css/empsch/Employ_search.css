@@ -146,7 +146,7 @@ main > .main_wrap {
 /* 상세검색 체크확인내용 */
 .main_section, #more {
   width:800px;
-  height:250px;
+
   background-color:#c4c7f2;
   padding:10px;
   border-radius: 8px;
@@ -173,8 +173,8 @@ main > .main_wrap {
   border: 1px solid grey;
   text-align: center;
 }
-.main_section .ckbox,
-#more .ckbox{
+.main_section .radiobx,
+#more .radiobx{
     position: relative;
     height: 25px;
     top:7px;
@@ -196,7 +196,6 @@ main > .main_wrap {
     display: none;
     margin-top:10px;
     width:800px;
-    height:250px;
     background-color:#c4c7f2;
     padding:10px;
     border-radius: 8px;
@@ -213,7 +212,34 @@ main > .main_wrap {
     bottom:45px;
   }
  /* 자격증 */
-.plus_btn{
+ .lisence_box{
+  display:inline-block;
+ }
+ .data_container{
+  position:relative;
+  left:14%;
+ }
+ .lisence_box input,
+.data_container input{
+  margin:10px 10px 0px 0px;
+}
+
+ #lisenceSchBtn{
+   border-radius: 8px;
+   width:80px;
+   height: 25px;
+  border-radius: 8px;
+  border: 1px solid grey;
+  text-align: center;
+  line-height:25px;
+  padding:0px;
+  font-size:14px;
+  cursor:pointer;
+ }
+
+
+.plus_btn,
+.minus_btn{
   height: 25px;
   width:25px;
   border-radius: 8px;
@@ -223,61 +249,14 @@ main > .main_wrap {
   padding:0px;
   font-size:17px
 }
-.plus_btn:hover{
-  cursor: pointer;
-  border: 1px solid #1b50ee;
-  background-color: #3765f0;
-  color: white;
-}
-/* .plus_btn,
-.minus_btn {
-  box-sizing: border-box;
-  border: 1px solid #777;
-  border-radius: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-  padding: 0;
-}
 .plus_btn:hover,
-.minus_btn:hover {
+.minus_btn:hover,
+#lisenceSchBtn:hover{
   cursor: pointer;
   border: 1px solid #1b50ee;
   background-color: #3765f0;
-  line-height: 29px;
   color: white;
-}.add_box {
-  flex-direction: column;
 }
-.add_box .input_box {
-  position: relative;
-  display: flex;
-  width: 90%;
-  height: auto;
-  margin: 0 auto;
-  background-color: #eee;
-}
-.add_box .input_box .data_container {
-  height: 30px;
-  display: flex;
-  margin: auto;
-}
-.data_container input[type="text"] {
-  margin-left: 10px;
-  width: 80px;
-}
-.data_container input[readonly] {
-  width: 100px;
-}
-.minus_btn {
-  margin: 10px 20px;
-}
-.plus_btn {
-  margin: 10px auto;
-} */
-
 /* 카드형식 이미지 */
 table{
 	width:100%;
@@ -345,4 +324,50 @@ table{
 
 .main_margin{
   height:82px;
+}
+/* 급여 */
+
+.input {
+  line-height: 30px;
+  margin-left: 20px;
+  
+}
+.input input[type="text"],
+.input select {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 150px;
+  height: 100%;
+  border: 0px;
+}
+#minSal,
+#maxSal,
+#minCareer,
+#maxCareer {
+  text-align: center;
+  width: 100px;
+  height: 25px;
+  border: 0px;
+  margin: 0 10px;
+  padding: 0;
+  border-radius:8px;
+}
+.sal,.career{
+	display:flex;
+	margin:2px 0px;
+}
+.sal > span,
+.career > span{
+	margin-top:4px;
+}
+input[disabled] {
+  font-size: 12px;
+  border: 0px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 130px;
+  height: 100%;
+  background-color: #888;
+  color: #eee;
 }

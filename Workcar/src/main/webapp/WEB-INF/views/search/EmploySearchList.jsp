@@ -305,28 +305,33 @@ function drawPaging(pb) {
 	                                <option value="city_trd1">시/군/구</option>
 	                            </select>
                             </div>                        
-                        	<div>
+                        	<div class="sal">
 	                            <span>급여(월급) :</span>
-	                            <label> 전체 <input type="checkbox" name="sal" class="ckbox" value="all" /></label>
-	                            <span>최저</span>
-	                            <input type="text" class="input_box" placeholder="최저금액"> 만원 ~ 최고
-	                            <input type="text" class="input_box" placeholder="최고금액"> 만원
+	                            <div class="input">
+	                            	<label for="sal0">내규</label>
+	                                <input type="radio" name="sal" value="0" id="sal0">
+	                                <label for="sal1">일반</label>
+	                                <input type="radio" name="sal" value="1" id="sal1">
+	                                <input type="text" placeholder="최저금액" id="minSal" disabled>만원 ~
+	                                <input type="text" placeholder="최대금액" id="maxSal" disabled>만원
+                            	</div>
                         	</div>
-                        	<div>
+                        	<div class="career">
 	                            <span>경력 :</span>
-	                            <label> 전체 <input type="checkbox" name="carr" class="ckbox" value="carr_all" /></label>
-	                            <label> / 신입 <input type="checkbox" name="carr" class="ckbox" value="carr_ncomer" /></label>
-	                            <label> / 경력 <input type="checkbox" name="carr" class="ckbox" value="carr_carr" /></label>
-	                            <input type="text" class="input_box" placeholder="0" class="year_input"> 년 ~
-	                            <input type="text" class="input_box" placeholder="10" class="year_input"> 년
+	                            <div class="input">
+		                            <label> 전체 <input type="radio" name="carr" id="career0" class="radiobox" value="0" /></label>
+		                            <label> / 신입 <input type="radio" name="carr" id="career1" class="radiobox" value="1" /></label>
+		                            <label> / 경력 <input type="radio" name="carr" id="career2" class="radiobox" value="2" /></label>
+		                            <input type="text" class="input_box" placeholder="0" id="minCareer" disabled class="year_input"> 년 ~
+		                            <input type="text" class="input_box" placeholder="10" id="maxCareer" disabled class="year_input"> 년
+	                            </div>
                         	</div>
                         	<div>
 	                            <span>고용형태 :</span>
-	                            <label> 전체 <input type="checkbox" name="emp" class="ckbox" value="emp_all" /></label>
-	                            <label> / 정규직 <input type="checkbox" name="emp" class="ckbox"value="emp_ftime" /></label>
-	                            <label> / 계약직 <input type="checkbox" name="emp" class="ckbox" value="emp_cwrk" /></label>
-	                            <label> / 시간제 <input type="checkbox" name="emp" class="ckbox" value="emp_ptime" /></label>
-	                            <label> / 기타 <input type="checkbox" name="emp" class="ckbox" value="emp_etc" /></label>
+	                            <label>  정규직 <input type="radio" name="emp" class="radiobox"value="0" /></label>
+	                            <label> / 계약직 <input type="radio" name="emp" class="radiobox" value="1" /></label>
+	                            <label> / 시간제 <input type="radio" name="emp" class="radiobox" value="2" /></label>
+	                            <label> / 기타 <input type="radio" name="emp" class="radiobox" value="3" /></label>
                         	</div>
                         </form>
 
@@ -335,25 +340,21 @@ function drawPaging(pb) {
                     	<form action="#" id="actionForm3" method="post">
                     		<div>
 	                            <span>최종학력 :</span>
-	                            <label> 전체 <input type="checkbox" name="gradu" class="ckbox" value="gradu_all" /></label>
-	                            <label> / 고등학교 <input type="checkbox" name="gradu" class="ckbox"value="gradu_hc" /></label>
-	                            <label> / 전문대학 <input type="checkbox" name="gradu" class="ckbox" value="gradu_jc" /></label>
-	                            <label> / 대학교 <input type="checkbox" name="gradu" class="ckbox" value="gradu_univ" /></label>
-	                            <label> / 석사 <input type="checkbox" name="gradu" class="ckbox" value="gradu_master" /></label>
-	                            <label> / 박사 <input type="checkbox" name="gradu" class="ckbox" value="gradu_doc" /></label>
+	                            <label> 전체 <input type="radio" name="gradu" class="radiobox" value="0" /></label>
+	                            <label> / 고등학교 <input type="radio" name="gradu" class="radiobox"value="1" /></label>
+	                            <label> / 전문대학 <input type="radio" name="gradu" class="radiobox" value="2" /></label>
+	                            <label> / 대학교 <input type="radio" name="gradu" class="radiobox" value="3" /></label>
+	                            <label> / 석사 <input type="radio" name="gradu" class="radiobox" value="4" /></label>
+	                            <label> / 박사 <input type="radio" name="gradu" class="radiobox" value="5" /></label>
                     		</div>
-                    		<div>
-	                            <span>기업분류 :</span>
-	                            <label> 무관 <input type="checkbox" name="c_cate" class="ckbox" value="c_cate_invant" /></label>
-	                            <label> 중소 <input type="checkbox" name="c_cate" class="ckbox" value="c_cate_middle_small" /></label>
-                    		</div>
-                        	<div>
+                        	<div class="lisence_box">
 	                            <!-- <input type="button" class="minus_btn" id="delBtn" value="－"> -->
 	                            <span>자격증 :</span>
-	                            <label> 전체 <input type="checkbox" name="qual" class="ckbox" value="qual_all" /></label>
-	                            <input type="text" class="input_box" placeholder="자격증">
-	                            <input type="button" class="plus_btn" id="addBtn1" value="＋">
-                        	
+                                        <input type="text" class="input_box" placeholder="자격증">
+                                        <!-- 자격증 검색 api 팝업창 -->
+                                        <input type="button" class="" id="lisenceSchBtn" value="자격증 검색">
+                                        <input type="text" class="input_box" value="데이터 / 자격증명" readonly>
+                                    <input type="button" class="plus_btn" id="addBtn1" value="＋">
                         	</div>
                         </form>
 	
