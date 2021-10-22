@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mycorp">
+
+<select id="cMemberDtl" resultType="hashmap">
+<!-- 	select ID, NAME, PHONE, EMAIL, INFOR_AGR, ACT_AGR
+	FROM MEMBER
+	WHERE MEM_NO = #{memberNO} -->
+	
+	SELECT ID, NAME, PHONE, EMAIL, INFOR_AGR, ACT_AGR, M.MEM_NO, C.POS, CI.CORP_NO, CI.C_NAME, CI.C_BIZNO, CI.C_BOSS, CI.ADDR, CI.ADDR_DTL, CI.C_HPAGE, CI.ZIP
+	FROM MEMBER M JOIN C_MEMBER C ON (M.MEM_NO = C.MEM_NO)
+    JOIN C_INFO CI ON ( C.CORP_NO = CI.CORP_NO)
+    WHERE M.MEM_NO = #{memberNO}
+</select>
+
+<update id="uptinfo" parameterType="hashmap">
+	UPDATE MEMBER SET PHONE = #{C_PHONE}, EMAIL = #{C_EMAIL}, 
+	INFOR_AGR = #{INFOR_AGR}, ACT_AGR = #{ACT_AGR} 
+	WHERE ID = #{C_ID}
+
+</update>
+
+
+<update id="uptinfopos" parameterType="hashmap">
+	UPDATE (
+		SELECT M.ID AS ID,  C.POS AS POS
+		FROM MEMBER M JOIN C_MEMBER C
+		ON M.MEM_NO = C.MEM_NO	
+	) 
+	SET POS = #{C_POS}
+	WHERE ID = #{C_ID}
+
+</update> 
+
+<update id="uptcpinfo" parameterType="hashmap">
+	
+	
+</update>
+
+<select id="imemCnt" parameterType="hashMap" resultType="Integer">
+	SELECT COUNT(*) AS CNT 
+	FROM MEMBER
+</select>
+
+<select id="imemList" parameterType="hashmap" resultType="hashmap">
+	SELECT MEM_NO, ID, PHONE, JOIN_DATE
+	FROM MEMBER
+</select>
+
+<select id="chkNowPass" parameterType="hashmap"  resultType="Integer">
+	
+	SELECT COUNT(*) AS CNT FROM MEMBER
+	WHERE ID = #{ID}
+	AND PASS = #{nowpass}
+	
+</select>
+
+<update id="uptNewPass" parameterType="hashmap">
+	UPDATE MEMBER SET PASS  = #{newpass}
+	WHERE ID = #{ID}
+</update>
+
+</mapper>
