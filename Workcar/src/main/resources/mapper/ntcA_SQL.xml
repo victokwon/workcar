@@ -8,10 +8,14 @@
 		WHERE N.DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<choose>
-				<when test="searchGbn eq 0"> <!-- 구분 -->
+				<when test="searchGbn eq 0"> <!-- 전체 -->
+					AND N.NOTICE_GBN LIKE '%' || #{searchTxt} || '%'
+					OR N.NOTICE_TITLE LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 1"> <!-- 구분 -->
 					AND N.NOTICE_GBN LIKE '%' || #{searchTxt} || '%'
 				</when>
-				<when test="searchGbn eq 1"> <!-- 제목 -->
+				<when test="searchGbn eq 2"> <!-- 제목 -->
 					AND N.NOTICE_TITLE LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
@@ -43,31 +47,31 @@
       ) N
       WHERE N.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
-	<!--
-	<insert id="abAdd" parameterType="hashmap">
-		INSERT INTO B2(B_NO, M_NO, B_TITLE, B_CON, B_FILE)
-		VALUES(B2_SEQ.NEXTVAL, #{mno}, #{title}, #{con}, #{bFile})
-	</insert>
-	-->
 	
 	<select id="getA" parameterType="hashmap" resultType="hashmap">
-		SELECT N.NOTICE_NO, N.NOTICE_TITLE, M.NAME, NOTICE_CNTT, N.REG_DATE, 
+		SELECT N.NOTICE_NO, N.NOTICE_GBN, N.NOTICE_TITLE, M.NAME, NOTICE_CNTT,
 			   TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE 
 		FROM NOTICE N INNER JOIN MEMBER M
                 ON N.MEM_NO = M.MEM_NO
 		WHERE 1 = 1
 		AND NOTICE_NO = #{no}
 	</select>
-	<!-- 
-	<update id="abUpdate" parameterType="hashmap">
-		UPDATE B2 SET B_TITLE = #{title},
-               		  B_CON = #{con},
-               		  B_FILE = #{bFile}
-		WHERE B_NO = #{no}
-		AND M_NO = #{mno}
-	</update>
 	
-	<update id="abDelete" parameterType="hashmap">
+	<insert id="ABAdd" parameterType="hashmap">
+		INSERT INTO NOTICE(NOTICE_NO, MEM_NO, NOTICE_TITLE, NOTICE_CNTT)
+		VALUES(NOTICE_SEQ.nextval, #{memno}, #{title}, #{cntt})
+	</insert>
+	
+	 
+	<update id="ABUpdate" parameterType="hashmap">
+		UPDATE NOTICE SET NOTICE_TITLE = #{title},
+               		  NOTICE_CNTT = #{cntt}
+               		  <!-- B_FILE = #{bFile} -->
+		WHERE NOTICE_NO = #{no}
+		AND MEM_NO = #{memno}
+	</update>
+	<!--
+	<update id="ABDelete" parameterType="hashmap">
 		UPDATE B2 SET B_DEL = 0
 		WHERE B_NO = #{no}
 	</update>

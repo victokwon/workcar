@@ -15,21 +15,33 @@
 <link rel="stylesheet" type="text/css" href="resources/css/space/space.css" />
 
 <style>
-.table table-bordered tbl_Form {
-	border: 1px solid #222;
-	border-collapse: collapse;
-	width:900px;
-	/* align: center; */
-	text-align: center;
+main{
+	height: calc(100% - 170px);
+}
+table {
+	background-color: #E6E6FA;
+   	border: 1px solid #222;
+  	border-collapse: collapse;
+  	width: 900px;
+  	/* align: center; */
+ 	text-align: center;
+ 	color: #191970;
+}
+
+.main_content{
+   display: flex;
+   height: 90%;
 }
 .vertical_menu {
-	width: 100%;
+   width: 100%;
 }
+
 th, td {
-	height: 50px;
+   height: 50px;
 }
+
 .cntt {
-	height: 500px;
+   height: 500px;
 }
 </style>
 <script type="text/javascript" src="resources/script/jquery/jquery-1.12.4.min.js"></script>
@@ -250,11 +262,11 @@ function drawPaging(pb) {
 								<input type="hidden" name="page" value="${param.page}" />
 								<input type="hidden" name="no" value="${param.no}" />
 							</form>
-<div class="table-responsive" style="text-align:center;">
+<div>
 <table>
 	<tbody>
 		<tr>
-			<th >번호</th>
+			<th>번호</th>
 			<td>
 				${data.NOTICE_NO}
 			</td>

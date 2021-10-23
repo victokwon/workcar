@@ -14,11 +14,13 @@
 <link rel="stylesheet" type="text/css" href="resources/css/space/space.css" />
 <style>
 table {
+	background-color: #E6E6FA;
 	border: 1px solid #222;
 	border-collapse: collapse;
 	width:900px;
 	/* align: center; */
 	text-align: center;
+	color: #191970;
 }
 th, td {
 	border: 1px solid #ccc;

@@ -11,6 +11,12 @@ public interface ISpaceAService {
 
 	public HashMap<String, String> getA(HashMap<String, String> params) throws Throwable;
 
+	public int ABAdd(HashMap<String, String> params) throws Throwable;
+
+	public int ABUpdate(HashMap<String, String> params) throws Throwable;
+
+	public int ABDelete(HashMap<String, String> params) throws Throwable;
+
 	
 	
 }
