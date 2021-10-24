@@ -25,18 +25,18 @@
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <!-- <script type="text/javascript" src="resources\script\resume\resumeInsert.js"></script> -->
 <script type="text/javascript" src="resources\script\common\sidebar.js"></script>
-
 <script type="text/javascript">
 	$(function() {
 		 var noBox = {
-				  qualNo: ${conCnt.QUAL_CNT},
-				  flangNo:${conCnt.FLANG_CNT},
-				  carrNo: ${conCnt.CARR_CNT},
-				  eduNo: ${conCnt.EDU_CNT},
-				  ieduNo: ${conCnt.IEDU_CNT},
-				  sintroNo: ${conCnt.SINTRO_CNT},
-				  attchNo: ${conCnt.ATTCH_CNT},
-				}; 
+				 qualNo: ${conCnt.QUAL_CNT},
+				 flangNo:${conCnt.FLANG_CNT},
+				 carrNo: ${conCnt.CARR_CNT},
+				 eduNo: ${conCnt.EDU_CNT},
+				 ieduNo: ${conCnt.IEDU_CNT},
+				 sintroNo: ${conCnt.SINTRO_CNT},
+				 attchNo: ${conCnt.ATTCH_CNT}
+				}
+		console.log(noBox)
 		
 		if("${msg}"!=""){
 			alert(${msg})
@@ -55,6 +55,8 @@
 			}
 		}) 
 		
+		$("#gradu").val("${DATA.GRADU}").attr("selected", "selected");
+		
 		$("#city\\[0\\]").val("${DATA.CITY_NO}").attr("selected", "selected");
 		getRegion00($("#city\\[0\\]").val())
 		
@@ -67,27 +69,22 @@
 		$("#city\\[3\\]").val("${LOC3.CITY_NO}").attr("selected", "selected");
 		getRegion30($("#city\\[3\\]").val())
 		
-		
-		
-		
-/* 		$.each(${locList},function(index,item){
-			let no = item.LOC_RESUM_NO
-			$("#city["+no+"]").val("${item.CITY_NO}").attr("selected", "selected");
-		}) */
-		
-	/* 	for(var data of ${locList}){
-			let no = data.LOC_RESUM_NO
-			$("#city["+no+"]").val("${data.CITY_NO}").attr("selected", "selected");
-		} */
-
-
-			 $(".apply_content").on("click", ".apply_update_btn", function () {
-		    $("#resumeNO").val($(this).parent().parent().attr("resumeNO"));
-		   	});
+		$("#resumeList").on("click","div",function(){
+			let resumeNo = $(this).attr("resumeNo")
+			$("#resumeNo").val(resumeNo)
+			$("#actGbn").val("Dtl")
+			$("#resumeGo").attr("action", "resumeDtl")
+			$("#resumeGo").submit()
+		})
+	
+		 $(".apply_content").on("click", ".apply_update_btn", function () {
+	    	$("#resumeNo").val($(this).parent().parent().attr("resumeNo"));
+	   	});
 		
 		 $(".add_box").on("click", ".minus_btn", function () {
 		 	let target = $(this).parent().attr("noName")
 		 	noBox[target] --
+		 	console.log(noBox)
 		   $(this).parent().remove();
 		 });
 		 
@@ -532,6 +529,9 @@ function regionOptionDraw3(list){
 	function linkGo(url) {
 		location.href = url
 	}
+	function linkBack(){
+		history.back()
+	}
 	
 </script>
 <!-- <script type="text/javascript" src="resources\script\resume\locAjax.js"></script> -->
@@ -543,6 +543,7 @@ function regionOptionDraw3(list){
 		<input type="hidden" id="memNo" name="memNo" value="${sMNo}">
 		<input type="hidden" id="resumeNo" name="resumeNo"
 			value="${DATA.RESUM_NO }">
+		<input type="hidden" id="actGbn" name="actGbn" >
 	</form>
 
 	<div id="mySidenav" class="sidenav">
@@ -705,7 +706,7 @@ function regionOptionDraw3(list){
 						</div>
 						<div class="apply_btn">
 							<button type="button" id="saveBtn">저장</button>
-							<button type="button" id="cancelBtn">취소</button>
+							<button type="button" id="cancelBtn" onclick="linkBack()">취소</button>
 						</div>
 					</div>
 					<!-- form 설정 -->
@@ -904,20 +905,24 @@ function regionOptionDraw3(list){
 						</div>
 					</div>
 					
+					<!-- 여기하고 있음 -->
 					<form action="#" id="qualForm">
 						<div class="content apply_dtl_lisence" id="resumeLisence">
 							<div class="dtl">
 								<div class="header">자격증</div>
 								<div class="con add_box">
 									<c:if test="${!empty QUAL }">
+										<c:set var="qualCnt" value="0"/>
 										<c:forEach var="data" items="${QUAL }">
-											<div class="input_box ">
+											<div class="input_box" id="qualInput[${qualCnt }]" no="${qualCnt }" noName="qualNo">
+											<input type="button" class="minus_btn" id="delBtn" value="－">
 												<div class="data_container">
 													<input type="text"  value="${data.QUAL_NO }">
 													<input type="text"  value="${data.PASS_DATE }"> 
 													<input type="text"  value="${data.ISSU_AGCY }">
 												</div>
 											</div>
+											<c:set var="qualCnt" value="${qualCnt + 1 }"/>
 										</c:forEach>
 									</c:if>
 									<input type="button" class="plus_btn" id="addBtn1" value="＋">
@@ -934,6 +939,7 @@ function regionOptionDraw3(list){
 									<c:if test="${!empty FLANG }">
 										<c:forEach var="data" items="${FLANG }">
 											<div class="input_box">
+											<input type="button" class="minus_btn" id="delBtn" value="－">
 												<div class="data_container">
 													<input type="text"  value="${data.FLANG_NO }"> 
 													<input type="text"  value="${data.FLANG_TYPE }">

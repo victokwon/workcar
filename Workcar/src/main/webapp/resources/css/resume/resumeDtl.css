@@ -503,15 +503,17 @@ label {
   height: 30px;
   display: flex;
   margin: auto;
+  justify-content: center;
 }
 .data_container input[type="text"] {
+	width: 20%;
   margin-left: 10px;
 }
 .data_container input[readonly] {
   width: 100px;
 }
 .minus_btn {
-  margin: 10px 20px;
+  margin: 10px 0px 10px 0px; 
 }
 .plus_btn {
   margin: 10px auto;
@@ -562,9 +564,6 @@ label {
 }
 .text_box {
   flex-direction: column;
-}
-.qual_input{
-	width: 25%;
 }
 .text_box input[type="text"] {
   font-size: 12px;
