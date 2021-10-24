@@ -235,7 +235,8 @@ main {
   
   #main_apply .main_box .content .dtl {
     border-radius: 10px 10px 0px 0px;
-    background-color: #c4c7f2;
+    background-color: c
+    border : 1px solid gray;
     /* 높이 100% 수정해야함 */
     height: 100%;
     width: 100%;
