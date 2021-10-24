@@ -30,5 +30,23 @@ public class SpaceADao implements ISpaceADao {
 		return sqlSession.selectOne("space.getA", params);
 	}
 
+	@Override
+	public int ABAdd(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("space.ABAdd", params);
+	}
+
+	@Override
+	public int ABUpdate(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("space.ABUpdate", params);
+	}
+
+	@Override
+	public int ABDelete(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("testspace.ABDelete", params);
+	}
+
 	
 }

@@ -32,6 +32,24 @@ public class SpaceAService implements ISpaceAService {
 		return iSpaceADao.getA(params);
 	}
 
+	@Override
+	public int ABAdd(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iSpaceADao.ABAdd(params);
+	}
+
+	@Override
+	public int ABUpdate(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iSpaceADao.ABUpdate(params);
+	}
+
+	@Override
+	public int ABDelete(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iSpaceADao.ABDelete(params);
+	}
+
 	
 	
 	

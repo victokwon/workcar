@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="persondetail">
+<mapper namespace="personDetail_SQL">
 	<select id="getM1" parameterType="hashmap" resultType="hashmap">
 		select m.name, im.gender , im.addr, im.addr_dtl , r.gradu gradu
 		from member m  join 
@@ -13,6 +13,8 @@
 	from resum r 
 	join resum_work rw 
 	on r.resum_no = rw.resum_no 
+	WHERE R.DEL_CHK = 0
+		AND R.RESUM_NO = 1
 	</select>
 	<select id="getM3" parameterType="hashmap" resultType="hashmap">
 	select rq.rating rt, to_char(rq.pass_date,'yy/mm/dd') pd, rq.issu_agcy ia

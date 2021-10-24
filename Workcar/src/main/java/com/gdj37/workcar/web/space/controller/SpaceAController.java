@@ -100,6 +100,109 @@ public class SpaceAController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/ntcABAdd")
+	public ModelAndView ntcABAdd(ModelAndView mav) {
+		mav.setViewName("space/ntcABAdd");
+			
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ntcABAdds", method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody //Spring에게 돌려주는 내용이 View임을 제시
+	public String ntcABAdds(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper(); //jackson객체
+
+		Map<String, Object> modelMap = new HashMap<String, Object>(); //데이터를 담을 map)
+
+		String result = "success";
+		
+		try {
+			int cnt = iSpaceAService.ABAdd(params);
+			
+			if(cnt == 0) {
+				result = "failed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "error";
+		}
+			
+		
+		modelMap.put("result", result);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "/ntcABUpdate")
+	public ModelAndView ntcABUpdate(@RequestParam HashMap<String, String> params,
+								ModelAndView mav) throws Throwable {
+		if(params.get("no") != null) {
+			HashMap<String, String> data = iSpaceAService.getA(params);
+			mav.addObject("data", data);
+			mav.setViewName("space/ntcABUpdate");
+		} else {
+			mav.setViewName("redirect:testABList");
+		}
+		
+	
+		return mav;
+	}
+	
+	@RequestMapping(value = "/ntcABUpdates", method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody //Spring에게 돌려주는 내용이 View임을 제시
+	public String ntcABUpdates(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper(); //jackson객체
+
+		Map<String, Object> modelMap = new HashMap<String, Object>(); //데이터를 담을 map)
+
+		String result = "success";
+		
+		try {
+			int cnt = iSpaceAService.ABUpdate(params);
+			
+			if(cnt == 0) {
+				result = "failed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "error";
+		}
+			
+		
+		modelMap.put("result", result);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@RequestMapping(value = "/ntcABDeletes", method = RequestMethod.POST,
+			produces = "text/json;charset=UTF-8")
+	@ResponseBody //Spring에게 돌려주는 내용이 View임을 제시
+	public String ntcABDeletes(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper(); //jackson객체
+
+		Map<String, Object> modelMap = new HashMap<String, Object>(); //데이터를 담을 map)
+
+		String result = "success";
+		
+		try {
+			int cnt = iSpaceAService.ABDelete(params);
+			
+			if(cnt == 0) {
+				result = "failed";
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			result = "error";
+		}
+			
+		
+		modelMap.put("result", result);
+		
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 	@RequestMapping(value = "/quesSpace")
 	public ModelAndView quesSpace(ModelAndView mav) {
 		mav.setViewName("space/quesSpace");
