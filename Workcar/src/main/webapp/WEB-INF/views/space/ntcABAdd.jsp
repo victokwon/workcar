@@ -287,16 +287,16 @@ function checkVal(sel) {
 </form>
 <form action="#" id="addForm" method="post">
 	제목 <input type="text" id="title" name="title" /><br/>
-	작성자 : ${sMNm}<input type="hidden" name="memno" value="${sMNo}" /><br/>
+	작성자 : ${sMNm}<input type="hidden" name="memNo" value="${sMNo}" /><br/>
 	<textarea rows="5" cols="5" id="cntt" name="cntt"></textarea> 
 	첨부파일 : <input type="button" value="첨부파일선택" id="fileBtn" />
 	<span id="fileName"></span>
 	<!-- <input type="hidden" name="bFile" id="bFile" /> --><!-- DB저장용 -->
 </form>
-							<%-- <c:if test="${data.MEM_NO eq sMNo}"> --%>
+							<c:if test="${data.NAME eq sMNm}">
 								<input type="button" value="저장" id="addBtn" />
 								<input type="button" value="취소" id="cancelBtn" />
-							<%-- </c:if> --%>
+							</c:if>
 							<input type="button" value="목록" id="listBtn" />
                 	</div>
             	</div>                    

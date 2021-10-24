@@ -45,7 +45,7 @@ public class SpaceADao implements ISpaceADao {
 	@Override
 	public int ABDelete(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.update("testspace.ABDelete", params);
+		return sqlSession.update("space.ABDelete", params);
 	}
 
 	

@@ -163,9 +163,9 @@ function drawList(list) {
 	html += "<td>";  //제목
 	html += data.NOTICE_TITLE;
 	
-	/* if(data.ATTCH_NAME != null) {
-		html += "<img src=\"resources/images/attFile.png\" />";
-	} */ 
+	if(data.ATTCH_NAME != null) {
+		html += "<img src=\"resources/images/freepik_att1.png\" />";
+	
 	
 	html += "</td>"; 
 	html += "<td>" + data.NAME + "</td>"; //작성자 MEMBER테이블

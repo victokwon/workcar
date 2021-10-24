@@ -142,7 +142,7 @@ public class SpaceAController {
 			mav.addObject("data", data);
 			mav.setViewName("space/ntcABUpdate");
 		} else {
-			mav.setViewName("redirect:testABList");
+			mav.setViewName("redirect:ntcSpaceABList");
 		}
 		
 	

@@ -16,7 +16,7 @@
 
 <style>
 main{
-	height: calc(100% - 170px);
+	height: calc(100% - 20px);
 }
 table {
 	background-color: #E6E6FA;
@@ -69,7 +69,7 @@ $(document).ready(function() {
 	});
 	
 	$("#updateBtn").on("click", function() {
-		$("#actionForm").attr("action", "ntcSpaceABUpdate");
+		$("#actionForm").attr("action", "ntcABUpdate");
 	    $("#actionForm").submit();
 	});
 	
@@ -78,7 +78,7 @@ $(document).ready(function() {
 			var params = $("#actionForm").serialize();  //데이터를 문자열화
 			
 			$.ajax({
-				url: "ntcSpaceABDeletes",   //이 주소로 데이터 주고받을거야, 새 주소 나오면 컨트롤러에 만들어줘야함.
+				url: "ntcABDeletes",   //이 주소로 데이터 주고받을거야, 새 주소 나오면 컨트롤러에 만들어줘야함.
 				type: "post",
 				dataType: "json",  
 				data: params,
@@ -98,36 +98,7 @@ $(document).ready(function() {
 		}
 	});
 });
-function drawPaging(pb) {
-	var html = "";
-	
-	html += "<span page=\"1\">처음</span>";
-	
-	if($("#page").val() == "1") {
-		html += "<span page=\"1\">이전</span>";
-	} else {
-		html += "<span page=\"" + ($("#page").val() * 1 - 1) + "\">이전</span>";
-	}											// 숫자가 문자열로 되있는 경우 *1 해주면 int 로 자동변환됨. -는 상관없음. 
-												// +는 문자열 결합으로 인식시켜버림. 문자인 문자열에 * 를 하는건 NaN 나옴.
-												
-	for(var i = pb.startPcount ; i <= pb.endPcount ; i++) {
-		if($("#page").val() == i) {
-			html += "<span page=\"" + i + "\"><b>" + i + "</b></span>";
-		} else {
-			html += "<span page=\"" + i + "\">" + i + "</span>";
-		}
-	}												
-	
-	if($("#page").val() == pb.maxPcount) {
-		html += "<span page=\"" + pb.maxPcount + "\">다음</span>";
-	} else {
-		html += "<span page=\"" + ($("#page").val() * 1 + 1) + "\">다음</span>";
-	}
-	
-	html += "<span page=\"" + pb.maxPcount + "\">마지막</span>";
-	
-	$(".paging_wrap").html(html);
-}
+
 </script>
 </head>
 <body>
@@ -320,12 +291,11 @@ function drawPaging(pb) {
 	</a>
 </div>
 </c:if> --%>
-							<c:if test="${data.M_NO eq sMNo}">
+							<c:if test="${data.NAME eq sMNm}">
 								<input type="button" value="수정" id="updateBtn" />
 								<input type="button" value="삭제" id="deleteBtn" />
 							</c:if>
 							<input type="button" value="목록" id="listBtn" />
-						<div class="paging_wrap"></div>
                 	</div>
             	</div>                    
         	</div>

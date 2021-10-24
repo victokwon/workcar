@@ -175,7 +175,7 @@ function checkVal(sel) {
 <form action="#" id="updateForm" method="post">
 	번호 : ${data.NOTICE_NO}<input type="hidden" name="no" value="${data.NOTICE_NO}" /><br/>
 	제목 <input type="text" id="title" name="title" value="${data.NOTICE_TITLE}" /><br/>
-	작성자 : ${data.NAME}<input type="hidden" name="memno" value="${sMNo}" /><br/>
+	작성자 : ${data.NAME}<input type="hidden" name="memNo" value="${sMNo}" /><br/>
 	<textarea rows="5" cols="5" id="cntt" name="cntt">${data.NOTICE_CNTT}</textarea> 
 	첨부파일 : 
 	<c:choose>
