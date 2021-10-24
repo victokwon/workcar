@@ -27,6 +27,9 @@
 <script type="text/javascript" src="resources\script\common\sidebar.js"></script>
 
 <script type="text/javascript">
+	function loadList() {
+		
+	}
 	$(function() {
 		 var noBox = {
 				  qualNo: ${conCnt.QUAL_CNT},
@@ -64,27 +67,18 @@
 		$("#city\\[2\\]").val("${LOC2.CITY_NO}").attr("selected", "selected");
 		getRegion20($("#city\\[2\\]").val())
 		
-		$("#city\\[3\\]").val("${LOC3.CITY_NO}").attr("selected", "selected");
-		getRegion30($("#city\\[3\\]").val())
+	 	$("#city\\[3\\]").val("${LOC3.CITY_NO}").attr("selected", "selected");
+		getRegion30($("#city\\[3\\]").val()) 
 		
+		$("#gradu").val("${DATA.GRADU}").attr("selected", "selected");
 		
+		$("#opencase").val("${DATA.OPN_CHK}").attr("selected", "selected");
 		
-		
-/* 		$.each(${locList},function(index,item){
-			let no = item.LOC_RESUM_NO
-			$("#city["+no+"]").val("${item.CITY_NO}").attr("selected", "selected");
-		}) */
-		
-	/* 	for(var data of ${locList}){
-			let no = data.LOC_RESUM_NO
-			$("#city["+no+"]").val("${data.CITY_NO}").attr("selected", "selected");
-		} */
 
-
-			 $(".apply_content").on("click", ".apply_update_btn", function () {
+/* 		 $(".apply_content").on("click", ".apply_update_btn", function () {
 		    $("#resumeNO").val($(this).parent().parent().attr("resumeNO"));
-		   	});
-		
+		   	}); */
+		   	
 		 $(".add_box").on("click", ".minus_btn", function () {
 		 	let target = $(this).parent().attr("noName")
 		 	noBox[target] --
@@ -107,6 +101,7 @@
 			$("#resumeGo").attr("action", "resumeDtl")
 			$("#resumeGo").submit()
 		})
+		
 		 // 자격증 1
 		  $("#addBtn1").on("click", function () {
 		  
@@ -350,6 +345,8 @@
 		    }
 		  });	
 	})
+	
+	
 function getRegion0(city){
 	$.ajax({
 			type : "POST",
@@ -404,7 +401,7 @@ function getRegion2(city){
 			}
 		});
 }
-function getRegion3(city){
+ function getRegion3(city){
 	$.ajax({
 			type : "POST",
 			data : "cityNo=" + city,
@@ -421,7 +418,7 @@ function getRegion3(city){
 				console.log(error);
 			}
 		});
-}
+} 
 function getRegion00(city){
 	$.ajax({
 			type : "POST",
@@ -497,7 +494,8 @@ function getRegion30(city){
 				console.log(error);
 			}
 		});
-}
+} 
+
 
 function regionOptionDraw0(list){
 	var html= "" 
@@ -533,6 +531,10 @@ function regionOptionDraw3(list){
 		location.href = url
 	}
 	
+	function onloadCheck() {
+		let resumeNo = $("#resumeNo").val()
+		if( $(this).val()
+	}
 </script>
 <!-- <script type="text/javascript" src="resources\script\resume\locAjax.js"></script> -->
 </head>
@@ -607,7 +609,7 @@ function regionOptionDraw3(list){
 
 			<!-- 로고 -->
 			<div class="topnav-centered">
-				<div class="logo_img"></div>
+				<div class="logo_img" onclick="linkGo('mainpage')"></div>
 			</div>
 
 			<!-- 왼쪽 -->
@@ -703,6 +705,10 @@ function regionOptionDraw3(list){
 								class="apply_dtl_date">최종수정일 | ${DATA.CHN_DATE}</span> <span
 								class="apply_dtl_date">&nbsp;[${DATA.OPN_CHK}]</span>
 						</div>
+						<select id="opencase" class="opencase">
+							<option value="1">공개</option>
+							<option value="0">비공개</option>
+						</select>
 						<div class="apply_btn">
 							<button type="button" id="saveBtn">저장</button>
 							<button type="button" id="cancelBtn">취소</button>
@@ -846,7 +852,7 @@ function regionOptionDraw3(list){
 												</select>
 											</div>
 											<div class="locSelectBox" >
-												<select class="citySel" id="city[3]" name="city[3]" locResumNo="3">
+												<select class="citySel" id="city[3]" name="city[3]" locResumNo="3" onload="getRegion('LOC3')">
 													<option value="-1">시도 선택</option>
 													<option value="16">전체</option>
 													<option value="0">강원</option>
@@ -875,9 +881,6 @@ function regionOptionDraw3(list){
 									<div class="work_format">
 										<div class="text">근무형태</div>
 										<div class="input">
-						<%-- 					<c:forEach var="data" items="${WORK}">
-												[&nbsp;${data.WORK_TYPE }&nbsp;]&nbsp;
-											</c:forEach> --%>
 											<label for="workType[0]">정규직</label>
 											<input type="checkbox" name="workType[0]" id="workType[0]" value="0">
 											<label for="workType[1]">계약직</label>
