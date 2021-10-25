@@ -73,6 +73,8 @@ public class CAController {
 				
 				String memGbn = String.valueOf(data.get("MEM_GBN"));
 				
+				
+				
 				if( memGbn.equals("0")) {
 					checkJoin = iCAService.checkImJoin(params);
 					mav.setViewName("ca/imjoin");
@@ -88,7 +90,7 @@ public class CAController {
 					mav.setViewName("redirect:mainpage");
 				}
 			} else {
-				mav.addObject("msg", "로그인실패");
+//				mav.addObject("msg", "로그인실패");
 				mav.setViewName("redirect:login");
 			}
 		} catch (Exception e) {

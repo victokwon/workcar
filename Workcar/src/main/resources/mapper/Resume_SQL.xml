@@ -185,18 +185,33 @@
    </select>
    
    <select id="getSector" parameterType="hashmap" resultType="hashmap">
-      SELECT S_CODE, S_NAME
+      SELECT SECTOR_NO, SECTOR_NAME
       FROM
-         (SELECT S_CODE, S_NAME, ROW_NUMBER() OVER (ORDER BY S_CODE) AS RNUM
-         FROM SECTOR_DATA 
-         WHERE S_NAME like '%'||#{schSectorName}||'%') S
+         (SELECT SECTOR_NO, SECTOR_NAME, ROW_NUMBER() OVER (ORDER BY SECTOR_NO) AS RNUM
+         FROM SECTOR
+         WHERE SECTOR_NAME like '%'||#{schDataName}||'%') S
       WHERE S.RNUM BETWEEN #{startCnt} AND #{endCnt}
    </select>
    
    <select id="getSectorCnt" parameterType="hashmap" resultType="int">
       SELECT COUNT(*) AS CNT
-      FROM SECTOR_DATA
-      WHERE S_NAME LIKE '%'||#{schSectorName}||'%'
+      FROM SECTOR
+      WHERE SECTOR_NAME LIKE '%'||#{schDataName}||'%'
+   </select>
+   
+      <select id="getQual" parameterType="hashmap" resultType="hashmap">
+      SELECT QUAL_NO, QUAL_NAME
+      FROM
+         (SELECT QUAL_NO, QUAL_NAME, ROW_NUMBER() OVER (ORDER BY QUAL_NO) AS RNUM
+         FROM QUAL
+         WHERE QUAL_NAME like '%'||#{schDataName}||'%') Q 
+      WHERE Q.RNUM BETWEEN #{startCnt} AND #{endCnt}
+   </select>
+   
+   <select id="getQualCnt" parameterType="hashmap" resultType="int">
+      SELECT COUNT(*) AS CNT
+      FROM QUAL
+      WHERE QUAL_NAME LIKE '%'||#{schDataName}||'%'
    </select>
    
 </mapper>

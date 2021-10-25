@@ -70,14 +70,14 @@ html {
   border: 1px solid #eee;
   padding: 0 20px;
 }
-.pop-input #schBtn {
+.pop-input .sch-btn {
   float: right;
   width: 100px;
   border-radius: 30px;
   background-color: #88a2f2;
   color: white;
 }
-.pop-input #schBtn:hover {
+.pop-input .sch-btn:hover {
   cursor: pointer;
   background-color: #1b50ee;
   font-weight: bold;

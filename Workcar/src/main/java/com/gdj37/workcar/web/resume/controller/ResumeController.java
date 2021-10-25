@@ -90,7 +90,7 @@ public class ResumeController {
             List<HashMap<String, String>> work = iResumeService.resumeDtlWork(params);
             List<HashMap<String, String>> qual = iResumeService.resumeDtlQual(params);
             List<HashMap<String, String>> flang = iResumeService.resumeDtlFlang(params);
-            List<HashMap<String, String>> CARR = iResumeService.resumeDtlCarr(params);
+            List<HashMap<String, String>> carr = iResumeService.resumeDtlCarr(params);
             List<HashMap<String, String>> edu = iResumeService.resumeDtlEdu(params);
             List<HashMap<String, String>> iedu = iResumeService.resumeDtlIedu(params);
             List<HashMap<String, String>> sintro = iResumeService.resumeDtlSintro(params);
@@ -104,23 +104,10 @@ public class ResumeController {
             mav.addObject("WORK", work);
             mav.addObject("LOC", loc);
 
-			/*
-			 * params.put("no", "1"); HashMap<String, String> loc1 =
-			 * iResumeService.resumeDtlLoc(params); System.out.println(loc1);
-			 * mav.addObject("LOC1", loc1);
-			 * 
-			 * params.put("no", "2"); HashMap<String, String> loc2 =
-			 * iResumeService.resumeDtlLoc(params); System.out.println(loc2);
-			 * mav.addObject("LOC2", loc2);
-			 * 
-			 * params.put("no", "3"); HashMap<String, String> loc3 =
-			 * iResumeService.resumeDtlLoc(params); System.out.println(loc3);
-			 * mav.addObject("LOC3", loc3);
-			 */
-            
+          
             mav.addObject("QUAL", qual);
             mav.addObject("FLANG", flang);
-            mav.addObject("CARR", CARR);
+            mav.addObject("CARR", carr);
             mav.addObject("EDU", edu);
             mav.addObject("IEDU", iedu);
             mav.addObject("SINTRO", sintro);
@@ -188,6 +175,42 @@ public class ResumeController {
          System.out.println(cnt);
          System.out.println(pb);
          List<HashMap<String, String>> list = iResumeService.getSector(params);
+         if(list == null) {
+            result = CommonProperties.RESULT_FAILED;
+         }
+         modelMap.put("page", page);
+         modelMap.put("pb", pb);
+         modelMap.put("list", list);
+      } catch (Exception e) {
+         System.out.println(params);
+         result = CommonProperties.RESULT_ERROR;            
+         e.printStackTrace();
+      }
+      modelMap.put("result", result);
+      return mapper.writeValueAsString(modelMap);
+   }
+   
+   @ResponseBody
+   @RequestMapping(value = "/getQualAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+   public String getQualAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+      ObjectMapper mapper = new ObjectMapper();
+      Map<String, Object> modelMap = new HashMap<String, Object>();
+      String result = CommonProperties.RESULT_SUCCESS;
+      int page = 1;
+      
+      try {
+         if(params.get("page")!="") {
+            page =Integer.parseInt(params.get("page"));
+         }
+         int cnt = iResumeService.getQualCnt(params);
+         PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
+         
+         params.put("startCnt", Integer.toString(pb.getStartCount()));
+         params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+         System.out.println(cnt);
+         System.out.println(pb);
+         List<HashMap<String, String>> list = iResumeService.getQual(params);
          if(list == null) {
             result = CommonProperties.RESULT_FAILED;
          }

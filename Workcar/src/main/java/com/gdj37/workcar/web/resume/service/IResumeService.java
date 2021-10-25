@@ -39,5 +39,8 @@ public interface IResumeService {
 
 	public List<HashMap<String, String>> getSector(HashMap<String, String> params)throws Throwable;
 
+	public int getQualCnt(HashMap<String, String> params)throws Throwable;
+
+	public List<HashMap<String, String>> getQual(HashMap<String, String> params)throws Throwable;
 
 }

@@ -39,5 +39,8 @@ public interface IResumeDAO {
 
 	List<HashMap<String, String>> getSector(HashMap<String, String> params)throws Throwable;
 
+	int getQualCnt(HashMap<String, String> params)throws Throwable;
+
+	List<HashMap<String, String>> getQual(HashMap<String, String> params)throws Throwable;
 
 }

@@ -6,40 +6,42 @@ $(function () {
      })
      
 /* js에서 api 데이터 호출해서 활용하는 방법 =?= controller에서 api데이터 호출해서 활용하는 방법*/
-  $("#sectorBtn").on("click", function () {
-    $(".pop-text-header").children("h1").html("직종 검색")
-    $("#sectorList").html("");
+  $("#resumeLisence").on("click", "#qualBtn",function () {
+  $("#sectorList").attr("no", $(this).attr("no"))
+   $(".pop-text-header").children("h1").html("자격증 검색")
+   $("#sectorList").html("");
     $(".pop-container").show();
-    $("#schSectorBtn").show()
-    $("#schQualBtn").hide()
+    $("#schQualBtn").show()
+    $("#schSectorBtn").hide()
   });
   
-    $("#schSectorBtn").on("click", function () {
-      schSector()
+    $("#schQualBtn").on("click", function () {
+      schQual()
   });
   
   $(".company_wrap").on("click", "tr", function () {
-    $("#sectorInput").html($(this).attr("sName"));
-    $("#sectorNo").val($(this).attr("sNo"));
+  	let target = $("#sectorList").attr("no")
+    $("#qualName"+target+"").val($(this).attr("qName"));
+    $("#qualNo"+target+"").val($(this).attr("qNo"));
     $(".pop-container").hide();
   });
   
    $(".paging_wrap").on("click","span",function(){
       $("#page").val($(this).attr("page"))
-      schSector()
+      schQual()
    })
 });
 
-function schSector() {
+function schQual() {
    let params = $("#schForm").serialize();
    
   $.ajax({
     type: "POST",
     data: params,
-    url: "getSectorAjax",
+    url: "getQualAjax",
     dataType: "json",
     success: function (res) {
-     SectorList(res.list);
+     QualList(res.list);
      drawPaging(res.pb)
     },
     error: function (request, status, error) {
@@ -49,23 +51,23 @@ function schSector() {
   });
 }
 
-function SectorList(list) {
+function QualList(list) {
   let html = "";
   
       for(let data of list){
       html += "<tr "
       
-      html += "sNo="
+      html += "qNo="
       
-      html += "'" + data.SECTOR_NO + "'"
+      html += "'" + data.QUAL_NO + "'"
       
-      html += "sName="
+      html += "qName="
       
-      html += "'" + data.SECTOR_NAME + "'>"
+      html += "'" + data.QUAL_NAME + "'>"
       
-      html += "    <td>" + data.SECTOR_NO + "</td>"
+      html += "    <td>" + data.QUAL_NO + "</td>"
       
-      html += "    <td>" + data.SECTOR_NAME + "</td>"
+      html += "    <td>" + data.QUAL_NAME + "</td>"
       
       html += "</tr>"
       }

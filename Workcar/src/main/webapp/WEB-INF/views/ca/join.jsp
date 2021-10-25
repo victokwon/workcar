@@ -25,7 +25,7 @@ $(function () {
 		});
 		
 		$("#popConfBtn").on("click", function() {
-			$("#popConfBtn").hide();
+			/* $("#popConfBtn").hide(); */
 			$(".pop-container").hide();
 		});
 		
@@ -47,6 +47,7 @@ $(function () {
 		    success: function (res) {
 		    	if(res.result == "success"){
 		    		$("#memNo").val(res.data.MEM_NO)
+		    		console.log($("#memNo").val())
 		    		formGo(res.data.MEM_GBN)
 		    	}else if(res.result == "failed"){
 		    		alert("회원가입에 실패했습니다.")
@@ -303,8 +304,8 @@ $(function () {
 			<div class="pop-in-container">
 				<div class="pop-text-header">
 					<h1>잠시만기다려주세요.</h1>
-					<a href='javascript:void(0);' id="popConfBtn">확인</a>
 				</div>
+					<a href='javascript:void(0);' id="popConfBtn">확인</a>
 				<hr>
 			</div>
 		</div>

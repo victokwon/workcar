@@ -21,11 +21,12 @@
 <link rel="stylesheet" type="text/css"
    href="resources\css\resume\floatRightNav.css">
    <link rel="stylesheet" type="text/css"
-   href="resources\css\resume\sector.css">
+   href="resources\css\resume\pop.css">
 
 <script type="text/javascript"
    src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources\script\resume\sector.js"></script>
+<script type="text/javascript" src="resources\script\resume\qual.js"></script>
 <script type="text/javascript" src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -47,71 +48,12 @@
 		   }
 	   });
 	    
-	   $("selectname='region'").each(function(idx) {
+	   $("select[name='region']").each(function(idx) {
 		   getRegion($("#city" + idx + "").val(), $(this), $(this).attr("selValue"));
 	   });
 	   
-       /* for(let i = 0; i < $("select").length;i++){
-    	   if($("select").eq(i).attr("selValue") != ""){
-    		   let target = $("select").eq(i)
-    		   target.val(target.attr("selValue")).attr("selected", "selected");
-    	   }
-       } */
-	    
-      /*  for(let i = 0; i < $("selectname='city'").length;i++){
-    	   let city = $("selectname='city'").eq(i).val()
-    	   let target = $("selectname='region'").eq(i)
-    	   
-    	   getRegion(city, target)
-    	   
-    	   console.log(target)
-    	   console.log(target.attr("selValue")) 
-    	  target.val(target.attr("selValue")).attr("selected", "selected");
-       } */
-	    
 	    
 		$("#saveBtn").on("click",function(){
-	/* 		
-			let city
-			let region
-			
-			let workType
-			
-			let qualNo
-			let issuAgcy
-			let passDate
-			
-			let flangNo
-			let flangType
-			let flangGrade
-			
-			let cName
-			let dpart
-			let pos
-			let carrStDate
-			let carrEndData
-			let tureChk
-			let carrCntt
-			
-			let schName
-			let sol
-			let major
-			let eduStDate
-			let eduEndData
-			let eduCntt
-			
-			let ieduName
-			let coseName
-			let ieduStDate
-			let ieduEndDate
-			let ieduCntt
-			
-			let sintroName
-			let sintroCntt 
-			
-			*/
-			
-			
 		   $("#updateForm").attr("action", "resumeUpdate")
 		   $("#updateForm").submit() 
 		})
@@ -124,12 +66,6 @@
 		   getRegion($(this).val(), $(this).next())
 		}) 
       
-		/* $("#gradu").val("${DATA.GRADU}").attr("selected", "selected"); */
-		
-	/* 	$("#city").val("${DATA.CITY_NO}").attr("selected", "selected");
-		getRegion($("#city").val()) */
-		
-      
 		$("#resumeList").on("click","div",function(){
 		   let resumeNo = $(this).attr("resumeNo")
 		   $("#resumeNo").val(resumeNo)
@@ -138,16 +74,13 @@
 		   $("#resumeGo").submit()
 		})
    
-		/* $(".apply_content").on("click", ".apply_update_btn", function () {
-		   $("#resumeNo").val($(this).parent().parent().attr("resumeNo"));
-		  }); */
 		
-		$(".add_box").on("click", ".minus_btn", function () {
+		 $(".add_box").on("click", ".minus_btn", function () {
 		   let target = $(this).parent().attr("noName")
-		   noBoxtarget] --
+		   noBox.target --
 		   console.log(noBox)
 		  $(this).parent().remove();
-		});
+		}); 
        
 		if ($("#sal1").is(":checked")) {
 		      $("#minSal").attr("disabled", true);
@@ -156,6 +89,7 @@
 		       $("#minSal").attr("disabled", false);
 		       $("#maxSal").attr("disabled", false);
 		}
+		
 		$(".sal").on("change", "input", function () {
 		     if ($("#sal1").is(":checked")) {
 		       $("#minSal").attr("disabled", false);
@@ -190,9 +124,9 @@
 		  html += '<div class="input_box " id="qualInput'+noBox.qualNo+'" no="'+noBox.qualNo+'" noName="qualNo">';
 		  html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
 		  html += '<div class="data_container">';
-		  html +=
-		    '<input type="button" class="" id="lisenceSchBtn" value="자격증 검색">';
-		  html += '<input class="qual_input" name="qualNo" id="qualNo'+noBox.qualNo+'" type="text" value="데이터 / 자격증명" readonly>';
+		  html += '<button type="button" id="qualBtn" no="'+noBox.qualNo+'" >자격증검색</button>';
+		  html += '<input class="qual_input" name="qualNo" id="qualNo'+noBox.qualNo+'" type="hidden" value="데이터 / 자격증명" readonly>';
+		  html += '<input class="qual_input" id="qualName'+noBox.qualNo+'" type="text" value="자격증명" disabled>';
 		  html += '<input class="qual_input" name="issuAgcy" id="issuAgcy'+noBox.qualNo+'" type="text" placeholder="발급처">';
 		  html += '<input class="qual_input" name="passDate" id="passDate'+noBox.qualNo+'" type="text" placeholder="발급일">';
 		  html += " </div>";
@@ -216,7 +150,6 @@
 		  html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
 		  html += '<div class="data_container">';
 		  html += '<select name="flangNo" id="flangNo">';
-		
 		  html += '<option value="-1">언어 선택</option>';
 		  html += '<option value="0">독일어</option>';
 		  html += '<option value="1">란다어</option>';
@@ -237,7 +170,6 @@
 		  html += '<option value="16">포르투갈어</option>';
 		  html += '<option value="17">프랑스어</option>';
 		  html += '<option value="18">힌디어</option>';
-		
 		  html += "</select>";
 		  html += '<label for="flangType">타입</label>';
 		  html += '<select name="flangType" id="flangType'+noBox.flangNo+'">';
@@ -473,7 +405,6 @@
    
 
 </script>
-<!-- <script type="text/javascript" src="resources\script\resume\locAjax.js"></script> -->
 </head>
 
 <body>
@@ -493,17 +424,16 @@
         <div class="pop-out-container">
             <div class="pop-in-container">
                 <div class="pop-text-header">
-                    <h1>직종검색</h1>
+                    <h1></h1>
                 </div>
-
-                <form class="pop-user" id="sectorSchForm">
+                <form class="pop-user" id="schForm">
                     <input type="hidden" name="page" id="page" value="${page }">
                     <div class="pop-input">
-                        <input type="button" id="schBtn" value="검색">
-                        <input type="text" name="schSectorName" id="schSectorName" placeholder="직종명">
+                        <input type="button" class="sch-btn" id="schSectorBtn" value="검색">
+                        <input type="button" class="sch-btn" id="schQualBtn" value="검색">
+                        <input type="text" name="schDataName" id="schName" placeholder="검색어">
                     </div>
                 </form>
-
                 <!-- 5개 리스트 -->
                 <div class="company_wrap">
                     <table>
@@ -513,7 +443,7 @@
                                 <th>내용</th>
                             </tr>
                         </thead>
-                        <tbody id="sectorList">
+                        <tbody id="sectorList" no="">
                         </tbody>
                     </table>
                 </div>
@@ -766,6 +696,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                         <!-- form 설정 -->
                         <div class="content apply_dtl_hope" id="resumeHope">
                             <div class="dtl">
@@ -774,6 +705,7 @@
                                     <div class="input_box">
                                         <div class="job">
                                             <div class="text">희망직종</div>
+                                            <input type="hidden" name="sectorNo" id="sectorNo">
                                             <div class="input" id="sectorInput">${DATA.SECTOR_NAME}</div>
                                             <button type="button" id="sectorBtn">직종 검색</button>
                                         </div>

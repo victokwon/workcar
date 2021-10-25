@@ -168,7 +168,7 @@ function linkGo(url) {
                     <h1>일력거 회원가입</h1>
                 </div>
                 <form id="cMemJoinForm" class="user" method="get">
-               		<input type="hidden" name="memNo" id="memNo" value="${memNo}">
+               		<input type="hidden" name="memNo" id="memNo" value="${param.memNo}">
                     <input type="hidden" name="joinType" value="cMem">
                     <div class="input-member">
                         <input type="checkbox" name="cM" id="cM" readonly>

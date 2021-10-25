@@ -96,5 +96,15 @@ public class ResumeDAO implements IResumeDAO{
 	public List<HashMap<String, String>> getSector(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("Resume_SQL.getSector",params);
 	}
+
+	@Override
+	public int getQualCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Resume_SQL.getQualCnt",params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getQual(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Resume_SQL.getQual",params);
+	}
 	
 }

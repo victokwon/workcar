@@ -98,4 +98,13 @@ public class ResumeService implements IResumeService {
 		return iResumeDAO.getSector(params);
 	}
 	
+	@Override
+	public int getQualCnt(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.getQualCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getQual(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.getQual(params);
+	}
 }
