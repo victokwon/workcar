@@ -74,7 +74,7 @@ public class ResumeService implements IResumeService {
 	}
 
 	@Override
-	public  HashMap<String, String> resumeDtlLoc(HashMap<String, String> params) throws Throwable {
+	public  List<HashMap<String, String>> resumeDtlLoc(HashMap<String, String> params) throws Throwable {
 		return iResumeDAO.resumeDtlLoc(params);
 	}
 
@@ -86,6 +86,16 @@ public class ResumeService implements IResumeService {
 	@Override
 	public List<HashMap<String, String>> getRegion(HashMap<String, String> params) throws Throwable {
 		return iResumeDAO.getRegion(params);
+	}
+
+	@Override
+	public int getSectorCnt(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.getSectorCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getSector(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.getSector(params);
 	}
 	
 }

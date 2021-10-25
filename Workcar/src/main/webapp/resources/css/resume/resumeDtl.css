@@ -30,7 +30,10 @@ main {
   font-size: 17px;
   width: 25%;
 }
-
+.add_box .more .data_container .detail input[type="date"]{
+	width: 130px;
+	font-weight: normal;
+}
 .main_button:hover {
   background-color: #88a2f2;
 }

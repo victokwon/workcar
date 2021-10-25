@@ -178,7 +178,7 @@ public class CAController {
 
 	@ResponseBody
 	@RequestMapping(value = "/getApiDataAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	public String cInfoListAjax(@RequestParam HashMap<String, String> params, HttpServletResponse response)
+	public String getApiDataAjax(@RequestParam HashMap<String, String> params, HttpServletResponse response)
 			throws Throwable {
 		String addr = "http://apis.data.go.kr/1160100/service/GetCorpBasicInfoService/getCorpOutline?";
 		String serviceKey = "r0G1+ZSkNEfXTCLmqfXjwKV1t3qGIp2NfBpG9FJuGEdgzz3BZCRt0aT86BoeL5JyNwEAlQmYQXLUupdB2u6vug==";
@@ -239,7 +239,7 @@ public class CAController {
 
 	@RequestMapping(value = "/apiPagingAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String cInfoList(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String apiPagingAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 
