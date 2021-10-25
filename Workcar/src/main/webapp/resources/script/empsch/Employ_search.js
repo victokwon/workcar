@@ -48,7 +48,6 @@ $(function(){
 	    let html = "";
 	    html += '<div class="data_container ">';
 	    html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
-	    html += '<input type="text" class="input_box" placeholder="자격증">';
 	    html += '<input type="text" class="input_box" value="데이터 / 자격증명" readonly>';
 	    html += " </div>";
   

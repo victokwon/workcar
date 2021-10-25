@@ -224,7 +224,7 @@ main > .main_wrap {
   margin:10px 10px 0px 0px;
 }
 
- #lisenceSchBtn{
+ #qualSchBtn{
    border-radius: 8px;
    width:80px;
    height: 25px;
@@ -251,11 +251,24 @@ main > .main_wrap {
 }
 .plus_btn:hover,
 .minus_btn:hover,
-#lisenceSchBtn:hover{
+#qualSchBtn:hover{
   cursor: pointer;
   border: 1px solid #1b50ee;
   background-color: #3765f0;
   color: white;
+}
+#cancleBtn{
+	position: absolute;
+	right: 20px;
+	top: 20px;
+    border: 0px;
+    cursor: pointer;
+    width: 30px;
+    font-size: 17px;
+    font-weight: bolder;
+}
+.paging_wrap{
+	text-align:center;
 }
 /* 카드형식 이미지 */
 table{
