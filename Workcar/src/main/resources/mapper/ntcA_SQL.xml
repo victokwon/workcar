@@ -61,7 +61,7 @@
 		INSERT INTO NOTICE(NOTICE_NO, MEM_NO, NOTICE_TITLE, NOTICE_CNTT)
 		VALUES(NOTICE_SEQ.nextval, #{memNo}, #{title}, #{cntt})
 	</insert>
-	
+	 
 	 
 	<update id="ABUpdate" parameterType="hashmap">
 		UPDATE NOTICE SET NOTICE_TITLE = #{title},

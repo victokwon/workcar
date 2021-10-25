@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class SpaceADao implements ISpaceADao {
 	@Autowired
 	public SqlSession sqlSession;
-
+ 
 	@Override
 	public int getACnt(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub

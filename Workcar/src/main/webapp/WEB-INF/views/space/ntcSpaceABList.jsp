@@ -164,7 +164,7 @@ function drawList(list) {
 	html += data.NOTICE_TITLE;
 	
 	if(data.ATTCH_NAME != null) {
-		html += "<img src=\"resources/images/freepik_att1.png\" />";
+		html += "<img src=\"resources/images/freepik_attach1.png\" />";
 	
 	
 	html += "</td>"; 

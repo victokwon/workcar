@@ -177,7 +177,7 @@ function checkVal(sel) {
 	제목 <input type="text" id="title" name="title" value="${data.NOTICE_TITLE}" /><br/>
 	작성자 : ${data.NAME}<input type="hidden" name="memNo" value="${sMNo}" /><br/>
 	<textarea rows="5" cols="5" id="cntt" name="cntt">${data.NOTICE_CNTT}</textarea> 
-	첨부파일 : 
+	첨부파일 :  
 	<c:choose>
 		<c:when test="${!empty data.B_FILE}">
 		<!-- 첨부파일이 있는 경우 버튼을 숨긴다. -->
