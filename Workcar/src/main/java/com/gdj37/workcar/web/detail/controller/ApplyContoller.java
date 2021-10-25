@@ -15,49 +15,45 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
-import com.gdj37.workcar.web.detail.service.ICorporService;
+import com.gdj37.workcar.web.detail.service.IApplyService;
 
 @Controller
-public class CorporController {
-
-	@Autowired
-	ICorporService iCorporService;
+public class ApplyContoller {
 
 	@Autowired
 	public IPagingService iPagingService;
 
-	@RequestMapping(value = "/corDetail")
-	public ModelAndView corDetail(@RequestParam HashMap<String, String> params, ModelAndView mav) throws Throwable {
+	@Autowired
+	public IApplyService iApplyService;
 
+	@RequestMapping(value="/applyDetail")
+	public ModelAndView applyDetail (@RequestParam HashMap<String,String> params, ModelAndView mav) throws Throwable
+	{
+		HashMap<String,String> applyinfo = iApplyService.getinfo(params);
+		HashMap<String,String> managerinfo = iApplyService.managerinfo(params);
+		
 		int page = 1; // 현재 P변수
 
 		if (params.get("page") != null) { // 넘어오는 현재 P가 존재할 시
 			page = Integer.parseInt(params.get("page"));
 		}
 
-		int cnt = iCorporService.getP2Cnt(params); // 총 게시글 개수
+		int cnt = iApplyService.getinfo_Cnt(params); // 총 게시글 개수
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 3);
 
-//데이터 시작, 종료 번호 추가
-		params.put("startCnt", Integer.toString(pb.getStartCount()));
-		params.put("endCnt", Integer.toString(pb.getEndCount()));
-
-		HashMap<String, String> data1 = iCorporService.getP1(params);
-
-		mav.addObject("cnt", cnt);
-
-		mav.addObject("page", page);
+		
 		mav.addObject("pb", pb);
-
-		mav.setViewName("detail/corDetail");
-		mav.addObject("data1", data1);
-
+		mav.addObject("cnt", cnt);
+		mav.addObject("page", page);
+		mav.addObject("applyinfo",applyinfo);
+		mav.addObject("managerinfo",managerinfo);
+		mav.setViewName("detail/applyDetail");
 		return mav;
 	}
-
-	@RequestMapping(value = "/corListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	
+	@RequestMapping(value = "/applyListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String corListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String applyListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
 
 		ObjectMapper mapper = new ObjectMapper();
 
@@ -69,20 +65,22 @@ public class CorporController {
 			page = Integer.parseInt(params.get("page"));
 		}
 
-		int cnt = iCorporService.getP2Cnt(params); // 총 게시글 개수
+		int cnt = iApplyService.getinfo_Cnt(params); // 총 게시글 개수
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 2, 5);
 
 		// 데이터 시작, 종료 번호 추가
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
 
-		List<HashMap<String, String>> list = iCorporService.getP2(params);
+		List<HashMap<String, String>> list = iApplyService.getinfo_list(params);
 
+		
+		
 		modelMap.put("pb", pb);
 		modelMap.put("list", list);
 
 		return mapper.writeValueAsString(modelMap);
 
 	}
-
+	
 }

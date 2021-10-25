@@ -53,6 +53,9 @@ header{
   top: calc(50% - 20px);
   left: calc(50% - 60px);
 }
+.topnav-centered div:hover{
+	cursor: pointer;
+}
 
 /* Right-aligned section inside the top navigation */
 .topnav-right {

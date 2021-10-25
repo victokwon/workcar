@@ -15,61 +15,61 @@ public class PersonDao implements IPersonDao {
 	@Override
 	public HashMap<String, String> getM1(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("persondetail.getM1",params);
+		return sqlSession.selectOne("personDetail_SQL.getM1",params);
 	}
 
 	@Override
 	public HashMap<String, String> getM2(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("persondetail.getM2",params);
+		return sqlSession.selectOne("personDetail_SQL.getM2",params);
 	}
 
 	@Override
 	public List<HashMap<String, String>> getM3(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("persondetail.getM3",params);
+		return sqlSession.selectList("personDetail_SQL.getM3",params);
 	}
 
 	@Override
 	public HashMap<String, String> getM4(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("persondetail.getM4",params);
+		return sqlSession.selectOne("personDetail_SQL.getM4",params);
 	}
 
 	@Override
 	public HashMap<String, String> getM5(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("persondetail.getM5",params);
+		return sqlSession.selectOne("personDetail_SQL.getM5",params);
 	}
 
 	@Override
 	public HashMap<String, String> getM6(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("persondetail.getM6",params);
+		return sqlSession.selectOne("personDetail_SQL.getM6",params);
 	}
 
 	@Override
 	public HashMap<String, String> getM7(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("persondetail.getM7",params);
+		return sqlSession.selectOne("personDetail_SQL.getM7",params);
 	}
 
 	@Override
 	public List<HashMap<String, String>> getM8(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("persondetail.getM8",params);
+		return sqlSession.selectList("personDetail_SQL.getM8",params);
 	}
 
 	@Override
 	public List<HashMap<String, String>> getM9(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("persondetail.getM9",params);
+		return sqlSession.selectList("personDetail_SQL.getM9",params);
 	}
 
 	@Override
 	public int getB1Cnt(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("persondetail.getB1Cnt",params);
+		return sqlSession.selectOne("personDetail_SQL.getB1Cnt",params);
 	}
 	
 	
