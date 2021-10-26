@@ -22,4 +22,14 @@ public class EmploySearchService implements IEmploySearchService{
 	public List<HashMap<String, String>> getEmpSch1List(HashMap<String, String> params) throws Throwable {
 		return iEmploySearchDAO.getEmpSch1List(params);
 	}
+
+	@Override
+	public int getQualCnt(HashMap<String, String> params) throws Throwable {
+		return iEmploySearchDAO.getQualCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getQual(HashMap<String, String> params) throws Throwable {
+		return iEmploySearchDAO.getQual(params);
+	}
 }

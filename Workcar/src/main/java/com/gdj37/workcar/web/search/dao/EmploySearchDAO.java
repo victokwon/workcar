@@ -21,4 +21,14 @@ public class EmploySearchDAO implements IEmploySearchDAO{
 	public List<HashMap<String, String>> getEmpSch1List(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("EmploySearch.getEmpSch1List", params);
 	}
+
+	@Override
+	public int getQualCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("EmploySearch.getQualCnt", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getQual(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("EmploySearch.getQual", params);
+	}
 }

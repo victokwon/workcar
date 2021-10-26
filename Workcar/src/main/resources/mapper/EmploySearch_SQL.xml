@@ -49,4 +49,18 @@
 		        )E
 		WHERE E.ENUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
+	<select id="getQual" parameterType="hashmap" resultType="hashmap">
+      SELECT QUAL_NO, QUAL_NAME
+      FROM
+         (SELECT QUAL_NO, QUAL_NAME, ROW_NUMBER() OVER (ORDER BY QUAL_NO) AS RNUM
+         FROM QUAL
+         WHERE QUAL_NAME like '%'||#{schCName}||'%') Q 
+      WHERE Q.RNUM BETWEEN #{startCnt} AND #{endCnt}
+   </select>
+   
+   <select id="getQualCnt" parameterType="hashmap" resultType="int">
+      SELECT COUNT(*) AS CNT
+      FROM QUAL
+      WHERE QUAL_NAME LIKE '%'||#{schCName}||'%'
+   </select>
 </mapper>
