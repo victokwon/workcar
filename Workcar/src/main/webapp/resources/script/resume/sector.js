@@ -5,6 +5,10 @@ $(function () {
      }
      })
      
+  	$(".pop-close-btn").on('click', function(event) {
+   		  $(".pop-container").hide();
+     })
+     
 /* js에서 api 데이터 호출해서 활용하는 방법 =?= controller에서 api데이터 호출해서 활용하는 방법*/
   $("#sectorBtn").on("click", function () {
     $(".pop-text-header").children("h1").html("직종 검색")
@@ -63,9 +67,9 @@ function SectorList(list) {
       
       html += "'" + data.SECTOR_NAME + "'>"
       
-      html += "    <td>" + data.SECTOR_NO + "</td>"
+      html += "    <td class='td_no'>" + data.SECTOR_NO + "</td>"
       
-      html += "    <td>" + data.SECTOR_NAME + "</td>"
+      html += "    <td class='td_name'>" + data.SECTOR_NAME + "</td>"
       
       html += "</tr>"
       }

@@ -77,7 +77,7 @@
 		
 		 $(".add_box").on("click", ".minus_btn", function () {
 		   let target = $(this).parent().attr("noName")
-		   noBox.target --
+		   noBox[target] --
 		   console.log(noBox)
 		  $(this).parent().remove();
 		}); 
@@ -303,7 +303,7 @@
 		  html += '<div class="detail">';
 		  html += " 교육내용";
 		  html +=
-		    '<textarea placeholder="교육내용" spellcheck="false" name="ieduCntt" id="ieduCntt'+noBox.ieduNo+'"></textarea>';
+		    '<textarea placeholder="교육내용" spellcheck="false" name="ieduCntt" id="ieduCntt'+noBox.ieduNo+'" ></textarea>';
 		  html += " </div>";
 		  html += " </div>";
 		  html += " </div>";
@@ -413,7 +413,9 @@
 		<input type="hidden" name="cityArr" value="">
 	
 	</form> -->
-	
+    <form action="fileUploadAjax" id="fileForm" method="post" enctype="multi/form-data">
+        <input type="file" accept="image/*" name="att" id="att">
+    </form>
     <form action="#" id="resumeGo" method="post">
         <input type="hidden" id="memNo" name="memNo" value="${sMNo}">
         <input type="hidden" id="resumeNo" name="resumeNo" value="${DATA.RESUM_NO }">
@@ -422,6 +424,7 @@
 
     <div class="pop-container">
         <div class="pop-out-container">
+        <button type="button" class="pop-close-btn">X</button>
             <div class="pop-in-container">
                 <div class="pop-text-header">
                     <h1></h1>
@@ -435,12 +438,12 @@
                     </div>
                 </form>
                 <!-- 5개 리스트 -->
-                <div class="company_wrap">
+                <div class="list_wrap">
                     <table>
                         <thead>
                             <tr>
-                                <th>번호</th>
-                                <th>내용</th>
+                                <th class='td_no'>번호</th>
+                                <th class='td_name'>내용</th>
                             </tr>
                         </thead>
                         <tbody id="sectorList" no="">
@@ -705,7 +708,7 @@
                                     <div class="input_box">
                                         <div class="job">
                                             <div class="text">희망직종</div>
-                                            <input type="hidden" name="sectorNo" id="sectorNo">
+                                            <input type="hidden" name="sectorNo" id="sectorNo" value="${DATA.SECTOR_NO}">
                                             <div class="input" id="sectorInput">${DATA.SECTOR_NAME}</div>
                                             <button type="button" id="sectorBtn">직종 검색</button>
                                         </div>
@@ -836,7 +839,7 @@
                                                 <input type="button" class="minus_btn r" id="delBtn" value="－">
                                                 <div class="data_container ">
                                                     <div class="detail">
-                                                        기업 <input type="text" name="cName${ carrCnt}" value="${data.C_NAME }">
+                                                        기업 <input type="text" name="cName" value="${data.C_NAME }">
                                                     </div>
                                                     <div class="detail">
                                                         부서 <input type="text" name="dpart" value="${data.DPART }"> 
@@ -846,7 +849,7 @@
                                                         재직기간 <input type="date" name="carrStDate" value="${data.ST_DATE }">
                                                         ~ <input type="date" name="carrEndData" value="${data.END_DATE }">
                                                         재직여부 
-                                                        <select name="tureChk" value="${data.TURE_CHK }" >
+                                                        <select name="tureChk" value="${data.TURE_CHK }" selValue="${data.TURE_CHK }" >
                                                         	<option value="퇴직">퇴직</option>
                                                         	<option value="재직">재직</option>
                                                         </select>
@@ -922,7 +925,7 @@
                                                     </div>
                                                     <div class="detail">
                                                         교육내용
-                                                        <textarea name="ieduCntt" spellcheck="false">${data.CNTT }</textarea>
+                                                        <textarea name="ieduCntt" spellcheck="false">${data.EDU_CNTT }</textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -955,12 +958,7 @@
                                 </div>
                             </div>
                         </div>
-                     </form> 
 
-                    <form action="fileUploadAjax" id="fileForm" method="post" enctype="multi/form-data">
-                        <input type="file" accept="image/*" name="att" id="att">
-                    </form>
-                    <form action="#" id="attchForm">
                         <div class="content apply_dtl_attch" id="resumeAttach">
                             <div class="dtl">
                                 <div class="header">첨부파일</div>

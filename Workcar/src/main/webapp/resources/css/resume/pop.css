@@ -26,15 +26,25 @@ html {
   left: calc(50% - 350px);
   padding: 30px 0;
 }
-.company_wrap{
+.list_wrap{
    display: flex;
    
 }
-.company_wrap table{
+.list_wrap table{
    width: 100%;
-   margin: 0 auto;
+   margin: 20px auto;
 } 
-
+.pop-close-btn{
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	font-weight: bold;
+   font-size: 17px;
+}
+.pop-close-btn:hover{
+	cursor: pointer;
+	color: #999;	
+}
 .pop-in-container {
   display: flex;
   flex-direction: column;
@@ -85,12 +95,6 @@ html {
 hr {
   margin: 10px 0;
 }
-.company_wrap tr > td{
-   width: auto;
-}
-.company_wrap tr, .company_wrap th{
-   width: auto;
-}
 /* .form-group {
   width: 100%;
   display: flex;
@@ -134,14 +138,26 @@ a {
 thead, tbody{
    width : 100%;
 }
-tr,
-th {
-   width : 50%;
-  user-select: none;
+tr{
+	width: 100%;
+	display: inline-block;
+	margin: 0;
 }
+th,
 td {
-  font-size: 10px;
-  width: 45%;
+	display: inline-block;
+  user-select: none;
+  font: 15px;
+}
+.td_no{
+	text-align: left;
+	display: inline-block;
+	width: 20%;
+}
+.td_name{
+	text-align: left;
+	display: inline-block;
+	width: 70%;
 }
 tbody tr:hover {
   font-weight: bold;
@@ -165,6 +181,11 @@ tbody tr:hover {
    font-weight: bold;
    cursor: pointer;
 }
+
+.paging_wrap{    
+	display: block;
+    margin: 0 auto;
+    }
 @media screen and (max-width: 900px) { 
   .pop-out-container {
     border-radius: 10px;

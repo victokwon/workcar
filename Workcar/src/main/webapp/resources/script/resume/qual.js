@@ -4,7 +4,10 @@ $(function () {
        event.preventDefault();
      }
      })
-     
+
+     $(".pop-close-btn").on('click', function(event) {
+   		  $(".pop-container").hide();
+     })
 /* js에서 api 데이터 호출해서 활용하는 방법 =?= controller에서 api데이터 호출해서 활용하는 방법*/
   $("#resumeLisence").on("click", "#qualBtn",function () {
   $("#sectorList").attr("no", $(this).attr("no"))
@@ -65,9 +68,9 @@ function QualList(list) {
       
       html += "'" + data.QUAL_NAME + "'>"
       
-      html += "    <td>" + data.QUAL_NO + "</td>"
+      html += "    <td class='td_no'>" + data.QUAL_NO + "</td>"
       
-      html += "    <td>" + data.QUAL_NAME + "</td>"
+      html += "    <td class='td_name'>" + data.QUAL_NAME + "</td>"
       
       html += "</tr>"
       }
