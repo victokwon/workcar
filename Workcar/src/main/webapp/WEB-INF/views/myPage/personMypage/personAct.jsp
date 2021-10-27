@@ -16,6 +16,21 @@
     <script src="resources/script/Mypage/Mypage_main_dp.js"></script>
     <script src="resources/script/Mypage/personMypage/Mypage_act.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function() {
+	$("#PerRegiBtn").on("click", function() {
+		location.href = "personRegi";
+	});
+	
+	$("#PerResBtn").on("click", function() {
+		location.href = "resumeList";
+	});
+	
+	$("#PerIntBtn").on("click", function() {
+		location.href = "personInter";
+	});
+	});
+	</script>
 </head>
 <body>
    <!-- 사이드바 -->
@@ -83,10 +98,14 @@
         </div>
         <!-- Tab 버튼 태그 -->
         <div class="main_button_box">
-                <a class="main_button regi" onclick="openPage('main_regi', this, '#88a2f2')">계정관리</a>
-                <a class="main_button apply" onclick="openPage('main_apply', this, '#88a2f2')">이력서관리</a>
-                <a class="main_button act" onclick="openPage('main_act', this, '#88a2f2')" id="main_button">활동내역</a>
-                <a class="main_button inter" onclick="openPage('main_inter', this, '#88a2f2')">관심정보</a>
+        	<input type="button" class="main_button" onclick="openPage('main_regi', this)" value="계정관리" id="PerRegiBtn" />
+            <input type="button" class="main_button" onclick="openPage('main_apply', this)" value="이력서관리" id="PerResBtn" />
+            <input type="button" class="main_button" onclick="openPage('main_act', this)" value="활동내역" id="defaultOpen" />
+            <input type="button" class="main_button" onclick="openPage('main_inter', this)" value="관심정보" id="PerIntBtn" />
+            <!--  <a class="main_button regi" onclick="openPage('main_regi', this, '#88a2f2')" id="PerRegiBtn">계정관리</a>
+            <a class="main_button apply" onclick="openPage('main_apply', this, '#88a2f2')" id="PerResBtn">이력서관리</a>
+            <a class="main_button act" onclick="openPage('main_act', this, '#88a2f2')" id="main_button">활동내역</a>
+            <a class="main_button inter" onclick="openPage('main_inter', this, '#88a2f2')" id="PerIntBtn">관심정보</a>-->
         </div>
         <!-- 메인 -->
         <div class="main_info">
@@ -178,5 +197,27 @@
         </div>
         <!-- 등록평점 종료 -->
     </main>
+    <footer>
+		<!-- 링크작업 -->
+		<div class="inner_content">
+			<div id="ntc">공지사항</div>
+			<div id="paticp">참여마당</div>
+			<div id="pvc">개인정보처리방침</div>
+			<div id="tou">이용약관</div>
+		</div>
+		<div class="footer_dtl_wrap">
+			<div class="footer_dtl_contents">
+				<div class="footer_logo"></div>
+				<div class="footer_dtl_contents_1">명칭 (주)일력거 | 사업자등록번호
+					123-456-7891011</div>
+				<div class="footer_dtl_contents_2">등록일자 2021년 9월 ?일 | 발행
+					(주)일력거 | 편집 (주)일력거</div>
+				<div class="footer_dtl_contents_3">발행소 서울시 금천구 가산디지털2로 구디아카데미
+					| 전화번호 02-1234-5678</div>
+				<div class="copyright">©WorkRickshaw. All rights reserved.</div>
+			</div>
+		</div>
+	</footer>
+    <script type="text/javascript" src="resources/script/Mypage/personMypage/mainbox.js"></script>
 </body>
 </html>

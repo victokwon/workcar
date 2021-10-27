@@ -27,16 +27,8 @@ $(document).ready(function() {
 		$("#searchForm").submit();
 	}
 	
-	$("tbody").on("click", "tr", function() {
-		$("#no").val($(this).attr("no"));
-		
-		$("#dtlForm").submit();
-	});
 	
-	$("#searchBtn").on("click", function() {
-		$("#page").val("1");
-		$("#searchForm").submit();
-	}); //searchBtn click end */
+	 */
 	
 	$("#personalSpaceBtn").on("click", function() {
 		location.href = "personalSpace";

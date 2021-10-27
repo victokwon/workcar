@@ -23,58 +23,131 @@
     <script src="resources/script/Mypage/Mypage_main_dp.js"></script>
     <script src="resources/script/Mypage/personMypage/Mypage_inter.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function() {
+	$("#PerRegiBtn").on("click", function() {
+		location.href = "personRegi";
+	});
+	
+	$("#PerResBtn").on("click", function() {
+		location.href = "resumeList";
+	});
+	
+	$("#PerActBtn").on("click", function() {
+		location.href = "personAct";
+	});
+	});
+	</script>
 </head>
 <body>
-<div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <div id="sdienav_ul">
-            <ul>
-                <div>채용정보</div>
-                <li>통합검색</li>
-                <li>조회수 100</li>
-                <li>평점 100</li>
-            </ul>
+<!-- 헤더 -->
+	<div id="mySidenav" class="sidenav">
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		<div id="sdienav_ul">
+			<!-- 링크작업 -->
+			<ul>
+				<div onclick="linkGo()">채용정보</div>
+				<li id="">통합검색</li>
+				<li id="">조회수 100</li>
+				<li id="">평점 100</li>
+			</ul>
+			<ul>
+				<div id="">기업정보</div>
+				<li id="">통합검색</li>
+			</ul>
+			<ul>
+				<div id="">인재정보</div>
+				<li id="">통합검색</li>
+			</ul>
+			<ul>
+				<div id="">참여공간</div>
+				<li id="">공지사항</li>
+				<li id="">자주하는 질문</li>
+			</ul>
+			<c:choose>
+				<c:when test="${sMTy eq 0}">
+					<ul>
+						<div id="">마이페이지</div>
+						<li id="">계정관리</li>
+						<li id="">이력서관리</li>
+						<li id="">활동내역</li>
+						<li id="">관심정보</li>
+					</ul>
+				</c:when>
+				<c:when test="${sMTy eq 1 || sMTy eq 2}">
+					<ul>
+						<div id="">마이페이지</div>
+						<li id="">계정관리</li>
+						<li id="">채용공고</li>
+						<li id="">활동내역</li>
+						<li id="">관심정보</li>
+					</ul>
+				</c:when>
+				<c:when test="${sMTy eq 3}">
+					<ul>
+						<div id="">마이페이지</div>
+						<li id="">계정관리</li>
+						<li id="">회원관리</li>
+						<li id="">신고관리</li>
+						<li id="">평점관리</li>
+					</ul>
+				</c:when>
+			</c:choose>
+		</div>
+	</div>
+	<div class="side_bcc" id="side_bcc" onclick="closeNav()"></div>
 
-            <ul>
-                <div>기업정보</div>
-                <li>통합검색</li>
-            </ul>
-            <ul>
-                <div>인재정보</div>
-                <li>통합검색</li>
-            </ul>
-            <ul>
-                <div>참여공간</div>
-                <li>공지사항</li>
-                <li>자주하는 질문</li>
-            </ul>
-        </div>
-    </div>
-    <div class="side_bcc" id="side_bcc"></div>
+	<header>
+		<!-- 네비게이션바 -->
+		<div class="topnav">
 
-    <header>
-        <!-- 네비게이션바 -->
-        <div class="topnav">
+			<!-- 로고 -->
+			<div class="topnav-centered">
+				<div class="logo_img"></div>
+			</div>
 
-            <!-- 로고 -->
-            <div class="topnav-centered">
-                <div class="logo_img"></div>
-            </div>
+			<!-- 왼쪽 -->
+			<div class="hambuger" onclick="openNav()" id="hambuger_left">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
 
-            <!-- 왼쪽 -->
-            <div class="hambuger" onclick="openNav()" id="hambuger_left">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-
-            <!-- 오른쪽 -->
-            <div class="topnav-right">
-                <a href="#login"><strong>Login</strong></a>
-                <a href="#about"><strong>회원가입</strong></a>
-            </div>
-        </div>
-    </header>
+			<!-- 오른쪽 -->
+			<!-- 링크작업 -->
+			<c:choose>
+				<c:when test="${sMTy eq 0}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 1 || sMTy eq 2}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 3}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="topnav-right">
+						<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</header>
     <main>
         <div class="main_wrap">
             <div class="user_wrap">
@@ -89,10 +162,10 @@
         </div>
         <!-- Tab 버튼 태그 -->
         <div class="main_button_box">
-            <a class="main_button regi" onclick="openPage('main_regi', this, '#88a2f2')">계정관리</a>
-            <a class="main_button apply" onclick="openPage('main_apply', this, '#88a2f2')">이력서관리</a>
-            <a class="main_button act" onclick="openPage('main_act', this, '#88a2f2')">활동내역</a>
-            <a class="main_button inter" onclick="openPage('main_inter', this, '#88a2f2')" id="main_button">관심정보</a>
+            <input type="button" class="main_button" onclick="openPage('main_regi', this)" value="계정관리" id="PerRegiBtn" />
+            <input type="button" class="main_button" onclick="openPage('main_apply', this)" value="이력서관리" id="PerResBtn" />
+            <input type="button" class="main_button" onclick="openPage('main_act', this)" value="활동내역" id="PerActBtn" />
+            <input type="button" class="main_button" onclick="openPage('main_inter', this)" value="관심정보" id="defaultOpen" />
         </div>
         <!-- 메인 -->
         <div class="main_info">
@@ -175,14 +248,26 @@
                 </div>
     </main>
     <footer>
-        <div class="inner_content">
-            <div><b>공지사항</b></div>
-            <div>참여마당</div>
-            <div>개인정보처리방침</div>
-            <div>이용약관</div>
-        </div>
-        <h2>Coding is too hard </h2>
-        <p>please make it complete within the time frame</p>
-    </footer>
+		<!-- 링크작업 -->
+		<div class="inner_content">
+			<div id="ntc">공지사항</div>
+			<div id="paticp">참여마당</div>
+			<div id="pvc">개인정보처리방침</div>
+			<div id="tou">이용약관</div>
+		</div>
+		<div class="footer_dtl_wrap">
+			<div class="footer_dtl_contents">
+				<div class="footer_logo"></div>
+				<div class="footer_dtl_contents_1">명칭 (주)일력거 | 사업자등록번호
+					123-456-7891011</div>
+				<div class="footer_dtl_contents_2">등록일자 2021년 9월 ?일 | 발행
+					(주)일력거 | 편집 (주)일력거</div>
+				<div class="footer_dtl_contents_3">발행소 서울시 금천구 가산디지털2로 구디아카데미
+					| 전화번호 02-1234-5678</div>
+				<div class="copyright">©WorkRickshaw. All rights reserved.</div>
+			</div>
+		</div>
+	</footer>
+	<script type="text/javascript" src="resources/script/Mypage/personMypage/mainbox.js"></script>
 </body>
 </html>
