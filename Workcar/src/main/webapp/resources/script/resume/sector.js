@@ -22,7 +22,7 @@ $(function () {
       schSector()
   });
   
-  $(".company_wrap").on("click", "tr", function () {
+  $(".list_wrap").on("click", "tr", function () {
     $("#sectorInput").html($(this).attr("sName"));
     $("#sectorNo").val($(this).attr("sNo"));
     $(".pop-container").hide();

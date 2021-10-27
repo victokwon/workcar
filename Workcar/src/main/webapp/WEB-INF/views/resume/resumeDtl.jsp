@@ -46,6 +46,17 @@
          $("#resumeGo").submit()
       })
       
+		if($("#sal0").val() == "${DATA.PAY_GBN}"){
+			   $("#sal0").attr("checked","checked")
+			   $("#sal0").attr("disabled", "disabled")
+			   $("#sal1").attr("disabled", "disabled")
+			}
+			if($("#sal1").val() == "${DATA.PAY_GBN}"){
+			   $("#sal1").attr("checked","checked")
+  			   $("#sal0").attr("disabled", "disabled")
+			   $("#sal1").attr("disabled", "disabled")
+			}
+
    })
 
    function linkGo(url) {
@@ -276,15 +287,9 @@
                            <div class="hope_loc">
                               <div class="text">근무지역</div>
                               <div class="input">
-                                 <c:if test="${!empty LOC1 }"> 
-                                    [&nbsp;${LOC1.CITY_NAME }&nbsp;/&nbsp;${LOC1.REGION_NAME}&nbsp;]&nbsp;
-                                 </c:if>
-                                 <c:if test="${!empty LOC2 }"> 
-                                    [&nbsp;${LOC2.CITY_NAME }&nbsp;/&nbsp;${LOC2.REGION_NAME}&nbsp;]&nbsp;
-                                 </c:if>
-                                 <c:if test="${!empty LOC1 }"> 
-                                    [&nbsp;${LOC3.CITY_NAME }&nbsp;/&nbsp;${LOC3.REGION_NAME}&nbsp;]&nbsp;
-                                 </c:if>
+                                <c:forEach var="data" items="${LOC }">
+                                 [&nbsp;${data.CITY_NAME}&nbsp;/&nbsp;${data.REGION_NAME}&nbsp;]
+                                 </c:forEach>
                               </div>
                            </div>
                            <div class="work_format">
@@ -297,7 +302,12 @@
                            </div>
                            <div class="sal">
                               <div class="text">희망연봉</div>
-                              <div class="input">${DATA.PAY_GBN }</div>
+                              <div class="input"> 
+                              	<input type="radio" name="sal" value="0" id="sal0" >
+                                <label for="sal0">내규</label>
+                                 <input type="radio" name="sal" value="1" id="sal1" >
+                                 <label for="sal1">일반</label>
+           						</div>
                               <c:if test="${DATA.PAY_GBN eq 1 }">
                                  <div class="input">최대 ${DATA.PAY_MIN}만원 ~ ${DATA.PAY_MAX}만원</div>
                               </c:if>

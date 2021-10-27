@@ -1,217 +1,478 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Resume_SQL">
-   <select id="resumeList" parameterType="hashmap" resultType="hashmap">
-      SELECT MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, 
-         TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
-      FROM RESUM 
-      WHERE DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-      ORDER BY RESUM_NO
-   </select>
-   
-   <select id="getResumeCnt" parameterType="hashmap" resultType="int">
-      SELECT COUNT(*) AS CNT
-      FROM RESUM 
-      WHERE DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-   </select>
-   
-   <update id="applyResume" parameterType="hashmap">
-      UPDATE RESUM SET
-         <choose> 
-            <when test="actGbn eq 0">
-               DEL_CHK = 1
-            </when>
-            <when test="actGbn eq 1">
-               OPN_CHK = #{openYN}
-            </when>
-         </choose>
-      WHERE RESUM_NO = #{resumeNo}
-      AND MEM_NO = #{memNo}
-   </update>
-   
-   <!-- 이력서 상세보기 개인정보-->
-   
-   <select id="getResumeDtl" parameterType="hashmap" resultType="hashmap">
-         SELECT R.MEM_NO, RESUM_NO, OPN_CHK,OPN_CHK_NAME, RESUM_NAME, CITY_NAME, REGION_NAME, 
-            CITY_NO, R.REGION_NO, GRADU,GENDER_NAME, BIRTH,R.SECTOR_NO, SECTOR_NAME,
-         NAME, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL, PAY_GBN, PAY_MIN, PAY_MAX,
-      TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
-      FROM RESUM R
-         JOIN MEMBER M
-         ON (R.MEM_NO = M.MEM_NO)
-         JOIN I_MEMBER IM
-         ON (R.MEM_NO = IM.MEM_NO)
-         JOIN (SELECT CITY_NAME, REGION_NAME, REGION_NO, RE.CITY_NO
-                    FROM REGION RE
-               JOIN CITY C
-               ON(C.CITY_NO = RE.CITY_NO)) RE
-         ON (R.REGION_NO = RE.REGION_NO)
-         JOIN (SELECT CAT_NAME GENDER_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 2) CMG
-         ON (CMG.SCD_CAT = IM.GENDER) 
-         JOIN (SELECT CAT_NAME OPN_CHK_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 4) CMO
-         ON (CMO.SCD_CAT = R.OPN_CHK)
-         JOIN SECTOR S
-         ON (R.SECTOR_NO = S.SECTOR_NO)
-      WHERE DEL_CHK = 0
-         AND R.MEM_NO = #{memNo}
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <!-- 근무형태 -->
-   <select id="resumeDtlWork" parameterType="hashmap" resultType="hashmap">
-      SELECT CAT_NAME AS WORK_TYPE_NAME, WORK_TYPE , SCD_CAT
-      FROM COMM_CODE
-            LEFT OUTER JOIN RESUM_WORK RW
-            ON ( 
-                SCD_CAT = WORK_TYPE
-                AND RESUM_NO = #{resumeNo}
-                )
-             LEFT OUTER JOIN RESUM R
-             ON (
-                RW.RESUM_NO = R.RESUM_NO
-                AND R.DEL_CHK = 0
-                )
-      WHERE FST_CAT = 3
-      ORDER BY SCD_CAT
-   </select>
-   
-   <select id="resumeDtlLoc" parameterType="hashmap" resultType="hashmap">
-      SELECT C.CITY_NAME, RE.REGION_NAME, LOC_NO, LOC_RESUM_NO, RE.CITY_NO, RE.REGION_NO
-      FROM RESUM R 
-            JOIN RESUM_LOC RL
-         ON (R.RESUM_NO = RL.RESUM_NO) 
-            JOIN REGION RE
-            ON (RE.REGION_NO = RL.REGION_NO)
-            JOIN CITY C
-            ON (C.CITY_NO = RE.CITY_NO)
-      WHERE R.DEL_CHK = 0
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <!-- 이력서 상세보기 자격증-->
-   <select id="resumeDtlQual" parameterType="hashmap" resultType="hashmap">
-      SELECT RQ.QUAL_NO, TO_CHAR(PASS_DATE,'YYYY-MM-DD') AS PASS_DATE, ISSU_AGCY, QUAL_NAME
-      FROM RESUM R JOIN RESUM_QUAL RQ 
-         ON (R.RESUM_NO = RQ.RESUM_NO)
-         JOIN QUAL Q 
-         ON (RQ.QUAL_NO = Q.QUAL_NO)
-      WHERE R.DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <!-- 이력서 상세보기 외국어-->
-   <select id="resumeDtlFlang" parameterType="hashmap" resultType="hashmap">
-      SELECT RF.FLANG_NO, FLANG_TYPE, FLANG_GRADE, FLANG_NAME
-      FROM RESUM R 
-         JOIN RESUM_FLANG RF 
-         ON (R.RESUM_NO = RF.RESUM_NO)
-         JOIN FLANG F 
-         ON (RF.FLANG_NO = F.FLANG_NO)
-      WHERE R.DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <!-- 이력서 상세보기 경력-->
-   <select id="resumeDtlCarr" parameterType="hashmap" resultType="hashmap">
-      SELECT C_NAME, DPART, POS, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE, TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, TURE_CHK, CARR_CNTT
-      FROM RESUM R JOIN RESUM_CARR RC
-         ON (R.RESUM_NO = RC.RESUM_NO) 
-      WHERE R.DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <!-- 이력서 상세보기 학력-->
-   <select id="resumeDtlEdu" parameterType="hashmap" resultType="hashmap">
-      SELECT SCH_NAME, SOL, MAJOR, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE, TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, EDU_ETC
-      FROM RESUM R JOIN RESUM_EDU RE 
-         ON (R.RESUM_NO = RE.RESUM_NO)
-      WHERE R.DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <!-- 이력서 상세보기 직무교육-->
-   <select id="resumeDtlIedu" parameterType="hashmap" resultType="hashmap">
-      SELECT IEDU_NAME, COSE_NAME, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE, TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, EDU_CNTT
-      FROM RESUM R JOIN RESUM_IEDU RI 
-         ON (R.RESUM_NO = RI.RESUM_NO)
-      WHERE R.DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <!-- 이력서 상세보기 자기소개-->
-   <select id="resumeDtlSintro" parameterType="hashmap" resultType="hashmap">
-      SELECT SINTRO_NAME, SINTRO_CNTT
-      FROM RESUM R JOIN RESUM_SINTRO RS 
-         ON (R.RESUM_NO = RS.RESUM_NO)
-      WHERE R.DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <!-- 이력서 상세보기 첨부파일-->
-   <select id="resumeDtlAttach" parameterType="hashmap" resultType="hashmap">
-      SELECT ATTCH_NAME
-      FROM RESUM R JOIN RESUM_ATTCH RA 
-         ON (R.RESUM_NO = RA.RESUM_NO)
-      WHERE R.DEL_CHK = 0
-         AND MEM_NO = #{memNo}
-         AND R.RESUM_NO = #{resumeNo}
-   </select>
-   
-   <select id="getAddContCnt" parameterType="hashmap" resultType="hashmap">
-        SELECT QUAL_CNT, FLANG_CNT, CARR_CNT, EDU_CNT, IEDU_CNT, SINTRO_CNT, ATTCH_CNT 
-        FROM
-        (SELECT COUNT(*) QUAL_CNT FROM RESUM_QUAL WHERE RESUM_NO = #{resumeNo}) Q,
-        (SELECT COUNT(*) FLANG_CNT FROM RESUM_FLANG WHERE RESUM_NO =  #{resumeNo}) F,
-        (SELECT COUNT(*) CARR_CNT FROM RESUM_CARR WHERE RESUM_NO =  #{resumeNo}) C,
-        (SELECT COUNT(*) EDU_CNT FROM RESUM_EDU WHERE RESUM_NO =  #{resumeNo}) E,
-        (SELECT COUNT(*) IEDU_CNT FROM RESUM_IEDU WHERE RESUM_NO =  #{resumeNo}) I,
-        (SELECT COUNT(*) SINTRO_CNT FROM RESUM_SINTRO WHERE RESUM_NO =  #{resumeNo}) S,
-        (SELECT COUNT(*) ATTCH_CNT FROM RESUM_ATTCH WHERE RESUM_NO =  #{resumeNo}) A      
-   </select>
-   
-   <select id="getRegion" parameterType="hashmap" resultType="hashmap">
-      SELECT REGION_NO, REGION_NAME
-      FROM REGION
-      WHERE CITY_NO = #{cityNo}
-      ORDER BY REGION_NO
-   </select>
-   
-   <select id="getSector" parameterType="hashmap" resultType="hashmap">
-      SELECT SECTOR_NO, SECTOR_NAME
-      FROM
-         (SELECT SECTOR_NO, SECTOR_NAME, ROW_NUMBER() OVER (ORDER BY SECTOR_NO) AS RNUM
-         FROM SECTOR
-         WHERE SECTOR_NAME like '%'||#{schDataName}||'%') S
-      WHERE S.RNUM BETWEEN #{startCnt} AND #{endCnt}
-   </select>
-   
-   <select id="getSectorCnt" parameterType="hashmap" resultType="int">
-      SELECT COUNT(*) AS CNT
-      FROM SECTOR
-      WHERE SECTOR_NAME LIKE '%'||#{schDataName}||'%'
-   </select>
-   
-      <select id="getQual" parameterType="hashmap" resultType="hashmap">
-      SELECT QUAL_NO, QUAL_NAME
-      FROM
-         (SELECT QUAL_NO, QUAL_NAME, ROW_NUMBER() OVER (ORDER BY QUAL_NO) AS RNUM
-         FROM QUAL
-         WHERE QUAL_NAME like '%'||#{schDataName}||'%') Q 
-      WHERE Q.RNUM BETWEEN #{startCnt} AND #{endCnt}
-   </select>
-   
-   <select id="getQualCnt" parameterType="hashmap" resultType="int">
-      SELECT COUNT(*) AS CNT
-      FROM QUAL
-      WHERE QUAL_NAME LIKE '%'||#{schDataName}||'%'
-   </select>
-   
+	<select id="resumeList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME,
+		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
+		FROM RESUM
+		WHERE DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+		ORDER BY RESUM_NO
+	</select>
+
+	<select id="getResumeCnt" parameterType="hashmap"
+		resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM RESUM
+		WHERE DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+	</select>
+
+	<update id="applyResume" parameterType="hashmap">
+		UPDATE RESUM SET
+		<choose>
+			<when test="actGbn eq 0">
+				DEL_CHK = 1
+			</when>
+			<when test="actGbn eq 1">
+				OPN_CHK = #{openYN}
+			</when>
+		</choose>
+		WHERE RESUM_NO = #{resumeNo}
+		AND MEM_NO = #{memNo}
+	</update>
+
+	<!-- 이력서 상세보기 개인정보 -->
+
+	<select id="getResumeDtl" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT R.MEM_NO, RESUM_NO, OPN_CHK,OPN_CHK_NAME, RESUM_NAME, CITY_NAME,
+		REGION_NAME,
+		CITY_NO, R.REGION_NO, GRADU,GENDER_NAME, BIRTH,R.SECTOR_NO, SECTOR_NAME,
+		NAME, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL,
+		PAY_GBN, PAY_MIN, PAY_MAX,
+		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
+		FROM RESUM R
+		JOIN MEMBER M
+		ON (R.MEM_NO = M.MEM_NO)
+		JOIN I_MEMBER IM
+		ON (R.MEM_NO = IM.MEM_NO)
+		JOIN (SELECT CITY_NAME, REGION_NAME, REGION_NO, RE.CITY_NO
+		FROM REGION RE
+		JOIN CITY C
+		ON(C.CITY_NO = RE.CITY_NO)) RE
+		ON (R.REGION_NO = RE.REGION_NO)
+		JOIN (SELECT CAT_NAME GENDER_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT =
+		2) CMG
+		ON (CMG.SCD_CAT = IM.GENDER)
+		JOIN (SELECT CAT_NAME OPN_CHK_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT =
+		4) CMO
+		ON (CMO.SCD_CAT = R.OPN_CHK)
+		JOIN SECTOR S
+		ON (R.SECTOR_NO = S.SECTOR_NO)
+		WHERE DEL_CHK = 0
+		AND R.MEM_NO = #{memNo}
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<!-- 근무형태 -->
+	<select id="resumeDtlWork" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT CAT_NAME AS WORK_TYPE_NAME, WORK_TYPE , SCD_CAT
+		FROM COMM_CODE
+		<if test="actGbn eq 'Up'">
+			LEFT OUTER
+		</if>
+		JOIN RESUM_WORK RW
+		ON (
+		SCD_CAT = WORK_TYPE
+		AND RESUM_NO = #{resumeNo}
+		)
+		LEFT OUTER JOIN RESUM R
+		ON (
+		RW.RESUM_NO = R.RESUM_NO
+		AND R.DEL_CHK = 0
+		)
+		WHERE FST_CAT = 3
+		ORDER BY SCD_CAT
+	</select>
+	
+	<select id="resumeDtlLoc" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT C.CITY_NAME, RE.REGION_NAME, LOC_NO, RE.CITY_NO, RE.REGION_NO
+		FROM RESUM R
+		JOIN RESUM_LOC RL
+		ON (R.RESUM_NO = RL.RESUM_NO)
+		JOIN REGION RE
+		ON (RE.REGION_NO = RL.REGION_NO)
+		JOIN CITY C
+		ON (C.CITY_NO = RE.CITY_NO)
+		WHERE R.DEL_CHK = 0
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<!-- 이력서 상세보기 자격증 -->
+	<select id="resumeDtlQual" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT RQ.QUAL_NO, TO_CHAR(PASS_DATE,'YYYY-MM-DD') AS PASS_DATE, ISSU_AGCY,
+		QUAL_NAME
+		FROM RESUM R JOIN RESUM_QUAL RQ
+		ON (R.RESUM_NO = RQ.RESUM_NO)
+		JOIN QUAL Q
+		ON (RQ.QUAL_NO = Q.QUAL_NO)
+		WHERE R.DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<!-- 이력서 상세보기 외국어 -->
+	<select id="resumeDtlFlang" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT RF.FLANG_NO, FLANG_TYPE, FLANG_GRADE, FLANG_NAME
+		FROM RESUM R
+		JOIN RESUM_FLANG RF
+		ON (R.RESUM_NO = RF.RESUM_NO)
+		JOIN FLANG F
+		ON (RF.FLANG_NO = F.FLANG_NO)
+		WHERE R.DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<!-- 이력서 상세보기 경력 -->
+	<select id="resumeDtlCarr" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT C_NAME, DPART, POS, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE,
+		TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, TURE_CHK, CARR_CNTT
+		FROM RESUM R JOIN RESUM_CARR RC
+		ON (R.RESUM_NO = RC.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<!-- 이력서 상세보기 학력 -->
+	<select id="resumeDtlEdu" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT SCH_NAME, SOL, MAJOR, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE,
+		TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, EDU_ETC
+		FROM RESUM R JOIN RESUM_EDU RE
+		ON (R.RESUM_NO = RE.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<!-- 이력서 상세보기 직무교육 -->
+	<select id="resumeDtlIedu" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT IEDU_NAME, COSE_NAME, TO_CHAR(ST_DATE,'YYYY-MM-DD') AS ST_DATE,
+		TO_CHAR(END_DATE,'YYYY-MM-DD') AS END_DATE, EDU_CNTT
+		FROM RESUM R JOIN RESUM_IEDU RI
+		ON (R.RESUM_NO = RI.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<!-- 이력서 상세보기 자기소개 -->
+	<select id="resumeDtlSintro" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT SINTRO_NAME, SINTRO_CNTT
+		FROM RESUM R JOIN RESUM_SINTRO RS
+		ON (R.RESUM_NO = RS.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<!-- 이력서 상세보기 첨부파일 -->
+	<select id="resumeDtlAttach" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT ATTCH_NAME
+		FROM RESUM R JOIN RESUM_ATTCH RA
+		ON (R.RESUM_NO = RA.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+		AND MEM_NO = #{memNo}
+		AND R.RESUM_NO = #{resumeNo}
+	</select>
+
+	<select id="getAddContCnt" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT QUAL_CNT, FLANG_CNT, CARR_CNT, EDU_CNT, IEDU_CNT, SINTRO_CNT,
+		ATTCH_CNT
+		FROM
+		(SELECT COUNT(*) QUAL_CNT FROM RESUM_QUAL WHERE RESUM_NO = #{resumeNo}) Q,
+		(SELECT COUNT(*) FLANG_CNT FROM RESUM_FLANG WHERE RESUM_NO =
+		#{resumeNo}) F,
+		(SELECT COUNT(*) CARR_CNT FROM RESUM_CARR WHERE RESUM_NO = #{resumeNo}) C,
+		(SELECT COUNT(*) EDU_CNT FROM RESUM_EDU WHERE RESUM_NO = #{resumeNo})
+		E,
+		(SELECT COUNT(*) IEDU_CNT FROM RESUM_IEDU WHERE RESUM_NO = #{resumeNo}) I,
+		(SELECT COUNT(*) SINTRO_CNT FROM RESUM_SINTRO WHERE RESUM_NO =
+		#{resumeNo}) S,
+		(SELECT COUNT(*) ATTCH_CNT FROM RESUM_ATTCH WHERE RESUM_NO = #{resumeNo}) A
+	</select>
+
+	<select id="getRegion" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT REGION_NO, REGION_NAME
+		FROM REGION
+		WHERE CITY_NO = #{cityNo}
+		ORDER BY REGION_NO
+	</select>
+
+	<select id="getSector" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT SECTOR_NO, SECTOR_NAME
+		FROM
+		(SELECT SECTOR_NO, SECTOR_NAME, ROW_NUMBER() OVER (ORDER BY SECTOR_NO) AS
+		RNUM
+		FROM SECTOR
+		WHERE SECTOR_NAME like '%'||#{schDataName}||'%') S
+		WHERE S.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+
+	<select id="getSectorCnt" parameterType="hashmap"
+		resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM SECTOR
+		WHERE SECTOR_NAME LIKE '%'||#{schDataName}||'%'
+	</select>
+
+	<select id="getQual" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT QUAL_NO, QUAL_NAME
+		FROM
+		(SELECT QUAL_NO, QUAL_NAME, ROW_NUMBER() OVER (ORDER BY QUAL_NO) AS RNUM
+		FROM QUAL
+		WHERE QUAL_NAME like '%'||#{schDataName}||'%') Q
+		WHERE Q.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+
+	<select id="getQualCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM QUAL
+		WHERE QUAL_NAME LIKE '%'||#{schDataName}||'%'
+	</select>
+
+	<delete id="DelAttchForUp" parameterType="hashmap">
+		DELETE FROM RESUM_ATTCH
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<delete id="DelCarrForUp" parameterType="hashmap">
+		DELETE FROM RESUM_CARR
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<delete id="DelEduForUp" parameterType="hashmap">
+		DELETE FROM RESUM_EDU
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<delete id="DelIeduForUp" parameterType="hashmap">
+		DELETE FROM RESUM_IEDU
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<delete id="DelFlangForUp" parameterType="hashmap">
+		DELETE FROM RESUM_FLANG
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<delete id="DelLocForUp" parameterType="hashmap">
+		DELETE FROM RESUM_LOC
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<delete id="DelQualForUp" parameterType="hashmap">
+		DELETE FROM RESUM_QUAL
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<delete id="DelSintroForUp" parameterType="hashmap">
+		DELETE FROM RESUM_SINTRO
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<delete id="DelWorkForUp" parameterType="hashmap">
+		DELETE FROM RESUM_WORK
+		WHERE DEL_CHK = 0
+		AND RESUM_NO = #{resumeNo}
+	</delete>
+
+	<insert id="LocUpdate" parameterType="hashmap">
+        <foreach collection="cityList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_LOC(
+			LOC_NO,
+			RESUM_NO,
+			REGION_NO
+		) VALUES 
+        (
+            RESUM_LOC_SEQ.NEXTVAL+ #{index},
+            #{resumeNo},
+            #{item.region}
+        )
+        </foreach>
+	</insert>
+	
+	<insert id="WorkUpdate" parameterType="hashmap">
+        <foreach collection="workTypeList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_WORK(
+			MNG_NO,
+			RESUM_NO,
+			WORK_TYPE
+		) VALUES 
+        (
+            RESUM_WORK_SEQ.NEXTVAL+ #{index},        
+            #{resumeNo},
+            #{item.workType}
+        )
+        </foreach>
+	</insert>
+	
+	<insert id="QualUpdate" parameterType="hashmap">
+        <foreach collection="qualList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_QUAL(
+			RESUM_NO,
+			QUAL_NO,
+			PASS_DATE,
+			ISSU_AGCY
+		) VALUES 
+        (
+            #{resumeNo},
+            #{item.qualNo},
+            #{item.issuAgcy},
+            #{item.passDate}
+        )
+        </foreach>
+	</insert>
+	
+	<insert id="FlangUpdate" parameterType="hashmap">
+        <foreach collection="flangList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_FLANG(
+            MNG_NO,		
+			RESUM_NO,
+			FLANG_NO,
+			FLANG_TYPE,
+			FLANG_GRADE
+		) VALUES 
+        (
+            RESUM_FLANG_SEQ.NEXTVAL+ #{index},   
+            #{resumeNo},
+            #{item.flangNo},
+            #{item.flangType},
+            #{item.flangGrade}
+        )
+        </foreach>
+	</insert>
+	
+	<insert id="CarrUpdate" parameterType="hashmap">
+        <foreach collection="carrList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_CARR(
+			CARR_NO,
+			RESUM_NO,
+			C_NAME,
+			DPART,
+			POS,
+			ST_DATE,
+			END_DATE,
+			TURE_CHK,
+			CARR_CNTT
+		) VALUES 
+        (
+            RESUM_CARR_SEQ.NEXTVAL+ #{index},       
+            #{resumeNo},
+            #{item.cName},
+            #{item.dpart},
+            #{item.pos},
+            #{item.carrStDate},
+            #{item.carrEndData},
+            #{item.tureChk},
+            #{item.carrCntt}
+        )
+        </foreach>
+	</insert>
+	
+	<insert id="EduUpdate" parameterType="hashmap">
+        <foreach collection="eduList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_EDU(
+			EDU_NO,
+			RESUM_NO,
+			SCH_NAME.
+			SOL,
+			MAJOR,
+			ST_DATE,
+			END_DATE,
+			EDU_ETC
+		) VALUES 
+        (
+            RESUM_EDU_SEQ.NEXTVAL+ #{index},        
+            #{resumeNo},
+            #{item.schName},
+            #{item.sol},
+            #{item.major},
+            #{item.eduStDate},
+            #{item.eduEndData},
+            #{item.eduCntt}
+        )
+        </foreach>
+	</insert>
+	
+	<insert id="IeduUpdate" parameterType="hashmap">
+        <foreach collection="ieduList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_IEDU(
+			IEDU_NO,
+			RESUM_NO,
+			IEDU_NAME,
+			COSE_NAME,
+			ST_DATE,
+			END_DATE,
+			EDU_CNTT
+		) VALUES 
+        (
+            RESUM_IEDU_SEQ.NEXTVAL+ #{index},        
+            #{resumeNo},
+            #{item.ieduName},
+            #{item.coseName},
+            #{item.ieduStDate},
+            #{item.ieduEndDate},
+            #{item.ieduCntt}
+        )
+        </foreach>
+	</insert>
+	
+	<insert id="SintroUpdate" parameterType="hashmap">
+        <foreach collection="sintroList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_SINTRO(
+			SINTRO_NO,
+			RESUM_NO,
+			SINTRO_NAME,
+			SINTRO_CNTT
+		) VALUES 
+        (
+        	RESUM_SINTRO_SEQ.NEXTVAL+ #{index},
+            #{resumeNo},
+            #{item.sintroName},
+            #{item.sintroCntt}
+        )
+        </foreach>
+	</insert>
+	
+	<insert id="AttchUpdate" parameterType="hashmap">
+        <foreach collection="fileNmList"  item="item" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+		INTO RESUM_ATTCH(
+			ATTCH_NO,
+			RESUM_NO,
+			ATTCH_NAME
+		) VALUES 
+        (
+            RESUM_ATTCH_SEQ.NEXTVAL+ #{index},        
+            #{resumeNo},
+            #{item.fileNm}
+        )
+        </foreach>
+	</insert>
+	
+	
 </mapper>

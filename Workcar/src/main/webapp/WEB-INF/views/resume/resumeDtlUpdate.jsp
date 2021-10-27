@@ -54,8 +54,13 @@
 	   
 	    
 		$("#saveBtn").on("click",function(){
-		   $("#updateForm").attr("action", "resumeUpdate")
-		   $("#updateForm").submit() 
+			if(checkInputText()
+					&&checkInputSel()
+					&&checkInputDate()
+					&&checkInputTextarea()){
+			   $("#updateForm").attr("action", "resumeUpdate")
+			   $("#updateForm").submit() 
+			}
 		})
 		
 		if("${msg}"!=""){
@@ -128,7 +133,7 @@
 		  html += '<input class="qual_input" name="qualNo" id="qualNo'+noBox.qualNo+'" type="hidden" value="데이터 / 자격증명" readonly>';
 		  html += '<input class="qual_input" id="qualName'+noBox.qualNo+'" type="text" value="자격증명" disabled>';
 		  html += '<input class="qual_input" name="issuAgcy" id="issuAgcy'+noBox.qualNo+'" type="text" placeholder="발급처">';
-		  html += '<input class="qual_input" name="passDate" id="passDate'+noBox.qualNo+'" type="text" placeholder="발급일">';
+		  html += '<input class="qual_input" name="passDate" id="passDate'+noBox.qualNo+'" type="date" ';
 		  html += " </div>";
 		  html += " </div>";
 		
@@ -206,18 +211,18 @@
 		  html += '<div class="data_container ">';
 		  html += '<div class="detail">';
 		  html += " 기업";
-		  html += '<input type="text" name="cName" id="cName'+noBox.carrNo+'" placeholder="기업명">';
+		  html += '<input type="text" name="cName" id="cName'+noBox.carrNo+'" value="-" placeholder="기업명">';
 		  html += " </div>";
-		  html += '<div class="detail">';
+		  html += '<div class="detail">'; 
 		  html += " 부서";
-		  html += '<input type="text" name="dpart" id="dpart'+noBox.carrNo+'" placeholder="부서명">';
+		  html += '<input type="text" name="dpart" id="dpart'+noBox.carrNo+'" value="-" placeholder="부서명">';
 		  html += " 직책";
-		  html += '<input type="text" name="pos" id="pos'+noBox.carrNo+'" placeholder="직책명">';
+		  html += '<input type="text" name="pos" id="pos'+noBox.carrNo+'" value="-" placeholder="직책명">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 재직기간";
-		  html += '<input type="text" name="carrStDate" id="stDate'+noBox.carrNo+'" placeholder="시작 년/월">~';
-		  html += '<input type="text" name="carrEndData" id="endData'+noBox.carrNo+'" placeholder="종료 년/월">';
+		  html += '<input type="date" name="carrStDate" id="stDate'+noBox.carrNo+'" placeholder="시작 년/월">~';
+		  html += '<input type="date" name="carrEndData" id="endData'+noBox.carrNo+'" placeholder="종료 년/월">';
 		  html += " 재직여부";
 		  html += '<select name="tureChk">'
 		  html += '<option value="퇴직">퇴직</option>'
@@ -227,7 +232,7 @@
 		  html += '<div class="detail">';
 		  html += " 직무내용";
 		  html +=
-		    '<textarea placeholder="직무내용" spellcheck="false" name="carrCntt" id="carrCntt'+noBox.carrNo+'"></textarea>';
+		    '<textarea placeholder="직무내용" spellcheck="false" name="carrCntt" id="carrCntt'+noBox.carrNo+'">작성필수</textarea>';
 		  html += " </div>";
 		  html += " </div>";
 		  html += " </div>";
@@ -250,23 +255,23 @@
 		  html += '<div class="data_container ">';
 		  html += '<div class="detail">';
 		  html += " 학교";
-		  html += '<input type="text" name="schName" id="schName'+noBox.eduNo+'" placeholder="학교명">';
+		  html += '<input type="text" name="schName" id="schName'+noBox.eduNo+'" value="-" placeholder="학교명">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 학부";
-		  html += '<input type="text" name="sol" id="sol'+noBox.eduNo+'" placeholder="학부명">';
+		  html += '<input type="text" name="sol" id="sol'+noBox.eduNo+'" value="-" placeholder="학부명">';
 		  html += " 학과";
-		  html += '<input type="text" name="major" id="major'+noBox.eduNo+'" placeholder="전공명">';
+		  html += '<input type="text" name="major" id="major'+noBox.eduNo+'" value="-" placeholder="전공명">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 재학기간";
-		  html += '<input type="text" name="eduStDate" id="eduStDate'+noBox.eduNo+'" placeholder="시작 년/월">~';
-		  html += '<input type="text" name="eduEndData" id="eduEndDate'+noBox.eduNo+'" placeholder="종료 년/월">';
+		  html += '<input type="date" name="eduStDate" id="eduStDate'+noBox.eduNo+'" placeholder="시작 년/월">~';
+		  html += '<input type="date" name="eduEndData" id="eduEndDate'+noBox.eduNo+'" placeholder="종료 년/월">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 특이사항";
 		  html +=
-		    '<textarea placeholder="특이사항" spellcheck="false" name="eduCntt" id="eduCntt'+noBox.eduNo+'">없음</textarea>';
+		    '<textarea placeholder="특이사항" spellcheck="false" name="eduCntt" id="eduCntt'+noBox.eduNo+'">작성필수</textarea>';
 		  html += " </div>";
 		  html += " </div>";
 		  html += " </div>";
@@ -289,21 +294,21 @@
 		  html += '<div class="data_container ">';
 		  html += '<div class="detail">';
 		  html += "기관";
-		  html += '<input type="text" name="ieduName" id="ieduName'+noBox.ieduNo+'" placeholder="기관명">';
+		  html += '<input type="text" name="ieduName" id="ieduName'+noBox.ieduNo+'" value="-" placeholder="기관명">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 훈련과정";
-		  html += '<input type="text" name="coseName" id="coseName'+noBox.ieduNo+'" placeholder="훈련과정명">';
+		  html += '<input type="text" name="coseName" id="coseName'+noBox.ieduNo+'" value="-" placeholder="훈련과정명">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 교육기간";
-		  html += '<input type="text" name="ieduStDate" id="stDate'+noBox.ieduNo+'" placeholder="시작 년/월">~';
-		  html += '<input type="text" name="ieduEndData" id="endData'+noBox.ieduNo+'" placeholder="종료 년/월">';
+		  html += '<input type="date" name="ieduStDate" id="stDate'+noBox.ieduNo+'" placeholder="시작 년/월">~';
+		  html += '<input type="date" name="ieduEndData" id="endData'+noBox.ieduNo+'" placeholder="종료 년/월">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 교육내용";
 		  html +=
-		    '<textarea placeholder="교육내용" spellcheck="false" name="ieduCntt" id="ieduCntt'+noBox.ieduNo+'" ></textarea>';
+		    '<textarea placeholder="교육내용" spellcheck="false" name="ieduCntt" id="ieduCntt'+noBox.ieduNo+'" >작성필수</textarea>';
 		  html += " </div>";
 		  html += " </div>";
 		  html += " </div>";
@@ -326,7 +331,7 @@
 		  html += '<input type="button" class="minus_btn r" id="delBtn" value="－">';
 		  html += '<div class="data_container">';
 		  html +=
-		    '<textarea placeholder="자기소개서 내용 입력" spellcheck="false" name="sintroCntt" id="sintroCntt'+noBox.sintroNo+'"></textarea>';
+		    '<textarea placeholder="자기소개서 내용 입력" spellcheck="false" name="sintroCntt" id="sintroCntt'+noBox.sintroNo+'">작성필수</textarea>';
 		  html += " </div>";
 		  html += " </div>";
 		  $(this).parent().prepend(html);
@@ -402,8 +407,54 @@
 	function linkBack() {
 	      history.back()
 	}
-   
-
+   	function checkInputText(){
+   		let flag = true
+   		$("input[type=text]").each(function(idx){
+   			if($(this).val() == ""){
+   				alert("입력값이 누락되었습니다.")
+   				$(this).focus()
+   				flag = false
+   				return false
+   			}
+   		})
+   		return flag
+   	}
+   	function checkInputDate(){
+   		let flag = true
+   		$("input[type=date]").each(function(idx){
+   			if($(this).val() == ""){
+   				alert("입력값이 누락되었습니다.")
+   				$(this).focus()
+   				flag = false
+   				return false
+   			}
+   		})
+   		return flag
+   	}
+   	function checkInputSel(){
+   		let flag = true
+ 		$("input[type=select]").each(function(idx){
+   			if($(this).val() < 0){
+   				alert("선택값이 누락되었습니다.")
+   				$(this).focus()
+   				flag = false
+   				return false
+   			}
+   		})
+   		return flag
+   	}
+   	function checkInputTextarea(){
+   		let flag = true
+ 		$("textarea").each(function(idx){
+   			if($(this).val() < 0){
+   				alert("선택값이 누락되었습니다.")
+   				$(this).focus()
+   				flag = false
+   				return false
+   			}
+   		})
+   		return flag
+   	}
 </script>
 </head>
 
@@ -434,7 +485,7 @@
                     <div class="pop-input">
                         <input type="button" class="sch-btn" id="schSectorBtn" value="검색">
                         <input type="button" class="sch-btn" id="schQualBtn" value="검색">
-                        <input type="text" name="schDataName" id="schName" placeholder="검색어">
+                        <input type="text" name="schDataName" id="schName" value="검색어">
                     </div>
                 </form>
                 <!-- 5개 리스트 -->
@@ -624,7 +675,8 @@
                             <button type="button" id="cancelBtn" onclick="linkBack()">취소</button>
                         </div>
                     </div>
-                     <form action="#" method="post" id="updateForm"> 
+          <form action="#" method="post" id="updateForm"> 
+          <input type="hidden" id="resumeUpdateNo" name="resumeUpdateNo" value="${param.resumeNo }" >
                         <!-- form 설정 -->
                         <div class="content apply_dtl_user" id="resumeUser">
                             <div class="dtl">
