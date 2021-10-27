@@ -32,7 +32,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	apiAjax()  
+	
 
 
 	if("${param.searchGbn}" != ""){
@@ -62,10 +62,22 @@ $(document).ready(function(){
 	});	
 	$("tbody").on("click", "tr", function(){
 	 $("#no").val($(this).attr("no"));
-	 
-	 /* $("#actionForm").attr("action","testAB"); */
 	 $("#actionForm").submit();
 	 //눌렀을때 번호를 저장하고 그것에 따라 상세보기에 보내겠다.
+	});
+	$("#addBtn1").on("click", function () {
+		
+		
+	    let html = "";
+	    html += '<div class="data_container ">';
+	    html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
+	 /*    html += '<input type="text" class="input_box add_box" value="데이터" readonly>'; */
+	    html += '<input type="hidden" name="qualno" id="qualno" value="' + qualno +'">';
+		html += '<input type="text" class="input_box" id="qualInput" name="qName" value="자격증명" />';
+	    html += " </div>";
+		
+	    /* $(".add_box").val($(this).parent().children().attr("qName")); */
+		$(this).parent().append(html);
 	});
 });
 //데이터 취득
@@ -141,7 +153,7 @@ function drawPaging(pb) {
 	$(".page").html(html);
 }
 
-function apiAjax() {
+/* function apiAjax() {
 	$.ajax({
 		url : "getQualApiAjax",
 		type : "post",
@@ -153,7 +165,8 @@ function apiAjax() {
 			console.log(error);
 		}
 	});
-}
+} */
+
 </script>
 </head>
 <body>
@@ -273,11 +286,11 @@ function apiAjax() {
 						<h1>자격증 검색</h1>
 					</div>
 
-					<form class="pop-user" id="qualSchForm">
-						<input type="hidden" name="pop_page" id="pop_page" value="1"> 
+					<form class="pop-user" id="qualSchForm" method="post">
+						<input type="hidden" name="pop_page" id="pop_page" value="${pop_page}"> 
 						<input type="hidden" name="itemCnt" id="itemCnt">
 						<div class="pop-input">
-							<input type="button" id="schBtn" value="검색"> 
+							<input type="button" id="schQualBtn" value="검색"> 
 							<input type="text" name="schCName" id="schCName" placeholder="자격증 이름(명)">
 						</div>
 						<input type="button" id="cancleBtn" value="X">
@@ -287,21 +300,19 @@ function apiAjax() {
 					<div class="qual_wrap">
 						<table>
 							<thead>
-								<tr>
+								<tr>									
+									<th>자격증 번호</th>
 									<th>자격증 이름(명)</th>
 								</tr>
 							</thead>
-							<tbody>
-								<!-- ㅇ -->
-								<tr>
-									
-								</tr>
-								<!-- ㅇ -->
+							
+							<tbody id="qualList" no="">
 							</tbody>
 						</table>
 					</div>
-					<div class="paging_wrap"></div>
 					<hr>
+					<div class="paging_wrap"></div>
+					
 					
 				</div>
 			</div>
@@ -418,12 +429,17 @@ function apiAjax() {
 							</div>
 							<div class="lisence_box">
 								<!-- <input type="button" class="minus_btn" id="delBtn" value="－"> -->
-								<span>자격증 :</span> <input type="text" class="input_box"
-									placeholder="자격증" readonly>
+								<span>자격증 :</span> 
 								<!-- 자격증 검색 api 팝업창 -->
-								<input type="button" class="" id="qualSchBtn" value="자격증 검색">
-								<input type="text" class="input_box" value="데이터 / 자격증명">
-								<input type="button" class="plus_btn" id="addBtn1" value="＋">
+								<div class="add_box">
+									<input type="button" class="" id="qualSchBtn" value="자격증 검색">
+									<input type="button" class="plus_btn" id="addBtn1" value="＋">
+								</div>
+								<div class="data_container">
+									<input type="hidden" name="qualno" id="qualno" value="${data.QUAL_NO }">
+									<input type="text" class="input_box" id="qualInput" name="qName" value="자격증명" />
+								</div>
+								
 							</div>
 						</form>
 

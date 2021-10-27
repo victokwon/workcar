@@ -44,16 +44,7 @@ $(function(){
 		  $("#maxCareer").attr("disabled", true);
 		}
 	});
-	$("#addBtn1").on("click", function () {
-	    let html = "";
-	    html += '<div class="data_container ">';
-	    html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
-	    html += '<input type="text" class="input_box" value="데이터 / 자격증명" readonly>';
-	    html += " </div>";
-  
-  
-    	$(this).parent().append(html);
-	});
+	
 	$(".lisence_box").on("click", ".minus_btn", function () {
 		$(this).parent().html("");
 	});

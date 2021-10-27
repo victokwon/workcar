@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gdj37.workcar.common.CommonProperties;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
 import com.gdj37.workcar.web.search.service.IEmploySearchService;
@@ -103,4 +104,39 @@ public class EmploySearchController {
 	 * 
 	 * // 데이터를 문자열화 return mapper.writeValueAsString(modelMap); }
 	 */
+	@ResponseBody
+	   @RequestMapping(value = "/getQualList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	   public String getQualList(@RequestParam HashMap<String, String> params) throws Throwable {
+	      ObjectMapper mapper = new ObjectMapper();
+	      Map<String, Object> modelMap = new HashMap<String, Object>();
+	      String result = CommonProperties.RESULT_SUCCESS;
+	      int pop_page = 1;
+	      
+	      try {
+	         if(params.get("pop_page")!="") {
+	        	 pop_page =Integer.parseInt(params.get("pop_page"));
+	         }
+	         int cnt = iEmploySearchService.getQualCnt(params);
+	         PagingBean pb = iPagingService.getPagingBean(pop_page, cnt, 5, 5);
+	         
+	         params.put("startCnt", Integer.toString(pb.getStartCount()));
+	         params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+	         System.out.println(cnt);
+	         System.out.println(pb);
+	         List<HashMap<String, String>> list = iEmploySearchService.getQual(params);
+	         if(list == null) {
+	            result = CommonProperties.RESULT_FAILED;
+	         }
+	         modelMap.put("pop_page", pop_page);
+	         modelMap.put("pb", pb);
+	         modelMap.put("list", list);
+	      } catch (Exception e) {
+	         System.out.println(params);
+	         result = CommonProperties.RESULT_ERROR;            
+	         e.printStackTrace();
+	      }
+	      modelMap.put("result", result);
+	      return mapper.writeValueAsString(modelMap);
+	   }
 }

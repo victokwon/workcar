@@ -26,13 +26,19 @@ html {
   left: calc(50% - 350px);
   padding: 30px 0;
 }
-.company_wrap{
+.qual_wrap{
 	display: flex;
 	
 }
-.company_wrap table{
+.qual_wrap table{
 	width: 100%;
 	margin: 0 auto;
+	cursor:pointer;
+	text-align:center;
+}
+.qual_wrap table tbody tr:hover{
+	background-color:#999;
+	color:white;
 }
 
 .pop-in-container {
@@ -70,14 +76,14 @@ html {
   border: 1px solid #eee;
   padding: 0 20px;
 }
-.pop-input #schBtn {
+.pop-input #schQualBtn {
   float: right;
   width: 100px;
   border-radius: 30px;
   background-color: #88a2f2;
   color: white;
 }
-.pop-input #schBtn:hover {
+.pop-input #schQualBtn:hover {
   cursor: pointer;
   background-color: #1b50ee;
   font-weight: bold;

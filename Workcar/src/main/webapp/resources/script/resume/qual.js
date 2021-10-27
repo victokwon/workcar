@@ -9,14 +9,14 @@ $(function () {
    		  $(".pop-container").hide();
      })
 /* js에서 api 데이터 호출해서 활용하는 방법 =?= controller에서 api데이터 호출해서 활용하는 방법*/
-  $("#resumeLisence").on("click", "#qualBtn",function () {
-  $("#sectorList").attr("no", $(this).attr("no"))
-   $(".pop-text-header").children("h1").html("자격증 검색")
-   $("#sectorList").html("");
-    $(".pop-container").show();
-    $("#schQualBtn").show()
-    $("#schSectorBtn").hide()
-  });
+	$("#resumeLisence").on("click", "#qualBtn",function () {
+		$("#sectorList").attr("no", $(this).attr("no"))
+		$(".pop-text-header").children("h1").html("자격증 검색")
+		$("#sectorList").html("");
+	    $(".pop-container").show();
+	    $("#schQualBtn").show()
+	    $("#schSectorBtn").hide()
+	});
   
     $("#schQualBtn").on("click", function () {
       schQual()
