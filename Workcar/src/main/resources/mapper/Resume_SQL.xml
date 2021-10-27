@@ -540,8 +540,10 @@
 		OPN_CHK = #{openCase},
 		GRADU = #{gradu},
 		PAY_GBN = #{sal},
-		PAY_MAX = #{salMin},
-		PAY_MIN = #{salMax},
+		<if test="sal eq 0">
+			PAY_MAX = #{salMin},
+			PAY_MIN = #{salMax},
+		</if>		
 		CHN_DATE = SYSDATE
 		WHERE DEL_CHK = 0
 		AND RESUM_NO = #{resumeNo}
