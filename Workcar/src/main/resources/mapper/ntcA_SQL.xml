@@ -23,11 +23,13 @@
 	</select> 
 	 
 	<select id="getAList" parameterType="hashmap" resultType="hashmap">
-      SELECT N.NOTICE_NO, N.NOTICE_GBN, N.NOTICE_TITLE, N.NAME, N.REG_DATE
-      FROM(SELECT N.NOTICE_NO, N.NOTICE_GBN, N.NOTICE_TITLE, M.NAME, TO_CHAR(N.REG_DATE,'YYYY-MM-DD') AS REG_DATE,
+      SELECT N.NOTICE_NO, N.NOTICE_GBN, N.NOTICE_TITLE, N.NAME, N.REG_DATE, N.ATTCH_NO, N.ATTCH_NAME
+      FROM(SELECT N.NOTICE_NO, N.NOTICE_GBN, N.NOTICE_TITLE, M.NAME, TO_CHAR(N.REG_DATE,'YYYY-MM-DD') AS REG_DATE, NA.ATTCH_NO, NA.ATTCH_NAME,
          ROW_NUMBER() OVER(ORDER BY N.NOTICE_NO DESC) AS RNUM
            FROM NOTICE N INNER JOIN MEMBER M
                   ON N.MEM_NO = M.MEM_NO
+                  LEFT OUTER JOIN NOTICE_ATTCH NA
+                  ON N.NOTICE_NO = NA.NOTICE_NO
                   WHERE N.DEL_CHK = 0
       <if test="searchTxt != null and searchTxt != ''">
          <choose>
@@ -50,28 +52,36 @@
 	
 	<select id="getA" parameterType="hashmap" resultType="hashmap">
 		SELECT N.NOTICE_NO, N.NOTICE_GBN, N.NOTICE_TITLE, M.NAME, N.NOTICE_CNTT,
-			   TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE 
+			   TO_CHAR(REG_DATE, 'YYYY-MM-DD') AS REG_DATE, NA.ATTCH_NO, NA.ATTCH_NAME
 		FROM NOTICE N INNER JOIN MEMBER M
                 ON N.MEM_NO = M.MEM_NO
+                LEFT OUTER JOIN NOTICE_ATTCH NA
+                ON N.NOTICE_NO = NA.NOTICE_NO
 		WHERE 1 = 1
-		AND NOTICE_NO = #{no}
+		AND N.NOTICE_NO = #{no}
 	</select>
 	
-	<insert id="ABAdd" parameterType="hashmap">
+	<insert id="NoticeAdd" parameterType="hashmap">
 		INSERT INTO NOTICE(NOTICE_NO, MEM_NO, NOTICE_TITLE, NOTICE_CNTT)
 		VALUES(NOTICE_SEQ.nextval, #{memNo}, #{title}, #{cntt})
 	</insert>
+		
+	<insert id="AttchAdd" parameterType="hashmap">
+		INSERT INTO NOTICE_ATTCH(ATTCH_NO, ATTCH_NAME)
+        VALUES(NOTICE_ATTCH_SEQ.nextval, #{nFile})
+	</insert>
 	 
-	 
-	<update id="ABUpdate" parameterType="hashmap">
+	<update id="NoticeUpdate" parameterType="hashmap">
 		UPDATE NOTICE SET NOTICE_TITLE = #{title},
                		  NOTICE_CNTT = #{cntt}
-               		  
 		WHERE NOTICE_NO = #{no}
 		AND MEM_NO = #{memNo}
 	</update>
-	<!-- B_FILE = #{bFile} -->
-	
+	<update id="AttchUpdate" parameterType="hashmap">
+		UPDATE NOTICE_ATTCH SET ATTCH_NAME = #{nFile}
+		WHERE NOTICE_NO = #{no}
+		AND MEM_NO = #{memNo}
+	</update>
 	<update id="ABDelete" parameterType="hashmap">
 		UPDATE NOTICE 
 		SET DEL_CHK = 1

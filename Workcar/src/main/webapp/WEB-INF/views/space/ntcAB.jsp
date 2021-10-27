@@ -276,21 +276,21 @@ $(document).ready(function() {
 </table>
 </div>
 
-<%-- <c:if test="${!empty data.B_FILE}">
+ <c:if test="${!empty data.ATTCH_NAME}">
 <div>
 	<!-- c:set => 변수선언 -->
 	<!-- fn:length => 문자열 : 문자열길이, 리스트나 배열 : 개수 -->
-	<c:set var="len" value="${fn:length(data.B_FILE)}"></c:set>
+	<c:set var="len" value="${fn:length(data.ATTCH_NAME)}"></c:set>
 	첨부파일 : 
 	<!-- fn:substring(값, 숫자1, 숫자2) => 인덱스 숫자1번째부터 숫자2미만까지 자름 -->
 	<!-- a의 download : href의 파일을 다운로드하겠다. 만약 download에 값이 있는 경우
 					    해당이름으로 다운로드하겠다. 서버에 있는 파일의 앞에 20자리 빼고 사용자에게 보여줌.
 	 -->
-	<a href="resources/upload/${data.B_FILE}" download="${fn:substring(data.B_FILE, 20, len)}">
-	${fn:substring(data.B_FILE, 20, len)}
+	<a href="resources/upload/${data.ATTCH_NAME}" download="${fn:substring(data.ATTCH_NAME, 20, len)}">
+	${fn:substring(data.ATTCH_NAME, 20, len)}
 	</a>
 </div>
-</c:if> --%>
+</c:if> 
 							<c:if test="${data.NAME eq sMNm}">
 								<input type="button" value="수정" id="updateBtn" />
 								<input type="button" value="삭제" id="deleteBtn" />

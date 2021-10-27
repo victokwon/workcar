@@ -101,7 +101,7 @@ $(document).ready(function() {
 					if(res.result == "SUCCESS") {
 						// 업로드 파일명 적용
 						if(res.fileName.length > 0) { //업로드한 파일이 있는 경우
-							$("#bFile").val(res.fileName[0]);
+							$("#nFile").val(res.fileName[0]);
 						}
 						
 						//글 저장
@@ -291,12 +291,12 @@ function checkVal(sel) {
 	<textarea rows="5" cols="5" id="cntt" name="cntt"></textarea> 
 	첨부파일 : <input type="button" value="첨부파일선택" id="fileBtn" />
 	<span id="fileName"></span>
-	<!-- <input type="hidden" name="bFile" id="bFile" /> --><!-- DB저장용 -->
+	<input type="hidden" name="nFile" id="nFile" /> <!-- DB저장용 -->
 </form>
-							<c:if test="${data.NAME eq sMNm}">
+							<%-- <c:if test="${data.MEM_NO eq sMNo}"> --%>
 								<input type="button" value="저장" id="addBtn" />
 								<input type="button" value="취소" id="cancelBtn" />
-							</c:if>
+							<%-- </c:if> --%>
 							<input type="button" value="목록" id="listBtn" />
                 	</div>
             	</div>                    

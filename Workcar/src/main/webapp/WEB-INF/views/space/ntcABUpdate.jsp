@@ -91,7 +91,7 @@ $(document).ready(function() {
 	//첨부파일 삭제버튼
 	$("#fileDelBtn").on("click", function() {
 		$("#fileName").html(""); //사용자에게 보여지는 파일명.파일명 안보여주려고 html에 공백으로 넣음
-		$("#bFile").val(""); //DB에 올라갈 파일명
+		$("#nFile").val(""); //DB에 올라갈 파일명
 		$("#fileBtn").attr("class", ""); //첨부파일 선택 버튼
 		$(this).remove(); //첨부파일 삭제버튼 제거
 	});
@@ -115,7 +115,7 @@ $(document).ready(function() {
 					if(res.result == "SUCCESS") {
 						// 업로드 파일명 적용
 						if(res.fileName.length > 0) { //업로드한 파일이 있는 경우
-							$("#bFile").val(res.fileName[0]);
+							$("#nFile").val(res.fileName[0]);
 						}
 						
 						//글 수정
@@ -164,7 +164,11 @@ function checkVal(sel) {
 </head>
 <body>
 <form id="fileForm" action="fileUploadAjax" method="post" enctype="multipart/form-data">
-	<input type="file" name="att" id="att" /> <!-- <= 첨부파일 갯수를 늘리고 싶으면 이것을 더 만들고 부가작업하면 됨. -->
+	<input type="file" name="att" id="att" />
+	<!-- <input type="file" name="att2" id="att2" />
+	<input type="file" name="att3" id="att3" />
+	<input type="file" name="att4" id="att4" />
+	<input type="file" name="att5" id="att5" /> --> <!-- <= 첨부파일 갯수를 늘리고 싶으면 이것을 더 만들고 부가작업하면 됨. -->
 </form> <!-- 파일을 올리거나 있던 파일을 교체하기 위한 장치 -->
 <form action="ntcAB" id="backForm" method="post">
 	<input type="hidden" name="searchGbn" value="${param.searchGbn}" />
@@ -179,7 +183,7 @@ function checkVal(sel) {
 	<textarea rows="5" cols="5" id="cntt" name="cntt">${data.NOTICE_CNTT}</textarea> 
 	첨부파일 :  
 	<c:choose>
-		<c:when test="${!empty data.B_FILE}">
+		<c:when test="${!empty data.ATTCH_NAME}">
 		<!-- 첨부파일이 있는 경우 버튼을 숨긴다. -->
 			<input type="button" value="첨부파일선택" id="fileBtn" class="hide_btn" />
 		</c:when>
@@ -187,12 +191,12 @@ function checkVal(sel) {
 			<input type="button" value="첨부파일선택" id="fileBtn" />
 		</c:otherwise>
 	</c:choose>
-	<c:set var="len" value="${fn:length(data.B_FILE)}"></c:set>
-	<span id="fileName">${fn:substring(data.B_FILE, 20, len)}</span><!-- 현재 등록되어있는 파일명 -->
-	<c:if test="${!empty data.B_FILE}">
+	<c:set var="len" value="${fn:length(data.ATTCH_NAME)}"></c:set>
+	<span id="fileName">${fn:substring(data.ATTCH_NAME, 20, len)}</span><!-- 현재 등록되어있는 파일명 -->
+	<c:if test="${!empty data.ATTCH_NAME}">
 		<input type="button" value="첨부파일삭제" id="fileDelBtn" />
 	</c:if>
-	<input type="hidden" name="bFile" id="bFile" value="${data.B_FILE}" /><!-- DB저장용 -->
+	<input type="hidden" name="nFile" id="nFile" value="${data.ATTCH_NAME}" /><!-- DB저장용 -->
 </form>
 <input type="button" value="수정" id="updateBtn" />
 <input type="button" value="취소" id="cancelBtn" />

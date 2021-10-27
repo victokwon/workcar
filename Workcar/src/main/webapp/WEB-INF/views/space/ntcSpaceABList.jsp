@@ -165,7 +165,7 @@ function drawList(list) {
 	
 	if(data.ATTCH_NAME != null) {
 		html += "<img src=\"resources/images/freepik_attach1.png\" />";
-	
+	}
 	
 	html += "</td>"; 
 	html += "<td>" + data.NAME + "</td>"; //작성자 MEMBER테이블
@@ -206,9 +206,6 @@ function drawPaging(pb) {
 	
 	$(".paging_wrap").html(html);
 }
-	
-	
-	
 </script>
 </head>
 <body>
@@ -326,14 +323,15 @@ function drawPaging(pb) {
     <main>
 
         <div class="main_button_box">
-            <button type="button" class="main_button" onclick="openPage('main_regi', this)" id="mainSpaceBtn">이용약관</button>
+            <!--<button type="button" class="main_button" onclick="openPage('main_regi', this)" id="mainSpaceBtn">이용약관</button>
             <button type="button" class="main_button" onclick="openPage('main_apply', this)" id="personalSpaceBtn">개인정보처리방침</button>
             <button type="button" class="main_button" onclick="openPage('main_act', this)" id="defaultOpen">공지사항</button>
-            <button type="button" class="main_button" onclick="openPage('main_inter', this)" id="quesSpaceBtn">자주하는질문</button> 
-            <!--<input type="button" class="main_button" value="이용약관" id="mainSpaceBtn" />
-            <input type="button" class="main_button" value="개인정보처리방침" id="personalSpaceBtn" />
-            <input type="button" class="main_button" value="공지사항" id="defaultOpen" />
-            <input type="button" class="main_button" value="자주하는질문" id="quesSpaceBtn" /> -->
+            <button type="button" class="main_button"  id="quesSpaceBtn">자주하는질문</button> 
+             onclick="openPage('main_inter', this)" -->
+            <input type="button" class="main_button" onclick="openPage('main_regi', this)" value="이용약관" id="mainSpaceBtn" />
+            <input type="button" class="main_button" onclick="openPage('main_apply', this)" value="개인정보처리방침" id="personalSpaceBtn" />
+            <input type="button" class="main_button" onclick="openPage('main_act', this)" value="공지사항" id="defaultOpen" />
+            <input type="button" class="main_button" onclick="openPage('main_inter', this)" value="자주하는질문" id="quesSpaceBtn" /> 
         </div>
         <div class="main_info">
 			<div id="main_act" class="main_content">
