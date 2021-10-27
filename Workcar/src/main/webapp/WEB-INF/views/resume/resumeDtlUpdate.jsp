@@ -25,8 +25,11 @@
 
 <script type="text/javascript"
    src="resources\script\jquery\jquery-1.12.4.min.js"></script>
+<script type="text/javascript" 
+	src="resources/script/jquery/jquery.form.js"></script> 
 <script type="text/javascript" src="resources\script\resume\sector.js"></script>
 <script type="text/javascript" src="resources\script\resume\qual.js"></script>
+<script type="text/javascript" src="resources\script\resume\fileupload.js"></script>
 <script type="text/javascript" src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript">
 	$(function() {
@@ -352,9 +355,9 @@
 	       html += '<div class="input_box " id="attchInput'+noBox.attchNo+'" no="'+noBox.attchNo+'" noName="attchNo">';
 	       html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
 	       html += '<div class="data_container file_container">';
-	       html += '<div class="fileSNm" id="fileSNm' +noBox.attchNo+ '" name="attchName" id="attchName'+noBox.attchNo+'">파일명</div>';
-	       html += '<input type="hidden" id="fileLNm">';
-	       html += '<button type="button" id="fileBtn">파일업로드</button>';
+	       html += '<div class="fileSNm" id="fileName' +noBox.attchNo+ '" name="attchName" id="attchName'+noBox.attchNo+'">파일명</div>';
+	       html += '<input type="hidden" id="mFile'+noBox.attchNo+'" name="fileNm" value="">';
+	       html += '<button type="button" id="fileBtn" target="' +noBox.attchNo+'">파일업로드</button>';
 	       html += " </div>";
 	       html += " </div>";
 	       $(this).parent().prepend(html);
@@ -1016,18 +1019,18 @@
                         <div class="content apply_dtl_attch" id="resumeAttach">
                             <div class="dtl">
                                 <div class="header">첨부파일</div>
-                                <div class="con add_box">
+                                <div class="con add_box" id="fileBox">
                                     <c:if test="${!empty ATTACH }">
                                         <c:set var="attchCnt" value="0" />
                                         <c:forEach var="data" items="${ATTACH }">
                                             <div class="input_box " id="attchInput${attchCnt }" no="${attchCnt }" noName="attchNo">
                                                 <input type="button" class="minus_btn" id="delBtn" value="－">
                                                 <div class="data_container file_container">
-                                                	<input type="hidden" name="fileNm" value="${data.ATTCH_NAME }">
-                                                    <div class="fileSNm" id="fileSNm${attchCnt }">
+                                                	<input type="hidden" id="mFile${ attchCnt}" name="fileNm" value="${data.ATTCH_NAME }">
+                                                    <div class="fileSNm" id="fileName${attchCnt }">
                                                         ${data.ATTCH_NAME }
                                                     </div>
-                                                    <button type="button" id="fileBtn">파일업로드</button>
+                                                    <button type="button" id="fileBtn" target="${ attchCnt }">파일업로드</button>
                                                     <c:set var="attchCnt" value="${ attchCnt + 1}" />
                                                 </div>
                                             </div>
@@ -1038,8 +1041,9 @@
                             </div>
                         </div>
                     </form>
+                    
      <form action="fileUploadAjax" id="fileForm" method="post" enctype="multi/form-data">
-        <input type="file" accept="image/*" name="att" id="att">
+        <input type="file" accept="image/*" name="att" id="att" target="">
     </form>
                 </div>
             </div>

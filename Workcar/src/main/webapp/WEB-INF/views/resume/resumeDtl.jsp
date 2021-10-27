@@ -476,7 +476,11 @@
                            <div class="input_box ">
                               <div class="data_container file_container">
                                  <c:forEach var="data" items="${ATTACH }">
-                                    <div id="fileSNm">${data.ATTCH_NAME }</div>
+                                 	<c:set var="len" value="${fn:length(data.ATTCH_NAME) }"></c:set>
+                                    <div id="fileSNm">
+                                    <a href="resources/upload/${fn:replace(fn:replace(data.ATTCH_NAME, '[','%5B'),']', '%5d')}" download="${fn:substring(data.ATTCH_NAME, 20, len) }">
+   									 ${fn:substring(data.ATTCH_NAME, 20, len) }
+									</a></div>
                                  </c:forEach>
                               </div>
                            </div>
