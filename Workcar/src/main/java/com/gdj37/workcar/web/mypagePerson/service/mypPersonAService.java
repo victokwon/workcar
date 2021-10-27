@@ -7,7 +7,7 @@ import com.gdj37.workcar.web.mypagePerson.dao.ImypPersonADao;
 
 
 @Service
-public class mypPersonAService {
+public class mypPersonAService implements ImypPersonAService{
 	@Autowired
 	public ImypPersonADao imypPersonADao;
 }

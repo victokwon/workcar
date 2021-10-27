@@ -19,19 +19,19 @@ public class mypPersonController {
 	  
 	@RequestMapping({"/personRegi"})
 	public ModelAndView personRegi(ModelAndView mav) {
-	    mav.setViewName("personMypage/personRegi");
+	    mav.setViewName("myPage/personMypage/personRegi");
 	    return mav;
 	}
 	
 	@RequestMapping({"/personAct"})
 	public ModelAndView personAct(ModelAndView mav) {
-	    mav.setViewName("personMypage/personAct");
+	    mav.setViewName("myPage/personMypage/personAct");
 	    return mav;
 	}
 	
 	@RequestMapping({"/personInter"})
 	public ModelAndView personInter(ModelAndView mav) {
-	    mav.setViewName("personMypage/personInter");
+	    mav.setViewName("myPage/personMypage/personInter");
 	    return mav;
 	}
 	
