@@ -2,6 +2,7 @@ package com.gdj37.workcar.web.resume.service;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -107,4 +108,98 @@ public class ResumeService implements IResumeService {
 	public List<HashMap<String, String>> getQual(HashMap<String, String> params) throws Throwable {
 		return iResumeDAO.getQual(params);
 	}
+	
+// 삭제(초기화)
+	@Override
+	public int DelAttchForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelAttchForUp(params);
+	}
+
+	@Override
+	public int DelCarrForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelCarrForUp(params);
+	}
+
+	@Override
+	public int DelEduForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelEduForUp(params);
+	}
+
+	@Override
+	public int DelIeduForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelIeduForUp(params);
+	}
+
+	@Override
+	public int DelFlangForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelFlangForUp(params);
+	}
+
+	@Override
+	public int DelLocForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelLocForUp(params);
+	}
+
+	@Override
+	public int DelQualForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelQualForUp(params);
+	}
+
+	@Override
+	public int DelSintroForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelSintroForUp(params);
+	}
+
+	@Override
+	public int DelWorkForUp(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.DelWorkForUp(params);
+	}
+
+// 생성(수정)
+	@Override
+	public int AttchUpdate(Map<String, Object> paramMap) throws Throwable{
+		return iResumeDAO.AttchUpdate(paramMap);
+	}
+
+	@Override
+	public int CarrUpdate(Map<String, Object> paramMap)throws Throwable {
+		return iResumeDAO.CarrUpdate(paramMap);
+	}
+
+	@Override
+	public int EduUpdate(Map<String, Object> paramMap) throws Throwable{
+		return iResumeDAO.EduUpdate(paramMap);
+	}
+
+	@Override
+	public int IeduUpdate(Map<String, Object> paramMap)throws Throwable {
+		return iResumeDAO.IeduUpdate(paramMap);
+	}
+
+	@Override
+	public int FlangUpdate(Map<String, Object> paramMap) throws Throwable{
+		return iResumeDAO.FlangUpdate(paramMap);
+	}
+
+	@Override
+	public int LocUpdate(Map<String, Object> paramMap) throws Throwable{
+		return iResumeDAO.LocUpdate(paramMap);
+	}
+
+	@Override
+	public int QualUpdate(Map<String, Object> paramMap) throws Throwable{
+		return iResumeDAO.QualUpdate(paramMap);
+	}
+
+	@Override
+	public int SintroUpdate(Map<String, Object> paramMap) throws Throwable{
+		return iResumeDAO.SintroUpdate(paramMap);
+	}
+
+	@Override
+	public int WorkUpdate(Map<String, Object> paramMap) throws Throwable{
+		return iResumeDAO.WorkUpdate(paramMap);
+	}
+
+
 }

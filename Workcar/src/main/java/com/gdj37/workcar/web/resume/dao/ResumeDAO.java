@@ -2,6 +2,7 @@ package com.gdj37.workcar.web.resume.dao;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,5 +107,97 @@ public class ResumeDAO implements IResumeDAO{
 	public List<HashMap<String, String>> getQual(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("Resume_SQL.getQual",params);
 	}
+
+	@Override
+	public int DelAttchForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelAttchForUp",params);
+	}
+
+	@Override
+	public int DelCarrForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelCarrForUp",params);
+	}
+
+	@Override
+	public int DelEduForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelEduForUp",params);
+	}
+
+	@Override
+	public int DelIeduForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelIeduForUp",params);
+	}
+
+	@Override
+	public int DelFlangForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelFlangForUp",params);
+	}
+
+	@Override
+	public int DelLocForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelLocForUp",params);
+	}
+
+	@Override
+	public int DelQualForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelQualForUp",params);
+	}
+
+	@Override
+	public int DelSintroForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelSintroForUp",params);
+	}
+
+	@Override
+	public int DelWorkForUp(HashMap<String, String> params) throws Throwable {
+		return sqlSession.delete("Resume_SQL.DelWorkForUp",params);
+	}
+
 	
+	// 생성(수정)
+	@Override
+	public int AttchUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.AttchUpdate",paramMap);
+	}
+
+	@Override
+	public int CarrUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.CarrUpdate",paramMap);
+	}
+
+	@Override
+	public int EduUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.EduUpdate",paramMap);
+	}
+
+	@Override
+	public int IeduUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.IeduUpdate",paramMap);
+	}
+
+	@Override
+	public int FlangUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.FlangUpdate",paramMap);
+	}
+
+	@Override
+	public int LocUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.LocUpdate",paramMap);
+	}
+
+	@Override
+	public int QualUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.QualUpdate",paramMap);
+	}
+
+	@Override
+	public int SintroUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.SintroUpdate",paramMap);
+	}
+
+	@Override
+	public int WorkUpdate(Map<String, Object> paramMap) throws Throwable {
+		return sqlSession.insert("Resume_SQL.WorkUpdate",paramMap);
+	}
+
 }

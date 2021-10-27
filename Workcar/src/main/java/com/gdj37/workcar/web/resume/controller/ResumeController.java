@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.CommonProperties;
@@ -243,141 +245,183 @@ public class ResumeController {
 			@RequestParam(required = false) String[] ieduStDate, @RequestParam(required = false) String[] ieduEndDate,
 			@RequestParam(required = false) String[] ieduCntt, @RequestParam(required = false) String[] sintroName,
 			@RequestParam(required = false) String[] sintroCntt, @RequestParam(required = false) String[] fileNm,
-			HttpSession session) throws Throwable {
-		
+			HttpSession session,
+			RedirectAttributes redirect) throws Throwable {
+
 		System.out.println(params);
-		
-		Map<String, Object> cityMap = new HashMap<String, Object>();
-		Map<String, Object> workTypeMap = new HashMap<String, Object>();
-		Map<String, Object> qualMap = new HashMap<String, Object>();
-		Map<String, Object> flangMap = new HashMap<String, Object>();
-		Map<String, Object> carrMap = new HashMap<String, Object>();
-		Map<String, Object> eduMap = new HashMap<String, Object>();
-		Map<String, Object> ieduMap = new HashMap<String, Object>();
-		Map<String, Object> sintroMap = new HashMap<String, Object>();
-		Map<String, Object> fileNmMap = new HashMap<String, Object>();
-
-		// 도시내용
-		for (int i = 0; i < city.length; i++) {
-			cityMap.put("city" + i, city[i]);
-			cityMap.put("region" + i, region[i]);
-		}
-		for (String key : cityMap.keySet()) {
-			System.out.println(key);
-			System.out.println(cityMap.get(key));
-		}
-		// 근무형태
-		for (int i = 0; i < workType.length; i++) {
-			workTypeMap.put("workType" + i, workType[i]);
-		}
-		for (String key : workTypeMap.keySet()) {
-			System.out.println(key);
-			System.out.println(workTypeMap.get(key));
-		}
-		
-		if (qualNo != null) {
-			// 자격증
-			for (int i = 0; i < qualNo.length; i++) {
-				qualMap.put("qualNo" + i, qualNo[i]);
-				qualMap.put("issuAgcy" + i, issuAgcy[i]);
-				qualMap.put("passDate" + i, passDate[i]);
-			}
-			for (String key : qualMap.keySet()) {
-				System.out.println(key);
-				System.out.println(qualMap.get(key));
-			}
-		}
-		if (flangNo != null) {
-			// 외국어
-			for (int i = 0; i < flangNo.length; i++) {
-				flangMap.put("flangNo" + i, flangNo[i]);
-				flangMap.put("flangType" + i, flangType[i]);
-				flangMap.put("flangGrade" + i, flangGrade[i]);
-			}
-			for (String key : flangMap.keySet()) {
-				System.out.println(key);
-				System.out.println(flangMap.get(key));
-			}
-		}
-		if (cName != null) {
-			// 경력
-			for (int i = 0; i < cName.length; i++) {
-				carrMap.put("cName" + i, cName[i]);
-				carrMap.put("dpart" + i, dpart[i]);
-				carrMap.put("pos" + i, pos[i]);
-				carrMap.put("carrStDate" + i, carrStDate[i]);
-				carrMap.put("carrEndData" + i, carrEndData[i]);
-				carrMap.put("tureChk" + i, tureChk[i]);
-				carrMap.put("carrCntt" + i, carrCntt[i]);
-			}
-			for (String key : carrMap.keySet()) {
-				System.out.println(key);
-				System.out.println(carrMap.get(key));
-			}
-		}
-		if (schName != null) {
-			// 학력
-			for (int i = 0; i < schName.length; i++) {
-				eduMap.put("schName" + i, schName[i]);
-				eduMap.put("sol" + i, sol[i]);
-				eduMap.put("major" + i, major[i]);
-				eduMap.put("eduStDate" + i, eduStDate[i]);
-				eduMap.put("eduEndData" + i, eduEndData[i]);
-				eduMap.put("schName" + i, schName[i]);
-			}
-			for (String key : eduMap.keySet()) {
-				System.out.println(key);
-				System.out.println(eduMap.get(key));
-			}
-		}
-		if (ieduName != null) {
-			// 직무교육
-			for (int i = 0; i < ieduName.length; i++) {
-				ieduMap.put("ieduName" + i, ieduName[i]);
-				ieduMap.put("coseName" + i, coseName[i]);
-				ieduMap.put("ieduStDate" + i, ieduStDate[i]);
-				ieduMap.put("ieduEndDate" + i, ieduEndDate[i]);
-				ieduMap.put("ieduCntt" + i, ieduCntt[i]);
-			}
-			for (String key : ieduMap.keySet()) {
-				System.out.println(key);
-				System.out.println(ieduMap.get(key));
-			}
-		}
-		if (sintroName != null) {
-			// 자지소개서
-			for (int i = 0; i < sintroName.length; i++) {
-				sintroMap.put("sintroName" + i, sintroName[i]);
-				sintroMap.put("sintroCntt" + i, sintroCntt[i]);
-			}
-			for (String key : sintroMap.keySet()) {
-				System.out.println(key);
-				System.out.println(sintroMap.get(key));
-			}
-		}
-		if (fileNm != null) {
-			// 첨부파일
-			for (int i = 0; i < fileNm.length; i++) {
-				fileNmMap.put("fileNm" + i, fileNm[i]);
-			}
-			for (String key : fileNmMap.keySet()) {
-				System.out.println(key);
-				System.out.println(fileNmMap.get(key));
-			}
-		}
-
+		params.put("resumeNo",params.get("resumeUpdateNo"));
 		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
-				mav.setViewName("redirect:mainpage");
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				// 값 제거
+				int cnt = iResumeService.DelAttchForUp(params);
+				cnt += iResumeService.DelCarrForUp(params);
+				cnt += iResumeService.DelEduForUp(params);
+				cnt += iResumeService.DelIeduForUp(params);
+				cnt += iResumeService.DelFlangForUp(params);
+				cnt += iResumeService.DelLocForUp(params);
+				cnt += iResumeService.DelQualForUp(params);
+				cnt += iResumeService.DelSintroForUp(params);
+				cnt += iResumeService.DelWorkForUp(params);
+				
+					cnt = 0;
+					paramMap.put("resumeNo", params.get("resumeNo"));
+					// 도시내용
+					List<HashMap<String, Object>> cityList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> cityMap;
+					for (int i = 1; i < city.length; i++) {
+						cityMap = new HashMap<String, Object>();
+						cityMap.put("index", i-1);
+						cityMap.put("city", city[i]);
+						cityMap.put("region", region[i]);
+						cityList.add(cityMap);
+					}
+					paramMap.put("cityList", cityList);
+					cnt += iResumeService.LocUpdate(paramMap);
 
+					// 근무형태
+					List<HashMap<String, Object>> workTypeList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> workTypeMap;
+					for (int i = 0; i < workType.length; i++) {
+						workTypeMap = new HashMap<String, Object>();
+						workTypeMap.put("index", i);
+						workTypeMap.put("workType", workType[i]);
+						workTypeList.add(workTypeMap);
+					}
+					paramMap.put("workTypeList", workTypeList);
+					cnt += iResumeService.WorkUpdate(paramMap);
+					
+					// 자격증
+					List<HashMap<String, Object>> qualList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> qualMap;
+					if (qualNo != null) {
+						for (int i = 0; i < qualNo.length; i++) {
+							qualMap = new HashMap<String, Object>();
+							qualMap.put("index", i);
+							qualMap.put("qualNo", qualNo[i]);
+							qualMap.put("issuAgcy", issuAgcy[i]);
+							qualMap.put("passDate", passDate[i]);
+							qualList.add(qualMap);
+						}
+						paramMap.put("qualList", qualList);
+						cnt += iResumeService.QualUpdate(paramMap);
+					}
+
+					// 외국어
+					List<HashMap<String, Object>> flangList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> flangMap;
+					if (flangNo != null) {
+						for (int i = 0; i < flangNo.length; i++) {
+							flangMap = new HashMap<String, Object>();
+							flangMap.put("index", i);
+							flangMap.put("flangNo", flangNo[i]);
+							flangMap.put("flangType", flangType[i]);
+							flangMap.put("flangGrade", flangGrade[i]);
+							flangList.add(flangMap);
+						}
+						paramMap.put("flangList", flangList);
+						cnt += iResumeService.FlangUpdate(paramMap);
+					}
+
+					// 경력
+					List<HashMap<String, Object>> carrList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> carrMap;
+					if (cName != null) {
+						for (int i = 0; i < cName.length; i++) {
+							carrMap = new HashMap<String, Object>();
+							carrMap.put("index", i);
+							carrMap.put("cName", cName[i]);
+							carrMap.put("dpart", dpart[i]);
+							carrMap.put("pos", pos[i]);
+							carrMap.put("carrStDate", carrStDate[i]);
+							carrMap.put("carrEndData", carrEndData[i]);
+							carrMap.put("tureChk", tureChk[i]);
+							carrMap.put("carrCntt", carrCntt[i]);
+							carrList.add(carrMap);
+						}
+						paramMap.put("carrList", carrList);
+						cnt += iResumeService.CarrUpdate(paramMap);
+					}
+
+					// 학력
+					List<HashMap<String, Object>> eduList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> eduMap;
+					if (schName != null) {
+						for (int i = 0; i < schName.length; i++) {
+							eduMap = new HashMap<String, Object>();
+							eduMap.put("index", i);
+							eduMap.put("schName", schName[i]);
+							eduMap.put("sol", sol[i]);
+							eduMap.put("major", major[i]);
+							eduMap.put("eduStDate", eduStDate[i]);
+							eduMap.put("eduEndData", eduEndData[i]);
+							eduMap.put("eduCntt", eduCntt[i]);
+							eduList.add(eduMap);
+						}
+						paramMap.put("eduList", eduList);
+						cnt += iResumeService.EduUpdate(paramMap);
+					}
+
+					// 직무교육
+					List<HashMap<String, Object>> ieduList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> ieduMap;
+					if (ieduName != null) {
+						for (int i = 0; i < ieduName.length; i++) {
+							ieduMap = new HashMap<String, Object>();
+							ieduMap.put("index", i);
+							ieduMap.put("ieduName", ieduName[i]);
+							ieduMap.put("coseName", coseName[i]);
+							ieduMap.put("ieduStDate", ieduStDate[i]);
+							ieduMap.put("ieduEndDate", ieduEndDate[i]);
+							ieduMap.put("ieduCntt", ieduCntt[i]);
+							ieduList.add(ieduMap);
+						}
+						paramMap.put("ieduList", ieduList);
+						cnt += iResumeService.IeduUpdate(paramMap);
+					}
+
+					// 자기소개서
+					List<HashMap<String, Object>> sintroList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> sintroMap;
+					if (sintroName != null) {
+						for (int i = 0; i < sintroName.length; i++) {
+							sintroMap = new HashMap<String, Object>();
+							sintroMap.put("index", i);
+							sintroMap.put("sintroName", sintroName[i]);
+							sintroMap.put("sintroCntt", sintroCntt[i]);
+							sintroList.add(sintroMap);
+						}
+						
+						paramMap.put("sintroList", sintroList);
+						cnt += iResumeService.SintroUpdate(paramMap);
+					}
+
+					// 첨부파일
+					List<HashMap<String, Object>> fileNmList = new ArrayList<HashMap<String, Object>>();
+					HashMap<String, Object> fileNmMap;
+					if (fileNm != null) {
+						for (int i = 0; i < fileNm.length; i++) {
+							fileNmMap = new HashMap<String, Object>();
+							fileNmMap.put("index", i);
+							fileNmMap.put("fileNm", fileNm[i]);
+							fileNmList.add(fileNmMap);
+						}
+						paramMap.put("fileNmList", fileNmList);
+						cnt += iResumeService.AttchUpdate(paramMap);
+					}
+					mav.setViewName("redirect:resumeList");
 			} catch (Exception e) {
-				mav.setViewName("redirect:mainpage");
+				mav.setViewName("resume/resumDtlUpdate");
 				e.printStackTrace();
-			}
+			}	
 		} else {
 			System.out.println(params);
-			mav.setViewName("redirect:mainpage");
+			mav.setViewName("ca/login");
 		}
+		/*
+		 * redirect.addAttribute("resumeNo",params.get("resumeNo"));
+		 * redirect.addAttribute("actGbn","Dtl");
+		 */
 		return mav;
 	}
 }

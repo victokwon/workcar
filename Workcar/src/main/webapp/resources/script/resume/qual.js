@@ -22,7 +22,7 @@ $(function () {
       schQual()
   });
   
-  $(".company_wrap").on("click", "tr", function () {
+  $(".list_wrap").on("click", "tr", function () {
   	let target = $("#sectorList").attr("no")
     $("#qualName"+target+"").val($(this).attr("qName"));
     $("#qualNo"+target+"").val($(this).attr("qNo"));

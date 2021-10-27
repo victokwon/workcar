@@ -297,7 +297,7 @@ public class CAController {
 //		메일 보내기 설정
 		String host = "smtp.naver.com";
 		final String username = "victokwon93";
-		final String password = "vmfhwprxm!";
+		final String password = "vmfhwprxm!!";
 //		메일 보낼 내용
 		String recipient = params.get("EM");
 		String title = "";
