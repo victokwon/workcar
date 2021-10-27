@@ -304,34 +304,7 @@ public class MyPageCorp {
 		return mav;
 	}
 	
-	//관심정보
-	@RequestMapping(value="/personAct")
-	ModelAndView personAct(ModelAndView mav) {
-		
-		
-		mav.setViewName("myPage/personMypage/personAct");
-		return mav;
-	}
 	
-	
-	//관심채용공고
-	@RequestMapping(value="/personInter")
-	ModelAndView personInter(ModelAndView mav) {
-		
-		
-		mav.setViewName("myPage/personMypage/personInter");
-		return mav;
-	}
-	
-	
-	
-	@RequestMapping(value="/personRegi")
-	ModelAndView personRegi(ModelAndView mav) {
-		
-		
-		mav.setViewName("myPage/personMypage/personRegi");
-		return mav;
-	}
 	
 	
 	
