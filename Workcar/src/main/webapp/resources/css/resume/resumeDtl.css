@@ -336,6 +336,13 @@ main > .main_wrap {
   font-size: 20px;
   font-weight: bold;
 }
+.fileSNm{
+	width: 350px;
+    background-color: white;
+    border: 1px solid;
+    line-height: 30px;
+    padding-left: 10px;
+}
 
 .apply_dtl_date {
   color: white;

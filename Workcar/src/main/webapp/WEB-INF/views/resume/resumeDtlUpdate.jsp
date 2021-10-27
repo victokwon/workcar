@@ -354,7 +354,7 @@
 	       html += '<div class="data_container file_container">';
 	       html += '<div class="fileSNm" id="fileSNm' +noBox.attchNo+ '" name="attchName" id="attchName'+noBox.attchNo+'">파일명</div>';
 	       html += '<input type="hidden" id="fileLNm">';
-	       html += '<button type="button">파일업로드</button>';
+	       html += '<button type="button" id="fileBtn">파일업로드</button>';
 	       html += " </div>";
 	       html += " </div>";
 	       $(this).parent().prepend(html);
@@ -465,9 +465,7 @@
 		<input type="hidden" name="cityArr" value="">
 	
 	</form> -->
-    <form action="fileUploadAjax" id="fileForm" method="post" enctype="multi/form-data">
-        <input type="file" accept="image/*" name="att" id="att">
-    </form>
+
     <form action="#" id="resumeGo" method="post">
         <input type="hidden" id="memNo" name="memNo" value="${sMNo}">
         <input type="hidden" id="resumeNo" name="resumeNo" value="${DATA.RESUM_NO }">
@@ -1029,6 +1027,7 @@
                                                     <div class="fileSNm" id="fileSNm${attchCnt }">
                                                         ${data.ATTCH_NAME }
                                                     </div>
+                                                    <button type="button" id="fileBtn">파일업로드</button>
                                                     <c:set var="attchCnt" value="${ attchCnt + 1}" />
                                                 </div>
                                             </div>
@@ -1039,6 +1038,9 @@
                             </div>
                         </div>
                     </form>
+     <form action="fileUploadAjax" id="fileForm" method="post" enctype="multi/form-data">
+        <input type="file" accept="image/*" name="att" id="att">
+    </form>
                 </div>
             </div>
 
