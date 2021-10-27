@@ -5,16 +5,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <link rel="stylesheet" href="../../resources/css/common/main.css">
-    <link rel="stylesheet" href="../../resources/css/common/default.css">
-    <link rel="stylesheet" href="../../resources/css/common/footer.css">
-    <link rel="stylesheet" href="../../resources/css/Mypage/personMypage/Mypage_inter.css">
+    <link rel="stylesheet" href="resources/css/common/main.css">
+    <link rel="stylesheet" href="resources/css/common/default.css">
+    <link rel="stylesheet" href="resources/css/common/footer.css">
+    <link rel="stylesheet" href="resources/css/Mypage/personMypage/Mypage_inter.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .main_regi2 {
+            display: none;
+        }
+    </style>
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="../../resources/script/Mypage/header.js"></script>
-    <script src="../../resources/script/Mypage/Mypage_main_dp.js"></script>
-    <script src="../../resources/script/Mypage/personMypage/Mypage_inter.js"></script>
+    <script src="resources/script/Mypage/header.js"></script>
+    <script src="resources/script/Mypage/Mypage_main_dp.js"></script>
+    <script src="resources/script/Mypage/personMypage/Mypage_inter.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -68,11 +75,6 @@
             </div>
         </div>
     </header>
-    <style>
-        .main_regi2 {
-            display: none;
-        }
-    </style>
     <main>
         <div class="main_wrap">
             <div class="user_wrap">
@@ -146,11 +148,7 @@
                                     <div>지역</div>
                                 </div>
                                 <div class="main_box_contents">평점
-                                    <div class="star_rating">
-                                        <!-- Add icon library -->
-                                        <link rel="stylesheet"
-                                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-                
+                                    <div class="star_rating">                
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
                                         <span class="fa fa-star checked"></span>
@@ -173,6 +171,8 @@
                         </div>
                     </div>
                 </div>
+                </div>
+                </div>
     </main>
     <footer>
         <div class="inner_content">
@@ -184,6 +184,5 @@
         <h2>Coding is too hard </h2>
         <p>please make it complete within the time frame</p>
     </footer>
-    </div>
 </body>
 </html>

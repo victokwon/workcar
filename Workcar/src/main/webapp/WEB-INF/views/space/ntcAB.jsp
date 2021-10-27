@@ -286,7 +286,7 @@ $(document).ready(function() {
 	<!-- a의 download : href의 파일을 다운로드하겠다. 만약 download에 값이 있는 경우
 					    해당이름으로 다운로드하겠다. 서버에 있는 파일의 앞에 20자리 빼고 사용자에게 보여줌.
 	 -->
-	<a href="resources/upload/${data.ATTCH_NAME}" download="${fn:substring(data.ATTCH_NAME, 20, len)}">
+	 <a href="resources/upload/${data.ATTCH_NAME}" download="${fn:substring(data.ATTCH_NAME, 20, len)}">
 	${fn:substring(data.ATTCH_NAME, 20, len)}
 	</a>
 </div>

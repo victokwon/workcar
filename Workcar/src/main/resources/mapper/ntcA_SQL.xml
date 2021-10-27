@@ -67,8 +67,8 @@
 	</insert>
 		
 	<insert id="AttchAdd" parameterType="hashmap">
-		INSERT INTO NOTICE_ATTCH(ATTCH_NO, ATTCH_NAME)
-        VALUES(NOTICE_ATTCH_SEQ.nextval, #{nFile})
+		INSERT INTO NOTICE_ATTCH(NOTICE_NO, ATTCH_NO, ATTCH_NAME)
+        VALUES(NOTICE_SEQ.currval, NOTICE_ATTCH_SEQ.nextval, #{cntt})
 	</insert>
 	 
 	<update id="NoticeUpdate" parameterType="hashmap">

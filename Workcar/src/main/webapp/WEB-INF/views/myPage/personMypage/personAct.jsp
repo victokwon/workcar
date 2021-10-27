@@ -5,16 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <link rel="stylesheet" href="../../resources/css/common/main.css">
-    <link rel="stylesheet" href="../../resources/css/common/default.css">
-    <link rel="stylesheet" href="../../resources/css/common/footer.css">
-    <link rel="stylesheet" href="../../resources/css/Mypage/personMypage/Mypage_act.css">
+    <link rel="stylesheet" href="resources/css/common/main.css">
+    <link rel="stylesheet" href="resources/css/common/default.css">
+    <link rel="stylesheet" href="resources/css/common/footer.css">
+    <link rel="stylesheet" href="resources/css/Mypage/personMypage/Mypage_act.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
     <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="../../resources/script/Mypage/header.js"></script>
-    <script src="../../resources/script/Mypage/Mypage_main_dp.js"></script>
-    <script src="../../resources/script/Mypage/personMypage/Mypage_act.js"></script>
+    <script src="resources/script/Mypage/header.js"></script>
+    <script src="resources/script/Mypage/Mypage_main_dp.js"></script>
+    <script src="resources/script/Mypage/personMypage/Mypage_act.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 </head>
 <body>
@@ -83,12 +83,11 @@
         </div>
         <!-- Tab 버튼 태그 -->
         <div class="main_button_box">
-            <div class="main_button_box">
                 <a class="main_button regi" onclick="openPage('main_regi', this, '#88a2f2')">계정관리</a>
                 <a class="main_button apply" onclick="openPage('main_apply', this, '#88a2f2')">이력서관리</a>
                 <a class="main_button act" onclick="openPage('main_act', this, '#88a2f2')" id="main_button">활동내역</a>
                 <a class="main_button inter" onclick="openPage('main_inter', this, '#88a2f2')">관심정보</a>
-            </div>
+        </div>
         <!-- 메인 -->
         <div class="main_info">
         <div id="main_act" class="main_content"> 
