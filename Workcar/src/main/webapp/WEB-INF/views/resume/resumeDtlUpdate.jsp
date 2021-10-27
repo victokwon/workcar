@@ -58,6 +58,7 @@
 					&&checkInputSel()
 					&&checkInputDate()
 					&&checkInputTextarea()){
+			    $("#sectorNo").val($("#sectorInput").attr( "sNo"))
 			   $("#updateForm").attr("action", "resumeUpdate")
 			   $("#updateForm").submit() 
 			}
@@ -222,7 +223,7 @@
 		  html += '<div class="detail">';
 		  html += " 재직기간";
 		  html += '<input type="date" name="carrStDate" id="stDate'+noBox.carrNo+'" placeholder="시작 년/월">~';
-		  html += '<input type="date" name="carrEndData" id="endData'+noBox.carrNo+'" placeholder="종료 년/월">';
+		  html += '<input type="date" name="carrEndDate" id="EndDate'+noBox.carrNo+'" placeholder="종료 년/월">';
 		  html += " 재직여부";
 		  html += '<select name="tureChk">'
 		  html += '<option value="퇴직">퇴직</option>'
@@ -266,7 +267,7 @@
 		  html += '<div class="detail">';
 		  html += " 재학기간";
 		  html += '<input type="date" name="eduStDate" id="eduStDate'+noBox.eduNo+'" placeholder="시작 년/월">~';
-		  html += '<input type="date" name="eduEndData" id="eduEndDate'+noBox.eduNo+'" placeholder="종료 년/월">';
+		  html += '<input type="date" name="eduEndDate" id="eduEndDate'+noBox.eduNo+'" placeholder="종료 년/월">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 특이사항";
@@ -303,7 +304,7 @@
 		  html += '<div class="detail">';
 		  html += " 교육기간";
 		  html += '<input type="date" name="ieduStDate" id="stDate'+noBox.ieduNo+'" placeholder="시작 년/월">~';
-		  html += '<input type="date" name="ieduEndData" id="endData'+noBox.ieduNo+'" placeholder="종료 년/월">';
+		  html += '<input type="date" name="ieduEndDate" id="EndDate'+noBox.ieduNo+'" placeholder="종료 년/월">';
 		  html += " </div>";
 		  html += '<div class="detail">';
 		  html += " 교육내용";
@@ -485,7 +486,7 @@
                     <div class="pop-input">
                         <input type="button" class="sch-btn" id="schSectorBtn" value="검색">
                         <input type="button" class="sch-btn" id="schQualBtn" value="검색">
-                        <input type="text" name="schDataName" id="schName" value="검색어">
+                        <input name="schDataName" id="schName" placeholder="검색어">
                     </div>
                 </form>
                 <!-- 5개 리스트 -->
@@ -497,7 +498,7 @@
                                 <th class='td_name'>내용</th>
                             </tr>
                         </thead>
-                        <tbody id="sectorList" no="">
+                        <tbody id="list_box" no="">
                         </tbody>
                     </table>
                 </div>
@@ -657,11 +658,13 @@
                         </c:if>
                     </table>
                 </div>
-                <!-- form 내부의 button 동작 막기 -->
+          
                 <div class="main_box">
+                  <form action="#" method="post" id="updateForm"> 
+                  <input type="hidden" id="resumeUpdateNo" name="resumeUpdateNo" value="${param.resumeNo }" >
                     <div class="content apply_dtl_header" id="resumeName">
                         <div class="apply_dtl">
-                            <span class="apply_dtl_name">${DATA.RESUM_NAME}</span><br>
+                             <input type="text" id="resumeName" name="resumeName" value="${DATA.RESUM_NAME }" ><br>
                             <span class="apply_dtl_date">최종수정일 | ${DATA.CHN_DATE}</span>
                             <span class="apply_dtl_opn">
                                 <select id="opencase" name="openCase" class="opencase" selValue="${DATA.OPN_CHK}">
@@ -675,8 +678,7 @@
                             <button type="button" id="cancelBtn" onclick="linkBack()">취소</button>
                         </div>
                     </div>
-          <form action="#" method="post" id="updateForm"> 
-          <input type="hidden" id="resumeUpdateNo" name="resumeUpdateNo" value="${param.resumeNo }" >
+        
                         <!-- form 설정 -->
                         <div class="content apply_dtl_user" id="resumeUser">
                             <div class="dtl">
@@ -761,7 +763,7 @@
                                         <div class="job">
                                             <div class="text">희망직종</div>
                                             <input type="hidden" name="sectorNo" id="sectorNo" value="${DATA.SECTOR_NO}">
-                                            <div class="input" id="sectorInput">${DATA.SECTOR_NAME}</div>
+                                            <div class="input" id="sectorInput" sNo="${DATA.SECTOR_NO}">${DATA.SECTOR_NAME}</div>
                                             <button type="button" id="sectorBtn">직종 검색</button>
                                         </div>
                                         <div class="hope_loc">
@@ -844,9 +846,10 @@
                                             <div class="input_box" id="qualInput${qualCnt }" no="${qualCnt }" noName="qualNo">
                                                 <input type="button" class="minus_btn" id="delBtn" value="－">
                                                 <div class="data_container">
-                                                    <input type="text" name="qualNo" value="${data.QUAL_NAME }" readonly="readonly">
-                                                    <input type="date" name="issuAgcy" value="${data.PASS_DATE }">
-                                                    <input type="text" name="passDate" value="${data.ISSU_AGCY }">
+                                                 	<input type="hidden" name="qualNo" value="${data.QUAL_NO }" >
+                                                    <input type="text" name="qualName" value="${data.QUAL_NAME }" readonly="readonly">
+                                                    <input type="text" name="issuAgcy" value="${data.ISSU_AGCY }">
+                                                    <input type="date" name="passDate" value="${data.PASS_DATE }">
                                                 </div>
                                             </div>
                                             <c:set var="qualCnt" value="${qualCnt + 1 }" />
@@ -867,7 +870,8 @@
                                             <div class="input_box" id="flangInput${flangCnt }" no="${flangCnt }" noName="flangNo">
                                                 <input type="button" class="minus_btn" id="delBtn" value="－">
                                                 <div class="data_container">
-                                                    <input type="text" name="flangNo" value="${data.FLANG_NAME }">
+                                              	    <input type="hidden" name="flangNo" value="${data.FLANG_NO }">
+                                                    <input type="text" name="flangName" value="${data.FLANG_NAME }">
                                                     <input type="text" name="flangType" value="${data.FLANG_TYPE }">
                                                     <input type="text" name="flangGrade" value="${data.FLANG_GRADE }">
                                                 </div>
@@ -899,7 +903,7 @@
                                                     </div>
                                                     <div class="detail">
                                                         재직기간 <input type="date" name="carrStDate" value="${data.ST_DATE }">
-                                                        ~ <input type="date" name="carrEndData" value="${data.END_DATE }">
+                                                        ~ <input type="date" name="carrEndDate" value="${data.END_DATE }">
                                                         재직여부 
                                                         <select name="tureChk" value="${data.TURE_CHK }" selValue="${data.TURE_CHK }" >
                                                         	<option value="퇴직">퇴직</option>
@@ -939,7 +943,7 @@
                                                     </div>
                                                     <div class="detail">
                                                         재학기간 <input type="date" name="eduStDate" value="${data.ST_DATE }">
-                                                        ~ <input type="date" name="eduEndData" value="${data.END_DATE }">
+                                                        ~ <input type="date" name="eduEndDate" value="${data.END_DATE }">
                                                     </div>
                                                     <div class="detail">
                                                         특이사항

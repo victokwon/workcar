@@ -16,6 +16,10 @@ main {
   margin: 0 auto;
   border-radius: 8px;
 }
+
+#sectorBtn{
+	margin-left: 10px;
+}
 .locSelectBox{
 	height: 100%;
 }
@@ -324,6 +328,11 @@ main > .main_wrap {
 }
 .apply_dtl_name {
   color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+#resumeName {
+  color: black;
   font-size: 20px;
   font-weight: bold;
 }

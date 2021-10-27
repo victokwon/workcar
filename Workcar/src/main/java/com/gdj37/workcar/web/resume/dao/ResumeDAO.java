@@ -200,4 +200,9 @@ public class ResumeDAO implements IResumeDAO{
 		return sqlSession.insert("Resume_SQL.WorkUpdate",paramMap);
 	}
 
+	@Override
+	public int dtlUpdate(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("Resume_SQL.dtlUpdate",params);
+	}
+
 }

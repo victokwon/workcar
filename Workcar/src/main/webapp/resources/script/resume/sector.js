@@ -12,7 +12,7 @@ $(function () {
 /* js에서 api 데이터 호출해서 활용하는 방법 =?= controller에서 api데이터 호출해서 활용하는 방법*/
   $("#sectorBtn").on("click", function () {
     $(".pop-text-header").children("h1").html("직종 검색")
-    $("#sectorList").html("");
+    $("#list_box").html("");
     $(".pop-container").show();
     $("#schSectorBtn").show()
     $("#schQualBtn").hide()
@@ -23,9 +23,10 @@ $(function () {
   });
   
   $(".list_wrap").on("click", "tr", function () {
-    $("#sectorInput").html($(this).attr("sName"));
-    $("#sectorNo").val($(this).attr("sNo"));
-    $(".pop-container").hide();
+    $("#sectorInput").html($(this).attr("sName"))
+    $("#sectorInput").attr( "sNo",$(this).attr("sNo"))
+    $("#sectorNo").val($(this).attr("sNo"))
+    $(".pop-container").hide()
   });
   
    $(".paging_wrap").on("click","span",function(){
@@ -75,7 +76,7 @@ function SectorList(list) {
       }
   
 
-  $("#sectorList").html(html);
+  $("#list_box").html(html);
 }
 
 function drawPaging(pb) {

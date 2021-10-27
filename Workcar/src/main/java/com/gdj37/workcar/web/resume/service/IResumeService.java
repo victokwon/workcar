@@ -82,6 +82,8 @@ public interface IResumeService {
 
 	public int WorkUpdate(Map<String, Object> paramMap)throws Throwable;
 
+	public int dtlUpdate(HashMap<String, String> params)throws Throwable;
+
 
 
 }

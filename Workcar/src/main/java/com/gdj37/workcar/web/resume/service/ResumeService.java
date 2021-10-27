@@ -201,5 +201,10 @@ public class ResumeService implements IResumeService {
 		return iResumeDAO.WorkUpdate(paramMap);
 	}
 
+	@Override
+	public int dtlUpdate(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.dtlUpdate(params);
+	}
+
 
 }

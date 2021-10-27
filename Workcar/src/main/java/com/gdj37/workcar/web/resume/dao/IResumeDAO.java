@@ -63,5 +63,7 @@ public interface IResumeDAO {
 	public int QualUpdate(Map<String, Object> paramMap)throws Throwable;
 	public int SintroUpdate(Map<String, Object> paramMap)throws Throwable;
 	public int WorkUpdate(Map<String, Object> paramMap)throws Throwable;
+
+	public int dtlUpdate(HashMap<String, String> params)throws Throwable;
 	
 }

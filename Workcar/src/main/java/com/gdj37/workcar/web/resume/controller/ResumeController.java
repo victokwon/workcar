@@ -86,6 +86,7 @@ public class ResumeController {
 		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
 //               이력서 리스트
+				params.put("memNo", String.valueOf(session.getAttribute("sMNo")));
 				List<HashMap<String, String>> list = iResumeService.resumeList(params);
 //               이력서 숫자 카운트
 				int cnt = iResumeService.getResumeCnt(params);
@@ -114,7 +115,7 @@ public class ResumeController {
 				mav.addObject("IEDU", iedu);
 				mav.addObject("SINTRO", sintro);
 				mav.addObject("ATTACH", attach);
-
+System.out.println(iedu.toString());
 				if (params.get("actGbn").equals("Up")) {
 					HashMap<String, String> conCnt = iResumeService.getAddContCnt(params);
 					mav.addObject("conCnt", conCnt);
@@ -236,48 +237,50 @@ public class ResumeController {
 			@RequestParam(required = false) String[] flangNo, @RequestParam(required = false) String[] flangType,
 			@RequestParam(required = false) String[] flangGrade, @RequestParam(required = false) String[] cName,
 			@RequestParam(required = false) String[] dpart, @RequestParam(required = false) String[] pos,
-			@RequestParam(required = false) String[] carrStDate, @RequestParam(required = false) String[] carrEndData,
+			@RequestParam(required = false) String[] carrStDate, @RequestParam(required = false) String[] carrEndDate,
 			@RequestParam(required = false) String[] tureChk, @RequestParam(required = false) String[] carrCntt,
 			@RequestParam(required = false) String[] schName, @RequestParam(required = false) String[] sol,
 			@RequestParam(required = false) String[] major, @RequestParam(required = false) String[] eduStDate,
-			@RequestParam(required = false) String[] eduEndData, @RequestParam(required = false) String[] eduCntt,
+			@RequestParam(required = false) String[] eduEndDate, @RequestParam(required = false) String[] eduCntt,
 			@RequestParam(required = false) String[] ieduName, @RequestParam(required = false) String[] coseName,
 			@RequestParam(required = false) String[] ieduStDate, @RequestParam(required = false) String[] ieduEndDate,
 			@RequestParam(required = false) String[] ieduCntt, @RequestParam(required = false) String[] sintroName,
 			@RequestParam(required = false) String[] sintroCntt, @RequestParam(required = false) String[] fileNm,
-			HttpSession session,
-			RedirectAttributes redirect) throws Throwable {
+			HttpSession session) throws Throwable {
 
 		System.out.println(params);
-		params.put("resumeNo",params.get("resumeUpdateNo"));
+		params.put("resumeNo", params.get("resumeUpdateNo"));
 		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
 				Map<String, Object> paramMap = new HashMap<String, Object>();
 				// 값 제거
-				int cnt = iResumeService.DelAttchForUp(params);
-				cnt += iResumeService.DelCarrForUp(params);
-				cnt += iResumeService.DelEduForUp(params);
-				cnt += iResumeService.DelIeduForUp(params);
-				cnt += iResumeService.DelFlangForUp(params);
-				cnt += iResumeService.DelLocForUp(params);
-				cnt += iResumeService.DelQualForUp(params);
-				cnt += iResumeService.DelSintroForUp(params);
-				cnt += iResumeService.DelWorkForUp(params);
-				
-					cnt = 0;
+				//int cnt = 2;
+				int cnt = iResumeService.dtlUpdate(params);
+				if (cnt > 0) {
+					iResumeService.DelAttchForUp(params);
+					iResumeService.DelCarrForUp(params);
+					iResumeService.DelEduForUp(params);
+					iResumeService.DelIeduForUp(params);
+					iResumeService.DelFlangForUp(params);
+					iResumeService.DelLocForUp(params);
+					iResumeService.DelQualForUp(params);
+					iResumeService.DelSintroForUp(params);
+					iResumeService.DelWorkForUp(params);
+
 					paramMap.put("resumeNo", params.get("resumeNo"));
 					// 도시내용
 					List<HashMap<String, Object>> cityList = new ArrayList<HashMap<String, Object>>();
 					HashMap<String, Object> cityMap;
 					for (int i = 1; i < city.length; i++) {
 						cityMap = new HashMap<String, Object>();
-						cityMap.put("index", i-1);
+						cityMap.put("index", i - 1);
 						cityMap.put("city", city[i]);
 						cityMap.put("region", region[i]);
 						cityList.add(cityMap);
+						System.out.println(cityMap.toString());
 					}
 					paramMap.put("cityList", cityList);
-					cnt += iResumeService.LocUpdate(paramMap);
+					iResumeService.LocUpdate(paramMap);
 
 					// 근무형태
 					List<HashMap<String, Object>> workTypeList = new ArrayList<HashMap<String, Object>>();
@@ -287,10 +290,11 @@ public class ResumeController {
 						workTypeMap.put("index", i);
 						workTypeMap.put("workType", workType[i]);
 						workTypeList.add(workTypeMap);
+						System.out.println(workTypeMap.toString());
 					}
 					paramMap.put("workTypeList", workTypeList);
-					cnt += iResumeService.WorkUpdate(paramMap);
-					
+					iResumeService.WorkUpdate(paramMap);
+
 					// 자격증
 					List<HashMap<String, Object>> qualList = new ArrayList<HashMap<String, Object>>();
 					HashMap<String, Object> qualMap;
@@ -302,9 +306,10 @@ public class ResumeController {
 							qualMap.put("issuAgcy", issuAgcy[i]);
 							qualMap.put("passDate", passDate[i]);
 							qualList.add(qualMap);
+							System.out.println(qualMap.toString());
 						}
 						paramMap.put("qualList", qualList);
-						cnt += iResumeService.QualUpdate(paramMap);
+						iResumeService.QualUpdate(paramMap);
 					}
 
 					// 외국어
@@ -318,9 +323,10 @@ public class ResumeController {
 							flangMap.put("flangType", flangType[i]);
 							flangMap.put("flangGrade", flangGrade[i]);
 							flangList.add(flangMap);
+							System.out.println(flangMap.toString());
 						}
 						paramMap.put("flangList", flangList);
-						cnt += iResumeService.FlangUpdate(paramMap);
+						iResumeService.FlangUpdate(paramMap);
 					}
 
 					// 경력
@@ -334,13 +340,14 @@ public class ResumeController {
 							carrMap.put("dpart", dpart[i]);
 							carrMap.put("pos", pos[i]);
 							carrMap.put("carrStDate", carrStDate[i]);
-							carrMap.put("carrEndData", carrEndData[i]);
+							carrMap.put("carrEndDate", carrEndDate[i]);
 							carrMap.put("tureChk", tureChk[i]);
 							carrMap.put("carrCntt", carrCntt[i]);
 							carrList.add(carrMap);
+							System.out.println(carrMap.toString());
 						}
 						paramMap.put("carrList", carrList);
-						cnt += iResumeService.CarrUpdate(paramMap);
+						iResumeService.CarrUpdate(paramMap);
 					}
 
 					// 학력
@@ -354,12 +361,13 @@ public class ResumeController {
 							eduMap.put("sol", sol[i]);
 							eduMap.put("major", major[i]);
 							eduMap.put("eduStDate", eduStDate[i]);
-							eduMap.put("eduEndData", eduEndData[i]);
+							eduMap.put("eduEndDate", eduEndDate[i]);
 							eduMap.put("eduCntt", eduCntt[i]);
 							eduList.add(eduMap);
+							System.out.println(eduMap.toString());
 						}
 						paramMap.put("eduList", eduList);
-						cnt += iResumeService.EduUpdate(paramMap);
+						iResumeService.EduUpdate(paramMap);
 					}
 
 					// 직무교육
@@ -375,9 +383,10 @@ public class ResumeController {
 							ieduMap.put("ieduEndDate", ieduEndDate[i]);
 							ieduMap.put("ieduCntt", ieduCntt[i]);
 							ieduList.add(ieduMap);
+							System.out.println(ieduMap.toString());
 						}
 						paramMap.put("ieduList", ieduList);
-						cnt += iResumeService.IeduUpdate(paramMap);
+						iResumeService.IeduUpdate(paramMap);
 					}
 
 					// 자기소개서
@@ -390,10 +399,11 @@ public class ResumeController {
 							sintroMap.put("sintroName", sintroName[i]);
 							sintroMap.put("sintroCntt", sintroCntt[i]);
 							sintroList.add(sintroMap);
+							System.out.println(sintroMap.toString());
 						}
-						
+
 						paramMap.put("sintroList", sintroList);
-						cnt += iResumeService.SintroUpdate(paramMap);
+						iResumeService.SintroUpdate(paramMap);
 					}
 
 					// 첨부파일
@@ -405,23 +415,23 @@ public class ResumeController {
 							fileNmMap.put("index", i);
 							fileNmMap.put("fileNm", fileNm[i]);
 							fileNmList.add(fileNmMap);
+							System.out.println(fileNmMap.toString());
 						}
 						paramMap.put("fileNmList", fileNmList);
-						cnt += iResumeService.AttchUpdate(paramMap);
+						iResumeService.AttchUpdate(paramMap);
 					}
-					mav.setViewName("redirect:resumeList");
+					mav.setViewName("redirect:resumeDtl");
+				}
 			} catch (Exception e) {
-				mav.setViewName("resume/resumDtlUpdate");
+				mav.setViewName("redirect:resumeList");
 				e.printStackTrace();
-			}	
+			}
 		} else {
 			System.out.println(params);
 			mav.setViewName("ca/login");
 		}
-		/*
-		 * redirect.addAttribute("resumeNo",params.get("resumeNo"));
-		 * redirect.addAttribute("actGbn","Dtl");
-		 */
+		mav.addObject("actGbn", "Dtl");
+		mav.addObject("resumeNo", params.get("resumeNo"));
 		return mav;
 	}
 }

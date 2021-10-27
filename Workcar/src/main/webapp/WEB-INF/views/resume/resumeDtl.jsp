@@ -326,9 +326,9 @@
                            
                               <div class="input_box ">
                                  <div class="data_container">
-                                    <input type="text" disabled="disabled" value="${data.QUAL_NAME }"> <input
-                                       type="text" disabled="disabled" value="${data.PASS_DATE }"> <input type="text"
-                                       disabled="disabled" value="${data.ISSU_AGCY }">
+                                    <input type="text" disabled="disabled" value="${data.QUAL_NAME }">
+                                    <input type="text" disabled="disabled" value="${data.ISSU_AGCY }"> 
+                                    <input type="text" disabled="disabled" value="${data.PASS_DATE }"> 
                                  </div>
                               </div>
                            
@@ -420,7 +420,7 @@
                   </div>
                </c:if>
                
-               <c:if test="${!empty iedu}">
+               <c:if test="${!empty IEDU}">
                   <div class="content apply_dtl_job_edu" id="resumeJobEdu">
                      <div class="dtl">
                         <div class="header">직무교육</div>
