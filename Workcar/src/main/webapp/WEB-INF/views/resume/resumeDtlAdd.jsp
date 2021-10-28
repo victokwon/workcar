@@ -58,13 +58,22 @@
 	 	 });
 	    
 	    
-		$("#saveBtn").on("click",function(){
+	    $("#saveBtn").on("click",function(){
+	    	console.log($("#sal0").is(":checked"))
+			if($("#sal0").is(":checked")){
+				$("#salMin").val("0")
+				$("#salMax").val("0")
+			}
+	    	console.log($("#carr0").is(":checked"))
+			if($("#carr0").is(":checked")){
+				$("#carrPer").val("0")
+			}
+			
 			if(checkInputText()
 					&&checkInputSel()
 					&&checkInputDate()
 					&&checkInputTextarea()
-					&&checkQualVal()
-					&&checkHidden()){
+					&&checkQualVal()){
 			    $("#sectorNo").val($("#sectorInput").attr( "sNo"))
 			   $("#updateForm").attr("action", "resumeUpdate")
 			   $("#updateForm").submit() 
@@ -96,11 +105,19 @@
        
 		$(".sal").on("change", "input", function () {
 		     if ($("#sal1").is(":checked")) {
-		       $("#minSal").attr("disabled", false);
-		       $("#maxSal").attr("disabled", false);
+		       $("#minSal").attr("readonly", false);
+		       $("#maxSal").attr("readonly", false);
 		     } else {
-		       $("#minSal").attr("disabled", true);
-		       $("#maxSal").attr("disabled", true);
+		       $("#minSal").attr("readonly", true);
+		       $("#maxSal").attr("readonly", true);
+		     }
+		 });
+		
+		$(".carr").on("change", "input", function () {
+		     if ($("#carr1").is(":checked")) {
+		       $("#carrPer").attr("readonly", false);
+		     } else {
+		       $("#carrPer").attr("readonly", true);
 		     }
 		 });
     
@@ -759,6 +776,16 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="carr">
+                                            <div class="text">경력</div>
+                                            <div class="input">
+                                                <input type="radio" name="carr" value="0" id="carr0" checked="checked">
+                                                <label for="carr0">신입</label>
+                                                <input type="radio" name="carr" value="1" id="carr1">
+                                                <label for="carr1">경력</label>
+                                             	<input type="text" name="carrPer" value="" placeholder="경력" id="carrPer" class="radioInput" readonly="readonly">년
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -831,8 +858,10 @@
                                                 <label for="sal0">내규</label>
                                                 <input type="radio" name="sal" value="1" id="sal1">
                                                 <label for="sal1">일반</label>
-                                          		<input placeholder="최저금액" name="salMin" id="minSal" disabled class="salinput">만원 ~
-                                                <input placeholder="최대금액" name="salMax" id="maxSal" disabled class="salinput">만원	
+                                          		<input type="text" placeholder="최저금액" name="salMin"  class="radioInput salinput"
+                                                    value="" id="salMin" readonly="readonly">만원 ~
+                                                <input type="text" placeholder="최대금액" name="salMax" class="radioInput salinput"
+                                                    value="" id="salMax" readonly="readonly">만원	
                                             </div>
                                         </div>
                                     </div>
