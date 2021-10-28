@@ -55,7 +55,6 @@
 				    $("#sectorNo").val($(this).attr("sNo"))
 				    $(".pop-container").hide()
 		  		}
-
 	 	 });
 	    
 	    
