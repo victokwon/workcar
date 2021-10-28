@@ -57,7 +57,10 @@
 		REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL,PROF_PIC,
 		PAY_GBN, PAY_MIN, PAY_MAX,
 		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE,
-		TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
+		TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE,
+		CARR,
+		CARR_NAME,
+		CARR_PER
 		FROM RESUM R
 		JOIN MEMBER M
 		ON
@@ -74,6 +77,9 @@
 		JOIN (SELECT CAT_NAME GENDER_NAME, SCD_CAT FROM COMM_CODE
 		WHERE FST_CAT = 2) CMG
 		ON (CMG.SCD_CAT = IM.GENDER)
+		JOIN (SELECT CAT_NAME CARR_NAME, SCD_CAT FROM COMM_CODE
+		WHERE FST_CAT = 6) CMC
+		ON (CMC.SCD_CAT = R.CARR)
 		JOIN (SELECT CAT_NAME
 		OPN_CHK_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 4) CMO
 		ON
@@ -519,6 +525,7 @@
 		OPN_CHK = #{openCase},
 		GRADU = #{gradu},
 		PAY_GBN = #{sal},
+		CARR = #{carr},
 		<choose>
 			<when test="sal eq 0">
 				PAY_MAX = 0,
@@ -527,6 +534,14 @@
 			<when test="sal eq 1">
 				PAY_MAX = #{salMax},
 				PAY_MIN = #{salMin},
+			</when>
+		</choose>	
+		<choose>
+			<when test="carr eq 0">
+				CARR_PER = 0,
+			</when>
+			<when test="carr eq 1">
+				CARR_PER = #{carrPer},
 			</when>
 		</choose>	
 		CHN_DATE = SYSDATE

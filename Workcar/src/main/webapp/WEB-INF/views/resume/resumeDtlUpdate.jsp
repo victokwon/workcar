@@ -43,8 +43,21 @@
 	          attchNo: ${conCnt.ATTCH_CNT}
 	         }
 	   console.log(noBox)
-	   
-		
+   
+	 $(".list_wrap").on("click", "tr", function () {
+		  	if($(".pop-container").attr("btn") == "q"){
+		  		let target = $("#list_box").attr("no")
+				$("#qualName"+target+"").val($(this).attr("qName"));
+			    $("#qualNo"+target+"").val($(this).attr("qNo"));
+			    $(".pop-container").hide();
+		  	}else if($(".pop-container").attr("btn") == "s"){
+		  	    $("#sectorInput").html($(this).attr("sName"))
+			    $("#sectorInput").attr( "sNo",$(this).attr("sNo"))
+			    $("#sectorNo").val($(this).attr("sNo"))
+			    $(".pop-container").hide()
+	  		}
+ 	 });
+    
 	   $("select").each(function(idx) {
 		   if($(this).attr("selValue") != "") {
 			   $(this).val($(this).attr("selValue"));
@@ -62,6 +75,9 @@
 	   
 	    
 		$("#saveBtn").on("click",function(){
+		/* 	if($(#"salMin").val()==""){
+				
+			} */
 			if(checkInputText()
 					&&checkInputSel()
 					&&checkInputDate()
@@ -98,13 +114,22 @@
        
 		$(".sal").on("change", "input", function () {
 		     if ($("#sal1").is(":checked")) {
-		       $("#minSal").attr("disabled", false);
-		       $("#maxSal").attr("disabled", false);
+		       $("#minSal").attr("readonly", false);
+		       $("#maxSal").attr("readonly", false);
 		     } else {
-		       $("#minSal").attr("disabled", true);
-		       $("#maxSal").attr("disabled", true);
+		       $("#minSal").attr("readonly", true);
+		       $("#maxSal").attr("readonly", true);
 		     }
 		 });
+		
+		$(".carr").on("change", "input", function () {
+		     if ($("#carr0").is(":checked")) {
+		       $("#carrPer").attr("readonly", false);
+		     } else {
+		       $("#carrPer").attr("readonly", true);
+		     }
+		 });
+		
     
 		$("#resumeList").on("click","div",function(){
 		   let resumeNo = $(this).attr("resumeNo")
@@ -119,6 +144,13 @@
 		if($("#sal1").val() == "${DATA.PAY_GBN}"){
 		   $("#sal1").attr("checked","checked")
 		}
+		if($("#carr0").val() == "${DATA.CARR}"){
+			$("#carr0").attr("checked","checked")
+		}
+		if($("#carr1").val() == "${DATA.CARR}"){
+		   $("#carr1").attr("checked","checked")
+		}
+
 
       
        // 자격증 1
@@ -130,7 +162,7 @@
 		  html += '<div class="input_box " id="qualInput'+noBox.qualNo+'" no="'+noBox.qualNo+'" noName="qualNo">';
 		  html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
 		  html += '<div class="data_container">';
-		  html += '<button type="button" id="qualBtn" no="'+noBox.qualNo+'" >자격증검색</button>';
+		  html += '<button type="button" id="qualBtn" no="'+noBox.qualNo+'" btn="q">자격증검색</button>';
 		  html += '<input class="qual_input" name="qualNo" id="qualNo'+noBox.qualNo+'" type="hidden" value="데이터 / 자격증명" readonly>';
 		  html += '<input class="qual_input" id="qualName'+noBox.qualNo+'" type="text" value="자격증명" disabled>';
 		  html += '<input class="qual_input" name="issuAgcy" id="issuAgcy'+noBox.qualNo+'" type="text" placeholder="발급처">';
@@ -763,6 +795,23 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="carr">
+                                            <div class="text">경력</div>
+                                            <div class="input">
+                                                <input type="radio" name="carr" value="0" id="sal0">
+                                                <label for="carr0">신입</label>
+                                                <input type="radio" name="carr" value="1" id="sal1">
+                                                <label for="carr1">경력</label>
+                                               <c:choose>
+                                                	<c:when test="${DATA.CARR_GBN eq 0}">
+                                                		<input type="text" name="carrPer" value="${DATA.CARR_GBN}" id="carrPer" class="radioInput" readonly="readonly">년
+                                                	</c:when>
+                                                	<c:when test="${DATA.CARR_GBN eq 1}">
+                                                		<input type="text" name="carrPer" value="${DATA.CARR_PER}" id="carrPer" class="radioInput">년
+                                                	</c:when>                            	
+                                                </c:choose>                                                    
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -778,7 +827,7 @@
                                             <div class="text">희망직종</div>
                                             <input type="hidden" name="sectorNo" id="sectorNo" value="${DATA.SECTOR_NO}">
                                             <div class="input" id="sectorInput" sNo="${DATA.SECTOR_NO}">${DATA.SECTOR_NAME}</div>
-                                            <button type="button" id="sectorBtn">직종 검색</button>
+                                            <button type="button" id="sectorBtn" btn="s">직종 검색</button>
                                         </div>
                                         <div class="hope_loc">
                                             <div class="text">근무지역</div>
@@ -841,15 +890,15 @@
                                                 <label for="sal1">일반</label>
                                                <c:choose>
                                                 	<c:when test="${DATA.PAY_GBN eq 0}">
-                                                		<input placeholder="최저금액" name="salMin" class="salinput"
-		                                                    value="${DATA.PAY_MIN}" id="minSal" disabled>만원 ~
-		                                                <input placeholder="최대금액" name="salMax" class="salinput"
-		                                                    value="${DATA.PAY_MAX}" id="maxSal" disabled>만원	
+                                                		<input placeholder="최저금액" name="salMin" class="radioInput"
+		                                                    value="${DATA.PAY_MIN}" id="minSal" readonly="readonly">만원 ~
+		                                                <input placeholder="최대금액" name="salMax" class="radioInput"
+		                                                    value="${DATA.PAY_MAX}" id="maxSal" readonly="readonly">만원	
                                                 	</c:when>
                                                 	<c:when test="${DATA.PAY_GBN eq 1}">
-                                                		<input type="text" placeholder="최저금액" name="salMin"
+                                                		<input type="text" placeholder="최저금액" name="salMin" class="radioInput"
 		                                                    value="${DATA.PAY_MIN}" id="minSal" >만원 ~
-		                                                <input type="text" placeholder="최대금액" name="salMax"
+		                                                <input type="text" placeholder="최대금액" name="salMax" class="radioInput"
 		                                                    value="${DATA.PAY_MAX}" id="maxSal" >만원	
                                                 	</c:when>                            	
                                                 </c:choose>                                                    

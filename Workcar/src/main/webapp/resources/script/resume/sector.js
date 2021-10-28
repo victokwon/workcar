@@ -11,6 +11,7 @@ $(function () {
      
 /* js에서 api 데이터 호출해서 활용하는 방법 =?= controller에서 api데이터 호출해서 활용하는 방법*/
   $("#sectorBtn").on("click", function () {
+  	$(".pop-container").attr("btn",$(this).attr("btn"))
     $(".pop-text-header").children("h1").html("직종 검색")
     $("#list_box").html("");
     $(".pop-container").show();
@@ -22,12 +23,7 @@ $(function () {
       schSector()
   });
   
-  $(".list_wrap").on("click", "tr", function () {
-    $("#sectorInput").html($(this).attr("sName"))
-    $("#sectorInput").attr( "sNo",$(this).attr("sNo"))
-    $("#sectorNo").val($(this).attr("sNo"))
-    $(".pop-container").hide()
-  });
+ 
   
    $(".paging_wrap").on("click","span",function(){
       $("#page").val($(this).attr("page"))

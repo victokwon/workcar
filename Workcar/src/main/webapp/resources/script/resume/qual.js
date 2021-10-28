@@ -8,8 +8,10 @@ $(function () {
      $(".pop-close-btn").on('click', function(event) {
    		  $(".pop-container").hide();
      })
+     
 /* js에서 api 데이터 호출해서 활용하는 방법 =?= controller에서 api데이터 호출해서 활용하는 방법*/
 	$("#resumeLisence").on("click", "#qualBtn",function () {
+		$(".pop-container").attr("btn",$(this).attr("btn"))
 		$("#list_box").attr("no", $(this).attr("no"))
 		$(".pop-text-header").children("h1").html("자격증 검색")
 		$("#list_box").html("");
@@ -22,12 +24,6 @@ $(function () {
       schQual()
   });
   
-  $(".list_wrap").on("click", "tr", function () {
-  	let target = $("#list_box").attr("no")
-$("#qualName"+target+"").val($(this).attr("qName"));
-    $("#qualNo"+target+"").val($(this).attr("qNo"));
-    $(".pop-container").hide();
-  });
   
    $(".paging_wrap").on("click","span",function(){
       $("#page").val($(this).attr("page"))

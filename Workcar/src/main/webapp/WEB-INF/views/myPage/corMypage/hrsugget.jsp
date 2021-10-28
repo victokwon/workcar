@@ -226,10 +226,10 @@ function linkGo(url){
 		<div class="main_info">
 			<div id="main_inter" class="main_content">
 				<div class="vertical_menu">
-					<form action="#" id="resumeGo">
-						<input type="hidden" id="userNO"> <input type="hidden"
-							id="resumeNO">
-					</form>
+	<!-- 				<form action="#" id="resumeGo">
+						<input type="hidden" id="userNO" name="userNO">
+						 <input type="hidden" id="resumeNO" name="resumeNO">
+					</form> -->
 					<!-- 이력서 리스트 메뉴 출력 -->
 					<a href="#" id="empAttention">관심인재</a> <a href="#" id="empSuggest">인재추천</a>
 				</div>

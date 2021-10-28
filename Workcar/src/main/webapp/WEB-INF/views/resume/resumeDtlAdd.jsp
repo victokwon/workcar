@@ -43,6 +43,22 @@
 	          attchNo: 0
 	         }
 	   
+		 $(".list_wrap").on("click", "tr", function () {
+			  	if($(".pop-container").attr("btn") == "q"){
+			  		let target = $("#list_box").attr("no")
+					$("#qualName"+target+"").val($(this).attr("qName"));
+				    $("#qualNo"+target+"").val($(this).attr("qNo"));
+				    $(".pop-container").hide();
+			  	}else if($(".pop-container").attr("btn") == "s"){
+			  	    $("#sectorInput").html($(this).attr("sName"))
+				    $("#sectorInput").attr( "sNo",$(this).attr("sNo"))
+				    $("#sectorNo").val($(this).attr("sNo"))
+				    $(".pop-container").hide()
+		  		}
+
+	 	 });
+	    
+	    
 		$("#saveBtn").on("click",function(){
 			if(checkInputText()
 					&&checkInputSel()
@@ -106,7 +122,7 @@
 		  html += '<div class="input_box " id="qualInput'+noBox.qualNo+'" no="'+noBox.qualNo+'" noName="qualNo">';
 		  html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
 		  html += '<div class="data_container">';
-		  html += '<button type="button" id="qualBtn" no="'+noBox.qualNo+'" >자격증검색</button>';
+		  html += '<button type="button" id="qualBtn" no="'+noBox.qualNo+'" btn="q">자격증검색</button>';
 		  html += '<input class="qual_input" name="qualNo" id="qualNo'+noBox.qualNo+'" type="hidden" value="데이터 / 자격증명" readonly>';
 		  html += '<input class="qual_input" id="qualName'+noBox.qualNo+'" type="text" value="자격증명" disabled>';
 		  html += '<input class="qual_input" name="issuAgcy" id="issuAgcy'+noBox.qualNo+'" type="text" placeholder="발급처">';
@@ -759,7 +775,7 @@
                                             <div class="text">희망직종</div>
                                             <input type="hidden" name="sectorNo" id="sectorNo" value="">
                                             <div class="input" id="sectorInput" sNo=""></div>
-                                            <button type="button" id="sectorBtn">직종 검색</button>
+                                            <button type="button" id="sectorBtn" btn="s">직종 검색</button>
                                         </div>
                                         <div class="hope_loc">
                                             <div class="text">근무지역</div>
