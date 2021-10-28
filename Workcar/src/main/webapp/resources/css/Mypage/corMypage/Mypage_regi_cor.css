@@ -819,10 +819,10 @@ label {
   border-radius: 50%;
   width: 150px;
   height: 150px;
-  background-image: url(../img/profile.png);
+/*   background-image: url(resoucres/images/cmypage/profile.png);
   background-repeat: no-repeat;
   background-size: contain;
-  background-position: center;
+  background-position: center; */
 }
 
 /* 진행사항 */

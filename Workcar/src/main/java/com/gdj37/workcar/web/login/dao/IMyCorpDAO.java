@@ -7,9 +7,9 @@ public interface IMyCorpDAO {
 
 	HashMap<String, String> cMemberDtl(String memberNo) throws Throwable;
 
-	int uptinfor(HashMap<String, String> params) throws Throwable;
+	int uptinfo(HashMap<String, String> params) throws Throwable;
 
-	int uptcpinfor(HashMap<String, String> params) throws Throwable;
+	int uptcpinfo(HashMap<String, String> params) throws Throwable;
 
 	int imemCnt(HashMap<String, String> params) throws Throwable;
 
@@ -18,5 +18,7 @@ public interface IMyCorpDAO {
 	int chkNowPass(HashMap<String, String> params) throws Throwable;
 
 	int uptNewPass(HashMap<String, String> params) throws Throwable;
+
+	int outCMember(HashMap<String, String> params) throws Throwable;
 
 }

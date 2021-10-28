@@ -29,8 +29,8 @@ public class MyPageCorp {
 	IPagingService iPagingService;
 	
 	//계정관리 -> 개인정보 설정페이지
-	@RequestMapping(value="/corRegi")
-	ModelAndView CorRegi(ModelAndView mav, HttpSession session) throws Throwable {
+	@RequestMapping(value="/cmyinfopage")
+	public ModelAndView CorRegi(ModelAndView mav, HttpSession session) throws Throwable {
 		
 		if(session.getAttribute("sMNo") != null) {
 		String memberNo = String.valueOf(session.getAttribute("sMNo"));
@@ -63,7 +63,7 @@ public class MyPageCorp {
 		String result = "success";
 		
 		try {
-			int cnt = imycorpser.uptinfor(params);
+			int cnt = imycorpser.uptinfo(params);
 			if(cnt == 0) {
 				
 				result = "failed";
@@ -92,11 +92,10 @@ public class MyPageCorp {
 		
 		String result = "success";
 		
-
-		
+	
 		try {
 		
-			int cnt = imycorpser.uptcpinfor(params);
+			int cnt = imycorpser.uptcpinfo(params);
 			
 			if(cnt == 0) {
 				result ="failed";
@@ -115,7 +114,7 @@ public class MyPageCorp {
 	
 	//회원관리 페이지
 	@RequestMapping(value="/manageMember")
-	ModelAndView manageMember(ModelAndView mav, @RequestParam HashMap<String,String> params) {
+	public ModelAndView manageMember(ModelAndView mav, @RequestParam HashMap<String,String> params) {
 		
 	//	String page="1";	
 		//if(params.get("page")!= null) {		
@@ -255,7 +254,7 @@ public class MyPageCorp {
 		params.put("newpass", newpass);
 		
 		try {
-			int cnt = imycorpser.uptNewPass(params);
+			int cnt = imycorpser.outCMember(params);
 			
 			session.invalidate();
 			
@@ -276,39 +275,7 @@ public class MyPageCorp {
 	
 	}
 	
-	@RequestMapping(value="/manageRegi")
-	ModelAndView manageRegi(ModelAndView mav) {
-		
-		
-		mav.setViewName("myPage/manageMypage/manageRegi");
-		return mav;
-	}
-	
-	
-	//신고처리
-	@RequestMapping(value="/manageReport")
-	ModelAndView manageReport(ModelAndView mav) {
-		
-		
-		mav.setViewName("myPage/manageMypage/manageReport");
-		return mav;
-	}
 
-
-	//평점관리
-	@RequestMapping(value="/manageStar")
-	ModelAndView manageStar(ModelAndView mav) {
-		
-		
-		mav.setViewName("myPage/manageMypage/manageStar");
-		return mav;
-	}
-	
-	
-	
-	
-	
-	
 	
 	
 	

@@ -21,15 +21,15 @@ public class MyCorpService implements IMyCorpService {
 	}
 
 	@Override
-	public int uptinfor(HashMap<String, String> params) throws Throwable {
+	public int uptinfo(HashMap<String, String> params) throws Throwable {
 		
-		return imycorpdao.uptinfor(params);
+		return imycorpdao.uptinfo(params);
 	}
 
 	@Override
-	public int uptcpinfor(HashMap<String, String> params) throws Throwable {
+	public int uptcpinfo(HashMap<String, String> params) throws Throwable {
 		
-		return imycorpdao.uptcpinfor(params);
+		return imycorpdao.uptcpinfo(params);
 	}
 
 	@Override
@@ -54,6 +54,12 @@ public class MyCorpService implements IMyCorpService {
 	public int uptNewPass(HashMap<String, String> params) throws Throwable {
 		
 		return imycorpdao.uptNewPass(params);
+	}
+
+	@Override
+	public int outCMember(HashMap<String, String> params) throws Throwable {
+		
+		return imycorpdao.outCMember(params);
 	}
 
 }

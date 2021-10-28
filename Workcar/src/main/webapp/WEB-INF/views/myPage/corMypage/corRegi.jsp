@@ -3,26 +3,24 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
-<head>
+--<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../../resources/css/common/main.css">
-<link rel="stylesheet" href="../../resources/css/common/default.css">
-<link rel="stylesheet" href="../../resources/css/common/footer.css">
-<link rel="stylesheet"
-	href="../../resources/css/Mypage/corMypage/Mypage_regi_cor.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="resources/css/common/default.css">
+<link rel="stylesheet" type="text/css" href="resources\css\common\footer.css">
+<link rel="stylesheet" type="text/css" href="resources\css\common\header.css">
+<link rel="stylesheet" type="text/css" href="resources\css\common\sidebar.css">
+<link rel="stylesheet" href="resources/css/Mypage/corMypage/Mypage_regi_cor.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="../../resources/script/Mypage/header.js"></script>
-<script src="../../resources/script/Mypage/Mypage_main_dp.js"></script>
-<script src="../../resources/script/Mypage/corMypage/Mypage_regi_cor.js"></script>
-<script src="../../resources/script/Mypage/corMypage/MyPage_regi_cor_event.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="resources/script/Mypage/header.js"></script>
+<script src="resources/script/Mypage/Mypage_main_dp.js"></script>
+<script src="resources/script/Mypage/corMypage/Mypage_regi_cor.js"></script>
+<script src="resources/script/Mypage/corMypage/MyPage_regi_cor_event.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 </head>
 <body>
 	<!-- 사이드바 -->
@@ -70,9 +68,38 @@
 			</div>
 
 			<!-- 오른쪽 -->
-			<div class="topnav-right">
-				<a href="#login"><strong>${sMNm}</strong></a> <a href="#about"><strong>로그아웃</strong></a>
-			</div>
+			<!-- 링크작업 -->
+			<c:choose>
+				<c:when test="${sMTy eq 0}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 1 || sMTy eq 2}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 3}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="topnav-right">
+						<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</header>
 	<main>
@@ -91,13 +118,13 @@
 		<div class="main_button_box">
 			<div class="main_button_box">
 				<a class="main_button regi"
-					onclick="openPage('main_regi', this, '#88a2f2')">계정관리</a> <a
+					onclick="openPage('main_regi', this, '#88a2f2')" id="defaultmenu">계정관리</a> <a
 					class="main_button member"
-					onclick="openPage('main_member', this, '#88a2f2')">채용공고</a> <a
+					onclick="openPage('main_member', this, '#88a2f2')"id="empannc" >채용공고</a> <a
 					class="main_button report"
-					onclick="openPage('main_report', this, '#88a2f2')" id="main_button">활동내역</a>
+					onclick="openPage('main_report', this, '#88a2f2')" id="activechk">활동내역</a>
 				<a class="main_button star_manage"
-					onclick="openPage('main_inter', this, '#88a2f2')">관심정보</a>
+					onclick="openPage('main_inter', this, '#88a2f2')" id="attinfo">관심정보</a>
 			</div>
 			<!-- 메인 -->
 			<div class="main_info">
@@ -185,11 +212,14 @@
 											<div class="company">
 												<div class="text">기업로고</div>
 												<div class="input">
-													<div class="logo"></div>
+												<c:if test ="${!empty data.CORP_IMG}">
+													<img class="logo" id ="logo" name ="logo" src="resources/images/cmypage/profile.png">
+												</c:if>	
 												</div>
 
 												<div>	
-													<button type="button" id="companySchBtn">업로드</button>
+													<button type="button" id="picuptbtn">사진올리기</button>
+													<button type="button" id="delpictbtn">파일삭제</button>
 												</div>
 											</div>
 											<div class="company">
@@ -272,6 +302,7 @@
 													<input type="text" name="C_HPAGE" value="${data.C_HPAGE}" placeholder="홈페이지 주소">
 												</div>
 											</div>
+											<input type ="hidden" name ="imgname" id="imgname" value ="${data.CORP_IMG}">
 <!-- 											<div class="company">
 												<div class="text">중소기업 유무</div>
 												<div class="input">
@@ -296,17 +327,17 @@
  -->
 										</div>
 										
-											<div class="apply_dtl_attch" id="resumeAttach">
+	<!-- 										<div class="apply_dtl_attch" id="resumeAttach">
 												<div class="dtl">
 													<div class="header">사업내용</div>
 													<div class="con add_box">
-														<!-- js를 통해 추가되는 내용 -->
+														js를 통해 추가되는 내용
 														<div class="company">
 															<textarea></textarea>
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> -->
 										
 
 										
@@ -315,12 +346,20 @@
 
 							</div>
 						</form>
-		<form action="">
+			
+		<div id="fileFormh">	
+			<form id="cprofileForm" action="fileUploadAjax" method="post" enctype="multipart/form-data">
+				<input type="file" name="cprofile" id="cprofile" >
+			</form>	
+		</div>
+				
+				
+<!-- 		<form action="">
 			<div class="apply_dtl_attch" id="resumeAttach">
 				<div class="dtl">
 					<div class="header">첨부파일</div>
 					<div class="con add_box">
-						<!-- js를 통해 추가되는 내용 -->
+						js를 통해 추가되는 내용
 						<div class="file_box ">
 							<input type="button" class="minus_btn" id="delBtn"
 								value="－">
@@ -336,9 +375,9 @@
 					</div>
 				</div>
 			</div>
-		</form>
-	</div>
-					
+		</form> -->
+
+</div>					
 
 
 
@@ -392,11 +431,11 @@
 							<div class="modal_subject modal_notification">탈퇴 안내 사항</div>
 							<div>
 								<p>
-									<strong>탈퇴 후 회원정보가 모두 삭제됩니다.</strong><br /> 메일주소, 핸드폰 번호/기타 연락처
+									<strong>탈퇴 후 회원정보가 모두 삭제됩니다.</strong><br/> 메일주소, 핸드폰 번호/기타 연락처
 									등 회원정보가 모두 삭제되며, 삭제된 데이터는 복구되지 않습니다.
 								</p>
 								<p>
-									<strong>탈퇴 후에도 작성된 게시글은 그대로 남아 있습니다.</strong><br /> 각 게시판에 등록한
+									<strong>탈퇴 후에도 작성된 게시글은 그대로 남아 있습니다.</strong><br/> 각 게시판에 등록한
 									게시물 및 댓글은 탈퇴 후에도 남아있습니다. 삭제를 원하시는 게시물은 탈퇴 전 반드시 삭제하시기 바랍니다. (탈퇴
 									후에는 게시글 임의 삭제 요청을 받지 않습니다.)
 								</p>
@@ -412,24 +451,120 @@
 		</div>
 	</main>
 	<footer>
+		<!-- 링크작업 -->
 		<div class="inner_content">
-			<div>
-				<b>공지사항</b>
-			</div>
-			<div>참여마당</div>
-			<div>개인정보처리방침</div>
-			<div>이용약관</div>
+			<div id="ntc">공지사항</div>
+			<div id="paticp">참여마당</div>
+			<div id="pvc">개인정보처리방침</div>
+			<div id="tou">이용약관</div>
 		</div>
-		<h2>Coding is too hard</h2>
-		<p>please make it complete within the time frame</p>
+		<div class="footer_dtl_wrap">
+			<div class="footer_dtl_contents">
+				<div class="footer_logo"></div>
+				<div class="footer_dtl_contents_1">명칭 (주)일력거 | 사업자등록번호
+					123-456-7891011</div>
+				<div class="footer_dtl_contents_2">등록일자 2021년 9월 ?일 | 발행
+					(주)일력거 | 편집 (주)일력거</div>
+				<div class="footer_dtl_contents_3">발행소 서울시 금천구 가산디지털2로 구디아카데미
+					| 전화번호 02-1234-5678</div>
+				<div class="copyright">©WorkRickshaw. All rights reserved.</div>
+			</div>
+		</div>
 	</footer>
+	
+	
 	
 <script>
 
 $(document).ready(function(){
 	
+	// 파일폼 숨김처리
+	$("#fileFormh").hide();
+	//프로필사진 삭제버튼 숨김처리
+	$("#delpictbtn").hide();
+	// 현재 비밀번호 확인 체크
+	var chkpass = 0;
+	// 파일업로드 체크
+	var chkfileupt = 0;
+	//기본메뉴 설정
+	$("#defaultmenu").click();
 
-var chkpass = 0;
+	if($("#imgname").val() is not null) {
+		chkfileupt = 1;
+		$("#picuptbtn").html("수정하기");
+		$("#delpictbtn").show();
+	} 
+	
+	
+	$("#empannc").on("click",function(){
+		location.href="/empannc";
+	})
+	
+	
+	
+	// 프로필사진 업로드 버튼 이벤트 처리
+	$("#picuptbtn").on("click",function(e){
+		
+		e.preventDefault();
+		
+		$("#cprofile").click(); 
+		
+
+		
+	});
+	
+	
+	// 파일을 선택하면 수정 여부에 관계없이 업로드실행
+	$("#cprofile").on("change",function(){
+		
+		var fileForm = $("#cprofileForm");
+		
+		
+		fileForm.ajaxForm({
+			
+			success: function(res){
+				if(res.result == "SUCCESS"){
+					
+					if(res.fileName.length>0){
+						
+						$("#imgname").val(res.fileName[0]);
+						chkfileupt = 1;
+						
+						$("#logo").attr("src","resources/upload/"+res.fileName[0]);
+						
+						$("#picuptbtn").html("수정하기");
+						$("#delpictbtn").show();
+						
+
+					}
+				}else {
+					alert("저장실패");
+				}
+			},
+			error : function(req,status,error) {
+				alert("에러발생");
+			}
+			
+		});
+		
+			fileForm.submit();
+		
+	});
+	
+	
+	//파일삭제 버튼 누르면 원상복구하기
+	$("#delpictbtn").on("click",function(){
+		
+		$("#imgname").val("");
+		$("#delpictbtn").hide();
+		chkfileupt = 0;
+		$("#picuptbtn").html("사진올리기");
+		alert("삭제가 완료되었습니다.")
+		$("#logo").attr("src","resources/images/cmypage/profile.png");
+	});
+	
+
+
 
 // 탈퇴처리
 
@@ -550,11 +685,6 @@ $("#chkPassBtn").on("click",function(e){
 function passchk() {
 	
 	var param = $("#changePass").serialize();
-	
-	if($("#nowpass").val() == ""){
-		alert("비밀번호를 입력해주세요");
-		return false;
-	}
 		
 	$.ajax({
 		
@@ -585,9 +715,6 @@ function passchk() {
 	});
 	}
 	
-
-
-
 
 //비밀번호 수정시 유효성체크
 
@@ -624,7 +751,6 @@ if($("#newpass").val() == $("#newpasschk").val()) {
 	
 }
 
-
 	
 //기업정보설정 저장
 $("#uptcpinfo").on("click",function(){
@@ -635,7 +761,7 @@ $("#uptcpinfo").on("click",function(){
 	if(confirm("수정하시겠습니까?"))
 		uptInfoAjax();
 	
-})
+});
 
 
 //기업정보 수정 Ajax
@@ -701,7 +827,6 @@ function chkCpTel(){
 }
 
 
-
 //기업이메일 유효성 검사
 function chkCpEmail() {
 	
@@ -725,7 +850,7 @@ function chkCpEmail() {
 
 
 
-// 공통정보 설정 저장
+// 개인정보 설정 저장
 $("#uptinfo").on("click",function(){
 	
 	if(!chkUptInfoChk())

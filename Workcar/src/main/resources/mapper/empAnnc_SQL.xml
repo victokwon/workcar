@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="empannc">
+
+<!-- <insert id="uptempannc" parameterType="hashmap">
+	INSERT INTO EMP_ANNC (EMP_NO, EMP_TITLE, MEM_NO)
+	VALUES (
+		EMP_NO_SEQ.NEXTVAL,
+		#{EMP_TITLE},
+		#{MEM_NO}	
+	)
+</insert>
+ -->
+
+<select id="findRegionAjax" parameterType="hashmap" resultType="hashmap">
+SELECT REGION_NO, REGION_NAME 
+FROM REGION 
+WHERE CITY_NO = #{CITY} 
+ORDER BY REGION_NO
+</select>
+
+
+
+<insert id="uptEmpAnncAjax" parameterType="hashmap">
+		INSERT INTO EMP_ANNC (EMP_NO, MEM_NO, EMP_TITLE, SECTOR_NO, EMP_PER, EMP_GBN, PAY_GBN, PAY_LOW, 
+	PAY_HIGH, GRADU, CARR, CARR_Y, DTL, REG_DATE, DLINE, REGION_NO, MAJOR, RECRUIT_GBN)
+	VALUES (
+		EMP_NO_SEQ.NEXTVAL,
+		#{MEM_NO},
+		#{EMP_TITLE},
+		#{SECTOR_NO},
+		#{EMP_PER},
+		#{EMP_GBN},
+		#{PAY_GBN},
+		#{PAY_MIN},
+		#{PAY_MAX},
+		#{GRADU},
+		#{CARR},
+		#{CARR_Y},
+		#{DTL},
+		#{REG_DATE},
+		#{DLINE},
+		#{REGION},
+		#{MAJOR},
+		#{RECRUIT_GBN}		
+	)	
+</insert>
+
+<insert id="uptEmpQual" parameterType="hashmap" >
+	INSERT INTO EMP_QUAL (EMP_NO, QUAL_NO, QUAL_NAME)
+	VALUES (
+	EMP_NO_SEQ.CURRVAL,
+	#{QUAL_NO},
+	#{QUAL_NAME}
+
+	)
+
+</insert>
+		
+</mapper>

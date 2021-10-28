@@ -19,16 +19,18 @@ public class MyCorpDAO implements IMyCorpDAO {
 	}
 
 	@Override
-	public int uptinfor(HashMap<String, String> params) throws Throwable{
+	public int uptinfo(HashMap<String, String> params) throws Throwable{
 		
+		
+		//sqlSession.update("mycorp.uptinfopos",params);
 		// sqlSession.update("mycorp.uptinfo",params);
 		// sqlSession.update("mycorp.uptinfopos",params);
 		
-		return sqlSession.update("mycorp.uptinfopos",params);
+		return  sqlSession.update("mycorp.uptinfo",params);
 	}
 
 	@Override
-	public int uptcpinfor(HashMap<String, String> params) throws Throwable{
+	public int uptcpinfo(HashMap<String, String> params) throws Throwable{
 		
 		return sqlSession.update("mycorp.uptcpinfo",params);
 	}
@@ -56,6 +58,12 @@ public class MyCorpDAO implements IMyCorpDAO {
 		
 		
 		return sqlSession.update("mycorp.uptNewPass",params);
+	}
+
+	@Override
+	public int outCMember(HashMap<String, String> params) throws Throwable {
+		
+		return sqlSession.update("mycorp.outCMember",params);
 	}
 
 }
