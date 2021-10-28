@@ -109,52 +109,6 @@ public class ResumeService implements IResumeService {
 		return iResumeDAO.getQual(params);
 	}
 	
-// 삭제(초기화)
-	@Override
-	public int DelAttchForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelAttchForUp(params);
-	}
-
-	@Override
-	public int DelCarrForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelCarrForUp(params);
-	}
-
-	@Override
-	public int DelEduForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelEduForUp(params);
-	}
-
-	@Override
-	public int DelIeduForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelIeduForUp(params);
-	}
-
-	@Override
-	public int DelFlangForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelFlangForUp(params);
-	}
-
-	@Override
-	public int DelLocForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelLocForUp(params);
-	}
-
-	@Override
-	public int DelQualForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelQualForUp(params);
-	}
-
-	@Override
-	public int DelSintroForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelSintroForUp(params);
-	}
-
-	@Override
-	public int DelWorkForUp(HashMap<String, String> params) throws Throwable {
-		return iResumeDAO.DelWorkForUp(params);
-	}
-
 // 생성(수정)
 	@Override
 	public int AttchUpdate(Map<String, Object> paramMap) throws Throwable{
@@ -204,6 +158,16 @@ public class ResumeService implements IResumeService {
 	@Override
 	public int dtlUpdate(HashMap<String, String> params) throws Throwable {
 		return iResumeDAO.dtlUpdate(params);
+	}
+
+	@Override
+	public int dtlAdd(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.dtlAdd(params);
+	}
+
+	@Override
+	public HashMap<String, String> getUserDtl(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.getUserDtl(params);
 	}
 
 

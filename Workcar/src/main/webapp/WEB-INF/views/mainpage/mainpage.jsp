@@ -45,50 +45,50 @@
 		<div id="sdienav_ul">
 			<!-- 링크작업 -->
 			<ul>
-				<div onclick="linkGo()">채용정보</div>
-				<li id="">통합검색</li>
-				<li id="">조회수 100</li>
-				<li id="">평점 100</li>
+				<div onclick="linkGo(#)">채용정보</div>
+				<li onclick="linkGo(#)">통합검색</li>
+				<li onclick="linkGo(#)">조회수 100</li>
+				<li onclick="linkGo(#)">평점 100</li>
+			</ul> 
+			<ul>
+				<div onclick="linkGo(#)">기업정보</div>
+				<li onclick="linkGo(#)">통합검색</li>
 			</ul>
 			<ul>
-				<div id="">기업정보</div>
-				<li id="">통합검색</li>
+				<div onclick="linkGo(#)">인재정보</div>
+				<li onclick="linkGo(#)">통합검색</li>
 			</ul>
 			<ul>
-				<div id="">인재정보</div>
-				<li id="">통합검색</li>
-			</ul>
-			<ul>
-				<div id="">참여공간</div>
-				<li id="">공지사항</li>
-				<li id="">자주하는 질문</li>
+				<div onclick="linkGo(#)">참여공간</div>
+				<li onclick="linkGo(#)">공지사항</li>
+				<li onclick="linkGo(#)">자주하는 질문</li>
 			</ul>
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<ul>
-						<div id="">마이페이지</div>
-						<li id="">계정관리</li>
-						<li id="">이력서관리</li>
-						<li id="">활동내역</li>
-						<li id="">관심정보</li>
+						<div onclick="linkGo(#)">마이페이지</div>
+						<li onclick="linkGo(#)">계정관리</li>
+						<li onclick="linkGo(#)">이력서관리</li>
+						<li onclick="linkGo(#)">활동내역</li>
+						<li onclick="linkGo(#)">관심정보</li>
 					</ul>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<ul>
-						<div id="">마이페이지</div>
-						<li id="">계정관리</li>
-						<li id="">채용공고</li>
-						<li id="">활동내역</li>
-						<li id="">관심정보</li>
+						<div onclick="linkGo(#)">마이페이지</div>
+						<li onclick="linkGo(#)">계정관리</li>
+						<li onclick="linkGo(#)">채용공고</li>
+						<li onclick="linkGo(#)">활동내역</li>
+						<li onclick="linkGo(#)">관심정보</li>
 					</ul>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<ul>
-						<div id="">마이페이지</div>
-						<li id="">계정관리</li>
-						<li id="">회원관리</li>
-						<li id="">신고관리</li>
-						<li id="">평점관리</li>
+						<div onclick="linkGo(#)">마이페이지</div>
+						<li onclick="linkGo(#)">계정관리</li>
+						<li onclick="linkGo(#)">회원관리</li>
+						<li onclick="linkGo(#)">신고관리</li>
+						<li onclick="linkGo(#)">평점관리</li>
 					</ul>
 				</c:when>
 			</c:choose>
@@ -158,16 +158,16 @@
 			<form action="#" id="mainSearchForm">
 				<!-- <div class="search_img"></div> -->
 				<!-- 메인서치 -->
-				<input type="text" id="" name="" placeholder="  채용, 기업, 인재 등"
+				<input type="text"  name="" placeholder="  채용, 기업, 인재 등"
 					autocomplete="off"> <input type="button" id="mainSearchBtn"
 					value="검색">
 				<!-- 자동검색-ajax-keyup, 코어태그 작성? -->
 				<div class="auto_search_wrap">
 					<!-- 데이터로 자동 그리기, 링크 -->
 					<ul>
-						<li id="">검색1</li>
-						<li id="">검색2</li>
-						<li id="">검색3</li>
+						<li onclick="linkGo(#)">검색1</li>
+						<li onclick="linkGo(#)">검색2</li>
+						<li onclick="linkGo(#)">검색3</li>
 					</ul>
 				</div>
 			</form>
@@ -264,7 +264,7 @@
 									<span>활동내역</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card" onclick="linkGo('corpAttndInfo')">
 								<div class="wrap">
 									<div class="img_attention"></div>
 								</div>

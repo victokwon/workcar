@@ -108,50 +108,6 @@ public class ResumeDAO implements IResumeDAO{
 		return sqlSession.selectList("Resume_SQL.getQual",params);
 	}
 
-	@Override
-	public int DelAttchForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelAttchForUp",params);
-	}
-
-	@Override
-	public int DelCarrForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelCarrForUp",params);
-	}
-
-	@Override
-	public int DelEduForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelEduForUp",params);
-	}
-
-	@Override
-	public int DelIeduForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelIeduForUp",params);
-	}
-
-	@Override
-	public int DelFlangForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelFlangForUp",params);
-	}
-
-	@Override
-	public int DelLocForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelLocForUp",params);
-	}
-
-	@Override
-	public int DelQualForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelQualForUp",params);
-	}
-
-	@Override
-	public int DelSintroForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelSintroForUp",params);
-	}
-
-	@Override
-	public int DelWorkForUp(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("Resume_SQL.DelWorkForUp",params);
-	}
 
 	
 	// 생성(수정)
@@ -202,7 +158,28 @@ public class ResumeDAO implements IResumeDAO{
 
 	@Override
 	public int dtlUpdate(HashMap<String, String> params) throws Throwable {
+		sqlSession.delete("Resume_SQL.DelAttchForUp",params);
+		sqlSession.delete("Resume_SQL.DelCarrForUp",params);
+		sqlSession.delete("Resume_SQL.DelEduForUp",params);
+		sqlSession.delete("Resume_SQL.DelIeduForUp",params);
+		sqlSession.delete("Resume_SQL.DelFlangForUp",params);
+		sqlSession.delete("Resume_SQL.DelLocForUp",params);
+		sqlSession.delete("Resume_SQL.DelQualForUp",params);
+		sqlSession.delete("Resume_SQL.DelSintroForUp",params);
+		sqlSession.delete("Resume_SQL.DelWorkForUp",params);
 		return sqlSession.update("Resume_SQL.dtlUpdate",params);
+	}
+
+	@Override
+	public int dtlAdd(HashMap<String, String> params) throws Throwable {
+		 sqlSession.insert("Resume_SQL.dtlAdd",params);
+		 System.out.println(Integer.valueOf(String.valueOf(params.get("resumeNo"))));
+		 return Integer.valueOf(String.valueOf(params.get("resumeNo")));
+	}
+
+	@Override
+	public HashMap<String, String> getUserDtl(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Resume_SQL.getUserDtl",params);
 	}
 
 }

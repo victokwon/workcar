@@ -2,7 +2,7 @@
 footer {
 	display: block;
 	min-width: 1286px;
-  height: 80px;
+  height: auto;
   text-align: center;
 }
 

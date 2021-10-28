@@ -43,16 +43,7 @@ public interface IResumeDAO {
 	int getQualCnt(HashMap<String, String> params)throws Throwable;
 
 	List<HashMap<String, String>> getQual(HashMap<String, String> params)throws Throwable;
-	// 삭제(초기화)
-	public int DelAttchForUp(HashMap<String, String> params)throws Throwable;
-	public int DelCarrForUp(HashMap<String, String> params)throws Throwable;
-	public int DelEduForUp(HashMap<String, String> params)throws Throwable;
-	public int DelIeduForUp(HashMap<String, String> params)throws Throwable;
-	public int DelFlangForUp(HashMap<String, String> params)throws Throwable;
-	public int DelLocForUp(HashMap<String, String> params)throws Throwable;
-	public int DelQualForUp(HashMap<String, String> params)throws Throwable;
-	public int DelSintroForUp(HashMap<String, String> params)throws Throwable;
-	public int DelWorkForUp(HashMap<String, String> params)throws Throwable;
+	
 	//생성(수정)
 	public int AttchUpdate(Map<String, Object> paramMap)throws Throwable;
 	public int CarrUpdate(Map<String, Object> paramMap)throws Throwable;
@@ -65,5 +56,9 @@ public interface IResumeDAO {
 	public int WorkUpdate(Map<String, Object> paramMap)throws Throwable;
 
 	public int dtlUpdate(HashMap<String, String> params)throws Throwable;
-	
+
+	public int dtlAdd(HashMap<String, String> params)throws Throwable;
+
+	HashMap<String, String> getUserDtl(HashMap<String, String> params)throws Throwable;
+
 }

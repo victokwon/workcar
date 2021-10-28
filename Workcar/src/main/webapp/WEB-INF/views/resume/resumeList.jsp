@@ -56,12 +56,6 @@
          $("#resumeGo").submit()
       })
       
-      
-      
-      $("#addBtn").on("click",function(){
-          
-      })
-      
    })
 
    function linkGo(url) {
@@ -188,7 +182,6 @@
             </div>
          </div>
       </div>
-      <div id="test"></div>
       <div class="main_button_box">
          <button type="button" class="main_button">계정관리</button>
          <button type="button" class="main_button" id="defaultOpen">이력서관리</button>
@@ -234,7 +227,7 @@
                </table>
                <c:if test="${cnt < 5 }">
                   <div class="apply_add">
-                     <a href="resumeDtl" id="addBtn"> 추가 </a>
+                     <a href="resumeDtlAdd" id="addBtn"> 추가 </a>
                   </div>
                </c:if>
             </div>

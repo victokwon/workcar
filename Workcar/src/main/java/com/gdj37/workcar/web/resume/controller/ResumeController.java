@@ -1,16 +1,10 @@
 package com.gdj37.workcar.web.resume.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.CommonProperties;
@@ -115,7 +108,7 @@ public class ResumeController {
 				mav.addObject("IEDU", iedu);
 				mav.addObject("SINTRO", sintro);
 				mav.addObject("ATTACH", attach);
-System.out.println(iedu.toString());
+				System.out.println(iedu.toString());
 				if (params.get("actGbn").equals("Up")) {
 					HashMap<String, String> conCnt = iResumeService.getAddContCnt(params);
 					mav.addObject("conCnt", conCnt);
@@ -134,6 +127,17 @@ System.out.println(iedu.toString());
 		return mav;
 	}
 
+	@RequestMapping(value = "/resumeDtlAdd")
+	public ModelAndView resumeDtlAdd(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpSession session) throws Throwable{
+		params.put("memNo", String.valueOf(session.getAttribute("sMNo")));
+		List<HashMap<String, String>> list = iResumeService.resumeList(params);
+		HashMap<String, String> data = iResumeService.getUserDtl(params);
+		mav.addObject("DATA", data);
+		mav.addObject("LIST", list);
+		mav.setViewName("/resume/resumeDtlAdd");
+		return mav;
+	}
+	
 	@ResponseBody
 	@RequestMapping(value = "/getRegionAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	public String getRegionAjax(@RequestParam HashMap<String, String> params) throws Throwable {
@@ -249,178 +253,139 @@ System.out.println(iedu.toString());
 			HttpSession session) throws Throwable {
 
 		System.out.println(params);
-		params.put("resumeNo", params.get("resumeUpdateNo"));
 		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
-				Map<String, Object> paramMap = new HashMap<String, Object>();
 				// 값 제거
-				//int cnt = 2;
-				int cnt = iResumeService.dtlUpdate(params);
-				if (cnt > 0) {
-					iResumeService.DelAttchForUp(params);
-					iResumeService.DelCarrForUp(params);
-					iResumeService.DelEduForUp(params);
-					iResumeService.DelIeduForUp(params);
-					iResumeService.DelFlangForUp(params);
-					iResumeService.DelLocForUp(params);
-					iResumeService.DelQualForUp(params);
-					iResumeService.DelSintroForUp(params);
-					iResumeService.DelWorkForUp(params);
+				int cnt = 0;
+				if(params.get("dtlGbn").equals("update")) {
+					params.put("resumeNo", params.get("resumeUpdateNo"));
+					cnt = iResumeService.dtlUpdate(params);
+				}else if(params.get("dtlGbn").equals("add")) {
+					cnt = iResumeService.dtlAdd(params);
+					
+					params.put("resumeNo", Integer.toString(cnt));
+				}
+				if(cnt > 0) {
+					
+				// 도시내용
+				HashMap<String, Object> cityMap;
+				for (int i = 1; i < city.length; i++) {
+					cityMap = new HashMap<String, Object>();
+					cityMap.put("resumeNo", params.get("resumeNo"));
+					cityMap.put("city", city[i]);
+					cityMap.put("region", region[i]);
+					iResumeService.LocUpdate(cityMap);
+					System.out.println(cityMap.toString());
+				}
 
-					paramMap.put("resumeNo", params.get("resumeNo"));
-					// 도시내용
-					List<HashMap<String, Object>> cityList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> cityMap;
-					for (int i = 1; i < city.length; i++) {
-						cityMap = new HashMap<String, Object>();
-						cityMap.put("index", i - 1);
-						cityMap.put("city", city[i]);
-						cityMap.put("region", region[i]);
-						cityList.add(cityMap);
-						System.out.println(cityMap.toString());
+				// 근무형태
+				HashMap<String, Object> workTypeMap;
+				for (int i = 0; i < workType.length; i++) {
+					workTypeMap = new HashMap<String, Object>();
+					workTypeMap.put("resumeNo", params.get("resumeNo"));
+					workTypeMap.put("index", i);
+					workTypeMap.put("workType", workType[i]);
+					iResumeService.WorkUpdate(workTypeMap);
+				}
+
+				// 자격증
+				HashMap<String, Object> qualMap;
+				if (qualNo != null) {
+					for (int i = 0; i < qualNo.length; i++) {
+						qualMap = new HashMap<String, Object>();
+						qualMap.put("resumeNo", params.get("resumeNo"));
+						qualMap.put("qualNo", qualNo[i]);
+						qualMap.put("issuAgcy", issuAgcy[i]);
+						qualMap.put("passDate", passDate[i]);
+						iResumeService.QualUpdate(qualMap);
 					}
-					paramMap.put("cityList", cityList);
-					iResumeService.LocUpdate(paramMap);
+				}
 
-					// 근무형태
-					List<HashMap<String, Object>> workTypeList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> workTypeMap;
-					for (int i = 0; i < workType.length; i++) {
-						workTypeMap = new HashMap<String, Object>();
-						workTypeMap.put("index", i);
-						workTypeMap.put("workType", workType[i]);
-						workTypeList.add(workTypeMap);
-						System.out.println(workTypeMap.toString());
+				// 외국어
+				HashMap<String, Object> flangMap;
+				if (flangNo != null) {
+					for (int i = 0; i < flangNo.length; i++) {
+						flangMap = new HashMap<String, Object>();
+						flangMap.put("resumeNo", params.get("resumeNo"));
+						flangMap.put("flangNo", flangNo[i]);
+						flangMap.put("flangType", flangType[i]);
+						flangMap.put("flangGrade", flangGrade[i]);
+						iResumeService.FlangUpdate(flangMap);
 					}
-					paramMap.put("workTypeList", workTypeList);
-					iResumeService.WorkUpdate(paramMap);
+				}
 
-					// 자격증
-					List<HashMap<String, Object>> qualList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> qualMap;
-					if (qualNo != null) {
-						for (int i = 0; i < qualNo.length; i++) {
-							qualMap = new HashMap<String, Object>();
-							qualMap.put("index", i);
-							qualMap.put("qualNo", qualNo[i]);
-							qualMap.put("issuAgcy", issuAgcy[i]);
-							qualMap.put("passDate", passDate[i]);
-							qualList.add(qualMap);
-							System.out.println(qualMap.toString());
-						}
-						paramMap.put("qualList", qualList);
-						iResumeService.QualUpdate(paramMap);
+				// 경력
+				HashMap<String, Object> carrMap;
+				if (cName != null) {
+					for (int i = 0; i < cName.length; i++) {
+						carrMap = new HashMap<String, Object>();
+						carrMap.put("resumeNo", params.get("resumeNo"));
+						carrMap.put("cName", cName[i]);
+						carrMap.put("dpart", dpart[i]);
+						carrMap.put("pos", pos[i]);
+						carrMap.put("carrStDate", carrStDate[i]);
+						carrMap.put("carrEndDate", carrEndDate[i]);
+						carrMap.put("tureChk", tureChk[i]);
+						carrMap.put("carrCntt", carrCntt[i]);
+						iResumeService.CarrUpdate(carrMap);
 					}
+				}
 
-					// 외국어
-					List<HashMap<String, Object>> flangList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> flangMap;
-					if (flangNo != null) {
-						for (int i = 0; i < flangNo.length; i++) {
-							flangMap = new HashMap<String, Object>();
-							flangMap.put("index", i);
-							flangMap.put("flangNo", flangNo[i]);
-							flangMap.put("flangType", flangType[i]);
-							flangMap.put("flangGrade", flangGrade[i]);
-							flangList.add(flangMap);
-							System.out.println(flangMap.toString());
-						}
-						paramMap.put("flangList", flangList);
-						iResumeService.FlangUpdate(paramMap);
+				// 학력
+				HashMap<String, Object> eduMap;
+				if (schName != null) {
+					for (int i = 0; i < schName.length; i++) {
+						eduMap = new HashMap<String, Object>();
+						eduMap.put("resumeNo", params.get("resumeNo"));
+						eduMap.put("schName", schName[i]);
+						eduMap.put("sol", sol[i]);
+						eduMap.put("major", major[i]);
+						eduMap.put("eduStDate", eduStDate[i]);
+						eduMap.put("eduEndDate", eduEndDate[i]);
+						eduMap.put("eduCntt", eduCntt[i]);
+						iResumeService.EduUpdate(eduMap);
 					}
+				}
 
-					// 경력
-					List<HashMap<String, Object>> carrList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> carrMap;
-					if (cName != null) {
-						for (int i = 0; i < cName.length; i++) {
-							carrMap = new HashMap<String, Object>();
-							carrMap.put("index", i);
-							carrMap.put("cName", cName[i]);
-							carrMap.put("dpart", dpart[i]);
-							carrMap.put("pos", pos[i]);
-							carrMap.put("carrStDate", carrStDate[i]);
-							carrMap.put("carrEndDate", carrEndDate[i]);
-							carrMap.put("tureChk", tureChk[i]);
-							carrMap.put("carrCntt", carrCntt[i]);
-							carrList.add(carrMap);
-							System.out.println(carrMap.toString());
-						}
-						paramMap.put("carrList", carrList);
-						iResumeService.CarrUpdate(paramMap);
+				// 직무교육
+				HashMap<String, Object> ieduMap;
+				if (ieduName != null) {
+					for (int i = 0; i < ieduName.length; i++) {
+						ieduMap = new HashMap<String, Object>();
+						ieduMap.put("resumeNo", params.get("resumeNo"));
+						ieduMap.put("ieduName", ieduName[i]);
+						ieduMap.put("coseName", coseName[i]);
+						ieduMap.put("ieduStDate", ieduStDate[i]);
+						ieduMap.put("ieduEndDate", ieduEndDate[i]);
+						ieduMap.put("ieduCntt", ieduCntt[i]);
+						iResumeService.IeduUpdate(ieduMap);
 					}
+				}
 
-					// 학력
-					List<HashMap<String, Object>> eduList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> eduMap;
-					if (schName != null) {
-						for (int i = 0; i < schName.length; i++) {
-							eduMap = new HashMap<String, Object>();
-							eduMap.put("index", i);
-							eduMap.put("schName", schName[i]);
-							eduMap.put("sol", sol[i]);
-							eduMap.put("major", major[i]);
-							eduMap.put("eduStDate", eduStDate[i]);
-							eduMap.put("eduEndDate", eduEndDate[i]);
-							eduMap.put("eduCntt", eduCntt[i]);
-							eduList.add(eduMap);
-							System.out.println(eduMap.toString());
-						}
-						paramMap.put("eduList", eduList);
-						iResumeService.EduUpdate(paramMap);
+				// 자기소개서
+				HashMap<String, Object> sintroMap;
+				if (sintroName != null) {
+					for (int i = 0; i < sintroName.length; i++) {
+						sintroMap = new HashMap<String, Object>();
+						sintroMap.put("resumeNo", params.get("resumeNo"));
+						sintroMap.put("sintroName", sintroName[i]);
+						sintroMap.put("sintroCntt", sintroCntt[i]);
+						iResumeService.SintroUpdate(sintroMap);
 					}
+				}
 
-					// 직무교육
-					List<HashMap<String, Object>> ieduList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> ieduMap;
-					if (ieduName != null) {
-						for (int i = 0; i < ieduName.length; i++) {
-							ieduMap = new HashMap<String, Object>();
-							ieduMap.put("index", i);
-							ieduMap.put("ieduName", ieduName[i]);
-							ieduMap.put("coseName", coseName[i]);
-							ieduMap.put("ieduStDate", ieduStDate[i]);
-							ieduMap.put("ieduEndDate", ieduEndDate[i]);
-							ieduMap.put("ieduCntt", ieduCntt[i]);
-							ieduList.add(ieduMap);
-							System.out.println(ieduMap.toString());
-						}
-						paramMap.put("ieduList", ieduList);
-						iResumeService.IeduUpdate(paramMap);
+				// 첨부파일
+				List<HashMap<String, Object>> fileNmList = new ArrayList<HashMap<String, Object>>();
+				HashMap<String, Object> fileNmMap;
+				if (fileNm != null) {
+					for (int i = 0; i < fileNm.length; i++) {
+						fileNmMap = new HashMap<String, Object>();
+						fileNmMap.put("resumeNo", params.get("resumeNo"));
+						fileNmMap.put("fileNm", fileNm[i]);
+						iResumeService.AttchUpdate(fileNmMap);
 					}
-
-					// 자기소개서
-					List<HashMap<String, Object>> sintroList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> sintroMap;
-					if (sintroName != null) {
-						for (int i = 0; i < sintroName.length; i++) {
-							sintroMap = new HashMap<String, Object>();
-							sintroMap.put("index", i);
-							sintroMap.put("sintroName", sintroName[i]);
-							sintroMap.put("sintroCntt", sintroCntt[i]);
-							sintroList.add(sintroMap);
-							System.out.println(sintroMap.toString());
-						}
-
-						paramMap.put("sintroList", sintroList);
-						iResumeService.SintroUpdate(paramMap);
-					}
-
-					// 첨부파일
-					List<HashMap<String, Object>> fileNmList = new ArrayList<HashMap<String, Object>>();
-					HashMap<String, Object> fileNmMap;
-					if (fileNm != null) {
-						for (int i = 0; i < fileNm.length; i++) {
-							fileNmMap = new HashMap<String, Object>();
-							fileNmMap.put("index", i);
-							fileNmMap.put("fileNm", fileNm[i]);
-							fileNmList.add(fileNmMap);
-							System.out.println(fileNmMap.toString());
-						}
-						paramMap.put("fileNmList", fileNmList);
-						iResumeService.AttchUpdate(paramMap);
-					}
-					mav.setViewName("redirect:resumeDtl");
+				}
+				mav.setViewName("redirect:resumeDtl");
 				}
 			} catch (Exception e) {
 				mav.setViewName("redirect:resumeList");

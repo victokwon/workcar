@@ -31,7 +31,11 @@
       if("${msg}"!=""){
          alert(${msg})
       }
-      
+      console.log()
+	    if("${DATA.PROF_PIC}"!=""){
+	    	$("#profile").attr("style", "background-image: url(resources/upload/${DATA.PROF_PIC }")
+	    }
+	    
       $("#resumeList").on("click","div",function(){
          let resumeNo = $(this).attr("resumeNo")
          $("#resumeNo").val(resumeNo)
@@ -66,7 +70,6 @@
 </head>
 
 <body>
-
    <form action="#" id="resumeGo" method="post">
       <input type="hidden" id="memNo" name="memNo" value="${sMNo}">
       <input type="hidden" id="resumeNo" name="resumeNo" value="${DATA.RESUM_NO }">
@@ -149,7 +152,7 @@
                <div class="topnav-right">
                   <div class="alarm"></div>
                   <a href="#iMemMypage"><strong>마이페이지</strong></a>
-                  <div class="profile"></div>
+                  <div class="profile" ></div>
                   <strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
                </div>
             </c:when>
@@ -182,7 +185,7 @@
       <div class="main_wrap">
          <div class="user_wrap">
             <div class="user_box">
-               <div class="user_profile"></div>
+               <div class="user_profile" ></div>
                <div class="user">
                   <div class="user_name"></div>
                   <div class="user_status"></div>
@@ -215,7 +218,7 @@
                      <tr>
                         <td>
                            <div class="apply_list">
-                              <a href="resumeDtl" id="addBtn"> 추가 </a>
+                              <a href="resumeDtlAdd" id="addBtn"> 추가 </a>
                            </div>
                         </td>
                      </tr>
@@ -240,7 +243,7 @@
                   <div class="dtl">
                      <div class="header">지원자정보</div>
                      <div class="con">
-                        <div class="profile"></div>
+                        <div class="profile" id="profile"></div>
                         <div class="input_box">
                            <div class="name">
                               <div class="text">성명</div>

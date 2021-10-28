@@ -36,7 +36,16 @@
 	</update>
 
 	<!-- 이력서 상세보기 개인정보 -->
-
+	<select id="getUserDtl" parameterType="hashmap" resultType="hashmap">
+		SELECT NAME, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL, BIRTH, GENDER_NAME,PROF_PIC
+		FROM MEMBER M
+		JOIN I_MEMBER IM
+		ON (M.MEM_NO = IM.MEM_NO)
+		JOIN (SELECT CAT_NAME GENDER_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 2) CMG
+		ON (CMG.SCD_CAT = IM.GENDER)
+		WHERE WDRAWL_DATE IS NULL
+		AND M.MEM_NO = #{memNo}
+	</select>
 	<select id="getResumeDtl" parameterType="hashmap"
 		resultType="hashmap">
 		SELECT R.MEM_NO, RESUM_NO, OPN_CHK,OPN_CHK_NAME,
@@ -45,7 +54,7 @@
 		CITY_NO, R.REGION_NO,
 		GRADU,GENDER_NAME, BIRTH,R.SECTOR_NO, SECTOR_NAME,
 		NAME,
-		REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL,
+		REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL,PROF_PIC,
 		PAY_GBN, PAY_MIN, PAY_MAX,
 		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE,
 		TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
@@ -63,12 +72,10 @@
 		ON (R.REGION_NO =
 		RE.REGION_NO)
 		JOIN (SELECT CAT_NAME GENDER_NAME, SCD_CAT FROM COMM_CODE
-		WHERE FST_CAT =
-		2) CMG
+		WHERE FST_CAT = 2) CMG
 		ON (CMG.SCD_CAT = IM.GENDER)
 		JOIN (SELECT CAT_NAME
-		OPN_CHK_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT =
-		4) CMO
+		OPN_CHK_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 4) CMO
 		ON
 		(CMO.SCD_CAT = R.OPN_CHK)
 		JOIN SECTOR S
@@ -349,41 +356,33 @@
 	</delete>
 
 	<insert id="LocUpdate" parameterType="hashmap">
-		<foreach collection="cityList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_LOC(
+			INSERT INTO RESUM_LOC(
 			LOC_NO,
 			RESUM_NO,
 			REGION_NO
 			) VALUES
 			(
-			RESUM_LOC_SEQ.NEXTVAL+ #{index},
+			RESUM_LOC_SEQ.NEXTVAL,
 			#{resumeNo},
-			#{item.region}
+			#{region}
 			)
-		</foreach>
 	</insert>
 
 	<insert id="WorkUpdate" parameterType="hashmap">
-		<foreach collection="workTypeList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_WORK(
+			INSERT INTO RESUM_WORK(
 			MNG_NO,
 			RESUM_NO,
 			WORK_TYPE
 			) VALUES
 			(
-			RESUM_WORK_SEQ.NEXTVAL+ #{index},
+			RESUM_WORK_SEQ.NEXTVAL,
 			#{resumeNo},
-			#{item.workType}
+			#{workType}
 			)
-		</foreach>
 	</insert>
 
 	<insert id="QualUpdate" parameterType="hashmap">
-		<foreach collection="qualList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_QUAL(
+			INSERT INTO RESUM_QUAL(
 			RESUM_NO,
 			QUAL_NO,
 			PASS_DATE,
@@ -391,17 +390,14 @@
 			) VALUES
 			(
 			#{resumeNo},
-			#{item.qualNo},
-			#{item.passDate},
-			#{item.issuAgcy}
+			#{qualNo},
+			#{passDate},
+			#{issuAgcy}
 			)
-		</foreach>
 	</insert>
 
 	<insert id="FlangUpdate" parameterType="hashmap">
-		<foreach collection="flangList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_FLANG(
+			INSERT INTO RESUM_FLANG(
 			MNG_NO,
 			RESUM_NO,
 			FLANG_NO,
@@ -409,19 +405,16 @@
 			FLANG_GRADE
 			) VALUES
 			(
-			RESUM_FLANG_SEQ.NEXTVAL+ #{index},
+			RESUM_FLANG_SEQ.NEXTVAL,
 			#{resumeNo},
-			#{item.flangNo},
-			#{item.flangType},
-			#{item.flangGrade}
+			#{flangNo},
+			#{flangType},
+			#{flangGrade}
 			)
-		</foreach>
 	</insert>
 
 	<insert id="CarrUpdate" parameterType="hashmap">
-		<foreach collection="carrList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_CARR(
+			INSERT INTO RESUM_CARR(
 			CARR_NO,
 			RESUM_NO,
 			C_NAME,
@@ -433,23 +426,20 @@
 			CARR_CNTT
 			) VALUES
 			(
-			RESUM_CARR_SEQ.NEXTVAL+ #{index},
+			RESUM_CARR_SEQ.NEXTVAL,
 			#{resumeNo},
-			#{item.cName},
-			#{item.dpart},
-			#{item.pos},
-			#{item.carrStDate},
-			#{item.carrEndDate},
-			#{item.tureChk},
-			#{item.carrCntt}
+			#{cName},
+			#{dpart},
+			#{pos},
+			#{carrStDate},
+			#{carrEndDate},
+			#{tureChk},
+			#{carrCntt}
 			)
-		</foreach>
 	</insert>
 
 	<insert id="EduUpdate" parameterType="hashmap">
-		<foreach collection="eduList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_EDU(
+			INSERT INTO RESUM_EDU(
 			EDU_NO,
 			RESUM_NO,
 			SCH_NAME,
@@ -460,22 +450,19 @@
 			EDU_ETC
 			) VALUES
 			(
-			RESUM_EDU_SEQ.NEXTVAL+ #{index},
+			RESUM_EDU_SEQ.NEXTVAL,
 			#{resumeNo},
-			#{item.schName},
-			#{item.sol},
-			#{item.major},
-			#{item.eduStDate},
-			#{item.eduEndDate},
-			#{item.eduCntt}
+			#{schName},
+			#{sol},
+			#{major},
+			#{eduStDate},
+			#{eduEndDate},
+			#{eduCntt}
 			)
-		</foreach>
 	</insert>
 
 	<insert id="IeduUpdate" parameterType="hashmap">
-		<foreach collection="ieduList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_IEDU(
+			INSERT INTO RESUM_IEDU(
 			IEDU_NO,
 			RESUM_NO,
 			IEDU_NAME,
@@ -485,50 +472,42 @@
 			EDU_CNTT
 			) VALUES
 			(
-			RESUM_IEDU_SEQ.NEXTVAL+ #{index},
+			RESUM_IEDU_SEQ.NEXTVAL,
 			#{resumeNo},
-			#{item.ieduName},
-			#{item.coseName},
-			#{item.ieduStDate},
-			#{item.ieduEndDate},
-			#{item.ieduCntt}
+			#{ieduName},
+			#{coseName},
+			#{ieduStDate},
+			#{ieduEndDate},
+			#{ieduCntt}
 			)
-		</foreach>
 	</insert>
 
 	<insert id="SintroUpdate" parameterType="hashmap">
-		<foreach collection="sintroList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_SINTRO(
+			INSERT INTO RESUM_SINTRO(
 			SINTRO_NO,
 			RESUM_NO,
 			SINTRO_NAME,
 			SINTRO_CNTT
 			) VALUES
 			(
-			RESUM_SINTRO_SEQ.NEXTVAL+
-			#{index},
+			RESUM_SINTRO_SEQ.NEXTVAL,
 			#{resumeNo},
-			#{item.sintroName},
-			#{item.sintroCntt}
+			#{sintroName},
+			#{sintroCntt}
 			)
-		</foreach>
 	</insert>
 
 	<insert id="AttchUpdate" parameterType="hashmap">
-		<foreach collection="fileNmList" item="item" index="index"
-			separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-			INTO RESUM_ATTCH(
+			INSERT INTO RESUM_ATTCH(
 			ATTCH_NO,
 			RESUM_NO,
 			ATTCH_NAME
 			) VALUES
 			(
-			RESUM_ATTCH_SEQ.NEXTVAL+ #{index},
+			RESUM_ATTCH_SEQ.NEXTVAL,
 			#{resumeNo},
-			#{item.fileNm}
+			#{fileNm}
 			)
-		</foreach>
 	</insert>
 
 	<update id="dtlUpdate" parameterType="hashmap">
@@ -540,12 +519,38 @@
 		OPN_CHK = #{openCase},
 		GRADU = #{gradu},
 		PAY_GBN = #{sal},
-		<if test="sal eq 0">
-			PAY_MAX = #{salMin},
-			PAY_MIN = #{salMax},
-		</if>		
+		<choose>
+			<when test="sal eq 0">
+				PAY_MAX = 0,
+				PAY_MIN = 0,
+			</when>
+			<when test="sal eq 1">
+				PAY_MAX = #{salMax},
+				PAY_MIN = #{salMin},
+			</when>
+		</choose>	
 		CHN_DATE = SYSDATE
 		WHERE DEL_CHK = 0
 		AND RESUM_NO = #{resumeNo}
 	</update>
+	
+	<insert id="dtlAdd" parameterType="hashmap" useGeneratedKeys="true" keyColumn="RESUM_NO" keyProperty="resumeNo">
+		<choose>
+			<when test="sal eq 0">
+				INSERT INTO RESUM(
+					RESUM_NO, MEM_NO, SECTOR_NO, REGION_NO, RESUM_NAME, GRADU, PAY_GBN, PAY_MAX, PAY_MIN,  OPN_CHK 				
+				)VALUES (
+					RESUM_SEQ.NEXTVAL, #{memNo}, #{sectorNo}, #{region}, #{resumeName}, #{gradu}, #{sal}, 0, 0, #{openCase}					
+				)
+			</when>
+			<when test="sal eq 1">
+				INSERT INTO RESUM(
+					RESUM_NO, MEM_NO, SECTOR_NO, REGION_NO, RESUM_NAME, GRADU, PAY_GBN, PAY_MAX, PAY_MIN, OPN_CHK					
+				)VALUES (
+					RESUM_SEQ.NEXTVAL, #{memNo}, #{sectorNo}, #{region}, #{resumeName}, #{gradu}, #{sal}, #{salMax}, #{salMin}, #{openCase}					
+				)
+			</when>
+		</choose>
+	</insert>
+	
 </mapper>

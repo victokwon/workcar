@@ -34,39 +34,22 @@
 <script type="text/javascript">
 	$(function() {
 	    var noBox = {
-	          qualNo: ${conCnt.QUAL_CNT},
-	          flangNo:${conCnt.FLANG_CNT},
-	          carrNo: ${conCnt.CARR_CNT},
-	          eduNo: ${conCnt.EDU_CNT},
-	          ieduNo: ${conCnt.IEDU_CNT},
-	          sintroNo: ${conCnt.SINTRO_CNT},
-	          attchNo: ${conCnt.ATTCH_CNT}
+	          qualNo: 0,
+	          flangNo: 0,
+	          carrNo: 0,
+	          eduNo: 0,
+	          ieduNo: 0,
+	          sintroNo: 0,
+	          attchNo: 0
 	         }
-	   console.log(noBox)
 	   
-		
-	   $("select").each(function(idx) {
-		   if($(this).attr("selValue") != "") {
-			   $(this).val($(this).attr("selValue"));
-		   }
-	   });
-	    
-	    if("${DATA.PROF_PIC}"!=""){
-	    
-	    	$("#profile").attr("style", "background-image: url(resources/upload/${DATA.PROF_PIC }")
-	    }
-	    
-	   $("select[name='region']").each(function(idx) {
-		   getRegion($("#city" + idx + "").val(), $(this), $(this).attr("selValue"));
-	   });
-	   
-	    
 		$("#saveBtn").on("click",function(){
 			if(checkInputText()
 					&&checkInputSel()
 					&&checkInputDate()
 					&&checkInputTextarea()
-					&&checkQualVal()){
+					&&checkQualVal()
+					&&checkHidden()){
 			    $("#sectorNo").val($("#sectorInput").attr( "sNo"))
 			   $("#updateForm").attr("action", "resumeUpdate")
 			   $("#updateForm").submit() 
@@ -88,11 +71,11 @@
 		   $("#resumeGo").attr("action", "resumeDtl")
 		   $("#resumeGo").submit()
 		})
+   
 		
 		 $(".add_box").on("click", ".minus_btn", function () {
 		   let target = $(this).parent().attr("noName")
 		   noBox[target] --
-		   console.log(noBox)
 		  $(this).parent().remove();
 		}); 
        
@@ -112,13 +95,6 @@
 		   $("#resumeGo").attr("action", "resumeDtl")
 		   $("#resumeGo").submit()
 		})
-		
-		if($("#sal0").val() == "${DATA.PAY_GBN}"){
-		   $("#sal0").attr("checked","checked")
-		}
-		if($("#sal1").val() == "${DATA.PAY_GBN}"){
-		   $("#sal1").attr("checked","checked")
-		}
 
       
        // 자격증 1
@@ -367,9 +343,6 @@
 	})
    
 	function getRegion(city, target, val){
-		console.log(city);
-		console.log(target);
-		console.log(val);
 	   $.ajax({
 	         type : "POST",
 	         data : "cityNo=" + city,
@@ -408,6 +381,7 @@
 	function linkBack() {
 	      history.back()
 	}
+	
    	function checkInputText(){
    		let flag = true
    		$("input[type=text]").each(function(idx){
@@ -458,16 +432,26 @@
    	}
    	function checkQualVal(){
    		let flag = true
-   		let arr = new Array()
+   		let arr = new Array() 
  		$("input[name=qualNo]").each(function(idx){
 			arr.push($(this).val())
    		})
-   		let set = new Set(arr)
+   		let set = new Set(arr)  
 			if(arr.length != set.size){
    				alert("자격증이 중복되었습니다.")
    				flag = false
    				return false
    			}
+   		return flag
+   	}
+   	function checkHidden(){
+   		let flag = true
+   			if($("#sectorInput").attr("sNo") < 0 ){
+   				alert("입력값이 누락되었습니다.")
+   				$(this).focus()
+   				flag = false
+   				return false
+   		}
    		return flag
    	}
 </script>
@@ -482,7 +466,7 @@
 
     <form action="#" id="resumeGo" method="post">
         <input type="hidden" id="memNo" name="memNo" value="${sMNo}">
-        <input type="hidden" id="resumeNo" name="resumeNo" value="${DATA.RESUM_NO }">
+        <input type="hidden" id="resumeNo" name="resumeNo" value="">
         <input type="hidden" id="actGbn" name="actGbn">
     </form>
 
@@ -596,7 +580,7 @@
                     <div class="topnav-right">
                         <div class="alarm"></div>
                         <a href="#iMemMypage"><strong>마이페이지</strong></a>
-                        <div class="profile" ></div>
+                        <div class="profile"></div>
                         <strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
                     </div>
                 </c:when>
@@ -663,7 +647,7 @@
                             <tr>
                                 <td>
                                     <div class="apply_list">
-                                        <a href="resumeDtlAdd" id="addBtn"> 추가 </a>
+                                        <a href="resumeDtl" id="addBtn"> 추가 </a>
                                     </div>
                                 </td>
                             </tr>
@@ -673,15 +657,13 @@
           
                 <div class="main_box">
                   <form action="#" method="post" id="updateForm">
-                  <input type="hidden" name="dtlGbn" value="update"> 
+                  <input type="hidden" name="dtlGbn" value="add"> 
                   <input type="hidden" name="memNo" value="${sMNo }"> 
-                  <input type="hidden" id="resumeUpdateNo" name="resumeUpdateNo" value="${param.resumeNo }" >
                     <div class="content apply_dtl_header" id="resumeName">
                         <div class="apply_dtl">
-                             <input type="text" id="resumeName" name="resumeName" value="${DATA.RESUM_NAME }" ><br>
-                            <span class="apply_dtl_date">최종수정일 | ${DATA.CHN_DATE}</span>
+                             <input type="text" id="resumeName" name="resumeName" value="" >
                             <span class="apply_dtl_opn">
-                                <select id="opencase" name="openCase" class="opencase" selValue="${DATA.OPN_CHK}">
+                                <select id="opencase" name="openCase" class="opencase" >
                                     <option value="1">공개</option>
                                     <option value="0">비공개</option>
                                 </select>
@@ -698,7 +680,7 @@
                             <div class="dtl">
                                 <div class="header">지원자정보</div>
                                 <div class="con">
-                                    <div class="profile" id="profile"></div>
+                                    <div class="profile"></div>
                                     <div class="input_box">
                                         <div class="name">
                                             <div class="text">성명</div>
@@ -724,8 +706,7 @@
                                             <div class="text">거주지역</div>
                                             <div class="input">
                                                 <div class="locSelectBox">
-                                                    <select class="citySel" id="city0" name="city" locResumNo="0" selValue="${DATA.CITY_NO }">
-                                                        <option value="-1" selected="selected">시도 선택</option>
+                                                    <select class="citySel" id="city0" name="city" >
                                                         <option value="16">전체</option>
                                                         <option value="0">강원</option>
                                                         <option value="1">경기</option>
@@ -744,8 +725,8 @@
                                                         <option value="14">충남</option>
                                                         <option value="15">충북</option>
                                                     </select>
-                                                    <select id="region0" name="region" selValue="${DATA.REGION_NO }">
-
+                                                    <select id="region0" name="region" >
+                                                        <option value="16">전체</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -753,8 +734,8 @@
                                         <div class="edu">
                                             <div class="text">최종학력</div>
                                             <div class="input">
-                                                <select name="gradu" id="gradu" selValue="${DATA.GRADU}" >
-                                                    <option value="-1">학력 선택</option>
+                                                <select name="gradu" id="gradu"  >
+                                                    <option value="">학력 선택</option>
                                                     <option value="고등학교">고등학교</option>
                                                     <option value="전문대학">전문대학</option>
                                                     <option value="대학교">대학교</option>
@@ -776,19 +757,18 @@
                                     <div class="input_box">
                                         <div class="job">
                                             <div class="text">희망직종</div>
-                                            <input type="hidden" name="sectorNo" id="sectorNo" value="${DATA.SECTOR_NO}">
-                                            <div class="input" id="sectorInput" sNo="${DATA.SECTOR_NO}">${DATA.SECTOR_NAME}</div>
+                                            <input type="hidden" name="sectorNo" id="sectorNo" value="">
+                                            <div class="input" id="sectorInput" sNo=""></div>
                                             <button type="button" id="sectorBtn">직종 검색</button>
                                         </div>
                                         <div class="hope_loc">
                                             <div class="text">근무지역</div>
                                             <div class="input">
                                             <c:set var="locNo" value="1"/>
-                                            	<c:forEach var="data" items="${LOC }">
+                                            	<c:forEach var="i" begin="1" step="1" end="3"  >
 	                                                <div class="locSelectBox">
-	                                                    <select class="citySel" id="city${locNo }" name="city" selValue="${data.CITY_NO}">
-	                                                        <option value="-1">시도 선택</option>
-	                                                        <option value="16">전체</option>
+	                                                    <select class="citySel" id="city${locNo }" name="city" >
+	                                                        <option value="16" >전체</option>
 	                                                        <option value="0">강원</option>
 	                                                        <option value="1">경기</option>
 	                                                        <option value="2">경남</option>
@@ -806,8 +786,8 @@
 	                                                        <option value="14">충남</option>
 	                                                        <option value="15">충북</option>
 	                                                    </select>
-	                                                    <select id="region${locNo }" name="region" selValue="${data.REGION_NO }">
-	
+	                                                    <select id="region${locNo }" name="region" >
+															<option value="16">전체</option>	
 	                                                    </select>
 	                                                    <c:set var="locNo" value="${locNo + 1 }"></c:set>
 	                                                </div>
@@ -817,42 +797,27 @@
                                         <div class="work_format">
                                             <div class="text">근무형태</div>
                                             <div class="input">
-                                                <c:set var="workTypeCnt" value="0" />
-                                                <c:forEach var="data" items="${WORK}">
-                                                    <label for="workType${ workTypeCnt}">${data.WORK_TYPE_NAME }</label>
-                                                    <c:choose>
-                                                        <c:when test="${!empty data.WORK_TYPE}">
-                                                            <input type="checkbox" name="workType" id="workType${workTypeCnt }" value="${ data.SCD_CAT}" checked="checked">
-                                                        </c:when>
-                                                        <c:otherwise>
-                                                            <input type="checkbox" name="workType" id="workType${workTypeCnt }" value="${ data.SCD_CAT}">
-                                                        </c:otherwise>
-                                                    </c:choose>
-                                                    <c:set var="workTypeCnt" value="${workTypeCnt + 1 }"></c:set>
-                                                </c:forEach>
+                                               <label for="workType0">무관</label>
+                                               <input type="checkbox" name="workType" id="workType0" value="0" checked="checked">
+                                               <label for="workType1">정규직</label>
+                                               <input type="checkbox" name="workType" id="workType1" value="1">
+                                               <label for="workType2">계약직</label>
+                                               <input type="checkbox" name="workType" id="workType2" value="2">
+                                               <label for="workType3">시간직</label>
+                                               <input type="checkbox" name="workType" id="workType3" value="3">
+                                               <label for="workType4">기타</label>
+                                               <input type="checkbox" name="workType" id="workType4" value="4">
                                             </div>
                                         </div>
                                         <div class="sal">
                                             <div class="text">희망연봉</div>
                                             <div class="input">
-                                                <input type="radio" name="sal" value="0" id="sal0">
+                                                <input type="radio" name="sal" value="0" id="sal0" checked="checked">
                                                 <label for="sal0">내규</label>
                                                 <input type="radio" name="sal" value="1" id="sal1">
                                                 <label for="sal1">일반</label>
-                                               <c:choose>
-                                                	<c:when test="${DATA.PAY_GBN eq 0}">
-                                                		<input placeholder="최저금액" name="salMin" class="salinput"
-		                                                    value="${DATA.PAY_MIN}" id="minSal" disabled>만원 ~
-		                                                <input placeholder="최대금액" name="salMax" class="salinput"
-		                                                    value="${DATA.PAY_MAX}" id="maxSal" disabled>만원	
-                                                	</c:when>
-                                                	<c:when test="${DATA.PAY_GBN eq 1}">
-                                                		<input type="text" placeholder="최저금액" name="salMin"
-		                                                    value="${DATA.PAY_MIN}" id="minSal" >만원 ~
-		                                                <input type="text" placeholder="최대금액" name="salMax"
-		                                                    value="${DATA.PAY_MAX}" id="maxSal" >만원	
-                                                	</c:when>                            	
-                                                </c:choose>                                                    
+                                          		<input placeholder="최저금액" name="salMin" id="minSal" disabled class="salinput">만원 ~
+                                                <input placeholder="최대금액" name="salMax" id="maxSal" disabled class="salinput">만원	
                                             </div>
                                         </div>
                                     </div>
@@ -864,21 +829,6 @@
                             <div class="dtl">
                                 <div class="header">자격증</div>
                                 <div class="con add_box">
-                                    <c:if test="${!empty QUAL }">
-                                        <c:set var="qualCnt" value="0" />
-                                        <c:forEach var="data" items="${QUAL }">
-                                            <div class="input_box" id="qualInput${qualCnt }" no="${qualCnt }" noName="qualNo">
-                                                <input type="button" class="minus_btn" id="delBtn" value="－">
-                                                <div class="data_container">
-                                                 	<input type="hidden" name="qualNo" value="${data.QUAL_NO }" >
-                                                    <input type="text" name="qualName" value="${data.QUAL_NAME }" readonly="readonly">
-                                                    <input type="text" name="issuAgcy" value="${data.ISSU_AGCY }">
-                                                    <input type="date" name="passDate" value="${data.PASS_DATE }">
-                                                </div>
-                                            </div>
-                                            <c:set var="qualCnt" value="${qualCnt + 1 }" />
-                                        </c:forEach>
-                                    </c:if>
                                     <input type="button" class="plus_btn" id="addBtn1" value="＋">
                                 </div>
                             </div>
@@ -888,21 +838,6 @@
                             <div class="dtl">
                                 <div class="header">외국어능력</div>
                                 <div class="con add_box flang">
-                                    <c:if test="${!empty FLANG }">
-                                        <c:set var="flangCnt" value="0" />
-                                        <c:forEach var="data" items="${FLANG }">
-                                            <div class="input_box" id="flangInput${flangCnt }" no="${flangCnt }" noName="flangNo">
-                                                <input type="button" class="minus_btn" id="delBtn" value="－">
-                                                <div class="data_container">
-                                              	    <input type="hidden" name="flangNo" value="${data.FLANG_NO }">
-                                                    <input type="text" name="flangName" value="${data.FLANG_NAME }">
-                                                    <input type="text" name="flangType" value="${data.FLANG_TYPE }">
-                                                    <input type="text" name="flangGrade" value="${data.FLANG_GRADE }">
-                                                </div>
-                                            </div>
-                                            <c:set var="flangCnt" value="${ flangCnt + 1}" />
-                                        </c:forEach>
-                                    </c:if>
                                     <input type="button" class="plus_btn" id="addBtn2" value="＋">
                                 </div>
                             </div>
@@ -912,37 +847,6 @@
                             <div class="dtl">
                                 <div class="header">경력사항</div>
                                 <div class="con add_box">
-                                    <c:if test="${!empty CARR }">
-                                        <c:set var="carrCnt" value="0" />
-                                        <c:forEach var="data" items="${CARR }">
-                                            <div class="input_box more" id="carrInput${carrCnt }" no="${carrCnt }" noName="carrNo">
-                                                <input type="button" class="minus_btn r" id="delBtn" value="－">
-                                                <div class="data_container ">
-                                                    <div class="detail">
-                                                        기업 <input type="text" name="cName" value="${data.C_NAME }">
-                                                    </div>
-                                                    <div class="detail">
-                                                        부서 <input type="text" name="dpart" value="${data.DPART }"> 
-                                                        직책 <input type="text" name="pos" value="${data.POS }">
-                                                    </div>
-                                                    <div class="detail">
-                                                        재직기간 <input type="date" name="carrStDate" value="${data.ST_DATE }">
-                                                        ~ <input type="date" name="carrEndDate" value="${data.END_DATE }">
-                                                        재직여부 
-                                                        <select name="tureChk" value="${data.TURE_CHK }" selValue="${data.TURE_CHK }" >
-                                                        	<option value="퇴직">퇴직</option>
-                                                        	<option value="재직">재직</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="detail">
-                                                        직무내용
-                                                        <textarea name="carrCntt" spellcheck="false">${data.CARR_CNTT }</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <c:set var="carrCnt" value="${ carrCnt + 1}" />
-                                        </c:forEach>
-                                    </c:if>
                                     <input type="button" class="plus_btn" id="addBtn3" value="＋">
                                 </div>
                             </div>
@@ -952,32 +856,6 @@
                             <div class="dtl">
                                 <div class="header">학력사항</div>
                                 <div class="con add_box">
-                                    <c:if test="${!empty EDU }">
-                                        <c:set var="eduCnt" value="0" />
-                                        <c:forEach var="data" items="${EDU }">
-                                            <div class="input_box more" id="eduInput${eduCnt }" no="${eduCnt }" noName="eduNo">
-                                                <input type="button" class="minus_btn r" id="delBtn" value="－">
-                                                <div class="data_container ">
-                                                    <div class="detail">
-                                                        학교 <input type="text" name="schName" value="${data.SCH_NAME }">
-                                                    </div>
-                                                    <div class="detail">
-                                                        학부 <input type="text" name="sol" value="${data.SOL }">
-                                                        전공 <input type="text" name="major" value="${data.MAJOR }">
-                                                    </div>
-                                                    <div class="detail">
-                                                        재학기간 <input type="date" name="eduStDate" value="${data.ST_DATE }">
-                                                        ~ <input type="date" name="eduEndDate" value="${data.END_DATE }">
-                                                    </div>
-                                                    <div class="detail">
-                                                        특이사항
-                                                        <textarea name="eduCntt" spellcheck="false">${data.EDU_ETC }</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <c:set var="eduCnt" value="${ eduCnt + 1}" />
-                                        </c:forEach>
-                                    </c:if>
                                     <input type="button" class="plus_btn" id="addBtn4" value="＋">
                                 </div>
                             </div>
@@ -987,31 +865,6 @@
                             <div class="dtl">
                                 <div class="header">직무교육</div>
                                 <div class="con add_box ">
-                                    <c:if test="${!empty IEDU }">
-                                        <c:set var="ieduCnt" value="0" />
-                                        <c:forEach var="data" items="${IEDU }">
-                                            <div class="input_box more" id="ieduInput${ieduCnt }" no="${ieduCnt }" noName="ieduNo">
-                                                <input type="button" class="minus_btn r" id="delBtn" value="－">
-                                                <div class="data_container ">
-                                                    <div class="detail">
-                                                        기관 <input type="text" name="ieduName" value="${data.IEDU_NAME }">
-                                                    </div>
-                                                    <div class="detail">
-                                                        훈련과정 <input type="text" name="coseName" value="${data.COSE_NAME }">
-                                                    </div>
-                                                    <div class="detail">
-                                                        교육기간 <input type="date" name="ieduStDate" value="${data.ST_DATE }">
-                                                        ~ <input type="date" name="ieduEndDate" value="${data.END_DATE }">
-                                                    </div>
-                                                    <div class="detail">
-                                                        교육내용
-                                                        <textarea name="ieduCntt" spellcheck="false">${data.EDU_CNTT }</textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <c:set var="ieduCnt" value="${ ieduCnt + 1}" />
-                                        </c:forEach>
-                                    </c:if>
                                     <input type="button" class="plus_btn" id="addBtn5" value="＋">
                                 </div>
                             </div>
@@ -1021,19 +874,6 @@
                             <div class="dtl">
                                 <div class="header">자기소개서</div>
                                 <div class="con add_box">
-                                    <c:if test="${!empty SINTRO }">
-                                        <c:set var="sintroCnt" value="0" />
-                                        <c:forEach var="data" items="${SINTRO }">
-                                            <div class="input_box more text_box" id="sintroInput${sintroCnt }" no="${sintroCnt }" noName="sintroNo">
-                                                <input type="button" class="minus_btn r" id="delBtn" value="－">
-                                                <input type="text" name="sintroName" value="${data.SINTRO_NAME }">
-                                                <div class="data_container">
-                                                    <textarea name="sintroCntt" spellcheck="false">${data.SINTRO_CNTT }</textarea>
-                                                </div>
-                                            </div>
-                                            <c:set var="sintroCnt" value="${ sintroCnt + 1}" />
-                                        </c:forEach>
-                                    </c:if>
                                     <input type="button" class="plus_btn" id="addBtn6" value="＋">
                                 </div>
                             </div>
@@ -1043,22 +883,6 @@
                             <div class="dtl">
                                 <div class="header">첨부파일</div>
                                 <div class="con add_box" id="fileBox">
-                                    <c:if test="${!empty ATTACH }">
-                                        <c:set var="attchCnt" value="0" />
-                                        <c:forEach var="data" items="${ATTACH }">
-                                            <div class="input_box " id="attchInput${attchCnt }" no="${attchCnt }" noName="attchNo">
-                                                <input type="button" class="minus_btn" id="delBtn" value="－">
-                                                <div class="data_container file_container">
-                                                	<input type="hidden" id="mFile${ attchCnt}" name="fileNm" value="${data.ATTCH_NAME }">
-                                                    <div class="fileSNm" id="fileName${attchCnt }">
-                                                        ${data.ATTCH_NAME }
-                                                    </div>
-                                                    <button type="button" id="fileBtn" target="${ attchCnt }">파일업로드</button>
-                                                    <c:set var="attchCnt" value="${ attchCnt + 1}" />
-                                                </div>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
                                     <input type="button" class="plus_btn" id="addBtn7" value="＋">
                                 </div>
                             </div>

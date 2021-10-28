@@ -23,6 +23,11 @@ main {
 .locSelectBox{
 	height: 100%;
 }
+.salinput{
+	display: inline-block;
+	width: 150px;
+	height: 30px;
+}
 .main_button {
   background-color: #555;
   color: white;
@@ -480,7 +485,7 @@ label {
 }
 
 /* 자격증 */
-.input_box .sal .input input[type="text"] {
+.input_box .sal .input .salinput{
   width: 100px;
   margin: 0 10px;
 }
