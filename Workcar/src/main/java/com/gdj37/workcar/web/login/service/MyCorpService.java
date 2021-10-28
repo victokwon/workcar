@@ -62,4 +62,38 @@ public class MyCorpService implements IMyCorpService {
 		return imycorpdao.outCMember(params);
 	}
 
+	
+	
+	@Override
+	public List<HashMap<String, String>> getAttndList(String memNo) throws Throwable {
+		return imycorpdao.getAttndList(memNo);
+	}
+	@Override
+	public int delAttention(String target) throws Throwable {
+		return imycorpdao.delAttention(target);
+	}
+	@Override
+	public HashMap<String, String> getSuggetEmp(HashMap<String, Object> params) throws Throwable {
+		return imycorpdao.getSuggetEmp(params);
+	}
+	@Override
+	public int addAttned(HashMap<String, String> params) throws Throwable {
+		return imycorpdao.addAttned(params);
+	}
+
+	@Override
+	public int getEmpCnt(HashMap<String, String> params) throws Throwable {
+		return imycorpdao.getEmpCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getEmp(HashMap<String, String> params) throws Throwable {
+		return imycorpdao.getEmp(params);
+	}
+
+	@Override
+	public int JC(HashMap<String, String> params) throws Throwable {
+		return imycorpdao.JC(params);
+	}
+
 }
