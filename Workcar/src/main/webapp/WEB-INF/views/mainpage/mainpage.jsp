@@ -45,7 +45,7 @@
 		<div id="sdienav_ul">
 			<!-- 링크작업 -->
 			<ul>
-				<div onclick="linkGo(#)">채용정보</div>
+				<div onclick="linkGo('EmploySearchList')">채용정보</div>
 				<li onclick="linkGo(#)">통합검색</li>
 				<li onclick="linkGo(#)">조회수 100</li>
 				<li onclick="linkGo(#)">평점 100</li>
@@ -59,9 +59,9 @@
 				<li onclick="linkGo(#)">통합검색</li>
 			</ul>
 			<ul>
-				<div onclick="linkGo(#)">참여공간</div>
-				<li onclick="linkGo(#)">공지사항</li>
-				<li onclick="linkGo(#)">자주하는 질문</li>
+				<div onclick="linkGo('mainSpace')">참여공간</div>
+				<li onclick="linkGo('ntcSpaceABList')">공지사항</li>
+				<li onclick="linkGo('quesSpace')">자주하는 질문</li>
 			</ul>
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
@@ -101,7 +101,7 @@
 		<div class="topnav">
 
 			<!-- 로고 -->
-			<div class="topnav-centered">
+			<div class="topnav-centered" onclick="linkGo('mainpage')">
 				<div class="logo_img"></div>
 			</div>
 
@@ -183,17 +183,17 @@
 				<div class="contents">
 					<div class="wrap">
 						<!-- 링크작업 -->
-						<div class="main_contents_job">
+						<div class="main_contents_job" onclick="linkGo('EmploySearchList')">
 							<span>채용검색</span>
 							<!-- display:none; div 상세메뉴선택 -->
 						</div>
 
-						<div class="main_contents_people">
+						<div class="main_contents_people" onclick="linkGo(#)">
 							<span>인재검색</span>
 							<!-- display:none; div 상세메뉴선택 -->
 						</div>
 
-						<div class="main_contents_company">
+						<div class="main_contents_company" onclick="linkGo(#)"> 
 							<span>기업검색</span>
 							<!-- display:none; div 상세메뉴선택 -->
 						</div>
@@ -219,7 +219,7 @@
 									<span>이력서관리</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card" onclick="linkGo(#)">
 								<div class="wrap">
 									<div class="img_activity"></div>
 								</div>
@@ -227,7 +227,7 @@
 									<span>활동내역</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card" onclick="linkGo(#)">
 								<div class="wrap">
 									<div class="img_attention"></div>
 								</div>
@@ -274,6 +274,7 @@
 							</div>
 						</div>
 					</c:when>
+					
 					<c:when test="${sMTy eq 3}">
 						<div class="menu_cards mM">
 							<div class="menu_card">

@@ -182,4 +182,20 @@ public class ResumeDAO implements IResumeDAO{
 		return sqlSession.selectOne("Resume_SQL.getUserDtl",params);
 	}
 
+	
+	
+	
+	
+	@Override
+	public int getResumeEmpCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Resume_SQL.getResumeEmpCnt",params);
+	}
+	@Override
+	public List<HashMap<String, String>> getResume(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Resume_SQL.getResume",params);
+	}
+	@Override
+	public int PA(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("Resume_SQL.PA",params);
+	}
 }
