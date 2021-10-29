@@ -16,8 +16,17 @@ main {
   margin: 0 auto;
   border-radius: 0 0 8px 8px;
 }
-
-.main_button {
+.zero{
+	border-radius: 5px;
+	background-color: #eee;
+	font-weight: bolder;
+	font-size: 32px;
+	text-align: center;
+	line-height: 100px;
+	width: 100%;
+	height: 100px;
+}
+.main_button_box .main_button {
   background-color: #555;
   color: white;
   float: left;
@@ -30,9 +39,10 @@ main {
   height: 100%;
 }
 
-.main_button:hover {
-  background-color: #88a2f2;
+.main_button_box .main_button:hover {
+	background-color: #88a2f2;
 }
+
 
 .main_content {
   display: flex;
@@ -182,15 +192,15 @@ tr {
 }
 
 /* 諛뺤뒪 而⑦듃濡?*/
-.emp_attention {
+.reporting {
   display: table;
 }
-.emp_suggest {
+.reported {
   display: none;
 }
 
-.emp_attention_list,
-.emp_suggest_list {
+.reporting_list,
+.reported_list {
   display: flex;
   width: 100%;
   height: 100px;
@@ -210,10 +220,10 @@ tr {
 }
 
 .dtl_box {
+	width: calc(100% - 70px);
   display: flex;
-  width: calc(70% - 60px);
   margin: 15px 0;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .job_post_title {
@@ -231,7 +241,7 @@ tr {
 .button_container {
   display: flex;
   flex-direction: column;
-  width: calc(30% - 60px);
+  width: 100%;
   margin: 15px;
 }
 .button_container .job_post_state,
@@ -246,8 +256,9 @@ tr {
   height: 30px;
   margin: auto;
 }
-.main_content .button_box .n_hovern,
+.main_content .button_box .n_hover,
 .main_content .button_box .n_hover{
+	border: 0px;
 	background-color: #777;
 	color: white;
 	cursor: default;
@@ -267,17 +278,18 @@ table .button_container .button_box button
 
 /* ?몃??ы빆 諛뺤뒪 */
 
-.emp_suggest_dtl .row .text,
-.emp_attention_dtl .row .text {
+.reported_dtl .row .text,
+.reporting_dtl .row .text {
   font-size: 10px;
-  width: 50px;
+  width: 60px;
   border-right: 1px solid #333;
   text-align: right;
   margin: 5px 0;
   margin-right: 3px;
 }
-.emp_suggest_dtl .row .data,
-.emp_attention_dtl .row .data {
+
+.reported_dtl .row .data,
+.reporting_dtl .row .data {
   font-size: 10px;
   width: 100px;
   text-align: center;
@@ -286,42 +298,44 @@ table .button_container .button_box button
   overflow: hidden; 
   text-overflow: ellipsis;
 }
-.main_box .emp_suggest_dtl .row .null,
-.main_box .emp_attention_dtl .row .null {
+.main_box .reported_dtl .row .null,
+.main_box .reporting_dtl .row .null {
 	border-bottom: 0px;
 }
+.reporting_dtl .row .title, .reported_dtl .row .title{
+	width: 260px;
+}
 
-
-.emp_attention_dtl,
-.emp_suggest_dtl {
+.reporting_dtl,
+.reported_dtl {
   height: 100%;
 }
-.emp_attention_dtl .col,
-.emp_suggest_dtl .col {
+.reporting_dtl .col,
+.reported_dtl .col {
   display: flex;
   width: 100%;
   height: 50%;
   flex-direction: row;
   background-color: #eee;
 }
-.emp_attention_dtl .row,
-.emp_suggest_dtl .row {
+.reporting_dtl .row,
+.reported_dtl .row {
   display: flex;
   flex-direction: row;
-  width: 50%;
+
   height: 100%;
 }
-.emp_attention_dtl .row .text,
-.emp_attention_dtl .row .data,
-.emp_suggest_dtl .row .text,
-.emp_suggest_dtl .row .data {
+.reporting_dtl .row .text,
+.reporting_dtl .row .data,
+.reported_dtl .row .text,
+.reported_dtl .row .data {
   border-right: 0px;
   font-size: 13px;
   font-weight: bold;
   line-height: 25px;
 }
-.emp_attention_dtl .row .data,
-.emp_suggest_dtl .row .data {
+.reporting_dtl .row .data,
+.reported_dtl .row .data {
   border-bottom: 1px solid #999;
   margin: auto 0;
 }
@@ -360,3 +374,36 @@ table .button_container .button_box button
   width: 100%;
   border: 0px;
 }
+
+
+
+
+.inner_wrap{
+	max-height:480px; 
+	width: 100%;
+	
+}
+#reported_paging_wrap{
+	display: none;
+}
+#reporting_paging_wrap, #reported_paging_wrap{
+	text-align: center;
+	background-color: #eee;
+	height: 20pxpx;
+	width: 100%;
+	margin: 10px auto;
+}
+#reporting_paging_wrap span, #reported_paging_wrap span{
+	color: black;
+	font-size: 20px;
+	font-weight: bold;
+	width: 10px;
+	margin: 0 5px;
+	height: 20px;
+}
+#reporting_paging_wrap span:hover, #reported_paging_wrap span:hover{
+	cursor: pointer;
+	color: #666;
+	font-weight: bolder;
+}
+	
