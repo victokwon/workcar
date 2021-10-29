@@ -18,34 +18,32 @@
 <link rel="stylesheet" type="text/css"
 	href="resources\css\mainpage\searchbar.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\manage\manageReport.css">
+   href="resources\css\change\namechangeneed.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\manage\pop.css">
+   href="resources\css\change\pop.css">
    
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
 	src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript"
-	src="resources\script\manage\ReportListNPrcss.js"></script>
+	src="resources\script\change\namechangeneed1.js"></script>
 <script type="text/javascript"
-	src="resources\script\manage\ReportPop.js"></script>
-	 
+	src="resources\script\change\namechangeneed2.js"></script>
+<script type="text/javascript"
+	src="resources\script\change\namechangeneed3.js"></script>
+	
 <script type="text/javascript">
 $(function () {
 	$(function () {
-		  $("#reporting").on("click", function () {
-		    $(".reporting").css("display", "table");
-		    $(".reported").css("display", "none");
-		    $("#reporting_paging_wrap").show()
-		    $("#reported_paging_wrap").hide()
+		  $("#empAttention").on("click", function () {
+		    $(".emp_attention").css("display", "table");
+		    $(".emp_suggest").css("display", "none");
 		  });
 		  
-		  $("#reported").on("click", function () {
-		    $(".reporting").css("display", "none");
-		    $(".reported").css("display", "table");
-		    $("#reported_paging_wrap").show()
-		    $("#reporting_paging_wrap").hide()
+		  $("#empSuggest").on("click", function () {
+		    $(".emp_attention").css("display", "none");
+		    $(".emp_suggest").css("display", "table");
 		  });
 		});
 	
@@ -60,9 +58,6 @@ function linkGo(url){
 </script>
 </head>
 <body>
-<div class="pop_wrap">
-	<div class="pop-container"></div> 
-</div>
 <!-- 헤더 -->
 	<div id="mySidenav" class="sidenav">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -186,44 +181,73 @@ function linkGo(url){
 		<div id="test"></div>
 		<div class="main_button_box">
 			<button type="button" class="main_button">계정관리</button>
-			<button type="button" class="main_button">회원관리</button>
-			<button type="button" class="main_button">신고관리</button>
-			<button type="button" class="main_button">평점관리</button>
+			<button type="button" class="main_button">채용공고</button>
+			<button type="button" class="main_button">활동내역</button>
+			<button type="button" class="main_button">관심정보</button>
 		</div>
 		
+	 <div class="pop-container">
+        <div class="pop-out-container">
+        <button type="button" class="pop-close-btn">X</button>
+            <div class="pop-in-container">
+                <div class="pop-text-header">
+                    <h1></h1>
+                </div>
+                <!-- 5개 리스트 -->
+                <div class="list_wrap">
+                    <table>
+                        <thead>
+                            <tr eNo="다시 선택">
+                                <th class='td_no'>번호</th>
+                                <th class='td_name'>내용</th>
+                                <th class='td_date'>마감일</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list_box" >
+                        	<tr eNo="1">
+                        		<td class='td_no'></td>
+                        		<td class='td_name'></td>
+                        		<td class='td_date'></td>
+                        	</tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" id="page">
+                </div>
+                <hr>
+                <div class="paging_wrap"></div>
+                <div class="pop-input">
+               		<div class="text_box"></div>
+                    <input type="button" class="sch-btn" id="selectBtn" rNo="" value="요청하기">
+                </div>
+            </div>
+        </div>
+    </div>
+    
 		<div class="main_info">
 			<div id="main_inter" class="main_content">
 				<div class="vertical_menu">
-					<a href="#" id="reporting">처리중</a> 
-					<a href="#" id="reported">전체</a>
+	<!-- 				<form action="#" id="resumeGo">
+						<input type="hidden" id="userNO" name="userNO">
+						 <input type="hidden" id="resumeNO" name="resumeNO">
+					</form> -->
+					<!-- 이력서 리스트 메뉴 출력 -->
+					<a href="#" id="empAttention">관심인재</a> <a href="#" id="empSuggest">인재추천</a>
 				</div>
 				
 				<div class="main_box">
-					<div class="inner_wrap">
-						<table class="reporting">
-						<tr>
-							<td>
-								<div class="zero">처리할 내용이 없습니다.</div>
-							</td>
-						</tr>
-						</table>
-	                    <table class="reported">
-	                    
-	                    </table>
-					</div>
-					
-					<form action="#" id="ReportingForm">
-						<input type="hidden" id="prcss" name="prcss" value="ing">
-						<input type="hidden" id="Ipage" name="page" value="${page }">
+					<!-- <table class="please_apply"> -->
+					<table class="emp_attention">
+					</table>
+					<!-- <table class="company_grade"> -->
+					<form action="#" id="suggetEmpForm">
 					</form>
-					<div id="reporting_paging_wrap"></div>
-					
-					<form action="#" id="ReportedForm">
-						<input type="hidden" id="prcss" name="prcss" value="ed">
-						<input type="hidden" id="Dpage" name="page" value="${page }">
-					</form>
-					<div id="reported_paging_wrap"></div>
-					
+					<table class="emp_suggest">
+							<tr>
+								<td class="job_post_add">
+									<button type="button" class="" id="addEmpBtn">인재 더보기</button>
+								</td>
+							</tr>
+					</table>
 				</div>
 			</div>
 

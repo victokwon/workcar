@@ -84,11 +84,11 @@
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<ul>
-						<div onclick="linkGo(#)">마이페이지</div>
-						<li onclick="linkGo(#)">계정관리</li>
-						<li onclick="linkGo(#)">회원관리</li>
-						<li onclick="linkGo(#)">신고관리</li>
-						<li onclick="linkGo(#)">평점관리</li>
+						<div onclick="linkGo('manageRegist')">마이페이지</div>
+						<li onclick="linkGo('manageRegist')">계정관리</li>
+						<li onclick="linkGo('manageMemberList)">회원관리</li>
+						<li onclick="linkGo('manageReport')">신고관리</li>
+						<li onclick="linkGo('manageStar)">평점관리</li>
 					</ul>
 				</c:when>
 			</c:choose>
@@ -134,7 +134,7 @@
 				<c:when test="${sMTy eq 3}">
 					<div class="topnav-right">
 						<div class="alarm"></div>
-						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<a href="manageRegi"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
@@ -277,7 +277,7 @@
 					
 					<c:when test="${sMTy eq 3}">
 						<div class="menu_cards mM">
-							<div class="menu_card">
+							<div class="menu_card"onclick="linkGo('manageRegist')">
 								<div class="wrap">
 									<div class="img_settings"></div>
 								</div>
@@ -285,7 +285,7 @@
 									<span>계정관리</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card"onclick="linkGo('manageMemberList')">
 								<div class="wrap">
 									<div class="img_member"></div>
 								</div>
@@ -293,7 +293,7 @@
 									<span>회원관리</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card"onclick="linkGo('manageReport')">
 								<div class="wrap">
 									<div class="img_report"></div>
 								</div>
@@ -301,7 +301,7 @@
 									<span>신고관리</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card" onclick="linkGo('manageReport')">
 								<div class="wrap">
 									<div class="img_grade"></div>
 								</div>
