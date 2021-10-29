@@ -349,7 +349,7 @@ function drawPaging(pb) {
 								<input type="hidden" name="page" id="page" value="${page}" />
 								<input type="hidden" name="no" id="no" />
 								<input type="button" value="검색" id="searchBtn" />
-								<c:if test="${!empty sMNo}">
+								<c:if test="${sMTy eq 3}">
 									<input type="button" value="작성" id="addBtn" />
 								</c:if>
 							</form>
