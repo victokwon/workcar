@@ -98,7 +98,7 @@ function drawPaging(pb) {
          }
          
          if($("#page").val() == pb.maxPcount){
-            html += "   <span page=\"" + pb.maxPcoung + "\">다음</span>"   
+            html += "   <span page=\"" + pb.maxPcount + "\">다음</span>"   
          }else{
             html += "   <span page=\"" + ($("#page").val()*1 + 1) + "\">다음</span>   "
          }

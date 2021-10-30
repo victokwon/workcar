@@ -31,4 +31,24 @@ public class EmploySearchDAO implements IEmploySearchDAO{
 	public List<HashMap<String, String>> getQual(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("EmploySearch.getQual", params);
 	}
+
+	@Override
+	public int getAddContCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("EmploySearch.getAddContCnt", params);
+	}
+
+	@Override
+	public int getSectorCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("EmploySearch.getSectorCnt", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getSector(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("EmploySearch.getSector", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getRegion(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("EmploySearch.getRegion", params);
+	}
 }

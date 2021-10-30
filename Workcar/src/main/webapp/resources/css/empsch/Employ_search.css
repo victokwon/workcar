@@ -160,14 +160,15 @@ main > .main_wrap {
   height:30px;
   border-radius: 8px;
   margin-top:5px;
+  border:1px solid grey;
 }
 .main_section .date{
   font-weight:bolder;
 }
 .main_section .input_box,
 #more .input_box{
-  height: 25px;
-  width:auto;
+  height: 22px;
+  width:330px;
   border-radius: 8px;
   font-size: 17px;
   border: 1px solid grey;
@@ -224,7 +225,8 @@ main > .main_wrap {
  	margin:10px 10px 0px 0px;
 }
 
- #qualSchBtn{
+ #qualSchBtn,
+ #sectorBtn{
 	border-radius: 8px;
 	width:100px;
 	height: 25px;
@@ -251,13 +253,14 @@ main > .main_wrap {
 }
 .plus_btn:hover,
 .minus_btn:hover,
-#qualSchBtn:hover{
+#qualSchBtn:hover,
+#sectorBtn:hover{
   cursor: pointer;
   border: 1px solid #1b50ee;
   background-color: #3765f0;
   color: white;
 }
-#cancleBtn{
+#cancelBtn{
 	position: absolute;
 	right: 20px;
 	top: 20px;
@@ -269,6 +272,13 @@ main > .main_wrap {
 }
 .paging_wrap{
 	text-align:center;
+}
+.job{
+	margin-top:5px;
+}
+/* tr 클릭 막기 */
+#qual_th{
+	pointer-events : none;
 }
 /* 카드형식 이미지 */
 table{
@@ -338,6 +348,16 @@ table{
 .main_margin{
   height:82px;
 }
+.location{
+	width:100%;
+}
+.location .input{
+	display:inline-block;
+	margin-top:5px;
+}
+.location .input select{
+	border:1px solid grey;
+}
 /* 급여 */
 
 .input {
@@ -351,7 +371,6 @@ table{
   font-weight: bold;
   padding: 0px 10px;
   width: 150px;
-  height: 100%;
   border: 0px;
 }
 #minSal,

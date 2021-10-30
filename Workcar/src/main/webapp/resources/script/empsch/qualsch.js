@@ -1,4 +1,6 @@
 $(function () {
+	let qualCnt = 0;
+	
 	$(".pop-container").on('keydown', function(event) {
 	  if (event.keyCode === 13) {
 	    event.preventDefault();
@@ -7,30 +9,44 @@ $(function () {
 	  
 /* js에서 api 데이터 호출해서 활용하는 방법 =?= controller에서 api데이터 호출해서 활용하는 방법*/
 	$("#qualSchBtn").on("click", function () {
-		$(".pop-container").show();
+		$(".pop-container").attr("btn","q")
+		$("#qualList").attr("no", $(this).attr("no"))
+		$(".pop-text-header").children("h1").html("자격증 검색")
+		$("#qualList").html("");
+		$("#schCName").val("");
+		$("#schQualBtn").show()
+	    $("#schSectorBtn").hide()
 		
+		let cnt = $("input[name=qualno]").length
+		if(cnt < 3){
+			let html = "";
+			$(".pop-container").show();
+
+		}else{
+			alert("안됨")
+		}
 	});
   
-	$("#cancleBtn").on("click", function(){
+	$("#cancelBtn").on("click", function(){
 		$(".pop-container").hide();
+
 	});
   
 	$("#schQualBtn").on("click", function () {
 		schQual();
 	});
 	
-	$(".qual_wrap").on("click", "tr", function () {
-	    $(".input_box").val($(this).attr("qName"));
-	    $("#qualno").val($(this).attr("qNo"));
-	    $(".pop-container").hide();
-	});
-  
-	$(".paging_wrap").on("click","span",function(){
+	
+	/*$(".paging_wrap").on("click","span",function(){
 		$("#pop_page").val($(this).attr("pop_page"));
 		schQual();
-	})
+	})*/
+	$(".lisence_box").on("click", ".minus_btn", function () {
+		$(this).parent().remove("");
+	});
 	
 });
+
 function schQual() {
    let params = $("#qualSchForm").serialize();
    
@@ -105,3 +121,18 @@ function popdrawPaging(pb) {
 			
 		$(".paging_wrap").html(html)
 	}
+	
+function qaulOverChk(){
+	   	let arr = new Array()
+       $("input[name=qualno]").each(function(idx){
+         arr.push($(this).val())
+         })
+         let set = new Set(arr)
+         console.log(arr)
+         console.log(set)
+         if(arr.length != set.size){
+               alert("자격증이 중복되었습니다.")
+               return false
+          }
+          return true
+  }
