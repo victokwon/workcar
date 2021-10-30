@@ -32,4 +32,24 @@ public class EmploySearchService implements IEmploySearchService{
 	public List<HashMap<String, String>> getQual(HashMap<String, String> params) throws Throwable {
 		return iEmploySearchDAO.getQual(params);
 	}
+
+	@Override
+	public int getAddContCnt(HashMap<String, String> params) throws Throwable {
+		return iEmploySearchDAO.getAddContCnt(params);
+	}
+
+	@Override
+	public int getSectorCnt(HashMap<String, String> params) throws Throwable {
+		return iEmploySearchDAO.getSectorCnt(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getSector(HashMap<String, String> params) throws Throwable {
+		return iEmploySearchDAO.getSector(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getRegion(HashMap<String, String> params) throws Throwable {
+		return iEmploySearchDAO.getRegion(params);
+	}
 }

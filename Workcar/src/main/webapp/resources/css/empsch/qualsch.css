@@ -36,6 +36,7 @@ html {
 	cursor:pointer;
 	text-align:center;
 }
+/* 팝업창 tr목록 호버 */
 .qual_wrap table tbody tr:hover{
 	background-color:#999;
 	color:white;
@@ -76,14 +77,16 @@ html {
   border: 1px solid #eee;
   padding: 0 20px;
 }
-.pop-input #schQualBtn {
+.pop-input #schQualBtn,
+#schSectorBtn {
   float: right;
   width: 100px;
   border-radius: 30px;
   background-color: #88a2f2;
   color: white;
 }
-.pop-input #schQualBtn:hover {
+.pop-input #schQualBtn:hover,
+.pop-input #schSectorBtn:hover {
   cursor: pointer;
   background-color: #1b50ee;
   font-weight: bold;
