@@ -20,8 +20,8 @@ body, html {
 .pop-container {
 	z-index: 9999;
 	position: fixed;
-	top: 50%;
-	left: 50%;
+	top: calc(50%);
+	left: calc(50% );
 }
 .text_box{
 	width: 100%;
@@ -35,7 +35,7 @@ body, html {
 	position: fixed;
 	box-sizing: border-box;
 	border: 2px solid #88a2f2;
-	top: calc(50% - 200px);
+	top: calc(50% - 350px);
 	left: calc(50% - 350px);
 	padding: 30px 0;
 }
@@ -70,6 +70,9 @@ body, html {
 	width: 100px;
 	font-weight: bold;
 	margin-right: 10px;
+} 
+.text_box .long {
+	width: 170px;
 }
 .body{
 	line-height: 30px;

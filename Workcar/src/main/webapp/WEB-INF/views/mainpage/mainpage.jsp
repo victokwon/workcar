@@ -301,7 +301,7 @@
 									<span>신고관리</span>
 								</div>
 							</div>
-							<div class="menu_card" onclick="linkGo('manageReport')">
+							<div class="menu_card" onclick="linkGo('manageStar')">
 								<div class="wrap">
 									<div class="img_grade"></div>
 								</div>

@@ -1,15 +1,31 @@
 $(function(){
-	getIDcl()
-	getDDcl()
+	getIGrd()
+  $("#staring").on("click", function () {
+  	getIGrd()	
+    $(".staring").css("display", "table");
+    $(".stared").css("display", "none");
+    $("#staring_paging_wrap").show()
+    $("#stared_paging_wrap").hide()
+  });
+  
+  $("#stared").on("click", function () {
+	getDGrd()	
+    $(".staring").css("display", "none");
+    $(".stared").css("display", "table");
+    $("#stared_paging_wrap").show()
+    $("#staring_paging_wrap").hide()
+  });
+
 	
-   $("#reporting_paging_wrap").on("click","span",function(){
+	
+   $("#staring_paging_wrap").on("click","span",function(){
 	 $("#Ipage").val($(this).attr("page"))
-     getIDcl()
+     getIGrd()
    })
 	
-   $("#reported_paging_wrap").on("click","span",function(){
+   $("#stared_paging_wrap").on("click","span",function(){
 	 $("#Dpage").val($(this).attr("page"))
-     getDDcl()
+     getDGrd()
    })
    
    $(".pop-container").on("click",".prcssBtn",function(){
@@ -18,13 +34,13 @@ $(function(){
 			alert("미처리 상태로 처리할 수 없습니다.")
 			return	   	
    		}else if($("#prcssGbn").val() == '2'){
-   			if($("#dclareRefuse").val() ==""){
+   			if($("#gradeRefuse").val() ==""){
    				alert("거절내용이 누락되었습니다.")
-   				$("#dclareRefuse").focus()
+   				$("#gradeRefuse").focus()
    				return
    			}
    		}
-		DclUpdate()
+		GrdUpdate($(this).parent().parent().parent().parent().parent().parent().parent().attr("class"))
    		$(".pop_wrap").hide();
 		$(".pop-container").html("")
    })
@@ -34,18 +50,18 @@ $(function(){
     
 /*이벤트 온 오프 처리*/
 
-function getIDcl(){
-	let params = $("#ReportingForm").serialize()
+function getIGrd(){
+	let params = $("#staringForm").serialize()
 	let view = "ing"
 	
   $.ajax({
     type: "POST",
     data: params,
-    url: "getDclAjax",
+    url: "getGrdAjax",
     dataType: "json",
     success: function (res) {
      	if(res.result == "SUCCESS"){
-     		drawDclList(res.list, view, res.cnt)
+     		drawGrdList(res.list, view, res.cnt)
      		$("#Ipage").val(res.page)
      		if(res.cnt != '0'){
      			drawPaging(res.pb, view)
@@ -61,18 +77,18 @@ function getIDcl(){
   });
 }
 
-function getDDcl(){
-	let params = $("#ReportedForm").serialize()
+function getDGrd(){
+	let params = $("#staredForm").serialize()
 	let view = "ed"
 	
   $.ajax({
     type: "POST",
     data: params,
-    url: "getDclAjax",
+    url: "getGrdAjax",
     dataType: "json",
     success: function (res) {
      	if(res.result == "SUCCESS"){
-     		drawDclList(res.list, view)
+     		drawGrdList(res.list, view)
      		$("#Dpage").val(res.page)
      		drawPaging(res.pb, view)
      	}else if(res.result == "FAILED"){
@@ -86,8 +102,12 @@ function getDDcl(){
   });
 }
 
-function drawDclList(list, view, cnt) {
+function drawGrdList(list, view, cnt) {
 	let html = ""
+	
+	
+	
+	
 	if(cnt == '0'){
  		html += '					<tr>																								'
 	    html += '                      <td >                                                                                            '
@@ -97,26 +117,28 @@ function drawDclList(list, view, cnt) {
  		}
  		
 	for (data of list){
+	
+		if(typeof data.PRCSS_DATE == "undefined"){
+			data.PRCSS_DATE ="미처리"
+		}
+		
 		html += '					<tr>																								'
 	    html += '                      <td >                                                                                            '
-	    html += '                          <div class="reporting_list">                                                                 '
+	    html += '                          <div class="staring_list">                                                                 '
 	    html += '                              <div class="box_profile"></div>                                                          '
 	    html += '                              <div class="dtl_box">                                                                    '
-	    html += '                                  <div class="reporting_dtl">                                                          '
+	    html += '                                  <div class="staring_dtl">                                                          '
 	    html += '                                      <div class="col">                                                                '
 	    html += '                                          <div class="row">                                                            '
-	    html += '                                              <div class="text">신고자</div>                                           '
+	    html += '                                              <div class="text">성명</div>                                           '
 	    html += '                                              <div class="data">'+data.NAME+'</div>                                         '
 	    html += '                                          </div>                                                                       '
 	    html += '                                          <div class="row">                                                            '
-	    html += '                                              <div class="text">채용공고</div>                                         '
-	    html += '                                              <div class="data title">'
-	    
-		if(data.DEL_CHK == '1'){
-			html += '[삭제됨]'
-		}
-	    
-	    html += '                                              '+data.EMP_TITLE+'</div>                              '
+	    html += '                                              <div class="text">평점</div>                                         '
+	    html += '                                              <div class="data title"> '
+	    html+= '	<div class="star_rating" score="'+(data.WLB+ data.PROMO_POSS + data.C_CULT + data.WFARE_PAY + data.MGM)/5+'">                        '
+		html+= '	</div>                                           '
+	    html += '                                              </div>                              '
 	    html += '                                          </div>                                                                       '
 	    html += '                                      </div>                                                                           '
 	    html += '                                      <div class="col">                                                                '
@@ -125,12 +147,12 @@ function drawDclList(list, view, cnt) {
 	    html += '                                              <div class="data ">'+data.C_NAME+'</div>                                          '
 	    html += '                                          </div>                                                                       '
 	    html += '                                          <div class="row">                                                            '
-	    html += '                                              <div class="text">사유</div>                                             '
-	    html += '                                              <div class="data">'+data.DCLARE_REASN, +'</div>                                             '
+	    html += '                                              <div class="text">등록일</div>                                             '
+	    html += '                                              <div class="data">'+data.REG_DATE, +'</div>                                             '
 	    html += '                                          </div>                                                                       '
 	    html += '                                          <div class="row">                                                            '
-	    html += '                                              <div class="text">신고일</div>                                           '
-	    html += '                                              <div class="data">'+data.REG_DATE+'</div>                                      '
+	    html += '                                              <div class="text">처리일</div>                                           '
+	    html += '                                              <div class="data">'+data.PRCSS_DATE+'</div>                                      '
 	    html += '                                          </div>                                                                       '
 	    html += '                                      </div>                                                                           '
 	    html += '                                  </div>                                                                               '
@@ -139,15 +161,14 @@ function drawDclList(list, view, cnt) {
 	    
 	    if(view =="ing"){
 		    html += '                                  <div class="button_box">                                                             '
-		    html += '                                      <button type="button" id="rPrcssBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" dNo="'+data.DCLARE_NO+'">처리</button>             '
+		    html += '                                      <button type="button" id="sPrcssBtn" class="b_hover" mNo="'+data.APLMEM_NO+'" cNo="'+data.CORP_NO+'" gNo="'+data.GRADE_NO+'">처리</button>             '
 		    html += '                                  </div>                                                                               '
 		}else if(view =="ed"){
 			    html += '                                  <div class="button_box">                                                             '
 			if(data.PRCSS_GBN =="0"){
-				html += '                                      <button type="button" id="rPrcssBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" dNo="'+data.DCLARE_NO+'">처리</button>             '
+				html += '                                      <button type="button" id="sPrcssBtn" class="b_hover" mNo="'+data.APLMEM_NO+'" cNo="'+data.CORP_NO+'" gNo="'+data.GRADE_NO+'">처리</button>             '
 			}else{		    
-			    html += '                                      <button type="button" id="rUpdateBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" dNo="'+data.DCLARE_NO+'">수정</button>             '
-			    html += '                                      <button type="button" class="n_hover" >완료</button>             '
+			    html += '                                      <button type="button" id="sUpdateBtn" class="b_hover" mNo="'+data.APLMEM_NO+'" cNo="'+data.CORP_NO+'" gNo="'+data.GRADE_NO+'">수정</button>             '
 		    }
 		    html += '                                  </div>                                                                               '
 	    }
@@ -155,14 +176,32 @@ function drawDclList(list, view, cnt) {
 	    html += '                          </div>                                                                                       '
 	    html += '                      </td>                                                                                            '
 	    html += '                  </tr>                                                                                                '
+	
+		
+	
+	
+	
 	}
 	
 	
 	if(view =="ing"){
-		$(".reporting").html(html)
+		$(".staring").html(html)
 	}else if(view =="ed"){
-		$(".reported").html(html)
+		$(".stared").html(html)
 	}
+	
+	$(".star_rating").each(function(idx){
+		let score = $(this).attr("score")
+			html = ''
+		for(let i = 0; i<Math.round(score); i++){
+			html+= '	    <span class="fa fa-star checked"></span>             '
+		}
+		for(let i = 0; i<5-Math.round(score); i++){
+			html+= '	    <span class="fa fa-star"></span>             '
+		}
+		$(this).html(html)
+	})
+
 }	
 
 
@@ -201,25 +240,28 @@ function drawPaging(pb, view) {
          html += '<span page="' + pb.maxPcount + '">&gt;&gt;</span>'
          
    		if(view =="ing"){  
-      		$("#reporting_paging_wrap").html(html)
+      		$("#staring_paging_wrap").html(html)
     	}else if(view =="ed"){
-     		$("#reported_paging_wrap").html(html)
+     		$("#stared_paging_wrap").html(html)
  		}
    }
 
-function DclUpdate(){
+function GrdUpdate(act){
 	let params = $("#prcssForm").serialize()
 	
 	$.ajax({
     type: "POST",
     data: params,
-    url: "updateDclAjax",
+    url: "updateGrdAjax",
     dataType: "json",
     success: function (res) {
      	if(res.result == "SUCCESS"){
 			alert("처리에 성공했습니다.")
-	   		getIDcl()
-			getDDcl()
+			if(act = 'staring'){
+				getIGrd()
+			}else if(act = 'staried'){
+				getDGrd()
+			}
      	}else if(res.result == "FAILED"){
      		alert("처리에 실패했습니다.")
      	}

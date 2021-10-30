@@ -28,9 +28,18 @@ $(function(){
    		$(".pop_wrap").hide();
 		$(".pop-container").html("")
    })
-   
-    
 })   
+/*별점*/
+function rateIt() {
+  for (rating in ratings) {
+    ratingPercentage = (ratings[rating] / totalRating) * 100;
+    ratingRounded = Math.round(ratingPercentage / 10) * 10 + "%";
+    star = table.querySelector(`.${rating} .inner-star`);
+    numberRating = table.querySelector(`.${rating} .numberRating`);
+    star.style.width = ratingRounded;
+    numberRating.innerText = ratings[rating];
+  }
+}    
     
 /*이벤트 온 오프 처리*/
 
@@ -97,6 +106,11 @@ function drawDclList(list, view, cnt) {
  		}
  		
 	for (data of list){
+	
+		if(typeof data.PRCSS_DATE == "undefined"){
+			data.PRCSS_DATE ="미처리"
+		}
+	
 		html += '					<tr>																								'
 	    html += '                      <td >                                                                                            '
 	    html += '                          <div class="reporting_list">                                                                 '
@@ -125,12 +139,12 @@ function drawDclList(list, view, cnt) {
 	    html += '                                              <div class="data ">'+data.C_NAME+'</div>                                          '
 	    html += '                                          </div>                                                                       '
 	    html += '                                          <div class="row">                                                            '
-	    html += '                                              <div class="text">사유</div>                                             '
-	    html += '                                              <div class="data">'+data.DCLARE_REASN, +'</div>                                             '
+	    html += '                                              <div class="text">신고일</div>                                             '
+	    html += '                                              <div class="data">'+data.REG_DATE, +'</div>                                             '
 	    html += '                                          </div>                                                                       '
 	    html += '                                          <div class="row">                                                            '
-	    html += '                                              <div class="text">신고일</div>                                           '
-	    html += '                                              <div class="data">'+data.REG_DATE+'</div>                                      '
+	    html += '                                              <div class="text">처리일</div>                                           '
+	    html += '                                              <div class="data">'+data.PRCSS_DATE+'</div>                                      '
 	    html += '                                          </div>                                                                       '
 	    html += '                                      </div>                                                                           '
 	    html += '                                  </div>                                                                               '
@@ -147,7 +161,6 @@ function drawDclList(list, view, cnt) {
 				html += '                                      <button type="button" id="rPrcssBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" dNo="'+data.DCLARE_NO+'">처리</button>             '
 			}else{		    
 			    html += '                                      <button type="button" id="rUpdateBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" dNo="'+data.DCLARE_NO+'">수정</button>             '
-			    html += '                                      <button type="button" class="n_hover" >완료</button>             '
 		    }
 		    html += '                                  </div>                                                                               '
 	    }
@@ -163,6 +176,19 @@ function drawDclList(list, view, cnt) {
 	}else if(view =="ed"){
 		$(".reported").html(html)
 	}
+	
+	$(".star_rating").each(function(idx){
+		let score = $(this).attr("score")
+			html = ''
+		for(let i = 0; i<Math.round(score); i++){
+			html+= '	    <span class="fa fa-star checked"></span>             '
+		}
+		for(let i = 0; i<5-Math.round(score); i++){
+			html+= '	    <span class="fa fa-star"></span>             '
+		}
+		$(this).html(html)
+	})
+	
 }	
 
 

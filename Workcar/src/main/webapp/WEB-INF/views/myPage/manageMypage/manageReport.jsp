@@ -18,7 +18,7 @@
 <link rel="stylesheet" type="text/css"
 	href="resources\css\mainpage\searchbar.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\manage\manageReport.css">
+   href="resources\css\manage\Report.css">
 <link rel="stylesheet" type="text/css"
    href="resources\css\manage\pop.css">
    
@@ -125,7 +125,7 @@ function linkGo(url){
 		<div class="topnav">
 
 			<!-- 로고 -->
-			<div class="topnav-centered">
+			<div class="topnav-centered" onclick="linkGo('mainpage')">
 				<div class="logo_img"></div>
 			</div>
 
@@ -185,10 +185,10 @@ function linkGo(url){
 		</div>
 		<div id="test"></div>
 		<div class="main_button_box">
-			<button type="button" class="main_button">계정관리</button>
-			<button type="button" class="main_button">회원관리</button>
-			<button type="button" class="main_button">신고관리</button>
-			<button type="button" class="main_button">평점관리</button>
+			<button type="button" class="main_button" onclick="linkGo('manageRegist)">계정관리</button>
+			<button type="button" class="main_button" onclick="linkGo('manageMemberList')">회원관리</button>
+			<button type="button" class="main_button" onclick="linkGo('manageReport')">신고관리</button>
+			<button type="button" class="main_button" onclick="linkGo('manageStar')">평점관리</button>
 		</div>
 		
 		<div class="main_info">

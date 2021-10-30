@@ -49,7 +49,7 @@ public class ManageController {
 		return mav;
 	}
 	
-	
+//	신고관리
 	@ResponseBody
 	@RequestMapping(value = "/getDclAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	public String getDclAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
@@ -64,7 +64,7 @@ public class ManageController {
 				page = Integer.parseInt(params.get("page"));
 			}
 			int cnt = iManageService.getDclCnt(params);
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 4, 5);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
 
 			params.put("startCnt", Integer.toString(pb.getStartCount()));
 			params.put("endCnt", Integer.toString(pb.getEndCount()));
@@ -140,4 +140,98 @@ public class ManageController {
 		modelMap.put("result", result);
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	
+	
+//	평점
+	@ResponseBody
+	@RequestMapping(value = "/getGrdAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getGrdAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		int page = 1;
+		System.out.println(params);
+
+		try {
+			if (params.get("page") != "") {
+				page = Integer.parseInt(params.get("page"));
+			}
+			int cnt = iManageService.getGrdCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
+
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+			List<HashMap<String, String>> list = iManageService.getGrd(params);
+			if (list == null) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			modelMap.put("cnt", cnt);
+			modelMap.put("page", page);
+			modelMap.put("pb", pb);
+			modelMap.put("list", list);
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/getGrdDtlAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getGrdDtlAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		System.out.println(params);
+		try {
+
+			HashMap<String, String> data = iManageService.getGrdDtl(params);
+			
+			if (data == null) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			
+			modelMap.put("data", data);
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/updateGrdAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String updateGrdAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		System.out.println(params);
+		try {
+
+			int cnt = iManageService.updateGrd(params);
+			if (cnt <= 0) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	
+	
+	
+	
+	
 }

@@ -29,17 +29,12 @@ $(function(){
 	
 	/*내용*/
 	$(".main_info").on("click","#rUpdateBtn", function(){
-		let act = "v"
+		let act = "u"
 		let target = $(this)
 		getDclDtl(target, act) 
 		$(".pop_wrap").show();
 	})
 	
-    /* 처리 작동*/
-    $("#").on("click",function(){
-    	JC($(this).attr("rNo"),$(this).attr("eNo"))
-    	$(".pop_wrap").hide();
-    })
     
 })
 
@@ -71,7 +66,7 @@ function drawDclDtl(data, target, act){
 	let empNo = target.attr("eNo")
 	let memNo = target.attr("mNo")
 	let dclareNo = target.attr("dNo")
-	let manageNo = $("userNo").attr("no")
+	let manageNo = $("#userNo").attr("no")
 
 	if(typeof data.DCLARE_REFUSE == "undefined"){
 		data.DCLARE_REFUSE =""
@@ -156,7 +151,7 @@ function drawDclDtl(data, target, act){
 		html += '		            <button type="button" class="prcssBtn" >처리</button>                                                                                         '
 		html += '		            <button type="button" class="pop-close-btn" id="prcssCancBtn">취소</button>                                                                                     '
 		html += '		        </div>                                                                                                                                        '
-	}else if(act == "v"){
+	}else if(act == "u"){
 		html += '		        <div class="button_box">                                                                                                                      '
 		html += '		            <button type="button" class="prcssBtn">수정</button>                                                                                         '
 		html += '		            <button type="button" class="pop-close-btn" id="prcssCancBtn">확인</button>                                                                                     '
