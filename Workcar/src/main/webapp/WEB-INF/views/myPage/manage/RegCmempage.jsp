@@ -173,35 +173,35 @@ function linkGo(url){
 		<div class="main_info">
 			<div id="main_inter" class="main_content">
 				<div class="vertical_menu">
-					<a href="#" id="staring">처리중</a> 
-					<a href="#" id="stared">전체</a>
+					<a href="#" id="imember">개인회원</a> 
+					<a href="#" id="cmember">기업회원</a>
 				</div>
 				
 				<div class="main_box">
 					<div class="inner_wrap">
-						<table class="staring">
+						<table class="imember">
 						<tr>
 							<td>
 								<div class="zero">처리할 내용이 없습니다.</div>
 							</td>
 						</tr>
 						</table>
-	                    <table class="stared">
+	                    <table class="cmember">
 	                    
 	                    </table>
 					</div>
 					
-					<form action="#" id="staringForm">
+					<form action="#" id="imemberForm">
 						<input type="hidden" id="prcss" name="prcss" value="ing">
 						<input type="hidden" id="Ipage" name="page" value="${page }">
 					</form>
-					<div id="staring_paging_wrap"></div>
+					<div id="imember_paging_wrap"></div>
 					
-					<form action="#" id="staredForm">
+					<form action="#" id="cmemberForm">
 						<input type="hidden" id="prcss" name="prcss" value="ed">
 						<input type="hidden" id="Dpage" name="page" value="${page }">
 					</form>
-					<div id="stared_paging_wrap"></div>
+					<div id="cmember_paging_wrap"></div>
 					
 				</div>
 			</div>

@@ -51,4 +51,20 @@ public class ManageService implements IManageService {
 	public int updateGrd(HashMap<String, String> params) throws Throwable {
 		return iManageDAO.updateGrd(params);
 	}
+	@Override
+	public int getIMemCnt(HashMap<String, String> params) throws Throwable {
+		return iManageDAO.getIMemCnt(params);
+	}
+	@Override
+	public List<HashMap<String, String>> getIMem(HashMap<String, String> params) throws Throwable {
+		return iManageDAO.getIMem(params);
+	}
+	@Override
+	public int getCMemCnt(HashMap<String, String> params) throws Throwable {
+		return iManageDAO.getCMemCnt(params);
+	}
+	@Override
+	public List<HashMap<String, String>> getCMem(HashMap<String, String> params) throws Throwable {
+		return iManageDAO.getCMem(params);
+	}
 }

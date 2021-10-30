@@ -31,6 +31,7 @@ public class ManageDAO implements IManageDAO {
 	public int ReportedEmpDel(HashMap<String, String> params) throws Throwable {
 		return sqlSession.update("Manage_SQL.ReportedEmpDel", params);
 	}
+	
 //	평점관리
 	@Override
 	public int getGrdCnt(HashMap<String, String> params) throws Throwable {
@@ -47,6 +48,23 @@ public class ManageDAO implements IManageDAO {
 	@Override
 	public int updateGrd(HashMap<String, String> params) throws Throwable {
 		return sqlSession.update("Manage_SQL.updateGrd", params);
+	}
+//	회원관리	
+	@Override
+	public int getIMemCnt(HashMap<String, String> params) {
+		return sqlSession.selectOne("Manage_SQL.getIMemCnt", params);
+	}
+	@Override
+	public List<HashMap<String, String>> getIMem(HashMap<String, String> params) {
+		return sqlSession.selectList("Manage_SQL.getIMem", params);
+	}
+	@Override
+	public int getCMemCnt(HashMap<String, String> params) {
+		return sqlSession.selectOne("Manage_SQL.getCMemCnt", params);
+	}
+	@Override
+	public List<HashMap<String, String>> getCMem(HashMap<String, String> params) {
+		return sqlSession.selectList("Manage_SQL.getCMem", params);
 	}
 	
 }

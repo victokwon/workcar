@@ -49,6 +49,19 @@ public class ManageController {
 		return mav;
 	}
 	
+	@RequestMapping(value = "/iMemDtlUpdate")
+	public ModelAndView iMemDtlUpdate(ModelAndView mav,@RequestParam HashMap<String, String> params) {
+		mav.setViewName("myPage/manage/RegImempage");
+		return mav;
+	}
+	
+	@RequestMapping(value = "/cMemDtlUpdate")
+	public ModelAndView cMemDtlUpdate(ModelAndView mav,@RequestParam HashMap<String, String> params) {
+		mav.setViewName("myPage/manage/RegCmempage");
+		return mav;
+	}
+	
+	
 //	신고관리
 	@ResponseBody
 	@RequestMapping(value = "/getDclAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
@@ -228,7 +241,81 @@ public class ManageController {
 		modelMap.put("result", result);
 		return mapper.writeValueAsString(modelMap);
 	}
+	// 회원관리
+	// 개인회원
+	@ResponseBody
+	@RequestMapping(value = "/getIMemAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getIMemAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		int page = 1;
+		System.out.println(params);
+
+		try {
+			if (params.get("page") != "") {
+				page = Integer.parseInt(params.get("page"));
+			}
+			int cnt = iManageService.getIMemCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
+
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+			List<HashMap<String, String>> list = iManageService.getIMem(params);
+			if (list == null) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			modelMap.put("cnt", cnt);
+			modelMap.put("page", page);
+			modelMap.put("pb", pb);
+			modelMap.put("list", list);
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	//기업회원
+	@ResponseBody
+	@RequestMapping(value = "/getCMemAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getCMemberAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		int page = 1;
+		System.out.println(params);
+
+		try {
+			if (params.get("page") != "") {
+				page = Integer.parseInt(params.get("page"));
+			}
+			int cnt = iManageService.getCMemCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
+
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+			List<HashMap<String, String>> list = iManageService.getCMem(params);
+			if (list == null) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			modelMap.put("cnt", cnt);
+			modelMap.put("page", page);
+			modelMap.put("pb", pb);
+			modelMap.put("list", list);
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
 	
+
 	
 	
 	

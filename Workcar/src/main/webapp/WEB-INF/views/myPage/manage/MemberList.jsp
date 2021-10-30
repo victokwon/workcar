@@ -16,41 +16,31 @@
 <link rel="stylesheet" type="text/css"
 	href="resources\css\common\sidebar.css">
 <link rel="stylesheet" type="text/css"
-	href="resources\css\mainpage\searchbar.css">
+   href="resources\css\manage\MemberList.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\change\namechangeneed.css">
-<link rel="stylesheet" type="text/css"
-   href="resources\css\change\pop.css">
+   href="resources\css\manage\pop.css">
    
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
 	src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript"
-	src="resources\script\change\namechangeneed1.js"></script>
-<script type="text/javascript"
-	src="resources\script\change\namechangeneed2.js"></script>
-<script type="text/javascript"
-	src="resources\script\change\namechangeneed3.js"></script>
-	
+	src="resources\script\manage\MemberList.js"></script>
+
 <script type="text/javascript">
 $(function () {
-	$(function () {
-		  $("#empAttention").on("click", function () {
-		    $(".emp_attention").css("display", "table");
-		    $(".emp_suggest").css("display", "none");
-		  });
-		  
-		  $("#empSuggest").on("click", function () {
-		    $(".emp_attention").css("display", "none");
-		    $(".emp_suggest").css("display", "table");
-		  });
-		});
-	
-
-
-
-}) 
+	$(".imember").on("click","#updateBtn",function(){
+		$("#mNo").val($(this).attr("mNo"))
+		$("#goForm").attr("action","iMemDtlUpdate")
+		$("#goForm").submit()
+	})
+	$(".cmember").on("click","#updateBtn",function(){
+		$("#mNo").val($(this).attr("mNo"))
+		$("#cNo").val($(this).attr("cNo"))
+		$("#goForm").attr("action","cMemDtlUpdate")
+		$("#goForm").submit()
+	})
+})
 
 function linkGo(url){
 	location.href = url
@@ -58,6 +48,10 @@ function linkGo(url){
 </script>
 </head>
 <body>
+<!-- 팝업 -->
+<div class="pop_wrap">
+	<div class="pop-container"></div> 
+</div>
 <!-- 헤더 -->
 	<div id="mySidenav" class="sidenav">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -120,7 +114,7 @@ function linkGo(url){
 		<div class="topnav">
 
 			<!-- 로고 -->
-			<div class="topnav-centered">
+			<div class="topnav-centered" onclick="linkGo('mainpage')">
 				<div class="logo_img"></div>
 			</div>
 
@@ -180,74 +174,53 @@ function linkGo(url){
 		</div>
 		<div id="test"></div>
 		<div class="main_button_box">
-			<button type="button" class="main_button">계정관리</button>
-			<button type="button" class="main_button">채용공고</button>
-			<button type="button" class="main_button">활동내역</button>
-			<button type="button" class="main_button">관심정보</button>
+			<button type="button" class="main_button" onclick="linkGo('manageRegist')">계정관리</button>
+			<button type="button" class="main_button" onclick="linkGo('manageMemberList')">회원관리</button>
+			<button type="button" class="main_button" onclick="linkGo('manageReport')">신고관리</button>
+			<button type="button" class="main_button" onclick="linkGo('manageStar')">평점관리</button>
 		</div>
 		
-	 <div class="pop-container">
-        <div class="pop-out-container">
-        <button type="button" class="pop-close-btn">X</button>
-            <div class="pop-in-container">
-                <div class="pop-text-header">
-                    <h1></h1>
-                </div>
-                <!-- 5개 리스트 -->
-                <div class="list_wrap">
-                    <table>
-                        <thead>
-                            <tr eNo="다시 선택">
-                                <th class='td_no'>번호</th>
-                                <th class='td_name'>내용</th>
-                                <th class='td_date'>마감일</th>
-                            </tr>
-                        </thead>
-                        <tbody id="list_box" >
-                        	<tr eNo="1">
-                        		<td class='td_no'></td>
-                        		<td class='td_name'></td>
-                        		<td class='td_date'></td>
-                        	</tr>
-                        </tbody>
-                    </table>
-                    <input type="hidden" id="page">
-                </div>
-                <hr>
-                <div class="paging_wrap"></div>
-                <div class="pop-input">
-               		<div class="text_box"></div>
-                    <input type="button" class="sch-btn" id="selectBtn" rNo="" value="요청하기">
-                </div>
-            </div>
-        </div>
-    </div>
-    
 		<div class="main_info">
 			<div id="main_inter" class="main_content">
 				<div class="vertical_menu">
-	<!-- 				<form action="#" id="resumeGo">
-						<input type="hidden" id="userNO" name="userNO">
-						 <input type="hidden" id="resumeNO" name="resumeNO">
-					</form> -->
-					<!-- 이력서 리스트 메뉴 출력 -->
-					<a href="#" id="empAttention">관심인재</a> <a href="#" id="empSuggest">인재추천</a>
+					<a href="#" id="imember">개인회원</a> 
+					<a href="#" id="cmember">기업회원</a>
 				</div>
 				
 				<div class="main_box">
-					<!-- <table class="please_apply"> -->
-					<table class="emp_attention">
-					</table>
-					<!-- <table class="company_grade"> -->
-					<form action="#" id="suggetEmpForm">
-					</form>
-					<table class="emp_suggest">
+					<div class="inner_wrap">
+						<table class="imember">
 							<tr>
-								<td class="job_post_add">
-									<button type="button" class="" id="addEmpBtn">인재 더보기</button>
+								<td>
+									<div class="zero">회원이 없습니다.</div>
 								</td>
 							</tr>
-					</table>
+						</table>
+	                    <table class="cmember">
+	                    
+	                    </table>
+					</div>
+					
+					
+					<form action="#" method="post" id="goForm">
+						<input type="hidden" id="mNo" name="mNo" value="">
+						<input type="hidden" id="cNo" name="cNo" value="">
+					</form>
+					
+					
+					<form action="iMemDtlUpdate" method="get" id="imemberForm">
+						<input type="hidden" id="prcss" name="view" value="iMem">
+						<input type="hidden" id="Ipage" name="page" value="${page }">
+						
+					</form>
+					<div id="imember_paging_wrap"></div>
+					
+					<form action="cMemDtlUpdate" method="get" id="cmemberForm">
+						<input type="hidden" id="prcss" name="view" value="cMem">
+						<input type="hidden" id="Cpage" name="page" value="${page }">
+					</form>
+					<div id="cmember_paging_wrap"></div>
+					
 				</div>
 			</div>
 
@@ -255,6 +228,7 @@ function linkGo(url){
 
 	</main>
 </body>
+
 <footer>
 		<!-- 링크작업 -->
 		<div class="inner_content">

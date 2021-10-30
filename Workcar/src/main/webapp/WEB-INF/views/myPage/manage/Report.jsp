@@ -163,7 +163,7 @@ function linkGo(url){
 		</div>
 		<div id="test"></div>
 		<div class="main_button_box">
-			<button type="button" class="main_button" onclick="linkGo('manageRegist)">계정관리</button>
+			<button type="button" class="main_button" onclick="linkGo('manageRegist')">계정관리</button>
 			<button type="button" class="main_button" onclick="linkGo('manageMemberList')">회원관리</button>
 			<button type="button" class="main_button" onclick="linkGo('manageReport')">신고관리</button>
 			<button type="button" class="main_button" onclick="linkGo('manageStar')">평점관리</button>

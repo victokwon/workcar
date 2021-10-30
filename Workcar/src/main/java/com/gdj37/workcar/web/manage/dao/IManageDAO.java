@@ -15,6 +15,11 @@ public interface IManageDAO {
 	public List<HashMap<String, String>> getGrd(HashMap<String, String> params)throws Throwable;
 	public HashMap<String, String> getGrdDtl(HashMap<String, String> params)throws Throwable;
 	public int updateGrd(HashMap<String, String> params)throws Throwable;
+// 	회원관리	
+	public int getIMemCnt(HashMap<String, String> params);
+	public List<HashMap<String, String>> getIMem(HashMap<String, String> params);
+	public int getCMemCnt(HashMap<String, String> params);
+	public List<HashMap<String, String>> getCMem(HashMap<String, String> params);
 
 
 }
