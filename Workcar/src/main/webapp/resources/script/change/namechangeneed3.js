@@ -19,7 +19,7 @@ $(function(){
 	$(".main_info").on("click","#JCBtn", function(){
 		let targetRNo = $(this).parent().parent().parent().parent().parent().attr("no")
 		$("#selectBtn").attr("rNo", targetRNo);
-		getEmpList($("#selectBtn").attr("rNo")) 
+		getEmpList(targetRNo) 
 		$(".pop-container").show();
 	})
 	
@@ -40,22 +40,22 @@ function JC(targetR, targetE){
 	let params = "memNo=" + $("#userNo").attr("no") +"&resumeNo=" + targetR +"&empNo=" + targetE
 	
 	 $.ajax({
-    type: "POST",
-    data: params,
-    url: "JCAjax",
-    dataType: "json",
-    success: function (res) {
-     	if(res.result == "SUCCESS"){
-     		alert("요청을 완료했습니다.")
-     		$(".pop-container").hide();
-     	}else if(res.result == "FAILED"){
-     		alert("요청에 완료할 수 없습니다.")
-     	}
-    },
-    error: function (request, status, error) {
-      console.log(request);
-      console.log(error);
-    }
+   		 type: "POST",
+	    data: params,
+	    url: "JCAjax",
+	    dataType: "json",
+	    success: function (res) {
+	     	if(res.result == "SUCCESS"){
+	     		alert("요청을 완료했습니다.")
+	     		$(".pop-container").hide();
+	     	}else if(res.result == "FAILED"){
+	     		alert("요청에 완료할 수 없습니다.")
+	     	}
+	    },
+	    error: function (request, status, error) {
+	      console.log(request);
+	      console.log(error);
+	    }
   });
 }
 

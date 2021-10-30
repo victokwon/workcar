@@ -23,8 +23,6 @@
 
 <script type="text/javascript"
    src="resources\script\jquery\jquery-1.12.4.min.js"></script>
-<script type="text/javascript"
-   src="resources\script\resume\resumeInsert.js"></script>
 <script type="text/javascript" src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript">
    $(function() {
@@ -50,16 +48,6 @@
          $("#resumeGo").submit()
       })
       
-		if($("#sal0").val() == "${DATA.PAY_GBN}"){
-			   $("#sal0").attr("checked","checked")
-			   $("#sal0").attr("disabled", "disabled")
-			   $("#sal1").attr("disabled", "disabled")
-			}
-			if($("#sal1").val() == "${DATA.PAY_GBN}"){
-			   $("#sal1").attr("checked","checked")
-  			   $("#sal0").attr("disabled", "disabled")
-			   $("#sal1").attr("disabled", "disabled")
-			}
 
    })
 
@@ -273,6 +261,10 @@
                               <div class="text">최종학력</div>
                               <div class="input">${DATA.GRADU}</div>
                            </div>
+                           <div class="carr">
+                            <div class="text">경력</div>
+                            <div class="input"> ${DATA.CARR_NAME}&nbsp;/&nbsp;${DATA.CARR_PER} </div>
+                        </div>
                         </div>
                      </div>
                   </div>
@@ -306,14 +298,18 @@
                            <div class="sal">
                               <div class="text">희망연봉</div>
                               <div class="input"> 
-                              	<input type="radio" name="sal" value="0" id="sal0" >
-                                <label for="sal0">내규</label>
-                                 <input type="radio" name="sal" value="1" id="sal1" >
-                                 <label for="sal1">일반</label>
-           						</div>
-                              <c:if test="${DATA.PAY_GBN eq 1 }">
-                                 <div class="input">최대 ${DATA.PAY_MIN}만원 ~ ${DATA.PAY_MAX}만원</div>
-                              </c:if>
+                              	<c:choose>
+                              		<c:when test="${DATA.PAY_GBN eq 0 }">
+                              			내규
+                              		</c:when>
+                              		<c:when test="${DATA.PAY_GBN eq 1 }">
+                              			일반
+                              		</c:when>
+                              	</c:choose>
+									<c:if test="${DATA.PAY_GBN eq 1 }">
+										<div class="input">최대 ${DATA.PAY_MIN}만원 ~ ${DATA.PAY_MAX}만원</div>
+									</c:if>
+							   </div>
                            </div>
                         </div>
                      </div>

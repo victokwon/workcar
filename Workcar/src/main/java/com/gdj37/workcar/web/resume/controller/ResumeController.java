@@ -399,4 +399,81 @@ public class ResumeController {
 		mav.addObject("resumeNo", params.get("resumeNo"));
 		return mav;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 이력서 지원
+	@RequestMapping(value = "/resumeApply")
+	public ModelAndView resumeApply(ModelAndView mav) {
+			
+		mav.setViewName("/resume/resumeApply");
+		return mav;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getResumeListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getResumeListAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		System.out.println(params);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		int page = 1;
+		System.out.println(params);
+
+		try {
+			if (params.get("page") != "") {
+				page = Integer.parseInt(params.get("page"));
+			}
+			int cnt = iResumeService.getResumeEmpCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
+
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+			List<HashMap<String, String>> list = iResumeService.getResume(params);
+			if (list == null) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			modelMap.put("page", page);
+			modelMap.put("pb", pb);
+			modelMap.put("list", list);
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/PAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String PAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		System.out.println(params);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_FAILED;
+		try {
+			int cnt = iResumeService.PA(params);
+			if(cnt > 0) {
+				result = CommonProperties.RESULT_SUCCESS;
+			}
+		} catch (Exception e) {
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

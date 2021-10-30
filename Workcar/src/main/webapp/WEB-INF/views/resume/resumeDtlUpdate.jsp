@@ -42,7 +42,6 @@
 	          sintroNo: ${conCnt.SINTRO_CNT},
 	          attchNo: ${conCnt.ATTCH_CNT}
 	         }
-	   console.log(noBox)
    
 	 $(".list_wrap").on("click", "tr", function () {
 		  	if($(".pop-container").attr("btn") == "q"){
@@ -75,9 +74,13 @@
 	   
 	    
 		$("#saveBtn").on("click",function(){
-		/* 	if($(#"salMin").val()==""){
-				
-			} */
+			if($("#sal0").is(":checked")){
+				$("#salMin").val("0")
+				$("#salMax").val("0")
+			}
+			if($("#carr0").is(":checked")){
+				$("#carrPer").val("0")
+			}
 			if(checkInputText()
 					&&checkInputSel()
 					&&checkInputDate()
@@ -123,7 +126,7 @@
 		 });
 		
 		$(".carr").on("change", "input", function () {
-		     if ($("#carr0").is(":checked")) {
+		     if ($("#carr1").is(":checked")) {
 		       $("#carrPer").attr("readonly", false);
 		     } else {
 		       $("#carrPer").attr("readonly", true);
@@ -144,6 +147,7 @@
 		if($("#sal1").val() == "${DATA.PAY_GBN}"){
 		   $("#sal1").attr("checked","checked")
 		}
+		
 		if($("#carr0").val() == "${DATA.CARR}"){
 			$("#carr0").attr("checked","checked")
 		}
@@ -798,18 +802,18 @@
                                         <div class="carr">
                                             <div class="text">경력</div>
                                             <div class="input">
-                                                <input type="radio" name="carr" value="0" id="sal0">
+                                                <input type="radio" name="carr" value="0" id="carr0">
                                                 <label for="carr0">신입</label>
-                                                <input type="radio" name="carr" value="1" id="sal1">
+                                                <input type="radio" name="carr" value="1" id="carr1">
                                                 <label for="carr1">경력</label>
-                                               <c:choose>
-                                                	<c:when test="${DATA.CARR_GBN eq 0}">
-                                                		<input type="text" name="carrPer" value="${DATA.CARR_GBN}" id="carrPer" class="radioInput" readonly="readonly">년
+                                        		 <c:choose>
+                                                	<c:when test="${DATA.CARR eq 0}">
+                                                		<input type="text" name="carrPer" placeholder="경력" value="${DATA.CARR_PER}" id="carrPer" class="radioInput" readonly="readonly">년
                                                 	</c:when>
-                                                	<c:when test="${DATA.CARR_GBN eq 1}">
-                                                		<input type="text" name="carrPer" value="${DATA.CARR_PER}" id="carrPer" class="radioInput">년
+                                                	<c:when test="${DATA.CARR eq 1}">
+                                                		<input type="text" name="carrPer" placeholder="경력" value="${DATA.CARR_PER}" id="carrPer" class="radioInput">년
                                                 	</c:when>                            	
-                                                </c:choose>                                                    
+                                                </c:choose>         
                                             </div>
                                         </div>
                                     </div>
@@ -890,15 +894,15 @@
                                                 <label for="sal1">일반</label>
                                                <c:choose>
                                                 	<c:when test="${DATA.PAY_GBN eq 0}">
-                                                		<input placeholder="최저금액" name="salMin" class="radioInput"
+                                                		<input placeholder="최저금액" name="salMin" class="radioInput salinput"
 		                                                    value="${DATA.PAY_MIN}" id="minSal" readonly="readonly">만원 ~
-		                                                <input placeholder="최대금액" name="salMax" class="radioInput"
+		                                                <input placeholder="최대금액" name="salMax" class="radioInput salinput"
 		                                                    value="${DATA.PAY_MAX}" id="maxSal" readonly="readonly">만원	
                                                 	</c:when>
                                                 	<c:when test="${DATA.PAY_GBN eq 1}">
-                                                		<input type="text" placeholder="최저금액" name="salMin" class="radioInput"
+                                                		<input type="text" placeholder="최저금액" name="salMin" class="radioInput salinput"
 		                                                    value="${DATA.PAY_MIN}" id="minSal" >만원 ~
-		                                                <input type="text" placeholder="최대금액" name="salMax" class="radioInput"
+		                                                <input type="text" placeholder="최대금액" name="salMax" class="radioInput salinput"
 		                                                    value="${DATA.PAY_MAX}" id="maxSal" >만원	
                                                 	</c:when>                            	
                                                 </c:choose>                                                    

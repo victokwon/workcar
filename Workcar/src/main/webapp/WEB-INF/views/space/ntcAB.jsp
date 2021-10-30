@@ -291,7 +291,7 @@ $(document).ready(function() {
 	</a>
 </div>
 </c:if> 
-							<c:if test="${data.NAME eq sMNm}">
+							<c:if test="${sMTy eq 3}">
 								<input type="button" value="수정" id="updateBtn" />
 								<input type="button" value="삭제" id="deleteBtn" />
 							</c:if>

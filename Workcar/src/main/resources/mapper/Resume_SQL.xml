@@ -12,15 +12,6 @@
 		ORDER BY RESUM_NO
 	</select>
 
-	<select id="getResumeCnt" parameterType="hashmap"
-		resultType="int">
-		SELECT COUNT(*) AS CNT
-		FROM RESUM
-		WHERE DEL_CHK = 0
-		AND MEM_NO
-		= #{memNo}
-	</select>
-
 	<update id="applyResume" parameterType="hashmap">
 		UPDATE RESUM SET
 		<choose>
@@ -34,6 +25,15 @@
 		WHERE RESUM_NO = #{resumeNo}
 		AND MEM_NO = #{memNo}
 	</update>
+
+	<select id="getResumeCnt" parameterType="hashmap"
+		resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM RESUM
+		WHERE DEL_CHK = 0
+		AND MEM_NO
+		= #{memNo}
+	</select>
 
 	<!-- 이력서 상세보기 개인정보 -->
 	<select id="getUserDtl" parameterType="hashmap" resultType="hashmap">
@@ -526,46 +526,60 @@
 		GRADU = #{gradu},
 		PAY_GBN = #{sal},
 		CARR = #{carr},
-		<choose>
-			<when test="sal eq 0">
-				PAY_MAX = 0,
-				PAY_MIN = 0,
-			</when>
-			<when test="sal eq 1">
-				PAY_MAX = #{salMax},
-				PAY_MIN = #{salMin},
-			</when>
-		</choose>	
-		<choose>
-			<when test="carr eq 0">
-				CARR_PER = 0,
-			</when>
-			<when test="carr eq 1">
-				CARR_PER = #{carrPer},
-			</when>
-		</choose>	
+		PAY_MAX = #{salMax},
+		PAY_MIN = #{salMin},
+		CARR_PER = #{carrPer},
 		CHN_DATE = SYSDATE
 		WHERE DEL_CHK = 0
 		AND RESUM_NO = #{resumeNo}
 	</update>
 	
 	<insert id="dtlAdd" parameterType="hashmap" useGeneratedKeys="true" keyColumn="RESUM_NO" keyProperty="resumeNo">
-		<choose>
-			<when test="sal eq 0">
-				INSERT INTO RESUM(
-					RESUM_NO, MEM_NO, SECTOR_NO, REGION_NO, RESUM_NAME, GRADU, PAY_GBN, PAY_MAX, PAY_MIN,  OPN_CHK 				
-				)VALUES (
-					RESUM_SEQ.NEXTVAL, #{memNo}, #{sectorNo}, #{region}, #{resumeName}, #{gradu}, #{sal}, 0, 0, #{openCase}					
-				)
-			</when>
-			<when test="sal eq 1">
-				INSERT INTO RESUM(
-					RESUM_NO, MEM_NO, SECTOR_NO, REGION_NO, RESUM_NAME, GRADU, PAY_GBN, PAY_MAX, PAY_MIN, OPN_CHK					
-				)VALUES (
-					RESUM_SEQ.NEXTVAL, #{memNo}, #{sectorNo}, #{region}, #{resumeName}, #{gradu}, #{sal}, #{salMax}, #{salMin}, #{openCase}					
-				)
-			</when>
-		</choose>
+		INSERT INTO RESUM(
+			RESUM_NO, MEM_NO, SECTOR_NO, REGION_NO, RESUM_NAME, GRADU, PAY_GBN, PAY_MAX, PAY_MIN, OPN_CHK, CARR, CARR_PER					
+		)VALUES (
+			RESUM_SEQ.NEXTVAL, #{memNo}, #{sectorNo}, #{region}, #{resumeName}, #{gradu}, #{sal}, #{salMax}, #{salMin}, #{openCase}, #{carr}, #{carrPer}					
+		)
 	</insert>
 	
+	
+	
+	
+	<select id="getResumeEmpCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) CNT
+		FROM RESUM R
+		LEFT OUTER JOIN (SELECT RESUM_NO FROM RESUM_SUPP WHERE EMP_NO = #{empNo} ) RS
+		ON (R.RESUM_NO = RS.RESUM_NO)
+		WHERE DEL_CHK = 0
+		AND R.MEM_NO = #{memNo}
+		AND RS.RESUM_NO IS NULL
+	</select>
+	
+	<select id="getResume" parameterType="hashmap" resultType="hashmap">
+		SELECT
+		RESUM_NO, RESUM_NAME, CHN_DATE
+		FROM
+		(
+		SELECT R.RESUM_NO, RESUM_NAME, TO_CHAR(CHN_DATE, 'YYYY-MM-DD' ) CHN_DATE,
+		ROW_NUMBER() OVER (ORDER BY CHN_DATE DESC) AS RNUM
+		FROM RESUM R
+		LEFT OUTER JOIN (SELECT RESUM_NO FROM RESUM_SUPP WHERE EMP_NO = #{empNo} ) RS
+		ON (R.RESUM_NO = RS.RESUM_NO)
+		WHERE DEL_CHK = 0
+		AND MEM_NO = ${memNo}
+		AND RS.RESUM_NO IS NULL
+		) E
+		WHERE E.RNUM BETWEEN #{startCnt} AND #{endCnt}
+		ORDER BY RESUM_NO
+	</select>
+	
+	<insert id="PA" parameterType="hashmap">
+		INSERT INTO RESUM_SUPP (
+		EMP_NO,
+		RESUM_NO
+		) VALUES (
+		#{empNo},
+		#{resumeNo}
+		)
+	</insert>
 </mapper>
