@@ -32,28 +32,6 @@
 	src="resources\script\manage\ReportPop.js"></script>
 	 
 <script type="text/javascript">
-$(function () {
-	$(function () {
-		  $("#reporting").on("click", function () {
-		    $(".reporting").css("display", "table");
-		    $(".reported").css("display", "none");
-		    $("#reporting_paging_wrap").show()
-		    $("#reported_paging_wrap").hide()
-		  });
-		  
-		  $("#reported").on("click", function () {
-		    $(".reporting").css("display", "none");
-		    $(".reported").css("display", "table");
-		    $("#reported_paging_wrap").show()
-		    $("#reporting_paging_wrap").hide()
-		  });
-		});
-	
-
-
-
-}) 
-
 function linkGo(url){
 	location.href = url
 }

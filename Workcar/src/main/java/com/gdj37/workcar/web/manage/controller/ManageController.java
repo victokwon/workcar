@@ -27,25 +27,25 @@ public class ManageController {
 	
 	@RequestMapping(value = "/manageMemberList")
 	public ModelAndView manageMemberList(ModelAndView mav) {
-		mav.setViewName("myPage/manageMypage/manageMemberList");
+		mav.setViewName("myPage/manage/MemberList");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/manageRegist")
 	public ModelAndView manageRegist(ModelAndView mav) {
-		mav.setViewName("myPage/manageMypage/manageRegist");
+		mav.setViewName("myPage/manage/Regist");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/manageReport")
 	public ModelAndView manageReport(ModelAndView mav) {
-		mav.setViewName("myPage/manageMypage/manageReport");
+		mav.setViewName("myPage/manage/Report");
 		return mav;
 	}
 	
 	@RequestMapping(value = "/manageStar")
 	public ModelAndView manageStar(ModelAndView mav) {
-		mav.setViewName("myPage/manageMypage/manageStar");
+		mav.setViewName("myPage/manage/Star");
 		return mav;
 	}
 	

@@ -3,6 +3,10 @@ $(function(){
 	     if (event.keyCode === 13) {
 	       event.preventDefault();
 	     }
+ 	     if (event.keyCode === 27) {
+    		$(".pop_wrap").hide();
+   			$(".pop-container").html("")
+	     }
     })
     
     $(".pop-container").on('click', ".pop-close-btn",function(event) {

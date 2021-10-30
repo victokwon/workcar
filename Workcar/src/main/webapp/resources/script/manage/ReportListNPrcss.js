@@ -1,6 +1,23 @@
 $(function(){
 	getIDcl()
-	getDDcl()
+	
+  $("#reporting").on("click", function () {
+ 	getIDcl()
+    $(".reporting").css("display", "table");
+    $(".reported").css("display", "none");
+    $("#reporting_paging_wrap").show()
+    $("#reported_paging_wrap").hide()
+  });
+  
+  $("#reported").on("click", function () {
+   	getDDcl()	
+    $(".reporting").css("display", "none");
+    $(".reported").css("display", "table");
+    $("#reported_paging_wrap").show()
+    $("#reporting_paging_wrap").hide()
+  });
+
+
 	
    $("#reporting_paging_wrap").on("click","span",function(){
 	 $("#Ipage").val($(this).attr("page"))
@@ -24,7 +41,7 @@ $(function(){
    				return
    			}
    		}
-		DclUpdate()
+		DclUpdate($(this).parent().parent().parent().parent().parent().parent().parent().attr("class"))
    		$(".pop_wrap").hide();
 		$(".pop-container").html("")
    })
@@ -244,8 +261,11 @@ function DclUpdate(){
     success: function (res) {
      	if(res.result == "SUCCESS"){
 			alert("처리에 성공했습니다.")
-	   		getIDcl()
-			getDDcl()
+			if(act = 'staring'){
+				getIDcl()
+			}else if(act = 'staried'){
+				getDDcl()
+			}
      	}else if(res.result == "FAILED"){
      		alert("처리에 실패했습니다.")
      	}
