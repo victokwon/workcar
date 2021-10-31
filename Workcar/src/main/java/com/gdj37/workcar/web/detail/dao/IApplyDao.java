@@ -13,4 +13,9 @@ public interface IApplyDao {
 
 	public List<HashMap<String, String>> getinfo_list(HashMap<String, String> params) throws Throwable;
 
+	public int reviews(HashMap<String, String> params) throws Throwable;
+
+	public HashMap<String, String> rating(HashMap<String, String> params) throws Throwable;
+
+
 }

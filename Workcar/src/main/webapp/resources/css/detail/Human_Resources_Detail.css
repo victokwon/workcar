@@ -235,13 +235,13 @@ main {
   
   #main_apply .main_box .content .dtl {
     border-radius: 10px 10px 0px 0px;
-    background-color: c
     border : 1px solid gray;
     /* 높이 100% 수정해야함 */
     height: 100%;
     width: 100%;
     min-width: 700px;
   }
+    
   #main_apply .main_box .content .dtl .header {
     height: 50px;
     color: white;
@@ -260,6 +260,10 @@ main {
     padding: 0 20px;
     padding-top: 10px;
     display: flex;
+  }
+  .con {
+  
+  background-color: white;
   }
   
 form {

@@ -6,7 +6,11 @@ $(function () {
 	      
 	      reloadList();
 	   });
+	   
+	   
 })
+
+
 function reloadList() {
 	var params = $("#actionForm").serialize();    /* serialize:데이터를 문자열로 변환시켜주는 함수 */
 													/* form의 데이터를 문자열로 변환 */
@@ -31,22 +35,26 @@ function reloadList() {
 function drawList(list) {
 	var html="";
 	 
-	for(var data of list) {        
-		html += " <a href=\"#\" class=\"card\">                ";
+	for(var data of list) {   
+		html += " <a href=\"#\" class=\"card\" onclick=\"javascript:gocorporation(\'"+data.CORP_NO+"\')\">                ";
 		html += "     <p>기업명 :  "+ data.C_NAME + "</p>            ";
-        html += "     <p>직종 :"+ data.NAME +"</p>            ";
+        html += "     <p>직종 :"+ data.SECTOR_NAME +"</p>            ";
         html += "     <p>등록일 :"+ data.REG_DATE +" </p>      ";
-        html += "     <p>연매출 :"+ data.SALES +" </p>  ";
+        html += "     <p>연매출 :"+ data.SALES +" 억원 </p>  ";
      	html += " </a>        ";
 	}                                
 	
 	$(".mySlides").html(html);
 }
 
+function gocorporation(corpor) {
+		
+		self.location="http://localhost:8090/Workcar/corDetails?cRNo="+corpor;
+}
+
 
 function drawPaging(pb) {
 	   var html = "";
-	   
 	   if($("#page").val() == "1") {
 	      html += "<span page=\"1\" class=\"prev\" \">&#10094;</span>      ";
 	   } else {
@@ -69,3 +77,5 @@ function drawPaging(pb) {
 	   
 	   $(".page1").html(html);
 	}
+	
+	

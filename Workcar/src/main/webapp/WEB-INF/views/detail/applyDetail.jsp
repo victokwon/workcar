@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,12 +21,15 @@
        <script type="text/javascript"
 		src="resources/script/jquery/jquery-1.12.4.min.js"></script>
     <script src="resources/script/detail/header.js"></script>
-    <script src="/resources/script/Mypage/Mypage_main_dp.js"></script>
     <script type="text/javascript" src="resources/script/detail/apply_dtl_paging.js"></script>
+    	<script type="text/javascript"
+					src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ccb33b4781aed7d9d9321c853fa3055&libraries=services"></script>
 </head>
 <body>
 	<form action="#" id="actionForm" method="post">
 		<input type="hidden" id="page" name="page" value="${page}">
+		<input type="hidden" id="eNo" name="eNo" value="">
+		<input type="hidden" id="cRNo" name="cRNo" value=""> 
 	</form>
 	<div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -54,7 +58,6 @@
     </div>
     <div class="side_bcc" id="side_bcc"></div>
 
-    <header>
             <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <div id="sdienav_ul">
@@ -82,40 +85,63 @@
     </div>
     <div class="side_bcc" id="side_bcc"></div>
 
-    <header>
-        <!-- 네비게이션바 -->
-        <div class="topnav">
+	<header>
+		<!-- 네비게이션바 -->
+		<div class="topnav">
 
-            <!-- 로고 -->
-            <div class="topnav-centered">
-                <div class="logo_img"></div>
-            </div>
+			<!-- 로고 -->
+			<div class="topnav-centered">
+				<div class="logo_img"></div>
+			</div>
 
-            <!-- 왼쪽 -->
-            <div class="hambuger" onclick="openNav()" id="hambuger_left">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
+			<!-- 왼쪽 -->
+			<div class="hambuger" onclick="openNav()" id="hambuger_left">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
 
-            <!-- 오른쪽 -->
-            <div class="topnav-right">
-                <a href="#login"><strong>Login</strong></a>
-                <a href="#about"><strong>회원가입</strong></a>
-            </div>
-        </div>
-    </header>
+			<!-- 오른쪽 -->
+			<!-- 링크작업 -->
+			<c:choose>
+				<c:when test="${sMTy eq 0}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 1 || sMTy eq 2}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 3}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="topnav-right">
+						<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</header>
     <main class="main">
         <div class="left_main_menu">
             <div class="vertical-menu">
                 <a href="#" class="active">Home</a>
                 <div class="mySlides">
-              <%--   <a href="#" class="card">
-                    <h3>공고명 : </h3>
-                    <p>기업명 : ${applyinfo.C_NAME}</p>
-                    <p>직종 : ${applyinfo.SECTOR_NO}</p>
-                    <p>마감일 : ${applyinfo.DLINE}</p>
-                </a> --%>
+
                 </div>
             </div>
             <div class="page1">
@@ -150,16 +176,96 @@
                     <p>가입보험</p>
                     <p>기타 복지사항</p>
                 </div>
-                <div class="main_rating">
-                    <h3>평점</h3>
-                    <div class="star_rating">
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star checked"></span>
-                        <span class="fa fa-star"></span>
-                        <span class="fa fa-star"></span>
-                    </div>
-                </div>
+				<script>
+					
+						$(function () {
+						    		for (var i=1; i<=  ${rating.TOTAL}; i++) { 
+						    		$(".total_rating"+i).addClass("checked");
+						    		}
+						    		
+						    		for (var i=1; i<=  ${rating.WLB}; i++) { 
+							    	$(".work_rating"+i).addClass("checked");
+							    	}
+						    		for (var i=1; i<=  ${rating.PROMO}; i++) { 
+							    	$(".promotion_rating"+i).addClass("checked");
+							    	}
+						    		for (var i=1; i<=  ${rating.CULTURE}; i++) { 
+							    		$(".culture_rating"+i).addClass("checked");
+							    		}
+						    		for (var i=1; i<=  ${rating.WFARE}; i++) { 
+							    		$(".welfare_rating"+i).addClass("checked");
+							    		}
+						    		for (var i=1; i<=  ${rating.MGM}; i++) { 
+							    		$(".management_rating"+i).addClass("checked");
+							    		}
+						});
+					</script>
+					<div class="main_rating">
+						<h3>총 평점</h3>
+						<div class="star_rating total_rating">
+							<span class="fa fa-star total_rating1"></span>
+							 <span class="fa fa-star total_rating2"></span>
+							  <span class="fa fa-star total_rating3"></span> 
+								<span class="fa fa-star total_rating4"></span>
+							<span class="fa fa-star total_rating5"></span>
+							<span> ${rating.TOTAL}</span>
+						</div>
+					</div>
+					<div class="main_rating">
+						<h3>업무와 삶의 균형</h3>
+						<div class="star_rating work_rating">
+							<span class="fa fa-star work_rating1 "></span>
+							 <span class="fa fa-star work_rating2"></span>
+							  <span class="fa fa-star work_rating3"></span> 
+								<span class="fa fa-star work_rating4"></span>
+							<span class="fa fa-star work_rating5"></span>
+							<span> ${rating.WLB}</span>
+						</div>
+					</div>
+					<div class="main_rating">
+						<h3>승진기회 및 가능성</h3>
+						<div class="star_rating promotion_rating">
+							<span class="fa fa-star promotion_rating1 "></span>
+							 <span class="fa fa-star promotion_rating2"></span>
+							  <span class="fa fa-star promotion_rating3"></span> 
+								<span class="fa fa-star promotion_rating4"></span>
+							<span class="fa fa-star promotion_rating5"></span>
+							<span> ${rating.PROMO}</span>
+						</div>
+					</div>
+					<div class="main_rating">
+						<h3>사내문화</h3>
+						<div class="star_rating culture_rating">
+							<span class="fa fa-star culture_rating1 "></span>
+							 <span class="fa fa-star culture_rating2"></span>
+							  <span class="fa fa-star culture_rating3"></span> 
+								<span class="fa fa-star culture_rating4"></span>
+							<span class="fa fa-star culture_rating5"></span>
+							<span> ${rating.CULTURE}</span>
+						</div>
+					</div>
+					<div class="main_rating">
+						<h3>복지 및 급여</h3>
+						<div class="star_rating welfare_rating">
+							<span class="fa fa-star welfare_rating1 "></span>
+							 <span class="fa fa-star welfare_rating2"></span>
+							  <span class="fa fa-star welfare_rating3"></span> 
+								<span class="fa fa-star welfare_rating4"></span>
+							<span class="fa fa-star welfare_rating5"></span>
+							<span> ${rating.WFARE}</span>
+						</div>
+					</div>
+					<div class="main_rating">
+						<h3>경영진</h3>
+						<div class="star_rating management_rating">
+							<span class="fa fa-star management_rating1 "></span>
+							 <span class="fa fa-star management_rating2"></span>
+							  <span class="fa fa-star management_rating3"></span> 
+								<span class="fa fa-star management_rating4"></span>
+							<span class="fa fa-star management_rating5"></span>
+							<span> ${rating.MGM}</span>
+						</div>
+					</div>
             </div>
         </div>
         <hr>
@@ -170,8 +276,55 @@
             <p> 연락처 : ${managerinfo.PHONE}</p>
             <p> 이메일 : ${managerinfo.EMAIL}</p>
             <p> 회사 위치 : ${managerinfo.ADDR} ${managerinfo.ADDR_DTL}</p>
-        </div>
+            <div id="map" style="width: 100%; height: 350px;"></div>
 
+				<script>
+					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+					mapOption = {
+						center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						level : 3
+					// 지도의 확대 레벨
+					};
+
+					// 지도를 생성합니다    
+					var map = new kakao.maps.Map(mapContainer, mapOption);
+
+					// 주소-좌표 변환 객체를 생성합니다
+					var geocoder = new kakao.maps.services.Geocoder();
+
+					// 주소로 좌표를 검색합니다
+					geocoder
+							.addressSearch(
+									'${managerinfo.ADDR} ${managerinfo.ADDR_DTL}',
+									function(result, status) {
+
+										// 정상적으로 검색이 완료됐으면 
+										if (status === kakao.maps.services.Status.OK) {
+
+											var coords = new kakao.maps.LatLng(
+													result[0].y, result[0].x);
+
+											// 결과값으로 받은 위치를 마커로 표시합니다
+											var marker = new kakao.maps.Marker(
+													{
+														map : map,
+														position : coords
+													});
+
+											// 인포윈도우로 장소에 대한 설명을 표시합니다
+											var infowindow = new kakao.maps.InfoWindow(
+													{
+														content : '<div style="width:150px;text-align:center;padding:6px 0;">${applyinfo.C_NAME}</div>'
+													});
+											infowindow.open(map, marker);
+
+											// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+											map.setCenter(coords);
+										}
+									});
+					
+				</script>
+        </div>
     </main>
     <footer>
         <div class="inner_content">

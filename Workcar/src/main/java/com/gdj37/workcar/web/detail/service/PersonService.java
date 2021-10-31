@@ -14,63 +14,63 @@ public class PersonService implements IPersonService {
 	@Autowired IPersonDao iPersonDao;
 
 	@Override
-	public HashMap<String, String> getM1(HashMap<String, String> params) throws Throwable {
+	public HashMap<String, String> jiwonja(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM1(params) ;
+		return iPersonDao.jiwonja(params) ;
 	}
 
 	@Override
-	public HashMap<String, String> getM2(HashMap<String, String> params) throws Throwable {
+	public HashMap<String, String> wish(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM2(params);
+		return iPersonDao.wish(params);
 	}
 
 	@Override
-	public List<HashMap<String, String>> getM3(HashMap<String, String> params) throws Throwable {
+	public List<HashMap<String, String>> Qualification(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM3(params);
+		return iPersonDao.Qualification(params);
 	}
 
 	@Override
-	public HashMap<String, String> getM4(HashMap<String, String> params) throws Throwable {
+	public HashMap<String, String> grade(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM4(params);
+		return iPersonDao.grade(params);
 	}
 
 	@Override
-	public HashMap<String, String> getM5(HashMap<String, String> params) throws Throwable {
+	public HashMap<String, String> edu(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM5(params);
+		return iPersonDao.edu(params);
 	}
 
 	@Override
-	public HashMap<String, String> getM6(HashMap<String, String> params) throws Throwable {
+	public HashMap<String, String> resum(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM6(params);
+		return iPersonDao.resum(params);
 	}
 
 	@Override
-	public HashMap<String, String> getM7(HashMap<String, String> params) throws Throwable {
+	public HashMap<String, String> career(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM7(params);
+		return iPersonDao.career(params);
 	}
 
 	@Override
-	public List<HashMap<String, String>> getM8(HashMap<String, String> params) throws Throwable {
+	public List<HashMap<String, String>> flang(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM8(params);
+		return iPersonDao.flang(params);
 	}
 
 	@Override
-	public List<HashMap<String, String>> getM9(HashMap<String, String> params) throws Throwable {
+	public List<HashMap<String, String>> list_info(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getM9(params);
+		return iPersonDao.list_info(params);
 	}
 
 	@Override
-	public int getB1Cnt(HashMap<String, String> params) throws Throwable {
+	public int list_paging(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iPersonDao.getB1Cnt(params);
+		return iPersonDao.list_paging(params);
 	}
 
 }

@@ -19,8 +19,8 @@ function reloadList() {
 		success: function(res){ /* ajax 통신이 성공 시 다음 함수 실행 */
 			console.log(res.list)
 			console.log(res.pb)
-			drawList(res.list);
-			drawPaging(res.pb);
+			drawList(res.list)
+			drawPaging(res.pb)
 		}, 
 	error: function(request,status,error){ /* ajax 통신이 실패 시 다음 함수 실행 */
 		console.log(error);
@@ -32,7 +32,7 @@ function drawList(list) {
 	var html="";
 	 
 	for(var data of list) {        
-		html += " <a href=\"#\" class=\"card\">                ";
+		html += " <a href=\"#\" class=\"card\" onclick=\"javascript:goapply(\'"+data.RNUM+"\')\">                ";
 		html += "     <p>공고명 :  "+ data.EMP_TITLE + "</p>            ";
 		html += "     <p>기업명 :  "+ data.C_NAME + "</p>            ";
         html += "     <p>직종 :"+ data.SECTOR_NO +"</p>            ";
@@ -42,6 +42,12 @@ function drawList(list) {
 	
 	$(".mySlides").html(html);
 }
+
+function goapply(oh) {
+		
+		self.location="http://localhost:8090/Workcar/applyDetails?eNo="+oh;
+}
+
 
 
 function drawPaging(pb) {
