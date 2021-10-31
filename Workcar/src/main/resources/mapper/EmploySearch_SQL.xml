@@ -3,15 +3,13 @@
 <mapper namespace="EmploySearch">
 	<select id="getEmpSch1Cnt" parameterType="hashmap"
 		resultType="Integer">
-		SELECT COUNT(*) AS CNT
+		SELECT COUNT(DISTINCT EA.EMP_NO) AS CNT
 		FROM EMP_ANNC EA INNER JOIN C_MEMBER CM
-		ON
-		EA.MEM_NO = CM.MEM_NO
+		ON EA.MEM_NO = CM.MEM_NO
 		INNER JOIN C_INFO CI
 		ON CM.CORP_NO = CI.CORP_NO
-		INNER JOIN EMP_QUAL EQ
+		FULL OUTER JOIN(SELECT DISTINCT QUAL_NO,EMP_NO FROM EMP_QUAL) EQ
 		ON EA.EMP_NO = EQ.EMP_NO
-
 		WHERE DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
@@ -52,7 +50,6 @@
 			    AND QUAL_NO IN (${qualno}) 
 
 			</if>
-
 			<choose>
 				<when test="searchGbn eq 0">
 					AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
@@ -123,10 +120,9 @@
 		<if test="gradu != null and gradu != ''">
 			AND GRADU = #{gradu}
 		</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN (${qualno})
-
-			</if>
+		<if test="qualno != null and qualno != ''">
+		    AND QUAL_NO IN (${qualno})
+		</if>
 	</select>
 <!-- qualno : "1,2,3" -->
 <!-- (1,2,3) -->
@@ -136,18 +132,14 @@
 	<select id="getEmpSch1List" parameterType="hashmap"
 		resultType="hashmap">
 		SELECT E.EMP_NO, E.CORP_IMG, E.C_NAME, E.EMP_TITLE
-		FROM (SELECT
-		EA.EMP_NO, CI.CORP_IMG, CI.C_NAME, EA.EMP_TITLE,
-		ROW_NUMBER()
-		OVER(ORDER BY EA.EMP_NO DESC) AS ENUM
-		FROM EMP_ANNC EA INNER JOIN
-		C_MEMBER CM
-		ON EA.MEM_NO = CM.MEM_NO
+		FROM (SELECT EA.EMP_NO, CI.CORP_IMG, CI.C_NAME, EA.EMP_TITLE,
+        ROW_NUMBER() OVER(ORDER BY EA.EMP_NO DESC) AS ENUM
+		FROM EMP_ANNC EA INNER JOIN C_MEMBER CM 
+        ON EA.MEM_NO = CM.MEM_NO
 		INNER JOIN C_INFO CI
-		ON CM.CORP_NO =
-		CI.CORP_NO
-		INNER JOIN EMP_QUAL EQ
-		ON EA.EMP_NO = EQ.EMP_NO
+        ON CM.CORP_NO = CI.CORP_NO 
+        FULL OUTER JOIN(SELECT DISTINCT QUAL_NO,EMP_NO FROM EMP_QUAL) EQ
+        ON EA.EMP_NO = EQ.EMP_NO
 		WHERE EA.DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
@@ -186,7 +178,6 @@
 			</if>
 			<if test="qualno != null and qualno != ''">
 			    AND QUAL_NO IN (${qualno})
-
 			</if>
 
 			<choose>
@@ -259,10 +250,10 @@
 		<if test="gradu != null and gradu != ''">
 			AND GRADU = #{gradu}
 		</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN (${qualno})
+		<if test="qualno != null and qualno != ''">
+		    AND QUAL_NO IN (${qualno})
+		</if>
 
-			</if>
 		)E
 		WHERE E.ENUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>

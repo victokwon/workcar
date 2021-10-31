@@ -76,10 +76,10 @@ $(document).ready(function(){
 	
 	$("#row_box").on("click","td",function(){
 		$("#empno").val($(this).attr("empno"))
-		
-		let target = "applyDetail"
-		$("#goForm").attr("action", target)
-		$("#goForm").submit()
+		 let target = "mainpage" 
+		/* let target = "applyDetail" */
+		$("#actionForm1").attr("action", target)
+		$("#actionForm1").submit()
 
 	}) 
 	
@@ -136,15 +136,14 @@ $(document).ready(function(){
 
 //데이터 취득
 function reloadList(){
-	var params1 = $("#actionForm1").serialize();
- 	var params2 = $("#actionForm2").serialize();
-	var params3 = $("#actionForm3").serialize();
+	var params = $("#actionForm1").serialize();
+
 	
 	$.ajax({
 		url : "EmploySearchListAjax",
 		type : "post",
 		dataType : "json",
-		data : params1+"&"+params2+"&"+params3,
+		data : params,
 		success : function(res){
 			drawList(res.list);
 			drawPaging(res.pb);
@@ -399,9 +398,10 @@ function regionOptionDraw(list, target, val){
 					onclick="openPage('main_garde', this,'#88a2f2')">평점 100</button>
 			</div>
 			<div class="main_info">
+						<form action="#" id="actionForm1" method="post" class="tab_search_btn">
 				<div id="main_search" class="main_content">
 					<div class="search_top">
-						<form action="#" id="actionForm1" method="post" class="tab_search_btn">
+							<input type="hidden" id="empno" name="empno" value="">
 							<select name="searchGbn" class="search_select" id="searchGbn">
 								<option value="0">전체</option>
 								<option value="1">기업명</option>
@@ -415,18 +415,18 @@ function regionOptionDraw(list, target, val){
 								type="hidden" name="page" id="page" value="${page}" /> <input
 								type="hidden" name="no" id="no" />
 
-						</form>
+						
 
 					</div>
 					<!-- 검색 -->
 					<!-- 메인컨텐츠 -->
 					<div class="main_section">
-						<form action="#" id="actionForm2" method="post">
+						
 							<div>
-								<span>공고일 / 마감일 :</span> <span>공고일</span> 
+								공고일 / 마감일 : 공고일
 								<input type="text" id="startDate" name="startDate" class="date_picker" /> 
-								<span>~</span> 
-								<span>마감일</span>
+								~
+								마감일
 								<input type="text" id="endDate" name="endDate" class="date_picker" />
 							</div>
 							<div>
@@ -509,11 +509,11 @@ function regionOptionDraw(list, target, val){
 								<label> / 시간제 <input type="radio" name="empGbn" class="radiobox" value="2" /></label> 
 								<label> / 기타 <input type="radio" name="empGbn" class="radiobox" value="3" /></label>
 							</div>
-						</form>
+						
 
 					</div>
 					<div id="more">
-						<form action="#" id="actionForm3" method="post">
+						
 							<input type="hidden" id="actGbn" name="actGbn">
 							<div>
 								<span>최종학력 :</span> 
@@ -535,10 +535,9 @@ function regionOptionDraw(list, target, val){
 				
 
 							</div>
-						</form>
 
 					</div>
-					<button onclick="moreBtn()" id="img_btn">
+					<button type="button" onclick="moreBtn()" id="img_btn">
 						<img src="resources/images/empsch/down.png" alt="down" id="icon">
 					</button>
 					<!-- Portfolio Gallery Grid -->
@@ -562,10 +561,8 @@ function regionOptionDraw(list, target, val){
 					</div>
 				</div>
 
-				<form action="#" method="post" id="goForm">
-					<input type="hidden" id="empno" name="empno" value="">					
-				</form>
 
+					</form>
 
 
 				<div id="main_hits" class="main_content">

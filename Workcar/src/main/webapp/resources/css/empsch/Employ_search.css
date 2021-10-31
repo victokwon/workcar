@@ -54,7 +54,7 @@ html {
   font-size: 17px;
   float:left;
 }
-form.tab_search_btn input[type=text] {
+.search_top input[type=text] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
@@ -65,7 +65,7 @@ form.tab_search_btn input[type=text] {
   margin-left:10px;
 }
 
-form.tab_search_btn button {
+.search_top button {
   float: left;
   width: 13%;
   height:50px;
@@ -79,11 +79,11 @@ form.tab_search_btn button {
   margin-left:-5px;
 }
 
-form.tab_search_btn button:hover {
+.search_top button:hover {
   background: #0b7dda;
 }
 
-form.tab_search_btn::after {
+.search_top::after {
   content: "";
   clear: both;
   display: table;
@@ -144,6 +144,10 @@ main > .main_wrap {
 /* 기본 */
 /* 검색 end */
 /* 상세검색 체크확인내용 */
+.main_section{
+	display: flex;
+	flex-direction: column;
+}
 .main_section, #more {
   width:800px;
 
@@ -173,6 +177,7 @@ main > .main_wrap {
   font-size: 17px;
   border: 1px solid grey;
   text-align: center;
+  font-size:14px;
 }
 .main_section .radiobx,
 #more .radiobx{
@@ -293,6 +298,7 @@ table{
   color:black;
 }
 .card_list .content:hover{
+cursor:pointer;
   border:8px solid #88a2f2;
   margin: -8px 0px;
 }

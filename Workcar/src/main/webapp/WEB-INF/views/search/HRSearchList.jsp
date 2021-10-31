@@ -107,7 +107,6 @@ $(document).ready(function(){
 	});	
 	$("tbody").on("click", "tr", function(){
 	 $("#no").val($(this).attr("no"));
-	 $("#actionForm").submit();
 	 //눌렀을때 번호를 저장하고 그것에 따라 상세보기에 보내겠다.
 	});
 
@@ -146,9 +145,17 @@ function drawList(list) {
 	for(var data of list) {
 		html += "<td class=\"column\">";
 		html += "<div class=\"content\">";
-		html += "<div>"+ data.EMP_NO +"</div>";
-		html += "<h3>" + data.C_NAME + "</h3>"; 
-		html += "<span>" + data.EMP_TITLE + "</span>";
+		html += "<h3>" + data.NAME + "</h3>";
+		html += "<div>" ;
+		html += "<p>"+ data.SECTOR_NAME +"</p>";
+		html += "<span> 지역 :" + data.CITY_NAME + "</span>";
+		html += "<span> / " + data.REGION_NAME + "</span>";
+		html += "</div>" ;
+		html += "<div>" ;
+		html += "<span> 경력 : "+ data.CARR +" 년</span>";
+		html += "<span> / 등록일 : " + data.REG_DATE + "</span>";		
+		html += "</div>" ;
+		
 		html += "</div>";
 		html += "</td>";
 	}
@@ -380,10 +387,11 @@ function regionOptionDraw(list, target, val){
 						<form action="#" id="actionForm1" method="post" class="tab_search_btn">
 							<select name="searchGbn" class="search_select" id="searchGbn">
 								<option value="0">전체</option>
-								<option value="1">기업명</option>
-								<option value="2">공고명</option>
+								<option value="1">이름</option>
+								<option value="2">희망직종</option>
+								<option value="3">희망지역</option>
 							</select> 
-							<input type="text" placeholder="기업명 / 채용공고명" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
+							<input type="text" placeholder="이름/희망직종/희망지역" name="searchTxt" id="searchTxt" value="${param.searchTxt}" />
 							<button type="button" id="searchBtn">
 								<i class="fa fa-search"></i>
 							</button>
@@ -475,9 +483,9 @@ function regionOptionDraw(list, target, val){
 							<div>
 								<span>희망근무형태 :</span>
 								
-								<label> 정규직 <input type="radio" name="empGbn" class="radiobox" value="0" /></label>
-								<label> / 계약직 <input type="radio" name="empGbn" class="radiobox" value="1" /> </label> 
-								<label> / 시간제 <input type="radio" name="empGbn" class="radiobox" value="2" /></label> 
+								<label> 정규직 <input type="radio" name="work_type" class="radiobox" value="0" /></label>
+								<label> / 계약직 <input type="radio" name="work_type" class="radiobox" value="1" /> </label> 
+								<label> / 시간제 <input type="radio" name="work_type" class="radiobox" value="2" /></label> 
 								
 							</div>
 						</form>
