@@ -19,7 +19,6 @@
   .topnav a {
     color: #f2f2f2;
     text-align: center;
-    padding: 10px 20px 0px 0px;
     text-decoration: none;
     font-size: 13px;
   }
@@ -41,8 +40,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    width:52px;
-    height:52px;
+    /* width:52px;
+    height:52px; */
     position: absolute;
     top: 50%;
     left: 50%;

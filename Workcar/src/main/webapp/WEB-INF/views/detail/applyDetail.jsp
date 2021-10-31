@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <link rel="stylesheet" href="resources/css/common/main.css">
     <link rel="stylesheet" href="resources/css/detail/footer.css">
     <link rel="stylesheet" href="resources/css/common/default.css">
 	<link rel="stylesheet" href="resources/css/common/header.css">
@@ -17,7 +16,6 @@
 	<link rel="stylesheet" href="resources/css/detail/paging.css">
 	<link rel="stylesheet" type="text/css" href="resources\css\detail\pop.css">
 
-    <link rel="stylesheet" href="resources/css/detail/Apply_Resources_Detail.css">
       <!-- Add icon library -->
       <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -25,48 +23,48 @@
 	<script type="text/javascript" src="resources\script\detail\resumeApply.js"></script>
     <script src="resources/script/detail/header.js"></script>
     <script type="text/javascript" src="resources/script/detail/apply_dtl_paging.js"></script>
-   	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ccb33b4781aed7d9d9321c853fa3055&libraries=services"></script>
+   	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5a7222e84f43da6e7dad790c0611a4f&libraries=services"></script>
 					
 	<script type="text/javascript">
 
 	</script>
 	<script>
-	$(function () {
+	 $(function () {
 		
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-		mapOption = {
-			center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-			level : 3
-		// 지도의 확대 레벨
-		};
-		// 지도를 생성합니다    
+		var mapContainer = document.getElementById("map"), // 지도를 표시할 div
+		  mapOption = {
+		    center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		    level: 3,
+		    // 지도의 확대 레벨
+		  };
+		// 지도를 생성합니다
 		var map = new kakao.maps.Map(mapContainer, mapOption);
 		// 주소-좌표 변환 객체를 생성합니다
 		var geocoder = new kakao.maps.services.Geocoder();
 		// 주소로 좌표를 검색합니다
-		geocoder.addressSearch('${managerinfo.ADDR} ${managerinfo.ADDR_DTL}',
-						function(result, status) {
-							// 정상적으로 검색이 완료됐으면 
-							if (status === kakao.maps.services.Status.OK) {
-								var coords = new kakao.maps.LatLng(
-										result[0].y, result[0].x);
-								// 결과값으로 받은 위치를 마커로 표시합니다
-								var marker = new kakao.maps.Marker(
-										{
-											map : map,
-											position : coords
-										});
-								// 인포윈도우로 장소에 대한 설명을 표시합니다
-								var infowindow = new kakao.maps.InfoWindow({
-											content : '<div style="width:150px;text-align:center;padding:6px 0;">${applyinfo.C_NAME}</div>'
-										});
-								infowindow.open(map, marker);
-								// 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-								map.setCenter(coords);
-							}
-						});
-		}
-		
+		geocoder.addressSearch(
+		  "${applyinfo.ADDR} ${applyinfo.ADDR_DTL}",
+		  function (result, status) {
+		    // 정상적으로 검색이 완료됐으면
+		    if (status === kakao.maps.services.Status.OK) {
+		      var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+		      // 결과값으로 받은 위치를 마커로 표시합니다
+		      var marker = new kakao.maps.Marker({
+		        map: map,
+		        position: coords,
+		      });
+		      // 인포윈도우로 장소에 대한 설명을 표시합니다
+		      var infowindow = new kakao.maps.InfoWindow({
+		        content:
+		          '<div style="width:150px;text-align:center;padding:6px 0;">${applyinfo.C_NAME}</div>',
+		      });
+		      infowindow.open(map, marker);
+		      // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+		      map.setCenter(coords);
+		    }
+		  }
+		)
+	}) 
 		 function linkGo(url){
 		 		location.href = url
 		 	}
@@ -77,7 +75,7 @@
 <body>
 	<form action="#" id="actionForm" method="post">
 		<input type="hidden" id="page" name="page" value="${page}">
-		<input type="hidden" id="eNo" name="eNo" value="">
+		<input type="hidden" id="empNo" name="empNo" value="">
 		<input type="hidden" id="cRNo" name="cRNo" value=""> 
 	</form>
 	
@@ -194,7 +192,7 @@
         <button type="button" class="pop-close-btn">X</button>
             <div class="pop-in-container">
                 <div class="pop-text-header">
-                    <h1></h1>
+                    <h1>이력서 리스트</h1>
                 </div>
                 <!-- 5개 리스트 -->
                 <div class="list_wrap">
@@ -220,7 +218,7 @@
                 <div class="paging_wrap"></div>
                 <div class="pop-input">
                		<div class="text_box"></div>
-                    <input type="button" class="sch-btn" id="applyBtn" rNo="" eNo="1" value="요청하기">
+                    <input type="button" class="sch-btn" id="applyBtn" rNo="" eNo="" value="요청하기">
                 </div>
             </div>
         </div>
@@ -231,14 +229,16 @@
     <form action="#" id="resumeGo" method="post">
       <input type="hidden" id="memNo" name="memNo" value="${sMNo }">
       <input type="hidden" id="page" name="page" value="${page}">
-      <input type="hidden" id="empNo" name="empNo" value="${param.empno }">
+      <input type="hidden" id="empNo" name="empNo" value="${param.empNo }">
    </form>
    
         <div class="left_main_menu">
             <div class="vertical-menu">
                 <a href="#" class="active">Home</a>
-                <div class="mySlides">
-
+                <div >
+                	<table class="mySlides">
+                		
+                	</table>
                 </div>
             </div>
             <div class="page1">
@@ -249,29 +249,56 @@
         <div class="main_profile">
             <div class="main_profile_div">
                 <div class="main_title">
-                    <p>${applyinfo.EMP_TITLE}</p>
+                    <h1>${applyinfo.EMP_TITLE} / ${applyinfo.D_DAY}</h1>
+                </div>
+                <div class="emp_date">
+                	공고일: ${applyinfo.REG_DATE }<br>
+                	마감일: ${applyinfo.DLINE }
                 </div>
             </div>
             <div>
                 <div class="main_detail_1">
-                    <p>기업명:${applyinfo.C_NAME}</p>
-                    <p>직종 :${applyinfo.SECTOR_NO}</p>
-                    <p>학력 : ${applyinfo.GRADU}</p>
-                    <p>경력 : ${applyinfo.CARR}</p>
-                    <p>고용형태 : ${applyinfo.EMP_GBN}</p>
-                    <p>급여 : 월 ${applyinfo.PAY_LOW} 만원 ~ ${applyinfo.PAY_HIGH} 만원</p>
-                    <p>자격증 :  </p>
+            	        <div class="input_box">
+                           <div class="c_name">
+	                              <div class="text"><b>기업명</b></div>
+	                              <div class="input"><b>${applyinfo.C_NAME}</b></div>
+                           </div>
+                           <div class="sector">
+	                              <div class="text">직종</div>
+	                              <div class="input">${applyinfo.SECTOR_NAME}</div>
+                           </div>
+                           <div class="gradu">
+	                              <div class="text">학력</div>
+	                              <div class="input">${applyinfo.GRADU}</div>
+                           </div>
+                           <div class="carr">
+	                              <div class="text">경력</div>
+	                              <div class="input">
+		                              	${applyinfo.CARR} 
+		                              	<c:if test="${applyinfo.CARR eq '경력' }">[ ${applyinfo.CARR_Y }년]</c:if> 
+                              	  </div>
+                           </div>
+                           <div class="work">
+	                              <div class="text">고용형태</div>
+	                              <div class="input"> ${applyinfo.EMP_GBN}</div>
+                           </div>
+                           <div class="sal">
+	                              <div class="text">급여</div>
+	                              <div class="input">  [${applyinfo.PAY_GBN}] 월 ${applyinfo.PAY_LOW} 만원 ~ ${applyinfo.PAY_HIGH} 만원</div>
+                           </div>
+                           <div class="qual">
+	                              <div class="text">자격증</div>
+	                              <div class="input">
+										<c:forEach var="data" items="${qualList }">
+											[&nbsp;${data.QUAL_NAME }&nbsp;] <br>
+										</c:forEach>
+								  </div>
+                           </div>
                 </div>
+                <br>
                 <hr>
                 <div class="main_detail_2">
-                    <button class="main_detail_repport">채용정보신고</button>
-                    <p>급여</p>
-                    <p>퇴직금</p>
-                    <p>근무형태</p>
-                    <p>근무시간</p>
-                    <p>휴일</p>
-                    <p>가입보험</p>
-                    <p>기타 복지사항</p>
+                    <textarea class="apply_dtl" disabled="disabled">${applyinfo.DTL }</textarea>
                 </div>
 				<script>
 					
@@ -365,17 +392,20 @@
 					</div>
             </div>
         </div>
+        </div>
         <hr>
         <div class="right_main_menu">
-        	<c:if test="${sMNy eq 0 }">
+        	<c:if test="${sMTy eq 0 }">
             	<button class="right_main_apply" id="popOpen">지원하기</button>
+            	<button class="main_detail_repport">채용정보신고</button>
         	</c:if>
         	
             <p> 담당자 정보</p>
-            <p> 성명 : ${managerinfo.NAME}</p>
-            <p> 연락처 : ${managerinfo.PHONE}</p>
-            <p> 이메일 : ${managerinfo.EMAIL}</p>
-            <p> 회사 위치 : ${managerinfo.ADDR} ${managerinfo.ADDR_DTL}</p>
+            <p> 성명 : ${applyinfo.NAME}</p>
+            <p> 직책 : ${applyinfo.POS}</p>
+            <p> 연락처 : ${applyinfo.PHONE}</p>
+            <p> 이메일 : ${applyinfo.EMAIL}</p>
+            <p> 회사 위치 : ${applyinfo.ADDR} ${applyinfo.ADDR_DTL}</p>
             
             <div id="map" style="width: 100%; height: 350px;"></div>
 
