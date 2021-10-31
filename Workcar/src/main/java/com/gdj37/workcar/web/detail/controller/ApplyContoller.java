@@ -29,6 +29,7 @@ public class ApplyContoller {
 	@RequestMapping(value="/applyDetail")
 	public ModelAndView applyDetail (@RequestParam HashMap<String,String> params, ModelAndView mav) throws Throwable
 	{
+		System.out.println(params);
 		HashMap<String,String> applyinfo = iApplyService.getinfo(params);
 		HashMap<String,String> managerinfo = iApplyService.managerinfo(params);
 		

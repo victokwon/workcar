@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Apply_Info_Dtl_SQL">
-		<select id="getinfo" parameterType="hashmap" resultType="hashmap">
-		select c_name, recruit_gbn, gradu, major, carr, pay_gbn, pay_low, pay_high, emp_gbn, to_char(dline,'yy/mm/dd') dline, dtl, addr, addr_dtl, reg_date, sector_no
-		, emp_title
-        from member m join c_member cm on m.mem_no = cm.mem_no
-        join c_info ci on cm.corp_no = ci.corp_no
-        join emp_annc ea on ea.mem_no = cm.mem_no
-        join emp_qual eq on ea.emp_no = eq.emp_no
-        join qual q on q.qual_no = eq.qual_no
+
+	<select id="getinfo" parameterType="hashmap" resultType="hashmap">
+        SELECT c_name, recruit_gbn, gradu, 
+            major, carr, pay_gbn, pay_low, 
+            pay_high, emp_gbn, 
+            to_char(dline,'yy/mm/dd') dline, 
+            dtl, addr, addr_dtl, reg_date, sector_no,
+            emp_title
+        FROM EMP_ANNC EA
+        JOIN C_MEMBER C
+        ON (EA.MEM_NO = C.MEM_NO)
+        JOIN C_INFO CI
+        ON (C.CORP_NO = CI.CORP_NO)
+        JOIN MEMBER M
+        ON (M.MEM_NO = EA.MEM_NO)
         where mem_gbn = 2
-        and ea.emp_no = 1
+        and ea.emp_no = #{empno}
         and ea.del_chk = 0
 	</select>
+	
 	<select id="managerinfo" parameterType="hashmap" resultType="hashmap">
-		select name,regexp_replace(phone,'(.{3})(.+)(.{4})','\1-\2-\3') phone,email,addr,addr_dtl
-        from member m join i_member im on m.mem_no = im.mem_no
+        SELECT name,regexp_replace(phone,'(.{3})(.+)(.{4})','\1-\2-\3') phone,email,addr,addr_dtl
+        FROM EMP_ANNC EA
+        JOIN C_MEMBER C
+        ON (EA.MEM_NO = C.MEM_NO)
+        JOIN C_INFO CI
+        ON (C.CORP_NO = CI.CORP_NO)
+        JOIN MEMBER M
+        ON (M.MEM_NO = EA.MEM_NO)
+        where mem_gbn = 2
+        and ea.emp_no = #{empno}
+        and ea.del_chk = 0
 	</select>
-		<select id="getinfo_Cnt" parameterType="hashmap" resultType="Integer">
+	
+	<select id="getinfo_Cnt" parameterType="hashmap" resultType="Integer">
 		select count(ea.emp_no) cnt
         from member m join c_member cm on m.mem_no = cm.mem_no
         join c_info ci on cm.corp_no = ci.corp_no
@@ -28,7 +46,8 @@
         and ea.emp_no = 1
         and ea.del_chk = 0
 	</select>
-		<select id="getinfo_list" parameterType="hashmap" resultType="hashmap">
+	
+	<select id="getinfo_list" parameterType="hashmap" resultType="hashmap">
 		select c_name,sector_no,to_char(dline,'yy-mm-dd') dline, emp_title
         from member m join c_member cm on m.mem_no = cm.mem_no
         join c_info ci on cm.corp_no = ci.corp_no
@@ -39,4 +58,5 @@
         and ea.emp_no = 1
         and ea.del_chk = 0
 	</select>
+	
 </mapper>
