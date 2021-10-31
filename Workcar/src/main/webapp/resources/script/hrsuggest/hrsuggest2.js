@@ -141,6 +141,3 @@ function drawAttndList(list){
 
 
 
-function JCReq(target){
-
-}

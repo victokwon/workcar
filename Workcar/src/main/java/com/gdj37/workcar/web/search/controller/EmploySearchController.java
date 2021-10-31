@@ -1,10 +1,6 @@
 package com.gdj37.workcar.web.search.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,13 +27,12 @@ public class EmploySearchController {
 	IPagingService iPagingService;
 
 	@RequestMapping(value = "/EmploySearchList")
-	public ModelAndView EmploySearchList(@RequestParam HashMap<String, String> params, ModelAndView mav) {
+	public ModelAndView EmploySearchList(@RequestParam HashMap<String, String> params, ModelAndView mav)throws Throwable {
 		int page = 1;
 
 		if (params.get("page") != null) {
 			page = Integer.parseInt(params.get("page"));
 		}
-
 		mav.addObject("page", page);
 		mav.setViewName("search/EmploySearchList");
 
@@ -46,10 +41,23 @@ public class EmploySearchController {
 
 	@RequestMapping(value = "/EmploySearchListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String EmploySearchListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String EmploySearchListAjax(@RequestParam HashMap<String, String> params, @RequestParam (required=false) String[] qualno ) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 //		System.out.println(params);
 		Map<String, Object> modelMap = new HashMap<String, Object>(); // 데이터를 담을 map
+		try {
+			String qual ="";
+			if(qualno != null) {
+			for(int i=0; i<qualno.length;i++) {
+				qual += qualno[i];
+				if(i+1 != qualno.length) {
+					qual += " , ";
+				}
+			}
+			params.put("qualno", qual);
+			}
+			System.out.println(params.get("qualno"));
+		
 		// 페이지 취득
 		int page = Integer.parseInt(params.get("page"));
 		// 개수 취득
@@ -58,85 +66,111 @@ public class EmploySearchController {
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 9);
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
+
 		// 리스트 조회
 		List<HashMap<String, String>> list = iEmploySearchService.getEmpSch1List(params);
-
-		modelMap.put("list", list);
+		
+		modelMap.put("page", page);
 		modelMap.put("pb", pb);
+		modelMap.put("list", list);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		// 데이터를 문자열화
 		return mapper.writeValueAsString(modelMap);
 	}
 
-	/*
-	 * @RequestMapping(value = "/getQualApiAjax", method = RequestMethod.POST,
-	 * produces = "text/json;charset=UTF-8")
-	 * 
-	 * @ResponseBody public String getQualApiAjax(@RequestParam HashMap<String,
-	 * String> params) throws Throwable { ObjectMapper mapper = new ObjectMapper();
-	 * Map<String, Object> modelMap = new HashMap<String, Object>(); // 데이터를 담을 map
-	 * 
-	 * String addr =
-	 * "http://openapi.q-net.or.kr/api/service/rest/InquiryListNationalQualifcationSVC/getList?";
-	 * String serviceKey =
-	 * "NhC65sMUANhN4RJqC1C+m/2U99C960q5Yz4u0AivzvfB0Kuh1vcHukyrWx9qZjQygXDW4ydYfT5e4bJZIMqz8w==";
-	 * 
-	 * StringBuilder urlBuilder = new StringBuilder();
-	 * urlBuilder.append(URLEncoder.encode("serviceKey=", "UTF-8") +
-	 * URLEncoder.encode(serviceKey, "UTF-8")); Service Key
-	 * 
-	 * urlBuilder.append("&" + URLEncoder.encode("요청변수명", "UTF-8") + "=" +
-	 * URLEncoder.encode(요청변수 값, "UTF-8"));
-	 * 
-	 * URL url = new URL(urlBuilder.toString());
-	 * 
-	 * HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-	 * conn.setRequestMethod("GET"); conn.setRequestProperty("Content-type",
-	 * "application/xml");
-	 * 
-	 * System.out.println("Response code: " + conn.getResponseCode()); // 접속 결과 확인
-	 * // 200 = 정상 처리 완료 BufferedReader rd; //접속 결과에 의한 처리 if
-	 * (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) { rd = new
-	 * BufferedReader(new InputStreamReader(conn.getInputStream())); } else { rd =
-	 * new BufferedReader(new InputStreamReader(conn.getErrorStream())); }
-	 * StringBuilder sb = new StringBuilder(); String line; while ((line =
-	 * rd.readLine()) != null) { sb.append(line); } rd.close(); conn.disconnect();
-	 * System.out.println(sb.toString());
-	 * 
-	 * // 데이터를 문자열화 return mapper.writeValueAsString(modelMap); }
-	 */
 	@ResponseBody
-	   @RequestMapping(value = "/getQualList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	   public String getQualList(@RequestParam HashMap<String, String> params) throws Throwable {
-	      ObjectMapper mapper = new ObjectMapper();
-	      Map<String, Object> modelMap = new HashMap<String, Object>();
-	      String result = CommonProperties.RESULT_SUCCESS;
-	      int pop_page = 1;
-	      
-	      try {
-	         if(params.get("pop_page")!="") {
-	        	 pop_page =Integer.parseInt(params.get("pop_page"));
-	         }
-	         int cnt = iEmploySearchService.getQualCnt(params);
-	         PagingBean pb = iPagingService.getPagingBean(pop_page, cnt, 5, 5);
+	@RequestMapping(value = "/getQualList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getQualList(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		int pop_page = 1;
+		try {
+			if(params.get("pop_page")!="") {
+			pop_page =Integer.parseInt(params.get("pop_page"));
+			}
+		int cnt = iEmploySearchService.getQualCnt(params);
+		PagingBean pb = iPagingService.getPagingBean(pop_page, cnt, 5, 5);
+         
+		params.put("startCnt", Integer.toString(pb.getStartCount()));
+		params.put("endCnt", Integer.toString(pb.getEndCount()));
+		
+		System.out.println(cnt);
+		System.out.println(pb);
+		List<HashMap<String, String>> list = iEmploySearchService.getQual(params);
+        if(list == null) {
+           result = CommonProperties.RESULT_FAILED;
+        }
+        modelMap.put("pop_page", pop_page);
+        modelMap.put("pb", pb);
+        modelMap.put("list", list);
+		} catch (Exception e) {
+        System.out.println(params);
+        result = CommonProperties.RESULT_ERROR;            
+        e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	@ResponseBody
+	@RequestMapping(value = "/getSectorList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getSectorList(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		int pop_page = 1;
+      
+		try {
+			System.out.println(params);
+			if(params.get("pop_page")!="") {
+				pop_page =Integer.parseInt(params.get("pop_page"));
+			}
+			System.out.println(pop_page);
+			int cnt = iEmploySearchService.getSectorCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(pop_page, cnt, 5, 5);
 	         
-	         params.put("startCnt", Integer.toString(pb.getStartCount()));
-	         params.put("endCnt", Integer.toString(pb.getEndCount()));
-
-	         System.out.println(cnt);
-	         System.out.println(pb);
-	         List<HashMap<String, String>> list = iEmploySearchService.getQual(params);
-	         if(list == null) {
-	            result = CommonProperties.RESULT_FAILED;
-	         }
-	         modelMap.put("pop_page", pop_page);
-	         modelMap.put("pb", pb);
-	         modelMap.put("list", list);
-	      } catch (Exception e) {
-	         System.out.println(params);
-	         result = CommonProperties.RESULT_ERROR;            
-	         e.printStackTrace();
-	      }
-	      modelMap.put("result", result);
-	      return mapper.writeValueAsString(modelMap);
-	   }
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+	
+			System.out.println(cnt);
+			System.out.println(pb);
+			List<HashMap<String, String>> list = iEmploySearchService.getSector(params);
+	        if(list == null) {
+	           result = CommonProperties.RESULT_FAILED;
+	        }
+	        modelMap.put("pop_page", pop_page);
+	        modelMap.put("pb", pb);
+	        modelMap.put("list", list);
+		} catch (Exception e) {
+			System.out.println(params);
+	        result = CommonProperties.RESULT_ERROR;            
+	        e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	@ResponseBody
+	@RequestMapping(value = "/getRegionList", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getRegionList(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		System.out.println(params);
+		try {
+			System.out.println(params);
+			List<HashMap<String, String>> list = iEmploySearchService.getRegion(params);
+			if (list == null) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			modelMap.put("list", list);
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
 }

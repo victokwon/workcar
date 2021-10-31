@@ -9,13 +9,15 @@ $(function(){
 	})
 	
 	$(".main_info").on("click", "#attnedAddBtn",function(){
-		let target = $(this).parent().parent().parent().parent().parent()
+		if($(this).attr("class") == "n_hover"){
+			alert("이미 추가된 관심정보입니다.")
+		}else{
+		let target = $(this)
 		addAttned(target)
-		$(this).attr("class", "n_hover")
+		}
 	})
 })
 
-/*이벤트 온 오프 처리*/
 
 function addEmp(target){
 	let params = $("#suggetEmpForm").serialize()
@@ -44,7 +46,7 @@ function addEmp(target){
 function drawEmpBox(data,target) {
 
 	html = ''
-	html +=    	'	<tr no="'+data.RESUM_NO+'">                                                            '
+	html +=    	'	<tr >                                                            '
 	html +=     '    	<td >                                          '
 	html +=     '    		<div class="emp_suggest_list">                          '
 	html +=     '    			<div class="box_profile"></div>                     '
@@ -83,7 +85,7 @@ function drawEmpBox(data,target) {
 	html +=     '    			</div>                                              '
 	html +=     '    			<div class="button_container">                      '
 	html +=     '    				<div class="button_box b">                        '
-	html +=     '    					<button type="button" class="b_hover" id="attnedAddBtn">관심</button>          '
+	html +=     '    					<button type="button" class="b_hover" id="attnedAddBtn" no="'+data.RESUM_NO+'">관심</button>          '
 	html +=     '    					<button type="button" class="b_hover" id="suggetDelBtn">삭제</button>          '
 	html +=     '    				</div>   '
     html +=     '					<div class="button_box b">                                              '
@@ -110,6 +112,7 @@ let params ="resumeNo=" + target.attr("no") +"&memNo=" + $("#userNo").attr("no")
      	if(res.result == "SUCCESS"){
      		alert("관심추가 완료")
      		drawAttndPage()
+     		target.attr("class","n_hover")
      	}else if(res.result == "FAILED"){
      	}
      	console.log(res.result)

@@ -13,4 +13,12 @@ public interface IEmploySearchDAO {
 
 	public List<HashMap<String, String>> getQual(HashMap<String, String> params)throws Throwable ;
 
+	public int getAddContCnt(HashMap<String, String> params)throws Throwable ;
+
+	public int getSectorCnt(HashMap<String, String> params)throws Throwable ;
+
+	public List<HashMap<String, String>> getSector(HashMap<String, String> params)throws Throwable ;
+
+	public List<HashMap<String, String>> getRegion(HashMap<String, String> params)throws Throwable ;
+
 }

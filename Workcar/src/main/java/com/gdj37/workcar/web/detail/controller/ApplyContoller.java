@@ -42,6 +42,8 @@ public class ApplyContoller {
 	{
 		params.put("cRNo","1101111129497");
 		params.put("eNo","1"); 
+		System.out.println(params);
+		
 		HashMap<String,String> applyinfo = iApplyService.getinfo(params);
 		HashMap<String,String> managerinfo = iApplyService.managerinfo(params);
 		

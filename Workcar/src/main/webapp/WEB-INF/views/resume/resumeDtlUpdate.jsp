@@ -865,6 +865,34 @@
 	                                                    <c:set var="locNo" value="${locNo + 1 }"></c:set>
 	                                                </div>
                                                 </c:forEach>
+                                                <c:forEach var="i" step="1" begin="${locNo }" end="3">
+                                                    <div class="locSelectBox">
+                                               			<select class="citySel" id="city${locNo }" name="city" selValue="16">
+	                                                        <option value="-1">시도 선택</option>
+	                                                        <option value="16">전체</option>
+	                                                        <option value="0">강원</option>
+	                                                        <option value="1">경기</option>
+	                                                        <option value="2">경남</option>
+	                                                        <option value="3">경북</option>
+	                                                        <option value="4">광주</option>
+	                                                        <option value="5">대구</option>
+	                                                        <option value="6">대전</option>
+	                                                        <option value="7">부산</option>
+	                                                        <option value="8">서울</option>
+	                                                        <option value="9">울산</option>
+	                                                        <option value="10">인천</option>
+	                                                        <option value="11">전남</option>
+	                                                        <option value="12">전북</option>
+	                                                        <option value="13">제주</option>
+	                                                        <option value="14">충남</option>
+	                                                        <option value="15">충북</option>
+	                                                    </select>
+	                                                    <select id="region${locNo }" name="region" selValue="16">
+	
+	                                                    </select>
+	                                                    <c:set var="locNo" value="${locNo + 1 }"></c:set>
+                                                    </div>
+                                                </c:forEach>
                                             </div>
                                         </div>
                                         <div class="work_format">

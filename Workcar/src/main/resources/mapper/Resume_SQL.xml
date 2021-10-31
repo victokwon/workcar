@@ -12,15 +12,6 @@
 		ORDER BY RESUM_NO
 	</select>
 
-	<select id="getResumeCnt" parameterType="hashmap"
-		resultType="int">
-		SELECT COUNT(*) AS CNT
-		FROM RESUM
-		WHERE DEL_CHK = 0
-		AND MEM_NO
-		= #{memNo}
-	</select>
-
 	<update id="applyResume" parameterType="hashmap">
 		UPDATE RESUM SET
 		<choose>
@@ -34,6 +25,15 @@
 		WHERE RESUM_NO = #{resumeNo}
 		AND MEM_NO = #{memNo}
 	</update>
+
+	<select id="getResumeCnt" parameterType="hashmap"
+		resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM RESUM
+		WHERE DEL_CHK = 0
+		AND MEM_NO
+		= #{memNo}
+	</select>
 
 	<!-- 이력서 상세보기 개인정보 -->
 	<select id="getUserDtl" parameterType="hashmap" resultType="hashmap">
@@ -542,4 +542,44 @@
 		)
 	</insert>
 	
+	
+	
+	
+	<select id="getResumeEmpCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) CNT
+		FROM RESUM R
+		LEFT OUTER JOIN (SELECT RESUM_NO FROM RESUM_SUPP WHERE EMP_NO = #{empNo} ) RS
+		ON (R.RESUM_NO = RS.RESUM_NO)
+		WHERE DEL_CHK = 0
+		AND R.MEM_NO = #{memNo}
+		AND RS.RESUM_NO IS NULL
+	</select>
+	
+	<select id="getResume" parameterType="hashmap" resultType="hashmap">
+		SELECT
+		RESUM_NO, RESUM_NAME, CHN_DATE
+		FROM
+		(
+		SELECT R.RESUM_NO, RESUM_NAME, TO_CHAR(CHN_DATE, 'YYYY-MM-DD' ) CHN_DATE,
+		ROW_NUMBER() OVER (ORDER BY CHN_DATE DESC) AS RNUM
+		FROM RESUM R
+		LEFT OUTER JOIN (SELECT RESUM_NO FROM RESUM_SUPP WHERE EMP_NO = #{empNo} ) RS
+		ON (R.RESUM_NO = RS.RESUM_NO)
+		WHERE DEL_CHK = 0
+		AND MEM_NO = ${memNo}
+		AND RS.RESUM_NO IS NULL
+		) E
+		WHERE E.RNUM BETWEEN #{startCnt} AND #{endCnt}
+		ORDER BY RESUM_NO
+	</select>
+	
+	<insert id="PA" parameterType="hashmap">
+		INSERT INTO RESUM_SUPP (
+		EMP_NO,
+		RESUM_NO
+		) VALUES (
+		#{empNo},
+		#{resumeNo}
+		)
+	</insert>
 </mapper>

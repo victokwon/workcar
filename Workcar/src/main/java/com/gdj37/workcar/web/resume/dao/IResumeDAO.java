@@ -59,6 +59,12 @@ public interface IResumeDAO {
 
 	public int dtlAdd(HashMap<String, String> params)throws Throwable;
 
-	HashMap<String, String> getUserDtl(HashMap<String, String> params)throws Throwable;
+	public HashMap<String, String> getUserDtl(HashMap<String, String> params)throws Throwable;
+
+	public int PA(HashMap<String, String> params)throws Throwable;
+
+	public List<HashMap<String, String>> getResume(HashMap<String, String> params)throws Throwable;
+
+	public int getResumeEmpCnt(HashMap<String, String> params)throws Throwable;
 
 }

@@ -81,6 +81,8 @@ public class CAController {
 				}else if( memGbn.equals("1") ||  memGbn.equals("2") ) {
 					checkJoin = iCAService.checkCmJoin(params);
 					mav.setViewName("ca/cmjoin");
+				}else if(memGbn.equals("3")) {
+					checkJoin = 1;
 				}
 				
 				if(checkJoin != 0) {

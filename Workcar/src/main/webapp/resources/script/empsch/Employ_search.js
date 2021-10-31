@@ -45,8 +45,6 @@ $(function(){
 		}
 	});
 	
-	$(".lisence_box").on("click", ".minus_btn", function () {
-		$(this).parent().html("");
-	});
+
 	
 })

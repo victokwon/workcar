@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Apply_Info_Dtl_SQL">
+<<<<<<< HEAD
 		<select id="getinfo" parameterType="hashmap" resultType="hashmap">
 		select c_name, recruit_gbn, gradu, major, carr, pay_gbn, pay_low, pay_high, emp_gbn, to_char(dline,'yy/mm/dd') dline, dtl, addr, addr_dtl, reg_date, sector_no
 		, emp_title
@@ -11,9 +12,30 @@
         join qual q on q.qual_no = eq.qual_no
         where ea.emp_no = #{eNo}
         and mem_gbn = 2
+=======
+
+	<select id="getinfo" parameterType="hashmap" resultType="hashmap">
+        SELECT c_name, recruit_gbn, gradu, 
+            major, carr, pay_gbn, pay_low, 
+            pay_high, emp_gbn, 
+            to_char(dline,'yy/mm/dd') dline, 
+            dtl, addr, addr_dtl, reg_date, sector_no,
+            emp_title
+        FROM EMP_ANNC EA
+        JOIN C_MEMBER C
+        ON (EA.MEM_NO = C.MEM_NO)
+        JOIN C_INFO CI
+        ON (C.CORP_NO = CI.CORP_NO)
+        JOIN MEMBER M
+        ON (M.MEM_NO = EA.MEM_NO)
+        where mem_gbn = 2
+        and ea.emp_no = #{empno}
+>>>>>>> branch 'main' of https://github.com/victokwon/workcar.git
         and ea.del_chk = 0
 	</select>
+	
 	<select id="managerinfo" parameterType="hashmap" resultType="hashmap">
+<<<<<<< HEAD
 		select name,regexp_replace(phone,'(.{3})(.+)(.{4})','\1-\2-\3') phone,email,addr,addr_dtl
 		from member m join c_member cm on m.mem_no = cm.mem_no
 		join i_member im on m.mem_no = im.mem_no
@@ -21,8 +43,22 @@
 		where ea.emp_no = #{eNo}
 		and ea.del_chk = 0 
 		and mem_gbn = 2
+=======
+        SELECT name,regexp_replace(phone,'(.{3})(.+)(.{4})','\1-\2-\3') phone,email,addr,addr_dtl
+        FROM EMP_ANNC EA
+        JOIN C_MEMBER C
+        ON (EA.MEM_NO = C.MEM_NO)
+        JOIN C_INFO CI
+        ON (C.CORP_NO = CI.CORP_NO)
+        JOIN MEMBER M
+        ON (M.MEM_NO = EA.MEM_NO)
+        where mem_gbn = 2
+        and ea.emp_no = #{empno}
+        and ea.del_chk = 0
+>>>>>>> branch 'main' of https://github.com/victokwon/workcar.git
 	</select>
-		<select id="getinfo_Cnt" parameterType="hashmap" resultType="Integer">
+	
+	<select id="getinfo_Cnt" parameterType="hashmap" resultType="Integer">
 		select count(ea.emp_no) cnt
         from member m join c_member cm on m.mem_no = cm.mem_no
         join c_info ci on cm.corp_no = ci.corp_no
@@ -33,10 +69,16 @@
         and ea.emp_no = #{eNo}
         and ea.del_chk = 0
 	</select>
+<<<<<<< HEAD
 		<select id="getinfo_list" parameterType="hashmap" resultType="hashmap">
 		        select c_name,sector_no,dline, emp_title,RNUM
         from (
         select c_name,sector_no,to_char(dline,'yy-mm-dd') dline, emp_title, ROW_NUMBER() OVER (ORDER BY ea.emp_no DESC) AS RNUM 
+=======
+	
+	<select id="getinfo_list" parameterType="hashmap" resultType="hashmap">
+		select c_name,sector_no,to_char(dline,'yy-mm-dd') dline, emp_title
+>>>>>>> branch 'main' of https://github.com/victokwon/workcar.git
         from member m join c_member cm on m.mem_no = cm.mem_no
         join c_info ci on cm.corp_no = ci.corp_no
         join emp_annc ea on ea.mem_no = cm.mem_no
@@ -46,6 +88,7 @@
         and ea.del_chk = 0)mr
         WHERE mr.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
+<<<<<<< HEAD
 		<select id="rating" parameterType="hashmap"
 		resultType="hashmap">
          select to_char(TRUNC(avg(wlb))) WLB, to_char(TRUNC(avg(promo_poss))) PROMO, to_char(TRUNC(avg(c_cult))) CULTURE, to_char(TRUNC(avg(wfare_pay))) WFARE, to_char(TRUNC(avg(mgm))) MGM ,to_char(TRUNC( sum(wlb+promo_poss+c_cult+wfare_pay+mgm)/count(wlb)/5)) TOTAL
@@ -56,4 +99,7 @@
 		update emp_annc set views = views + 1
         where emp_no =  #{eNo} 
 	</update>
+=======
+	
+>>>>>>> branch 'main' of https://github.com/victokwon/workcar.git
 </mapper>

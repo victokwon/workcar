@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_SQL">
+	<!-- 신고관리 -->
+	<select id="getDclCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM EMP_DCLARE ED
+		JOIN EMP_ANNC EA
+		ON (ED.EMP_NO = EA.EMP_NO)
+		WHERE ED.DEL_CHK = 0
+        <if test="prcss eq 'ing'.toString()">
+           	AND EA.DEL_CHK = 0
+        	AND PRCSS_GBN = 0
+        </if>		
+	</select>
+	
+	<select id="getDcl" parameterType="hashmap" resultType="hashmap">
+		SELECT DCLARE_NO, NAME, MEM_NO, EMP_NO, EMP_TITLE, DCLARE_CODE,
+		DCLARE_REASN, DCLARE_REFUSE, REG_DATE, PRCSS_DATE, C_NAME, PRCSS_GBN, DEL_CHK
+		FROM
+		(
+            SELECT
+            DCLARE_NO, NAME, ED.MEM_NO, ED.EMP_NO, EMP_TITLE, DCLARE_CODE,
+            DCLARE_REASN, DCLARE_REFUSE, TO_CHAR(ED.REG_DATE,'YYYY-MM-DD')
+            REG_DATE, TO_CHAR(PRCSS_DATE,'YYYY-MM-DD') PRCSS_DATE, C_NAME, PRCSS_GBN, EA.DEL_CHK,
+            ROW_NUMBER() OVER(ORDER BY DCLARE_NO) RNUM
+            FROM EMP_DCLARE ED
+            JOIN MEMBER M
+            ON (ED.MEM_NO = M.MEM_NO)
+            JOIN EMP_ANNC EA
+            ON (ED.EMP_NO = EA.EMP_NO)
+            JOIN C_MEMBER CM
+            ON (EA.MEM_NO = CM.MEM_NO)
+            JOIN C_INFO CI
+            ON (CM.CORP_NO = CI.CORP_NO)
+            WHERE ED.DEL_CHK = 0
+            <if test="prcss eq 'ing'.toString()">
+            	AND PRCSS_GBN = 0
+            	AND EA.DEL_CHK = 0
+            </if>
+		) ED
+		WHERE ED.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+
+	<select id="getDclDtl" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			DCLARE_NO, NAME, ED.MEM_NO, ED.EMP_NO, EMP_TITLE, DCLARE_CODE,
+            DCLARE_REASN, DCLARE_REFUSE, TO_CHAR(ED.REG_DATE,'YYYY-MM-DD')
+            REG_DATE, TO_CHAR(PRCSS_DATE,'YYYY-MM-DD') PRCSS_DATE, C_NAME, PRCSS_GBN, EA.DEL_CHK
+        FROM EMP_DCLARE ED
+        JOIN MEMBER M
+        ON (ED.MEM_NO = M.MEM_NO)
+        JOIN EMP_ANNC EA
+        ON (ED.EMP_NO = EA.EMP_NO)
+        JOIN C_MEMBER CM
+        ON (EA.MEM_NO = CM.MEM_NO)
+        JOIN C_INFO CI
+        ON (CM.CORP_NO = CI.CORP_NO)
+        WHERE ED.DEL_CHK = 0
+        AND ED.DCLARE_NO = #{dclareNo}
+	</select>
+	
+	<update id="updateDcl" parameterType="hashmap">
+		UPDATE EMP_DCLARE SET
+		<if test="prcssGbn eq 2">
+			DCLARE_REFUSE = #{dclareRefuse},
+		</if>
+		PRCSS_GBN = #{prcssGbn},
+		PRCSSMEM_NO = #{manageNo},
+		PRCSS_DATE = SYSDATE
+		WHERE DEL_CHK = 0
+		AND DCLARE_NO = #{dclareNo}
+	</update>
+	
+	<update id="ReportedEmpDel" parameterType="hashmap">
+		UPDATE EMP_ANNC SET
+		DEL_CHK = 1
+		WHERE DEL_CHK = 0
+		AND EMP_NO = #{empNo}
+	</update>
+	
+	<!-- 평점관리 -->
+	<select id="getGrdCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*)
+		FROM GRADE G
+		JOIN MEMBER M
+		ON (G.APLMEM_NO = M.MEM_NO)
+		WHERE G.DEL_CHK = 0
+        <if test="prcss eq 'ing'.toString()">
+        	AND PRCSS_GBN = 0
+        </if>			
+	</select>
+	
+	<select id="getGrd" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+			GRADE_NO, APLMEM_NO, NAME, CORP_NO, C_NAME, 
+			WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM, 
+			EVAL, REFUSE_REASN, PRCSS_GBN,
+			REG_DATE, PRCSS_DATE
+		FROM
+			(
+			SELECT 
+			    GRADE_NO, APLMEM_NO, NAME, G.CORP_NO, C_NAME,
+			    WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM,
+			    EVAL, REFUSE_REASN, PRCSS_GBN,
+			    TO_CHAR(REG_DATE,'YYYY-MM-DD') REG_DATE,
+			    TO_CHAR(PRCSS_DATE,'YYYY-MM-DD') PRCSS_DATE,
+			    M.WDRAWL_DATE,
+			    ROW_NUMBER() OVER(ORDER BY GRADE_NO) RNUM
+			FROM GRADE G
+			JOIN MEMBER M
+			ON (G.APLMEM_NO = M.MEM_NO)
+			JOIN C_INFO CI
+			ON (G.CORP_NO = CI.CORP_NO)
+            WHERE DEL_CHK = 0
+            <if test="prcss eq 'ing'.toString()">
+            	AND PRCSS_GBN = 0
+            </if>		    
+			) G
+		WHERE G.RNUM BETWEEN #{startCnt} AND #{endCnt}
+		ORDER BY REG_DATE
+	</select>
+	
+	<select id="getGrdDtl" parameterType="hashmap" resultType="hashmap">
+		SELECT 
+		    GRADE_NO, APLMEM_NO, NAME, G.CORP_NO, C_NAME,
+		    WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM,
+		    EVAL, REFUSE_REASN, PRCSS_GBN,
+		    TO_CHAR(REG_DATE,'YYYY-MM-DD') REG_DATE,
+		    TO_CHAR(PRCSS_DATE,'YYYY-MM-DD') PRCSS_DATE,
+		    ROW_NUMBER() OVER(ORDER BY GRADE_NO) RNUM
+		FROM GRADE G
+		JOIN MEMBER M
+		ON (G.APLMEM_NO = M.MEM_NO)
+		JOIN C_INFO CI
+		ON (G.CORP_NO = CI.CORP_NO)
+		WHERE DEL_CHK = 0
+		AND GRADE_NO = #{gradeNo}
+	</select>
+	
+	<update id="updateGrd" parameterType="hashmap">
+		UPDATE GRADE SET
+		<if test="prcssGbn eq 2">
+			REFUSE_REASN = #{refuseReasn},
+		</if>
+		PRCSS_GBN = #{prcssGbn},
+		PRCSSMEM_NO = #{manageNo},
+		PRCSS_DATE = SYSDATE
+		WHERE DEL_CHK = 0
+		AND GRADE_NO = #{gradeNo}
+	</update>
+	
+	<!-- 회원목록 -->
+	<select id="getIMemCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) CNT
+		FROM MEMBER M
+		JOIN I_MEMBER IM
+		ON (M.MEM_NO = IM.MEM_NO)
+	</select>
+	
+	<select id="getIMem" parameterType="hashmap" resultType="hashmap">
+		SELECT M.MEM_NO, NAME, ID, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL, CAT_NAME,
+		SUBSTR(BIRTH,1,4) YEAR, SUBSTR(BIRTH,5,2) MONTH, SUBSTR(BIRTH,7,2) DAY, BIRTH
+		TO_CHAR(JOIN_DATE,'YYYY-MM-DD') JOIN_DATE, TO_CHAR(WDRAWL_DATE,'YYYY-MM-DD') WDRAWL_DATE
+		FROM MEMBER M
+		JOIN I_MEMBER IM
+		ON (M.MEM_NO = IM.MEM_NO)
+		JOIN (SELECT CAT_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 2) CC 
+		ON (IM.GENDER = CC.SCD_CAT)
+		ORDER BY WDRAWL_DATE NULLS LAST
+	</select>
+	
+	<select id="getCMemCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) CNT
+		FROM MEMBER M
+		JOIN C_MEMBER CM
+		ON (M.MEM_NO = CM.MEM_NO)
+	</select>
+	
+	<select id="getCMem" parameterType="hashmap" resultType="hashmap">
+		SELECT M.MEM_NO, NAME, ID, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL,
+		CM.CORP_NO, C_NAME, 
+		TO_CHAR(JOIN_DATE,'YYYY-MM-DD') JOIN_DATE, TO_CHAR(WDRAWL_DATE,'YYYY-MM-DD') WDRAWL_DATE, TO_CHAR(RRCSS_DATE,'YYYY-MM-DD') RRCSS_DATE
+		FROM MEMBER M
+		JOIN C_MEMBER CM
+		ON (M.MEM_NO = CM.MEM_NO)
+		JOIN C_INFO CI
+		ON (CM.CORP_NO = CI.CORP_NO)
+		ORDER BY RRCSS_DATE NULLS FIRST, WDRAWL_DATE NULLS LAST
+	</select>
+	
+	
+	
+	
+</mapper>

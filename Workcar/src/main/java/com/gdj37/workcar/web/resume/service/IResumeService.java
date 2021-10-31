@@ -61,6 +61,12 @@ public interface IResumeService {
 
 	public HashMap<String, String> getUserDtl(HashMap<String, String> params)throws Throwable;
 
+	
+	
+	public int PA(HashMap<String, String> params)throws Throwable;
+	public List<HashMap<String, String>> getResume(HashMap<String, String> params)throws Throwable;
+	public int getResumeEmpCnt(HashMap<String, String> params)throws Throwable;
+
 
 
 }

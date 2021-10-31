@@ -170,5 +170,19 @@ public class ResumeService implements IResumeService {
 		return iResumeDAO.getUserDtl(params);
 	}
 
-
+	
+	
+	
+	@Override
+	public int PA(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.PA(params);
+	}
+	@Override
+	public List<HashMap<String, String>> getResume(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.getResume(params);
+	}
+	@Override
+	public int getResumeEmpCnt(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.getResumeEmpCnt(params);
+	}
 }

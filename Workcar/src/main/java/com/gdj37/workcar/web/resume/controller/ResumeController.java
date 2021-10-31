@@ -27,12 +27,18 @@ public class ResumeController {
 	IResumeService iResumeService;
 	@Autowired
 	IPagingService iPagingService;
-
+	
+	
 	@RequestMapping(value = "/resumeList")
-	public ModelAndView mypageResume(ModelAndView mav, @RequestParam HashMap<String, String> params,
+	public ModelAndView resumeList(ModelAndView mav) {
+		mav.setViewName("redirect:resumeLists");	
+		return mav;
+	}
+	
+	@RequestMapping(value = "/resumeLists")
+	public ModelAndView resumeLists(ModelAndView mav, @RequestParam HashMap<String, String> params,
 			HttpSession session) throws Throwable {
 		System.out.println(params);
-		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
 				String memNo = String.valueOf(session.getAttribute("sMNo"));
 				params.put("memNo", memNo);
@@ -47,9 +53,6 @@ public class ResumeController {
 				mav.setViewName("redirect:login");
 				e.printStackTrace();
 			}
-		} else {
-			mav.setViewName("redirect:login");
-		}
 		return mav;
 	}
 
@@ -75,8 +78,6 @@ public class ResumeController {
 	@RequestMapping(value = "/resumeDtl")
 	public ModelAndView resumeDtl(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpSession session)
 			throws Throwable {
-		System.out.println(params);
-		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
 //               이력서 리스트
 				params.put("memNo", String.valueOf(session.getAttribute("sMNo")));
@@ -120,10 +121,6 @@ public class ResumeController {
 				mav.setViewName("redirect:mainpage");
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println(params);
-			mav.setViewName("redirect:mainpage");
-		}
 		return mav;
 	}
 
@@ -144,7 +141,6 @@ public class ResumeController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		String result = CommonProperties.RESULT_SUCCESS;
-		System.out.println(params);
 		try {
 			System.out.println(params);
 			List<HashMap<String, String>> list = iResumeService.getRegion(params);
@@ -253,7 +249,6 @@ public class ResumeController {
 			HttpSession session) throws Throwable {
 
 		System.out.println(params);
-		if (String.valueOf(session.getAttribute("sMTy")).equals("0")) {
 			try {
 				// 값 제거
 				int cnt = 0;
@@ -391,12 +386,85 @@ public class ResumeController {
 				mav.setViewName("redirect:resumeList");
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println(params);
-			mav.setViewName("ca/login");
-		}
 		mav.addObject("actGbn", "Dtl");
 		mav.addObject("resumeNo", params.get("resumeNo"));
 		return mav;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	// 이력서 지원
+	@RequestMapping(value = "/resumeApply")
+	public ModelAndView resumeApply(ModelAndView mav) {
+			
+		mav.setViewName("/resume/resumeApply");
+		return mav;
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value = "/getResumeListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getResumeListAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		System.out.println(params);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_SUCCESS;
+		int page = 1;
+		System.out.println(params);
+
+		try {
+			if (params.get("page") != "") {
+				page = Integer.parseInt(params.get("page"));
+			}
+			int cnt = iResumeService.getResumeEmpCnt(params);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
+
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+			List<HashMap<String, String>> list = iResumeService.getResume(params);
+			if (list == null) {
+				result = CommonProperties.RESULT_FAILED;
+			}
+			modelMap.put("page", page);
+			modelMap.put("pb", pb);
+			modelMap.put("list", list);
+		} catch (Exception e) {
+			System.out.println(params);
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/PAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String PAjax(@RequestParam HashMap<String, String> params, HttpSession session) throws Throwable {
+		System.out.println(params);
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String, Object> modelMap = new HashMap<String, Object>();
+		String result = CommonProperties.RESULT_FAILED;
+		try {
+			int cnt = iResumeService.PA(params);
+			if(cnt > 0) {
+				result = CommonProperties.RESULT_SUCCESS;
+			}
+		} catch (Exception e) {
+			result = CommonProperties.RESULT_ERROR;
+			e.printStackTrace();
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

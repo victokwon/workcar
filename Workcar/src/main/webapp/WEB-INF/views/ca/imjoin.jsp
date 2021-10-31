@@ -129,7 +129,7 @@ function formSubmit(){
                     <h1>일력거 회원가입</h1>
                 </div>
                 <form class="user" id="iMemJoinForm" action="joins" method="post">
-                	<input type="hidden" name="memNo" value="${param.memNo}">
+                	<input type="hidden" name="memNo" value="${memNo}">
                     <input type="hidden" name="joinType" value="iMem">
                     <div class="input-member">
                         <input type="checkbox" name="iM" id="iM" readonly>
@@ -138,7 +138,7 @@ function formSubmit(){
                     </div>
 
                     <div class="input">
-                        <input type="text" placeholder="생년월일(6자리)" id="birth" name="birth" onchange="changeCheck(birthCheck(), birth)">
+                        <input type="text" placeholder="생년월일(8자리)" id="birth" name="birth" onchange="changeCheck(birthCheck(), birth)">
                         <div class="check" style="background-image: url(resources/images/ca/check.png)"></div>
                     </div>
                     <div class="form-group" onchange="changeCheck(genderCheck(), genderBox)">
