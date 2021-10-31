@@ -8,8 +8,13 @@
 		ON EA.MEM_NO = CM.MEM_NO
 		INNER JOIN C_INFO CI
 		ON CM.CORP_NO = CI.CORP_NO
-		FULL OUTER JOIN(SELECT DISTINCT QUAL_NO,EMP_NO FROM EMP_QUAL) EQ
-		ON EA.EMP_NO = EQ.EMP_NO
+        <if test="qualno != null and qualno != ''">
+			 JOIN(SELECT DISTINCT EMP_NO FROM EMP_QUAL 
+			 			 WHERE QUAL_NO IN (${qualno})
+			 ) EQ
+        	 ON EA.EMP_NO = EQ.EMP_NO
+
+		</if>
 		WHERE DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
@@ -46,10 +51,7 @@
 			<if test="gradu != null and gradu != ''">
 				AND GRADU = #{gradu}  
 			</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN (${qualno}) 
 
-			</if>
 			<choose>
 				<when test="searchGbn eq 0">
 					AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
@@ -120,9 +122,7 @@
 		<if test="gradu != null and gradu != ''">
 			AND GRADU = #{gradu}
 		</if>
-		<if test="qualno != null and qualno != ''">
-		    AND QUAL_NO IN (${qualno})
-		</if>
+
 	</select>
 <!-- qualno : "1,2,3" -->
 <!-- (1,2,3) -->
@@ -140,8 +140,15 @@
         ON (EA.SECTOR_NO = S.SECTOR_NO)
 		INNER JOIN C_INFO CI
         ON CM.CORP_NO = CI.CORP_NO 
-        FULL OUTER JOIN(SELECT DISTINCT QUAL_NO,EMP_NO FROM EMP_QUAL) EQ
-        ON EA.EMP_NO = EQ.EMP_NO
+       
+        <if test="qualno != null and qualno != ''">
+			 JOIN(SELECT DISTINCT EMP_NO FROM EMP_QUAL 
+			  WHERE QUAL_NO IN (${qualno})
+			 ) EQ
+        	 ON EA.EMP_NO = EQ.EMP_NO
+			
+		</if>
+
 		WHERE EA.DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
@@ -178,9 +185,7 @@
 			<if test="gradu != null and gradu != ''">
 				AND GRADU = #{gradu}
 			</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN (${qualno})
-			</if>
+			
 
 			<choose>
 				<when test="searchGbn eq 0">
@@ -252,9 +257,7 @@
 		<if test="gradu != null and gradu != ''">
 			AND GRADU = #{gradu}
 		</if>
-		<if test="qualno != null and qualno != ''">
-		    AND QUAL_NO IN (${qualno})
-		</if>
+
 
 		)E
 		WHERE E.ENUM BETWEEN #{startCnt} AND #{endCnt}
