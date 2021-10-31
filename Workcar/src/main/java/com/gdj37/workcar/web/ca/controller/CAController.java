@@ -46,9 +46,11 @@ public class CAController {
 	IPagingService iPagingService;
 
 	@RequestMapping(value = "/login")
-	public ModelAndView login(ModelAndView mav, HttpSession session) {
+	public ModelAndView login(ModelAndView mav, HttpSession session, HttpServletRequest request) {
 //		세션 로그인 정보 저장
 		if (session.getAttribute("sMNo") == null) {
+			String referer = request.getHeader("referer");
+			mav.addObject("url",referer);
 			mav.setViewName("ca/login");
 		} else {
 //		메인화면으로 주소 변경
@@ -61,6 +63,7 @@ public class CAController {
 	public ModelAndView logins(ModelAndView mav, @RequestParam HashMap<String, String> params, HttpSession session)
 			throws Throwable {
 		try {
+			System.out.println(params);
 			String pw = Utils.encryptAES128(params.get("PW"));
 			params.put("PW", pw);
 
@@ -89,7 +92,11 @@ public class CAController {
 					session.setAttribute("sMNo", data.get("MEM_NO"));
 					session.setAttribute("sMNm", data.get("NAME"));
 					session.setAttribute("sMTy", data.get("MEM_GBN"));
-					mav.setViewName("redirect:mainpage");
+					if(params.get("url").equals("")) {
+						mav.setViewName("redirect:mainpage");
+					}else {
+						mav.setViewName("redirect:"+params.get("url"));
+					}
 				}
 			} else {
 //				mav.addObject("msg", "로그인실패");
@@ -102,10 +109,15 @@ public class CAController {
 	}
 
 	@RequestMapping(value = "/logout")
-	public ModelAndView logout(ModelAndView mav, HttpSession session) {
+	public ModelAndView logout(ModelAndView mav, HttpSession session, HttpServletRequest request) {
 		session.invalidate();
 //		이전 주소 가지고 와서 view에 정보 입력 이전페이지로 이동
-		mav.setViewName("redirect:mainpage");
+		String referer = request.getHeader("referer");
+		if(referer.equals("")) {
+			mav.setViewName("redirect:mainpage");
+		}else {
+			mav.setViewName("redirect:"+referer);
+		}
 		return mav;
 	}
 

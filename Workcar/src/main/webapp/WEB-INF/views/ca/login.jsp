@@ -93,6 +93,7 @@
                     <a href="#" id="loginBtn">
                         Login
                     </a>
+                    <input type="hidden" name="url" value="${ url}">
                 </form>
                 <hr>
                 <div class="text">
