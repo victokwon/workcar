@@ -76,12 +76,12 @@ $(document).ready(function(){
 	
 	$("#row_box").on("click","td",function(){
 		$("#empno").val($(this).attr("empno"))
-		/* 채용상세보기 페이지 변경해야함 */
+		
 		let target = "applyDetail"
 		$("#goForm").attr("action", target)
 		$("#goForm").submit()
 
-	})
+	}) 
 	
 	
 	$(".paging_wrap").on("click","span",function(){
@@ -124,11 +124,7 @@ $(document).ready(function(){
 		
 		reloadList();
 	});	
-	$("tbody").on("click", "tr", function(){
-	 $("#no").val($(this).attr("no"));
-	 $("#actionForm1").submit();
-	 //눌렀을때 번호를 저장하고 그것에 따라 상세보기에 보내겠다.
-	});
+
 
 	$(".locSelectBox").on("change",".citySel",function(){
 	   getRegion($(this).val(), $(this).next())
