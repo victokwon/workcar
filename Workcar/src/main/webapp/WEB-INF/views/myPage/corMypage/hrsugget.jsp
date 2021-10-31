@@ -18,20 +18,20 @@
 <link rel="stylesheet" type="text/css"
 	href="resources\css\mainpage\searchbar.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\change\namechangeneed.css">
+   href="resources\css\hrsuggest\hrsuggest.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\change\pop.css">
+   href="resources\css\hrsuggest\pop.css">
    
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
 	src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript"
-	src="resources\script\change\namechangeneed1.js"></script>
+	src="resources\script\hrsuggest\hrsuggest1.js"></script>
 <script type="text/javascript"
-	src="resources\script\change\namechangeneed2.js"></script>
+	src="resources\script\hrsuggest\hrsuggest2.js"></script>
 <script type="text/javascript"
-	src="resources\script\change\namechangeneed3.js"></script>
+	src="resources\script\hrsuggest\hrsuggest3.js"></script>
 	
 <script type="text/javascript">
 $(function () {

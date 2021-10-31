@@ -30,15 +30,11 @@ public class corpmp {
 	@Autowired
 	IPagingService iPagingService;
 	
-	@RequestMapping(value="/corpAttndInfo")
-	ModelAndView CorRegi(ModelAndView mav, HttpSession session) throws Throwable {
-		
-		if(String.valueOf(session.getAttribute("sMTy")).equals("2")) {
-			mav.setViewName("myPage/corMypage/hrsugget");
-		}else {
-			mav.setViewName("redirect:mainpage");
-		}
-		
+	
+	
+	@RequestMapping(value = "/corpAttndInfo")
+	public ModelAndView corpAttndInfo(ModelAndView mav)  {
+		mav.setViewName("myPage/corMypage/hrsugget");
 		return mav;
 	}
 	

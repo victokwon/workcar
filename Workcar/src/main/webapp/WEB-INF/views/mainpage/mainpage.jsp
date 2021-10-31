@@ -27,10 +27,9 @@
 
 <script type="text/javascript">
  	$(function () {
-/* 서치바 js등으로 다시 처리하기 */
- /* onclick="linkGo(url)" url 변경하기 */ 
- /* 또는  */
-/* 링크 처리 일괄적으로 한번에 동작 할 수 있는 매커니즘 찾기 */
+ 	 	if("${msg}"!=""){
+ 	 		alert("${msg}")
+ 	 	}
 
 	 }) 
 	 function linkGo(url){
