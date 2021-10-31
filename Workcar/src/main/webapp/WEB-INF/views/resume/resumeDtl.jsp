@@ -285,14 +285,20 @@
                                 <c:forEach var="data" items="${LOC }">
                                  [&nbsp;${data.CITY_NAME}&nbsp;/&nbsp;${data.REGION_NAME}&nbsp;]
                                  </c:forEach>
+                                <c:if test="${empty LOC }">
+                                 		선택된 근무지역이 없습니다.
+                                 </c:if>
                               </div>
                            </div>
                            <div class="work_format">
                               <div class="text">근무형태</div>
                               <div class="input">
-                                 <c:forEach var="data" items="${WORK}">
-                                    [&nbsp;${data.WORK_TYPE_NAME }&nbsp;]&nbsp;
-                                 </c:forEach>
+	                                 <c:forEach var="data" items="${WORK}">
+	                                    [&nbsp;${data.WORK_TYPE_NAME }&nbsp;]&nbsp;
+	                                 </c:forEach>
+                                 <c:if test="${empty WORK }">
+                                 		선택된 근무형태가 없습니다.
+                                 </c:if>
                               </div>
                            </div>
                            <div class="sal">

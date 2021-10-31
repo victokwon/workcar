@@ -259,7 +259,7 @@ function GrdUpdate(act){
 			alert("처리에 성공했습니다.")
 			if(act = 'staring'){
 				getIGrd()
-			}else if(act = 'staried'){
+			}else if(act = 'stared'){
 				getDGrd()
 			}
      	}else if(res.result == "FAILED"){

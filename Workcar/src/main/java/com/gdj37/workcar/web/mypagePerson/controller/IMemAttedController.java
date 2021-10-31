@@ -1,5 +1,4 @@
-package com.gdj37.workcar.web.login.controller;
-
+package com.gdj37.workcar.web.mypagePerson.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,21 +18,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.CommonProperties;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
-import com.gdj37.workcar.web.login.service.IMyCorpService;
+import com.gdj37.workcar.web.mypagePerson.service.IMemAttndService;
 
-@Controller
-public class corpmp {
-	
-	@Autowired
-	IMyCorpService imycorpser;
+public class IMemAttedController {
 	@Autowired
 	IPagingService iPagingService;
+	@Autowired 
+	IMemAttndService iMemAttndService;
 	
 	
-	
-	@RequestMapping(value = "/corpAttndInfo")
+	@RequestMapping(value = "/iAttndInfo")
 	public ModelAndView corpAttndInfo(ModelAndView mav)  {
-		mav.setViewName("myPage/corMypage/hrsugget");
+		mav.setViewName("myPage/persionMypage/persionAttend");
 		return mav;
 	}
 	
@@ -46,7 +41,7 @@ public class corpmp {
 		String result = CommonProperties.RESULT_FAILED;
 		try {
 			String memNo = String.valueOf(session.getAttribute("sMNo"));
-			List<HashMap<String, String>> list = imycorpser.getAttndList(memNo);
+			List<HashMap<String, String>> list = iMemAttndService.getAttndList(memNo);
 			if(list != null) {
 				modelMap.put("LIST",list);
 				result = CommonProperties.RESULT_SUCCESS;
@@ -67,7 +62,7 @@ public class corpmp {
 		String result = CommonProperties.RESULT_FAILED;
 		try {
 			String target = params.get("target");
-			int cnt = imycorpser.delAttention(target);
+			int cnt = iMemAttndService.delAttention(target);
 			if(cnt > 0) {
 				result = CommonProperties.RESULT_SUCCESS;
 			}
@@ -100,7 +95,7 @@ public class corpmp {
 				paramMap.put("suggetEmpNoList",suggetEmpNoList);
 			}
 			System.out.println(paramMap.toString());
-			HashMap<String, String> data = imycorpser.getSuggetEmp(paramMap);
+			HashMap<String, String> data = iMemAttndService.getSuggetEmp(paramMap);
 			if(data != null) {
 				modelMap.put("data", data);
 				result = CommonProperties.RESULT_SUCCESS;
@@ -121,7 +116,7 @@ public class corpmp {
 		String result = CommonProperties.RESULT_FAILED;
 		try {
 			System.out.println(params);
-			int cnt = imycorpser.addAttned(params);
+			int cnt = iMemAttndService.addAttned(params);
 			if(cnt > 0) {
 				result = CommonProperties.RESULT_SUCCESS;
 			}
@@ -146,13 +141,13 @@ public class corpmp {
 			if (params.get("page") != "") {
 				page = Integer.parseInt(params.get("page"));
 			}
-			int cnt = imycorpser.getEmpCnt(params);
+			int cnt = iMemAttndService.getEmpCnt(params);
 			PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
 
 			params.put("startCnt", Integer.toString(pb.getStartCount()));
 			params.put("endCnt", Integer.toString(pb.getEndCount()));
 
-			List<HashMap<String, String>> list = imycorpser.getEmp(params);
+			List<HashMap<String, String>> list = iMemAttndService.getEmp(params);
 			if (list == null) {
 				result = CommonProperties.RESULT_FAILED;
 			}
@@ -175,7 +170,7 @@ public class corpmp {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		String result = CommonProperties.RESULT_FAILED;
 		try {
-			int cnt = imycorpser.JC(params);
+			int cnt = iMemAttndService.JC(params);
 			if(cnt > 0) {
 				result = CommonProperties.RESULT_SUCCESS;
 			}
@@ -186,5 +181,4 @@ public class corpmp {
 		modelMap.put("result", result);
 		return mapper.writeValueAsString(modelMap);
 	}
-	
 }

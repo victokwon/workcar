@@ -46,17 +46,6 @@ $(function(){
 		$(".pop-container").html("")
    })
 })   
-/*별점*/
-function rateIt() {
-  for (rating in ratings) {
-    ratingPercentage = (ratings[rating] / totalRating) * 100;
-    ratingRounded = Math.round(ratingPercentage / 10) * 10 + "%";
-    star = table.querySelector(`.${rating} .inner-star`);
-    numberRating = table.querySelector(`.${rating} .numberRating`);
-    star.style.width = ratingRounded;
-    numberRating.innerText = ratings[rating];
-  }
-}    
     
 /*이벤트 온 오프 처리*/
 
@@ -261,9 +250,9 @@ function DclUpdate(){
     success: function (res) {
      	if(res.result == "SUCCESS"){
 			alert("처리에 성공했습니다.")
-			if(act = 'staring'){
+			if(act = 'reporting'){
 				getIDcl()
-			}else if(act = 'staried'){
+			}else if(act = 'reported'){
 				getDDcl()
 			}
      	}else if(res.result == "FAILED"){

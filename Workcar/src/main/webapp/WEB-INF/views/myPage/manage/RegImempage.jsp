@@ -35,6 +35,9 @@
 function linkGo(url){
 	location.href = url
 }
+function linkBack() {
+    history.back()
+}
 </script>
 </head>
 <body>
@@ -173,41 +176,23 @@ function linkGo(url){
 		<div class="main_info">
 			<div id="main_inter" class="main_content">
 				<div class="vertical_menu">
-					<a href="#" id="staring">처리중</a> 
-					<a href="#" id="stared">전체</a>
+					<a href="#" id="imember">개인회원</a> 
+					<a href="#" id="cmember">기업회원</a>
 				</div>
 				
 				<div class="main_box">
 					<div class="inner_wrap">
-						<table class="staring">
-						<tr>
-							<td>
-								<div class="zero">처리할 내용이 없습니다.</div>
-							</td>
-						</tr>
-						</table>
-	                    <table class="stared">
-	                    
-	                    </table>
+					
 					</div>
-					
-					<form action="#" id="staringForm">
-						<input type="hidden" id="prcss" name="prcss" value="ing">
-						<input type="hidden" id="Ipage" name="page" value="${page }">
-					</form>
-					<div id="staring_paging_wrap"></div>
-					
-					<form action="#" id="staredForm">
-						<input type="hidden" id="prcss" name="prcss" value="ed">
-						<input type="hidden" id="Dpage" name="page" value="${page }">
-					</form>
-					<div id="stared_paging_wrap"></div>
-					
 				</div>
 			</div>
 
 		</div>
-
+		
+	<form action="#" method="post">
+		<input type="hidden" id="page" name="page" value="${param.page }">
+	</form>
+	
 	</main>
 </body>
 <footer>

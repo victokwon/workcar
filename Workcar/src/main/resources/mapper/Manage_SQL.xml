@@ -10,7 +10,7 @@
 		WHERE ED.DEL_CHK = 0
         <if test="prcss eq 'ing'.toString()">
            	AND EA.DEL_CHK = 0
-        	AND PRCSS_DATE IS NULL
+        	AND PRCSS_GBN = 0
         </if>		
 	</select>
 	
@@ -149,5 +149,47 @@
 		WHERE DEL_CHK = 0
 		AND GRADE_NO = #{gradeNo}
 	</update>
+	
+	<!-- 회원목록 -->
+	<select id="getIMemCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) CNT
+		FROM MEMBER M
+		JOIN I_MEMBER IM
+		ON (M.MEM_NO = IM.MEM_NO)
+	</select>
+	
+	<select id="getIMem" parameterType="hashmap" resultType="hashmap">
+		SELECT M.MEM_NO, NAME, ID, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL, CAT_NAME,
+		SUBSTR(BIRTH,1,4) YEAR, SUBSTR(BIRTH,5,2) MONTH, SUBSTR(BIRTH,7,2) DAY, BIRTH
+		TO_CHAR(JOIN_DATE,'YYYY-MM-DD') JOIN_DATE, TO_CHAR(WDRAWL_DATE,'YYYY-MM-DD') WDRAWL_DATE
+		FROM MEMBER M
+		JOIN I_MEMBER IM
+		ON (M.MEM_NO = IM.MEM_NO)
+		JOIN (SELECT CAT_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 2) CC 
+		ON (IM.GENDER = CC.SCD_CAT)
+		ORDER BY WDRAWL_DATE NULLS LAST
+	</select>
+	
+	<select id="getCMemCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) CNT
+		FROM MEMBER M
+		JOIN C_MEMBER CM
+		ON (M.MEM_NO = CM.MEM_NO)
+	</select>
+	
+	<select id="getCMem" parameterType="hashmap" resultType="hashmap">
+		SELECT M.MEM_NO, NAME, ID, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL,
+		CM.CORP_NO, C_NAME, 
+		TO_CHAR(JOIN_DATE,'YYYY-MM-DD') JOIN_DATE, TO_CHAR(WDRAWL_DATE,'YYYY-MM-DD') WDRAWL_DATE, TO_CHAR(RRCSS_DATE,'YYYY-MM-DD') RRCSS_DATE
+		FROM MEMBER M
+		JOIN C_MEMBER CM
+		ON (M.MEM_NO = CM.MEM_NO)
+		JOIN C_INFO CI
+		ON (CM.CORP_NO = CI.CORP_NO)
+		ORDER BY RRCSS_DATE NULLS FIRST, WDRAWL_DATE NULLS LAST
+	</select>
+	
+	
+	
 	
 </mapper>
