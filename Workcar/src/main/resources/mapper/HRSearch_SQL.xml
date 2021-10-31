@@ -20,11 +20,10 @@
 		ON (RG.CITY_NO = C.CITY_NO)
 		JOIN RESUM_WORK RW
 		ON (R.RESUM_NO = RW.RESUM_NO)
-		LEFT OUTER JOIN RESUM_QUAL RQ
+		FULL OUTER JOIN RESUM_QUAL RQ
 		ON
 		(R.RESUM_NO = RQ.RESUM_NO)
-		WHERE R.DEL_CHK
-		= 0
+		WHERE R.DEL_CHK = 0
 		AND OPN_CHK = 1
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
@@ -126,7 +125,7 @@
 		SELECT 
         H.RESUM_NO,H.NAME,SECTOR_NAME,CITY_NAME,REGION_NAME,H.CARR,
         H.REG_DATE 
-    FROM
+   		FROM
         (
         SELECT R.MEM_NO, R.RESUM_NO
            , M.NAME,SECTOR_NAME,CITY_NAME,REGION_NAME,
@@ -135,38 +134,38 @@
         FROM RESUM R 
         JOIN MEMBER M 
         ON R.MEM_NO = M.MEM_NO 
-        --조건
+        
         JOIN (
-            SELECT DISTINCT RESUM_NO FROM RESUM_LOC WHERE REGION_NO = 16
+            SELECT DISTINCT RESUM_NO FROM RESUM_LOC
             )  RL
         ON (R.RESUM_NO = RL.RESUM_NO) 
-        --조건
+        
         JOIN (
-            SELECT DISTINCT RESUM_NO FROM RESUM_QUAL WHERE QUAL_NO IN (69 , 81 , 90 )
+            SELECT DISTINCT RESUM_NO FROM RESUM_QUAL 
             )RQ 
         ON (R.RESUM_NO = RQ.RESUM_NO) 
-        --조건
+        
         JOIN (
-            SELECT SECTOR_NAME,SECTOR_NO FROM SECTOR WHERE SECTOR_NO = 63120 
+            SELECT SECTOR_NAME,SECTOR_NO FROM SECTOR 
             ) S  
         ON (R.SECTOR_NO = S.SECTOR_NO)
-        --조건
+        
         JOIN (
-            SELECT REGION_NO, REGION_NAME, CITY_NO  FROM REGION WHERE REGION_NO = 16
+            SELECT REGION_NO, REGION_NAME, CITY_NO  FROM REGION 
             ) RG
         ON (R.REGION_NO = RG.REGION_NO) 
         
         JOIN CITY C 
         ON (RG.CITY_NO = C.CITY_NO) 
-        --조건
+        
         JOIN  (
-            SELECT DISTINCT RESUM_NO FROM RESUM_WORK WHERE WORK_TYPE = 0
+            SELECT DISTINCT RESUM_NO FROM RESUM_WORK 
             )RW 
         ON (R.RESUM_NO = RW.RESUM_NO)
         
         WHERE R.DEL_CHK = 0 
         AND R.OPN_CHK = 1
-        )H 
+        
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
 				AND S.SECTOR_NO = #{sectorNo}

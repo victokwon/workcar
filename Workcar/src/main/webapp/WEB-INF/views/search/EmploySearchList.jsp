@@ -80,6 +80,7 @@ $(document).ready(function(){
 		/* let target = "applyDetail" */
 		$("#actionForm1").attr("action", target)
 		$("#actionForm1").submit()
+		
 
 	}) 
 	
@@ -398,7 +399,7 @@ function regionOptionDraw(list, target, val){
 					onclick="openPage('main_garde', this,'#88a2f2')">평점 100</button>
 			</div>
 			<div class="main_info">
-						<form action="#" id="actionForm1" method="post" class="tab_search_btn">
+						<form action="#" id="actionForm1" method="POST" class="tab_search_btn">
 				<div id="main_search" class="main_content">
 					<div class="search_top">
 							<input type="hidden" id="empno" name="empno" value="">

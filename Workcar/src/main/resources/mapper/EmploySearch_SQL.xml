@@ -13,7 +13,7 @@
 		WHERE DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
-				AND SECTOR_NO = #{sectorNo}
+				AND EA.SECTOR_NO = #{sectorNo}
 			</if>
 			<if test="startDate != null and startDate !=''">
 				AND REG_DATE &gt;= #{startDate}
@@ -70,7 +70,7 @@
 
 
 		<if test="sectorNo != null and sectorNo != ''">
-			AND SECTOR_NO = #{sectorNo}
+			AND EA.SECTOR_NO = #{sectorNo}
 		</if>
 		<if test="startDate != null and startDate !=''">
 			AND REG_DATE &gt;= #{startDate}
@@ -145,7 +145,7 @@
 		WHERE EA.DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
-				AND SECTOR_NO = #{sectorNo}
+				AND EA.SECTOR_NO = #{sectorNo}
 			</if>
 			<if test="startDate != null and startDate !=''">
 				AND REG_DATE &gt;= #{startDate}
@@ -202,7 +202,7 @@
 
 
 		<if test="sectorNo != null and sectorNo != ''">
-			AND SECTOR_NO = #{sectorNo}
+			AND EA.SECTOR_NO = #{sectorNo}
 		</if>
 		<if test="startDate != null and startDate !=''">
 			AND REG_DATE &gt;= #{startDate}
