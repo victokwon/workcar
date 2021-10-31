@@ -7,14 +7,14 @@ $(function () {
 	   });
 
 	$(".mySlides").on("click","tr",function(){
-		$("#empNo").val($("this").attr("eNo"))
-		$("#actionForm").attr("action","applyDtail")
-		$("#actionForm").submit()
+		$("#empNo").val($(this).attr("eNo"))
+		$("#empListForm").attr("action","applyDetail")
+		$("#empListForm").submit()
 	})
    
 })
 function reloadList() {
-	var params = $("#actionForm").serialize();    /* serialize:데이터를 문자열로 변환시켜주는 함수 */
+	var params = $("#empListForm").serialize();    /* serialize:데이터를 문자열로 변환시켜주는 함수 */
 													/* form의 데이터를 문자열로 변환 */
 	/* j쿼리에 있는 ajax를 호출한 것 */
 	$.ajax({
@@ -39,10 +39,10 @@ function drawList(list) {
 	 
 	for(var data of list) {        
 	      html += "<tr eNo='" + data.EMP_NO + "'>"
-	      html += "    <td class='td_no'>" + data.EMP_TITLE + "</td>"
-	      html += "    <td class='td_name'>" + data.C_NAME + "</td>"
-	      html += "    <td class='td_name'>" + data.SECTOR_NAME + "</td>"
-	      html += "    <td class='td_date'>" + data.DLINE + "</td>"
+	      html += "    <td >" + data.EMP_TITLE + "</td><br>"
+	      html += "    <td >" + data.C_NAME + "</td><br>"
+	      html += "    <td >" + data.SECTOR_NAME + "</td><br>"
+	      html += "    <td >" + data.DLINE + "</td><br>"
 	      html += "</tr>"
 	}                                
 	
@@ -51,6 +51,7 @@ function drawList(list) {
 
 
 function drawPaging(pb) {
+console.log($("#page").val())
 	   var html = "";
 	   
 	   if($("#page").val() == "1") {

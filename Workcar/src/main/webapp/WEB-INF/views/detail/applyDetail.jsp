@@ -24,7 +24,14 @@
     <script src="resources/script/detail/header.js"></script>
     <script type="text/javascript" src="resources/script/detail/apply_dtl_paging.js"></script>
    	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5a7222e84f43da6e7dad790c0611a4f&libraries=services"></script>
-					
+   	
+	<script type="text/javascript"
+	src="resources\script\detail\ReportPop.js"></script>	
+	<link rel="stylesheet" type="text/css"
+   href="resources\css\manage\Report.css">
+	<link rel="stylesheet" type="text/css"
+   href="resources\css\manage\pop.css">		
+   	
 	<script type="text/javascript">
 
 	</script>
@@ -73,12 +80,9 @@
 	
 </head>
 <body>
-	<form action="#" id="actionForm" method="post">
-		<input type="hidden" id="page" name="page" value="${page}">
-		<input type="hidden" id="empNo" name="empNo" value="">
-		<input type="hidden" id="cRNo" name="cRNo" value=""> 
-	</form>
-	
+<div class="pop_wrap">
+	<div class="pop-container1"></div> 
+</div>
 	<div id="mySidenav" class="sidenav">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		<div id="sdienav_ul">
@@ -151,15 +155,13 @@
 				<div></div>
 			</div>
 
-			<!-- 오른쪽 -->
-			<!-- 링크작업 -->
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
 						<div class="alarm"></div>
 						<a href="#iMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
-						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+						<strong id="userNo" no=${sMNo } name=${sMNm }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
@@ -167,7 +169,7 @@
 						<div class="alarm"></div>
 						<a href="#cMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
-						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+						<strong id="userNo" no=${sMNo } name=${sMNm }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
@@ -175,7 +177,7 @@
 						<div class="alarm"></div>
 						<a href="manageRegi"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
-						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+						<strong id="userNo" no=${sMNo } name=${sMNm }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:otherwise>
@@ -212,7 +214,6 @@
                         	</tr>
                         </tbody>
                     </table>
-                    <input type="hidden" id="page">
                 </div>
                 <hr>
                 <div class="paging_wrap"></div>
@@ -226,15 +227,31 @@
 	
     <main class="main">
     
-    <form action="#" id="resumeGo" method="post">
-      <input type="hidden" id="memNo" name="memNo" value="${sMNo }">
-      <input type="hidden" id="page" name="page" value="${page}">
-      <input type="hidden" id="empNo" name="empNo" value="${param.empNo }">
+   
+   <form action="#" id="empListForm" method="post">
+   		<input type="hidden" id="memNo" name="memNo" value="${sMNo }">
+      	<input type="hidden" id="page" name="page" value="${param.page}">
+   		<input type="hidden" id="empNo" name="empno" value="${param.empno }">
+		<input type="hidden" id="sectorNo" name="sectorNo" value="${param.sectorNo }">
+		<input type="hidden" id="startDate" name="startDate" value="${param.startDate }">
+		<input type="hidden" id="endDate" name="endDate" value="${param.endDate }">
+		<input type="hidden" id="region" name="region" value="${param.region }">
+		<input type="hidden" id="empGbn" name="empGbn" value="${param.empGbn }">
+		<input type="hidden" id="gradu" name="gradu" value="${param.gradu }">
+		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt }">
+		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn }">
+		<input type="hidden" id="sal" name="sal" value="${param.sal }">
+		<input type="hidden" id="minSal" name="minSal" value="${param.minSal }">
+		<input type="hidden" id="maxSal" name="maxSal" value="${param.maxSal }">
+		<input type="hidden" id="carr" name="carr" value="${param.carr }">
+		<input type="hidden" id="minCareer" name="minCareer" value="${param.minCareer }">
+		<input type="hidden" id="maxCareer" name="maxCareer" value="${param.maxCareer }">
+		<input type="hidden" id="qualno" name="qualno" value="${qualno }">
    </form>
    
         <div class="left_main_menu">
             <div class="vertical-menu">
-                <a href="#" class="active">Home</a>
+                <a href="#" class="active">list</a>
                 <div >
                 	<table class="mySlides">
                 		
@@ -249,7 +266,7 @@
         <div class="main_profile">
             <div class="main_profile_div">
                 <div class="main_title">
-                    <h1>${applyinfo.EMP_TITLE} / ${applyinfo.D_DAY}</h1>
+                    <h1 id="empTitle" title="${applyinfo.EMP_TITLE}">${applyinfo.EMP_TITLE} / ${applyinfo.D_DAY}</h1>
                 </div>
                 <div class="emp_date">
                 	공고일: ${applyinfo.REG_DATE }<br>
@@ -261,7 +278,7 @@
             	        <div class="input_box">
                            <div class="c_name">
 	                              <div class="text"><b>기업명</b></div>
-	                              <div class="input"><b>${applyinfo.C_NAME}</b></div>
+	                              <div class="input" id="cNameBox" cname="${applyinfo.C_NAME}"><b>${applyinfo.C_NAME}</b></div>
                            </div>
                            <div class="sector">
 	                              <div class="text">직종</div>
@@ -397,7 +414,7 @@
         <div class="right_main_menu">
         	<c:if test="${sMTy eq 0 }">
             	<button class="right_main_apply" id="popOpen">지원하기</button>
-            	<button class="main_detail_repport">채용정보신고</button>
+            	<button class="main_detail_repport" id="dclBtn">채용정보신고</button>
         	</c:if>
         	
             <p> 담당자 정보</p>

@@ -50,4 +50,10 @@ public class ApplyService implements IApplyService {
 		return iApplyDao.getQualList(params);
 	}
 
+
+	@Override
+	public int insertDcl(HashMap<String, String> params) throws Throwable {
+		return iApplyDao.insertDcl(params);
+	}
+
 }

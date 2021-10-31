@@ -418,25 +418,13 @@ public class ResumeController {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		String result = CommonProperties.RESULT_SUCCESS;
-		int page = 1;
 		System.out.println(params);
 
 		try {
-			if (params.get("page") != "") {
-				page = Integer.parseInt(params.get("page"));
-			}
-			int cnt = iResumeService.getResumeEmpCnt(params);
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 5);
-
-			params.put("startCnt", Integer.toString(pb.getStartCount()));
-			params.put("endCnt", Integer.toString(pb.getEndCount()));
-
-			List<HashMap<String, String>> list = iResumeService.getResume(params);
+			List<HashMap<String, String>> list = iResumeService.resumeList(params);
 			if (list == null) {
 				result = CommonProperties.RESULT_FAILED;
 			}
-			modelMap.put("page", page);
-			modelMap.put("pb", pb);
 			modelMap.put("list", list);
 		} catch (Exception e) {
 			System.out.println(params);

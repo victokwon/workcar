@@ -5,9 +5,6 @@ body, html {
 	padding: 0;
 }
 
-.list_wrap {
-	height: 160px;
-}
 
 .pop-container {
 	display: none;
@@ -33,11 +30,11 @@ body, html {
 	padding: 30px 0;
 }
 
-.list_wrap {
+.mySlides {
 	display: flex;
 }
 
-.list_wrap table {
+.mySlides table {
 	width: 100%;
 	margin: 20px auto;
 }
@@ -159,15 +156,22 @@ thead, tbody {
 	width: 100%;
 }
 
-tr {
-	font-size: 16px;
-	width: 100%;
-	display: inline-block;
-	margin: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+.mySlides tr {
+	padding: 5px;
+	border: 1px solid;
+	border-top: 0px;
+	border-radius: 3px;
+    font-size: 16px;
+    height: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 
 th, td {
 	display: inline-block;
@@ -194,6 +198,7 @@ th, td {
 }
 
 tbody tr:hover {
+	background-color: #eee;
 	font-weight: bold;
 	cursor: pointer;
 }
@@ -216,7 +221,35 @@ tbody tr:hover {
 	font-weight: bold;
 	cursor: pointer;
 }
-
+.list_wrap{
+   display: flex;
+   
+}
+.list_wrap table{
+   width: 100%;
+   margin: 20px auto;
+} 
+tr{
+	width: 100%;
+	    display: flex;
+	margin: 0;
+}
+th,
+td {
+	display: inline-block;
+  user-select: none;
+  font: 15px;
+}
+.td_no{
+	text-align: left;
+	display: inline-block;
+	width: 20%;
+}
+.td_name{
+	text-align: left;
+	display: inline-block;
+	width: 70%;
+}
 .paging_wrap {
 	display: block;
 	margin: 0 auto;

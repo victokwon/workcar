@@ -17,5 +17,7 @@ public interface IApplyService {
 
 	public List<HashMap<String, String>> getQualList(HashMap<String, String> params)throws Throwable;
 
+	public int insertDcl(HashMap<String, String> params)throws Throwable;
+
 
 }

@@ -6,11 +6,6 @@ $(function() {
      		}
 		})
 		
-   $(".paging_wrap").on("click","span",function(){
-      $("#page").val($(this).attr("page"))
-      getResumeList( $("#applyBtn").attr("eNo")) 
-   })
-   
      $(".pop-close-btn").on('click', function(event) {
    		  $(".pop-container").hide();
      })
@@ -65,12 +60,6 @@ function PA(targetR, targetE){
 function getResumeList(targetE){
 	console.log(targetE)
 	let params = "memNo=" + $("#memNo").val() + "&empNo=" + targetE
-	let page = $("#page").val()
-	if(page !=""){
-		params += "&page=" + page
-	}else{
-		params += "&page=" + 1
-	}
 	
 	 $.ajax({
 	    type: "POST",
@@ -80,7 +69,7 @@ function getResumeList(targetE){
 	    success: function (res) {
 	     	if(res.result == "SUCCESS"){
 	     		drawResumList(res.list)
-	     		drawPaging(res.pb)
+	     		/*drawPaging(res.pb)*/
 	     	}
 	    },
 	    error: function (request, status, error) {
@@ -111,32 +100,3 @@ function drawResumList(list){
 	$("#list_box").html(html)
 }
 
-function drawPaging(pb) {
-      let html = ""
-         /* 현재 페이지 굵은 글씨 적용*/
-         html += "<span page=\"1\">처음</span>"
-         
-         if($("#page").val() == 1){
-            html +=   "   <span page=\"1\">이전</span>"   
-         }else{
-            html += "   <span page=\"" + ($("#page").val()*1 - 1) + "\">이전</span>   "
-         }
-         
-         for(var i = pb.startPcount; i <= pb.endPcount; i++){
-            if($("#page").val() == i ){
-               html += "   <span page=\"" + i + "\"><b>" + i + "</b></span>"   
-            }else{
-               html += "   <span page=\"" + i + "\">" + i + "</span>"   
-            }
-         }
-         
-         if($("#page").val() == pb.maxPcount){
-            html += "   <span page=\"" + pb.maxPcount + "\">다음</span>"   
-         }else{
-            html += "   <span page=\"" + ($("#page").val()*1 + 1) + "\">다음</span>   "
-         }
-         
-         html += "<span page=\"" + pb.maxPcount + "\">끝</span>"
-         
-      $(".paging_wrap").html(html)
-   }

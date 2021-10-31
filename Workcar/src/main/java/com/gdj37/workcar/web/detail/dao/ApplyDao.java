@@ -45,4 +45,10 @@ public class ApplyDao implements IApplyDao {
 		return sqlSession.selectList("Apply_Info_Dtl_SQL.getQualList", params);
 	}
 
+
+	@Override
+	public int insertDcl(HashMap<String, String> params) throws Throwable {
+		return sqlSession.insert("Apply_Info_Dtl_SQL.insertDcl", params);
+	}
+
 }
