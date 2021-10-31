@@ -15,15 +15,15 @@ public class CorporService implements ICorporService {
 	@Autowired ICorporDao iCorporDao;
 
 	@Override
-	public HashMap<String, String> getP1(HashMap<String, String> params) throws Throwable {
+	public HashMap<String, String> corporinfo(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iCorporDao.getP1(params);
+		return iCorporDao.corporinfo(params);
 	}
 
 	@Override
-	public int getP2Cnt(HashMap<String, String> params) throws Throwable {
+	public int list_paging(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return iCorporDao.getP2Cnt(params);
+		return iCorporDao.list_paging(params);
 	}
 
 	@Override
@@ -31,6 +31,25 @@ public class CorporService implements ICorporService {
 		// TODO Auto-generated method stub
 		return iCorporDao.getP2(params);
 	}
+
+	@Override
+	public int reviews(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iCorporDao.reviews(params);
+	}
+
+	@Override
+	public HashMap<String, String> rating(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iCorporDao.rating(params);
+	}
+
+	@Override
+	public int starEnroll(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iCorporDao.starEnroll(params);
+	}
+
 	
 	
 }

@@ -13,15 +13,15 @@ public class CorporDao implements ICorporDao  {
 	@Autowired SqlSession sqlSession;
 
 	@Override
-	public HashMap<String, String> getP1(HashMap<String, String> params) throws Throwable {
+	public HashMap<String, String> corporinfo(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("CInfoDtl_SQL.getP1",params);
+		return sqlSession.selectOne("CInfoDtl_SQL.corporinfo",params);
 	}
 
 	@Override
-	public int getP2Cnt(HashMap<String, String> params) throws Throwable {
+	public int list_paging(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectOne("CInfoDtl_SQL.getP2Cnt",params);
+		return sqlSession.selectOne("CInfoDtl_SQL.list_paging",params);
 	}
 
 	@Override
@@ -29,6 +29,25 @@ public class CorporDao implements ICorporDao  {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("CInfoDtl_SQL.getP2",params);
 	}
+
+	@Override
+	public int reviews(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("CInfoDtl_SQL.reviews",params);
+	}
+
+	@Override
+	public HashMap<String, String> rating(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("CInfoDtl_SQL.rating",params);
+	}
+
+	@Override
+	public int starEnroll(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("CInfoDtl_SQL.starEnroll",params);
+	}
+
 
 
 	

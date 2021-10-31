@@ -25,10 +25,23 @@ public class ApplyContoller {
 
 	@Autowired
 	public IApplyService iApplyService;
+	
+	
+	
+	@RequestMapping(value = "/applyDetail")
+	public ModelAndView corDetail(@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
+		
 
-	@RequestMapping(value="/applyDetail")
+		mav.setViewName("redirect:applyDetails");
+		return mav;
+	}
+
+	@RequestMapping(value="/applyDetails")
 	public ModelAndView applyDetail (@RequestParam HashMap<String,String> params, ModelAndView mav) throws Throwable
 	{
+		params.put("cRNo","1101111129497");
+		params.put("eNo","1"); 
 		HashMap<String,String> applyinfo = iApplyService.getinfo(params);
 		HashMap<String,String> managerinfo = iApplyService.managerinfo(params);
 		
@@ -40,11 +53,14 @@ public class ApplyContoller {
 
 		int cnt = iApplyService.getinfo_Cnt(params); // 총 게시글 개수
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 3);
+		int reviews = iApplyService.reviews(params); 
+		HashMap<String, String> rating = iApplyService.rating(params);
 
-		
 		mav.addObject("pb", pb);
 		mav.addObject("cnt", cnt);
 		mav.addObject("page", page);
+		mav.addObject("reviews",reviews); // 조회수 업데이트
+		mav.addObject("rating", rating);
 		mav.addObject("applyinfo",applyinfo);
 		mav.addObject("managerinfo",managerinfo);
 		mav.setViewName("detail/applyDetail");
@@ -73,7 +89,6 @@ public class ApplyContoller {
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
 
 		List<HashMap<String, String>> list = iApplyService.getinfo_list(params);
-
 		
 		
 		modelMap.put("pb", pb);

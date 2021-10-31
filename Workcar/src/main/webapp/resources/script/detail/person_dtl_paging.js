@@ -32,16 +32,21 @@ function drawList(list) {
 	var html="";
 	 
 	for(var data of list) {        
-		html += " <a href=\"#\" class=\"card\">                ";
+		html += " <a href=\"#\" class=\"card\" onclick=\"javascript:goresum(\'"+data.RNUM+"\')\">                ";
 		html += "     <p>이력서번호 :  "+ data.RNUM + "</p>            ";
         html += "     <p>인재명 :"+ data.NAME +"</p>            ";
-        html += "     <p>희망직종 :"+ data.SECTOR_NO+" </p>      ";
-        html += "     <p>희망근무지역 :"+ data.REGION_NO +" </p>  ";
+        html += "     <p>희망직종 :"+ data.SECTOR_NAME+" </p>      ";
+        html += "     <p>희망근무지역 :"+ data.REGION_NAME +" </p>  ";
         html += "     <p>등록일 :"+ data.DT +" </p>              ";
      	html += " </a>        ";
 	}                                
 	
 	$(".mySlides").html(html);
+}
+
+function goresum(resum) {
+		
+		self.location="http://localhost:8090/Workcar/personDetails?sNo="+resum;
 }
 
 

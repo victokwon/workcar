@@ -6,25 +6,25 @@ import java.util.List;
 
 public interface IPersonDao {
 
-	public HashMap<String, String> getM1(HashMap<String, String> params) throws Throwable;
+	public HashMap<String, String> jiwonja(HashMap<String, String> params) throws Throwable;
+	
+	public HashMap<String, String> wish(HashMap<String, String> params) throws Throwable;
 
-	public HashMap<String, String> getM2(HashMap<String, String> params) throws Throwable;
+	public List<HashMap<String, String>> Qualification(HashMap<String, String> params) throws Throwable;
 
-	public List<HashMap<String, String>> getM3(HashMap<String, String> params) throws Throwable;
+	public HashMap<String, String> grade(HashMap<String, String> params) throws Throwable;
 
-	public HashMap<String, String> getM4(HashMap<String, String> params) throws Throwable;
+	public HashMap<String, String> edu(HashMap<String, String> params) throws Throwable;
 
-	public HashMap<String, String> getM5(HashMap<String, String> params) throws Throwable;
+	public HashMap<String, String> resum(HashMap<String, String> params) throws Throwable;
 
-	public HashMap<String, String> getM6(HashMap<String, String> params) throws Throwable;
+	public HashMap<String, String> career(HashMap<String, String> params) throws Throwable;
 
-	public HashMap<String, String> getM7(HashMap<String, String> params) throws Throwable;
+	public List<HashMap<String, String>> flang(HashMap<String, String> params) throws Throwable;
 
-	public List<HashMap<String, String>> getM8(HashMap<String, String> params) throws Throwable;
+	public List<HashMap<String, String>> list_info(HashMap<String, String> params) throws Throwable;
 
-	public List<HashMap<String, String>> getM9(HashMap<String, String> params) throws Throwable;
-
-	public int getB1Cnt(HashMap<String, String> params) throws Throwable;
+	public int list_paging(HashMap<String, String> params) throws Throwable;
 
 
 }

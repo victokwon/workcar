@@ -36,4 +36,17 @@ public class ApplyDao implements IApplyDao {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList("Apply_Info_Dtl_SQL.getinfo_list", params);
 	}
+
+	@Override
+	public int reviews(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("Apply_Info_Dtl_SQL.reviews", params);
+	}
+
+	@Override
+	public HashMap<String, String> rating(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("Apply_Info_Dtl_SQL.rating", params);
+	}
+
 }
