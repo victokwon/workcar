@@ -76,8 +76,7 @@ $(document).ready(function(){
 	
 	$("#row_box").on("click","td",function(){
 		$("#empno").val($(this).attr("empno"))
-		 let target = "mainpage" 
-		/* let target = "applyDetail" */
+		let target = "applyDetail"
 		$("#actionForm1").attr("action", target)
 		$("#actionForm1").submit()
 		
