@@ -30,7 +30,21 @@ public class ApplyContoller {
 	
 	@RequestMapping(value = "/applyDetail")
 	public ModelAndView corDetail(@RequestParam HashMap<String, String> params,
+			@RequestParam(required = false) String[] qualno,
 			ModelAndView mav) {
+		
+			String qual ="";
+			
+			if(qualno != null) {
+				for(int i=0; i<qualno.length;i++) {
+					qual += qualno[i];
+					if(i+1 != qualno.length) {
+						qual += " , ";
+					}
+				}
+			}
+			params.put("qualno", qual);
+			
 		mav.addObject("empNo", params.get("empno"));
 		mav.setViewName("redirect:applyDetails");
 		return mav;
@@ -38,8 +52,8 @@ public class ApplyContoller {
 
 	@RequestMapping(value="/applyDetails")
 	public ModelAndView applyDetail (@RequestParam HashMap<String,String> params, 
-									ModelAndView mav, 
-									@RequestParam(required = false) String[] qualno) throws Throwable
+									ModelAndView mav
+									) throws Throwable
 	{
 		System.out.println(params);
 		
