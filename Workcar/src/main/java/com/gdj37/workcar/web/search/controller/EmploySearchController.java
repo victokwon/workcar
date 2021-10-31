@@ -1,10 +1,6 @@
 package com.gdj37.workcar.web.search.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,10 +41,23 @@ public class EmploySearchController {
 
 	@RequestMapping(value = "/EmploySearchListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String EmploySearchListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String EmploySearchListAjax(@RequestParam HashMap<String, String> params, @RequestParam (required=false) String[] qualno ) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 //		System.out.println(params);
 		Map<String, Object> modelMap = new HashMap<String, Object>(); // 데이터를 담을 map
+		try {
+			String qual ="";
+			if(qualno != null) {
+			for(int i=0; i<qualno.length;i++) {
+				qual += qualno[i];
+				if(i+1 != qualno.length) {
+					qual += " , ";
+				}
+			}
+			params.put("qualno", qual);
+			}
+			System.out.println(params.get("qualno"));
+		
 		// 페이지 취득
 		int page = Integer.parseInt(params.get("page"));
 		// 개수 취득
@@ -57,11 +66,16 @@ public class EmploySearchController {
 		PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 9);
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
+
 		// 리스트 조회
 		List<HashMap<String, String>> list = iEmploySearchService.getEmpSch1List(params);
-
-		modelMap.put("list", list);
+		
+		modelMap.put("page", page);
 		modelMap.put("pb", pb);
+		modelMap.put("list", list);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		// 데이터를 문자열화
 		return mapper.writeValueAsString(modelMap);
 	}
@@ -73,7 +87,6 @@ public class EmploySearchController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		String result = CommonProperties.RESULT_SUCCESS;
 		int pop_page = 1;
-      
 		try {
 			if(params.get("pop_page")!="") {
 			pop_page =Integer.parseInt(params.get("pop_page"));
@@ -83,7 +96,7 @@ public class EmploySearchController {
          
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
-
+		
 		System.out.println(cnt);
 		System.out.println(pb);
 		List<HashMap<String, String>> list = iEmploySearchService.getQual(params);

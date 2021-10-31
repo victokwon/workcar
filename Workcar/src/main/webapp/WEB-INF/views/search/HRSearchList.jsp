@@ -15,9 +15,9 @@
 <link rel="stylesheet" type="text/css"
 	href="resources/css/common/sidebar.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/empsch/Employ_search.css">
+	href="resources/css/hrsch/HRsearch.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/empsch/paging.css">
+	href="resources/css/hrsch/paging.css">
 <link rel="stylesheet" type="text/css"
 	href="resources/css/empsch/qualsch.css">
 <link rel="stylesheet"
@@ -27,15 +27,7 @@
 
 <script type="text/javascript"
 	src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-<!-- 달력css,js  -->
-<link rel="stylesheet"
-	href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css"
-	type="text/css" />
-<link rel="stylesheet" type="text/css"
-	href="resources/css/empsch/DatePicker.css">
-<script
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+
 
 <script type="text/javascript">
 
@@ -73,17 +65,6 @@ $(document).ready(function(){
 		}
 	  	$(".paging_wrap").html("");
 	});
-	
-	$("#row_box").on("click","td",function(){
-		$("#empno").val($(this).attr("empno"))
-		/* 채용상세보기 페이지 변경해야함 */
-		let target = "applyDetail"
-		$("#goForm").attr("action", target)
-		$("#goForm").submit()
-
-	})
-	
-	
 	$(".paging_wrap").on("click","span",function(){
 		$("#pop_page").val($(this).attr("pop_page"));
 		if($(".pop-container").attr("btn") == "q"){
@@ -126,7 +107,7 @@ $(document).ready(function(){
 	});	
 	$("tbody").on("click", "tr", function(){
 	 $("#no").val($(this).attr("no"));
-	 $("#actionForm1").submit();
+	 $("#actionForm").submit();
 	 //눌렀을때 번호를 저장하고 그것에 따라 상세보기에 보내겠다.
 	});
 
@@ -145,7 +126,7 @@ function reloadList(){
 	var params3 = $("#actionForm3").serialize();
 	
 	$.ajax({
-		url : "EmploySearchListAjax",
+		url : "HRSearchListAjax",
 		type : "post",
 		dataType : "json",
 		data : params1+"&"+params2+"&"+params3,
@@ -163,13 +144,9 @@ function drawList(list) {
 	var html = "";
 	
 	for(var data of list) {
-		html += '<td class="column" empno="'+data.EMP_NO+'">';
+		html += "<td class=\"column\">";
 		html += "<div class=\"content\">";
 		html += "<div>"+ data.EMP_NO +"</div>";
-		html += "<img src=\"resources/images/common/logo.png\" />     ";
-			if(data.CORP_IMG != null){
-				"<img src=\"resources/images/upload/" + data.CORP_IMG + ".png\" />     ";				
-			}
 		html += "<h3>" + data.C_NAME + "</h3>"; 
 		html += "<span>" + data.EMP_TITLE + "</span>";
 		html += "</div>";
@@ -393,15 +370,10 @@ function regionOptionDraw(list, target, val){
 			</div>
 		</div>
 		<div class="main_wrap">
-			<div class="main_button_box">
-				<button class="main_button"
-					onclick="openPage('main_search', this, '#88a2f2')" id="defaultOpen">통합
-					검색</button>
-				<button class="main_button"
-					onclick="openPage('main_hits', this,'#88a2f2')">조회수 100</button>
-				<button class="main_button"
-					onclick="openPage('main_garde', this,'#88a2f2')">평점 100</button>
-			</div>
+			<div class="main_h1_box">
+                <h1 class="main_h1">인재검색</h1>
+            </div>
+			
 			<div class="main_info">
 				<div id="main_search" class="main_content">
 					<div class="search_top">
@@ -426,13 +398,7 @@ function regionOptionDraw(list, target, val){
 					<!-- 메인컨텐츠 -->
 					<div class="main_section">
 						<form action="#" id="actionForm2" method="post">
-							<div>
-								<span>공고일 / 마감일 :</span> <span>공고일</span> 
-								<input type="text" id="startDate" name="startDate" class="date_picker" /> 
-								<span>~</span> 
-								<span>마감일</span>
-								<input type="text" id="endDate" name="endDate" class="date_picker" />
-							</div>
+							
 							<div>
 								<!-- <span>직종분류 :</span> 
 								<select name="fst_cate" id="fst_cate">
@@ -443,7 +409,7 @@ function regionOptionDraw(list, target, val){
 									<option value="trd_cate1">3차 분류</option>
 								</select> -->
 								<div class="job">
-                                            <span class="text">직종 : </span>
+                                            <span class="text">희망직종 : </span>
                                             <input type="hidden" name="sectorNo" id="sectorNo" value="${DATA.SECTOR_NO}">
                                             <input type="text" class="input_box" id="sectorInput" name="sName" sNo="${DATA.SECTOR_NO}" value="직종검색"  readonly/>
                                             <input type="button" id="sectorBtn" btn="s" value="직종검색" />
@@ -452,7 +418,7 @@ function regionOptionDraw(list, target, val){
 								</div>
 							</div>
 							<div class="location">
-	                            <span class="text">근무지역 : </span>
+	                            <span class="text">희망근무지역 : </span>
 	                            <div class="input">
 	                                <div class="locSelectBox">
 	                                    <select class="citySel" id="city0" name="city" locResumNo="0" selValue="${DATA.CITY_NO }">
@@ -482,7 +448,7 @@ function regionOptionDraw(list, target, val){
 	                            </div>
 	                        </div>
 							<div class="sal">
-								<span>급여(월급) :</span>
+								<span>희망임금(월급) :</span>
 								<div class="input">
 									<label for="sal0">내규</label> 
 									<input type="radio" name="sal" value="0" id="sal0"> 
@@ -507,11 +473,12 @@ function regionOptionDraw(list, target, val){
 								</div>
 							</div>
 							<div>
-								<span>고용형태 :</span>
+								<span>희망근무형태 :</span>
+								
 								<label> 정규직 <input type="radio" name="empGbn" class="radiobox" value="0" /></label>
 								<label> / 계약직 <input type="radio" name="empGbn" class="radiobox" value="1" /> </label> 
 								<label> / 시간제 <input type="radio" name="empGbn" class="radiobox" value="2" /></label> 
-								<label> / 기타 <input type="radio" name="empGbn" class="radiobox" value="3" /></label>
+								
 							</div>
 						</form>
 
@@ -556,7 +523,7 @@ function regionOptionDraw(list, target, val){
 						<div class="mySlides">
 							<table>
 								<thead></thead>
-								<tbody id="row_box">
+								<tbody>
 									<tr class="row"></tr>
 								</tbody>
 							</table>
@@ -566,38 +533,7 @@ function regionOptionDraw(list, target, val){
 					</div>
 				</div>
 
-				<form action="#" method="post" id="goForm">
-					<input type="hidden" id="empno" name="empno" value="">					
-				</form>
 
-
-
-				<div id="main_hits" class="main_content">
-					<div class="main_margin"></div>
-					<div class="main_section">
-						<div class="vertical_menu">
-							<a href="#">
-								<div class="apply_content">지원자</div>
-							</a> <a href="#">
-								<div class="apply_content">지원자</div>
-							</a>
-						</div>
-						<div class="main_box"></div>
-					</div>
-				</div>
-
-				<div id="main_garde" class="main_content">
-					<div class="main_margin"></div>
-					<div class="main_section">
-						<div class="vertical_menu">
-							<a href="#">개인정보 설정</a> <a href="#">비밀번호 변경</a>
-						</div>
-						<div class="main_regi_contents">
-							<h3>Contact</h3>
-							<p>Get in touch, or swing by for a cup of coffee.</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		</div>
@@ -616,12 +552,11 @@ function regionOptionDraw(list, target, val){
 	</footer>
 
 	<script type="text/javascript"
-		src="resources/script/empsch/Employ_search.js"></script>
+		src="resources/script/hrsch/hr_search.js"></script>
 	<script type="text/javascript" src="resources/script/empsch/header.js"></script>
-	<script type="text/javascript"
-		src="resources/script/empsch/DatePicker.js"></script>
-	<script type="text/javascript" src="resources/script/empsch/qualsch.js"></script>
-	<script type="text/javascript" src="resources/script/empsch/sectorsch.js"></script>
+
+	<script type="text/javascript" src="resources/script/hrsch/qualsch.js"></script>
+	<script type="text/javascript" src="resources/script/hrsch/sectorsch.js"></script>
 
 </body>
 </html>
