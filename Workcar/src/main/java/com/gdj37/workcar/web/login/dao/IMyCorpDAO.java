@@ -5,23 +5,23 @@ import java.util.List;
 
 public interface IMyCorpDAO {
 
-	HashMap<String, String> cMemberDtl(String memberNo) throws Throwable;
+	public HashMap<String, String> cMemberDtl(String memberNo) throws Throwable;
 
-	int uptinfo(HashMap<String, String> params) throws Throwable;
+	public int uptinfo(HashMap<String, String> params) throws Throwable;
 
-	int uptcpinfo(HashMap<String, String> params) throws Throwable;
+	public int uptcpinfo(HashMap<String, String> params) throws Throwable;
 
 	int imemCnt(HashMap<String, String> params) throws Throwable;
 
-	List<HashMap<String, String>> imemList(HashMap<String, String> params) throws Throwable;
+	public List<HashMap<String, String>> imemList(HashMap<String, String> params) throws Throwable;
 
-	int chkNowPass(HashMap<String, String> params) throws Throwable;
+	public int chkNowPass(HashMap<String, String> params) throws Throwable;
 
-	int uptNewPass(HashMap<String, String> params) throws Throwable;
+	public int uptNewPass(HashMap<String, String> params) throws Throwable;
 
-	int outCMember(HashMap<String, String> params) throws Throwable;
+	public int outCMember(HashMap<String, String> params) throws Throwable;
 
-	
+	public int uptinfopos(HashMap<String, String> params) throws Throwable;
 	
 	public List<HashMap<String, String>> getAttndList(String memNo)throws Throwable;
 	public int delAttention(String target) throws Throwable;
@@ -30,5 +30,7 @@ public interface IMyCorpDAO {
 	public int getEmpCnt(HashMap<String, String> params)throws Throwable;
 	public List<HashMap<String, String>> getEmp(HashMap<String, String> params)throws Throwable;
 	public int JC(HashMap<String, String> params)throws Throwable;
+
+	
 
 }

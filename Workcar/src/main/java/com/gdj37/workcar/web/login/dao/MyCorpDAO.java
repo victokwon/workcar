@@ -67,7 +67,11 @@ public class MyCorpDAO implements IMyCorpDAO {
 	}
 
 	
-	
+	@Override
+	public int uptinfopos(HashMap<String, String> params) throws Throwable {
+		
+		return sqlSession.update("mycorp.uptinfopos",params);
+	}
 	
 	
 	public List<HashMap<String, String>> getAttndList(String memNo) throws Throwable {
@@ -111,5 +115,7 @@ public class MyCorpDAO implements IMyCorpDAO {
 		params.put("tMemNo", sqlSession.selectOne("mycorp.resumeMemNo",params)) ;
 		return sqlSession.insert("mycorp.JC",params);
 	}
+
+
 
 }

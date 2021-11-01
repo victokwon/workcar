@@ -128,13 +128,13 @@
 		<div class="main_button_box">
 			<div class="main_button_box">
 				<a class="main_button regi"
-					onclick="openPage('main_regi', this, '#88a2f2')" id="mypagecorp">계정관리</a>
+					onclick="openPage('main_regi', this, '#88a2f2')" id="mypagecorp2">계정관리</a>
 				<a class="main_button member"
-					onclick="openPage('main_apply', this, '#88a2f2')" id="defaultmenu">채용공고</a>
+					onclick="openPage('main_apply', this, '#88a2f2')" id="defaultmenu2">채용공고</a>
 				<a class="main_button report"
-					onclick="openPage('main_act', this, '#88a2f2')" id="activechk">활동내역</a>
+					onclick="openPage('main_act', this, '#88a2f2')" id="activechk2">활동내역</a>
 				<a class="main_button star_manage"
-					onclick="openPage('main_inter', this, '#88a2f2')" id="attinfo">관심정보</a>
+					onclick="openPage('main_inter', this, '#88a2f2')" id="attinfo2">관심정보</a>
 			</div>
 
 			<div class="main_info">
@@ -155,7 +155,7 @@
 						<div class="tilte">
 							<div class="header">
 								<div class="job_post_title">
-									<input type="text" placeholder="공고이름을 입력하세요" class="headline" NAME="EMP_TITLE" id="EMP_TITLE" >
+									<input type="text" value="${data.EMP_TITLE}" placeholder="공고이름을 입력하세요" class="headline" NAME="EMP_TITLE" id="EMP_TITLE" >
 								</div>
 <!-- 								<div class="button_box">
 									<input type="button" id="saveBtn" value="임시저장"> <input
@@ -184,32 +184,38 @@
 											<div class="count">
 												<div class="text">모집인원</div>
 												<div class="input">
-													<input type="text" placeholder="모집인원" name="EMP_PER"  id="EMP_PER">명
+													<input type="text" placeholder="모집인원" name="EMP_PER"  id="EMP_PER" value="${data.EMP_PER}">명
 												</div>
 											</div>
 											<div class="type">
 												<div class="text">모집조건</div>
 												<div class="input">
-													<input type="radio" name="EMP_GBN" value="0" id="type0">
+													<input type="radio" name="EMP_GBN" value="0" id="type0" 
+													<c:if test="${data.EMP_GBN eq 0}">checked="checked"</c:if>/>
 													<label for="type0">정규직</label> 
-													<input type="radio"name="EMP_GBN" value="1" id="type1"> 
+													<input type="radio"name="EMP_GBN" value="1" id="type1"
+													<c:if test="${data.EMP_GBN eq 1}">checked="checked"</c:if>/> 
 													<label for="type1">계약직</label>
-													<input type="radio" name="EMP_GBN" value="2" id="type2">
+													<input type="radio" name="EMP_GBN" value="2" id="type2"
+													<c:if test="${data.EMP_GBN eq 2}">checked="checked"</c:if>/>
 													<label for="type2">시간제</label>
-													<input type="radio" name="EMP_GBN" value="3" id="type3">
+													<input type="radio" name="EMP_GBN" value="3" id="type3"
+													<c:if test="${data.EMP_GBN eq 3}">checked="checked"</c:if>/>
 													<label for="type3">기타</label>
 												</div>
 											</div>
 											<div class="sal">
 												<div class="text">급여(월)</div>
 												<div class="input">
-													<input type="radio" name="PAY_GBN" value="0" id="sal0">
+													<input type="radio" name="PAY_GBN" value="0" id="sal0"
+													<c:if test="${data.PAY_GBN eq 0}">checked="checked"</c:if>/>
 													<label for="sal0">내규</label> 
-													<input type="radio" name="PAY_GBN" value="1" id="sal1"> 
+													<input type="radio" name="PAY_GBN" value="1" id="sal1"
+													<c:if test="${data.PAY_GBN eq 1}">checked="checked"</c:if>/> 
 													<label for="sal1">일반</label>
-													<input type="text" placeholder="최저금액" id="minSal" name="PAY_MIN" disabled>만원
+													<input type="text" placeholder="최저금액" id="minSal" name="PAY_MIN" value="${data.PAY_LOW}" disabled>만원
 													~ 
-													<input type="text" placeholder="최대금액" id="maxSal" name="PAY_MAX" disabled>만원
+													<input type="text" placeholder="최대금액" id="maxSal" name="PAY_MAX" value="${data.PAY_HIGH}" disabled>만원
 												</div>
 											</div>
 										</div>
@@ -228,38 +234,47 @@
 											<div class="edu">
 												<div class="text">최종학력</div>
 												<div class="input">
-													<input type="radio" name="GRADU" id="edu0"  value="0">
+													<input type="radio" name="GRADU" id="edu0"  value="0"
+													<c:if test="${data.GRADU eq 0}">checked="checked"</c:if>/>
 													<label for="edu0">무관</label> 
-													<input type="radio"name="GRADU" id="edu1"  value="1"> 
+													<input type="radio"name="GRADU" id="edu1"  value="1"
+													<c:if test="${data.GRADU eq 1}">checked="checked"</c:if>/> 
 													<label for="edu1">고등학교</label> 
-													<input type="radio" name="GRADU" id="edu2" value="2"> 
+													<input type="radio" name="GRADU" id="edu2" value="2"
+													<c:if test="${data.GRADU eq 2}">checked="checked"</c:if>/> 
 													<label for="edu2">전문대학</label>
-													<input type="radio" name="GRADU" id="edu3" value="3">
+													<input type="radio" name="GRADU" id="edu3" value="3"
+													<c:if test="${data.GRADU eq 3}">checked="checked"</c:if>/>
 													<label for="edu3">대학교</label> 
-													<input type="radio" name="GRADU" id="edu4" value="4"> 
+													<input type="radio" name="GRADU" id="edu4" value="4"
+													<c:if test="${data.GRADU eq 4}">checked="checked"</c:if>/> 
 													<label for="edu4">석사</label>
-													<input type="radio" name="GRADU" id="edu5" value="5">
+													<input type="radio" name="GRADU" id="edu5" value="5"
+													<c:if test="${data.GRADU eq 5}">checked="checked"</c:if>/>
 													<label for="edu5">박사</label>
 												</div>
 											</div>
 											<div class="major">
 												<div class="text">전공</div>
 												<div class="input">
-													<input name="MAJOR" type="text" placeholder="전공">
+													<input name="MAJOR" type="text" value="${data.MAJOR}" placeholder="전공">
 												</div>
 											</div>
 											<div class="career">
 												<div class="text">경력</div>
 												<div class="input">
-													<input type="radio" name="CARR" id="career0" value="0">
+													<input type="radio" name="CARR" id="career0" value="0"
+													<c:if test="${data.CARR eq 0}">checked="checked"</c:if>/>
 													<label for="career0">무관</label> 
-													<input type="radio"name="CARR" id="career1" value="1">
+													<input type="radio"name="CARR" id="career1" value="1"
+													<c:if test="${data.CARR eq 1}">checked="checked"</c:if>/>
 													<label for="career1">신입</label>
-													<input type="radio" name="CARR" id="career2" value="2">
+													<input type="radio" name="CARR" id="career2" value="2"
+													<c:if test="${data.CARR eq 2}">checked="checked"</c:if>/>
 													<label for="career2">경력 </label>
 												</div>
 												<div>
-													<input type="text" id="CARR_Y" NAME="CARR_Y" style="width:50px; height:20px;" disabled>년
+													<input type="text" id="CARR_Y" NAME="CARR_Y" style="width:50px; height:20px;" value="${data.CARR_Y}" disabled >년
 												<!-- 	~ <input type="text" placeholder="0" id="maxCareer"
 														disabled>년 -->
 												</div>
@@ -304,8 +319,8 @@
 										<div class="input_box ">
 											<!-- <input type="button" class="minus_btn" id="delBtn" value="－"> -->
 											<div class="data_container file_container">
-												파일이름 : <input type ="text" id="fileSNm" disabled>
-												<input type="hidden" id="empFineName">
+												파일이름 : <input type ="text" id="fileSNm" value="${data.CORP_IMG}" disabled>
+												<input type="hidden" id="empFineName" value="${data.CORP_IMG}">
 												<button type="button" id="empFileUploadBtn">파일업로드</button>
 												<button type="button" id="empFileUpDelBtn">파일삭제</button>
 											</div>
@@ -326,8 +341,8 @@
 										<!-- js를 통해 추가되는 내용 -->
 										<div class="input_box text_box">
 											<div class="data_container">
-												<textarea name="DTL" id="DTL" placeholder="채용정보 세부 사항" 
-													spellcheck="false"></textarea>
+												<textarea name="DTL" id="DTL"  placeholder="채용정보 세부 사항" 
+													spellcheck="false">${data.DTL}</textarea>
 											</div>
 										</div>
 									</div>
@@ -395,38 +410,46 @@
 											<div class="start">
 												<div class="text">공고일</div>
 												<div class="input">
-													<input type="date" name="REG_DATE" size="5" placeholder="공고일">
+													<input type="date" name="REG_DATE" size="5" value="${data.REG_DATE}" placeholder="공고일">
 												</div>
 											</div>
 											<div class="end">
 												<div class="text">마감일</div>
 												<div class="input">
-													<input type="date" name="DLINE" placeholder="마감일">
+													<input type="date" name="DLINE" value="${data.REG_DATE}" placeholder="마감일">
 												</div>
 											</div>
 											<div class="method">
 												<div class="text">서류</div>
 												<div class="input">
-													<input type="checkbox" name="EMP_DOC" value="0" > 
+													<input type="checkbox" name="EMP_DOC" value="0" 
+													<c:if test="${data.EMP_DOC eq 0}">checked="checked"</c:if>> 
 													<label for="method0">이력서</label> <br>
-													<input type="checkbox" name="EMP_DOC" value="1"  > 
+													<input type="checkbox" name="EMP_DOC" value="1"  
+													<c:if test="${data.EMP_DOC eq 1}">checked="checked"</c:if>> 
 													<label for="method1">경력기술서</label> <br>
-													<input type="checkbox" name="EMP_DOC" value="2" > 
+													<input type="checkbox" name="EMP_DOC" value="2" 
+													<c:if test="${data.EMP_DOC eq 2}">checked="checked"</c:if> > 
 													<label for="method2">포트폴리오</label> <br>
-													<input type="checkbox" name="EMP_DOC" value="3" >
+													<input type="checkbox" name="EMP_DOC" value="3"  
+													<c:if test="${data.EMP_DOC eq 3}">checked="checked"</c:if>>
 													<label for="method3">기타</label>
 												</div>
 											</div>
 											<div class="apply">
 												<div class="text">전형</div>
 												<div class="input">
-													<input type="checkbox" name="EMP_PRCS" value="0" >
+													<input type="checkbox" name="EMP_PRCS" value="0" 
+													<c:if test="${data.EMP_PRCS eq 0}">checked="checked"</c:if>>
 													<label for="apply0">서류전형</label> <br> <input
-														type="checkbox" name="EMP_PRCS" value="1" >
+														type="checkbox" name="EMP_PRCS" value="1" 
+														<c:if test="${data.EMP_PRCS eq 1}">checked="checked"</c:if>>
 													<label for="apply1">면접</label> <br> <input
-														type="checkbox" name="EMP_PRCS" value="2" >
+														type="checkbox" name="EMP_PRCS" value="2" 
+														<c:if test="${data.EMP_PRCS eq 2}">checked="checked"</c:if>>
 													<label for="apply2">인적성검사</label> <br> <input
-														type="checkbox" name="EMP_PRCS" value="3" >
+														type="checkbox" name="EMP_PRCS" value="3" 
+														<c:if test="${data.EMP_PRCS eq 3}">checked="checked"</c:if>>
 													<label for="apply3">기타</label>
 												</div>
 											</div>
@@ -607,14 +630,14 @@
 		$("#empfile").hide();
 
 		//기본메뉴 설정, 메뉴이동
-		$("#defaultmenu").click();
+		$("#defaultmenu2").click();
 		
-		$("#mypagecorp").on("click", function() {
+		$("#mypagecorp2").on("click", function() {
 			location.href = "/cmyinfopage";
 		});
 		
-		$("#defaultmenu").on("click",function(){
-			location.href = "/empannc";
+		$("#defaultmenu2").on("click",function(){
+			location.href = "/mngancpage";
 		});
 	   
 	   
