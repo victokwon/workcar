@@ -59,7 +59,7 @@ public class EmpAnnc {
 		Map<String,Object> modelMap = new HashMap<String,Object>();
 		
 		String result = "success";
-		System.out.println("success " + params);
+		
 		try {
 			List<HashMap<String,String>> list = iempannc.findRegionAjax(params);
 			
@@ -74,7 +74,7 @@ public class EmpAnnc {
 		
 		
 		modelMap.put("result", result);
-		System.out.println("Message :" + result);
+	//	System.out.println("Message :" + result);
 		return mapper.writeValueAsString(modelMap);
 		
 	}
@@ -82,18 +82,40 @@ public class EmpAnnc {
 	//채용공고등록Ajax
 	@ResponseBody
 	@RequestMapping(value="/uptEmpAnncAjax",method=RequestMethod.POST, produces ="text/json; UTF-8")
-	public String uptEmpAnncAjax (@RequestParam HashMap<String,String> params) throws Throwable {
+	public String uptEmpAnncAjax (@RequestParam HashMap<String,String> params,
+			@RequestParam(required =false)String[] QUAL_NO,
+			@RequestParam List<String> prcsChkkBox,
+			@RequestParam List<String> DocChkkBox
+			/*@RequestParam(required=false)String[] EMP_DOC,
+			@RequestParam(required=false)String[] EMP_PRCS*/) throws Throwable {
 		
+		int cnt = 0;
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String,Object> modelMap = new HashMap<String,Object>();
+		HashMap<String,Object> empQual;
 		String result = "success";
-		System.out.println("success " + params);
+
 		
 		try {
-			int cnt = iempannc.uptEmpAnncAjax(params);
-			cnt += iempannc.uptEmpQual(params);
-			
-			System.out.println("Cnt :" + cnt);
+				cnt += iempannc.uptEmpAnncAjax(params);
+				
+				
+				if(cnt>0) {
+					empQual = new HashMap<String,Object>();
+					empQual.put("EMP_NO",params.get("EMP_NO"));
+					for(int i =0; i<QUAL_NO.length; i++) {		
+						empQual.put("QUAL_NO",QUAL_NO[i]);
+						cnt= iempannc.uptEmpQual(empQual);
+				}
+					
+				if(cnt>0) {
+					
+					
+				}
+				
+			}
+				
+		//	System.out.println("Cnt :" + cnt);
 			if(cnt == 0) {
 				result = "failed";
 			}

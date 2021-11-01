@@ -32,9 +32,9 @@ public class EmpAnncDAO implements IEmpAnncDAO {
 	}
 
 	@Override
-	public int uptEmpQual(HashMap<String, String> params) throws Throwable {
+	public int uptEmpQual(HashMap<String, Object> empQual) throws Throwable {
 		
-		return sqlSession.insert("empannc.uptEmpQual",params);
+		return sqlSession.insert("empannc.uptEmpQual",empQual);
 	}
 
 

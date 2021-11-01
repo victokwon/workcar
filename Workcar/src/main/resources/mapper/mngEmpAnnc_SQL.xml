@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mngempanc">
+
+<select id="empAncList" parameterType="hashMap" resultType="hashMap">
+<!-- SELECT OPNCHK, EMP_NO, MEM_NO, EMP_TITLE, SECTOR_NO, REGION_NAME, CITY_NAME, RECRUIT_GBN,PAY_GBN, PAY_LOW, PAY_HIGH, EMP_GBN, 
+TO_CHAR(DLINE, 'YYYY-MM-DD') AS DLINE, TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, DTL, VIEWS, DEL_CHK, CARR_Y, 
+EMP_PER, EMP_DOC, EMP_PRCS
+FROM EMP_ANNC E JOIN REGION R ON (E.REGION_NO = R.REGION_NO)
+                JOIN CITY C ON (E.CITY_NO = C.CITY_NO)
+                JOIN (SELECT CAT_NAME AS OPNCHK, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 4)CODE
+                ON ( CODE.SCD_CAT = E.RECRUIT_GBN)
+	WHERE MEM_NO  =#{memberNo}
+ -->
+ 
+SELECT  C_NAME, OPNCHK, EMP_NO, E.MEM_NO, EMP_TITLE, SECTOR_NO, REGION_NAME, CITY_NAME, RECRUIT_GBN,PAY_GBN, PAY_LOW, PAY_HIGH, EMP_GBN, 
+TO_CHAR(DLINE, 'YYYY-MM-DD') AS DLINE, TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE, DTL, DEL_CHK, CARR_Y, 
+EMP_PER, EMP_DOC, EMP_PRCS, DEL_CHK
+FROM EMP_ANNC E JOIN REGION R ON (E.REGION_NO = R.REGION_NO)
+                JOIN CITY C ON (E.CITY_NO = C.CITY_NO)
+                JOIN (SELECT CAT_NAME AS OPNCHK, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 4)CODE
+                ON ( CODE.SCD_CAT = E.RECRUIT_GBN)
+                JOIN (SELECT CORP_NO, MEM_NO FROM C_MEMBER) CORP
+                ON ( CORP.MEM_NO = E.MEM_NO)
+                JOIN C_INFO CI ON CORP.CORP_NO = CI.CORP_NO
+WHERE E.MEM_NO = #{memberNo}
+AND DEL_CHK = 0
+</select>
+
+<update id="delEmpAnc" parameterType="hashmap">
+	UPDATE EMP_ANNC SET DEL_CHK = 1
+	WHERE EMP_NO = #{EMP_NO}
+	AND MEM_NO = #{MEM_NO}
+
+</update>
+
+</mapper>

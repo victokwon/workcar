@@ -33,10 +33,17 @@ public class EmpAnncService implements IEmpAnncService {
 	}
 
 	@Override
-	public int uptEmpQual(HashMap<String, String> params) throws Throwable {
-		
-		return iempannc.uptEmpQual(params);
+	public int uptEmpQual(HashMap<String, Object> empQual) throws Throwable {
+		// TODO Auto-generated method stub
+		return  iempannc.uptEmpQual(empQual);
 	}
+
+	/*
+	 * @Override public int uptEmpQual(HashMap<String, String> params) throws
+	 * Throwable {
+	 * 
+	 * return iempannc.uptEmpQual(params); }
+	 */
 
 	
 

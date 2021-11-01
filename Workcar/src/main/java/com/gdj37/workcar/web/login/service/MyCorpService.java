@@ -63,6 +63,14 @@ public class MyCorpService implements IMyCorpService {
 	}
 
 	
+	@Override
+	public int uptinfopos(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return imycorpdao.uptinfopos(params);
+	}
+	
+	
+	
 	
 	@Override
 	public List<HashMap<String, String>> getAttndList(String memNo) throws Throwable {
@@ -95,5 +103,7 @@ public class MyCorpService implements IMyCorpService {
 	public int JC(HashMap<String, String> params) throws Throwable {
 		return imycorpdao.JC(params);
 	}
+
+
 
 }
