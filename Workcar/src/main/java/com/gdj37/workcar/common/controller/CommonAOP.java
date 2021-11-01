@@ -27,6 +27,7 @@ public class CommonAOP {
 	 * && -> 필터 추가
 	 */
 	@Pointcut("execution(* com.gdj37.workcar..ResumeController.resumeList(..))"
+	/* + "&& execution(* com.gdj37.workcar..mypPersonController.personRegi(..))" */ 
 	/* + "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))" */
 			)
 	public void imem() {}

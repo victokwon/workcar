@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypPerson">
+	<select id="myInfo" parameterType="hashmap" resultType="hashmap">
+		SELECT M.MEM_NO, NAME, ID, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL, CAT_NAME,
+		SUBSTR(BIRTH,1,4) YEAR, SUBSTR(BIRTH,5,2) MONTH, SUBSTR(BIRTH,7,2) DAY, BIRTH,
+		ZIP, ADDR, ADDR_DTL, PROF_PIC, 
+		TO_CHAR(JOIN_DATE,'YYYY-MM-DD') JOIN_DATE, TO_CHAR(WDRAWL_DATE,'YYYY-MM-DD') WDRAWL_DATE
+		FROM MEMBER M
+		JOIN I_MEMBER IM
+		ON (M.MEM_NO = IM.MEM_NO)
+		JOIN (SELECT CAT_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 2) CC 
+		ON (IM.GENDER = CC.SCD_CAT)
+		WHERE WDRAWL_DATE IS NULL
+        AND M.MEM_NO = #{memNo}
+	</select> 
+	<!-- <select id="addMyInfo" parameterType="hashmap" resultType="hashmap">
+		
+	</select> -->
+	<!-- 정보수정 -->
+	<update id="updateMyInfo" parameterType="hashmap">
+		UPDATE MEMBER SET PHONE=#{phone}, 
+						  EMAIL=#{email}, 
+						  BIRTH=#{birth},  
+						  ZIP=#{zip}, 
+						  ADDR=#{addr}, 
+						  ADDR_DTL=#{addrDtl}, 
+						  PROF_PIC=#{profPic},
+						  M.INFOR_AGR=#{inforAgr}, 
+						  M.ACT_AGR=#{actAgr} 
+		WHERE MEM_NO = #{memNo} 
+	</update>
+	<!-- 회원탈퇴 -->
+	<update id="deleteMyInfo" parameterType="hashmap">
+		UPDATE MEMBER SET WDRAWL_DATE=#{sysdate}
+		WHERE MEM_NO = #{memNo}
+	</update>
+	<!-- 비밀번호 수정 -->
+	<update id="updatePass" parameterType="hashmap">
+		UPDATE MEMBER SET PASS=#{pw}
+		WHERE MEM_NO = #{memNo}
+	</update>
+	
+</mapper>
