@@ -250,10 +250,10 @@
     <footer>
 		<!-- 링크작업 -->
 		<div class="inner_content">
-			<div id="ntc">공지사항</div>
-			<div id="paticp">참여마당</div>
-			<div id="pvc">개인정보처리방침</div>
-			<div id="tou">이용약관</div>
+			<div id="regi">계정관리</div>
+			<div id="">이력서관리</div>
+			<div id="act">활동내역</div>
+			<div id="inter">관심정보</div>
 		</div>
 		<div class="footer_dtl_wrap">
 			<div class="footer_dtl_contents">
