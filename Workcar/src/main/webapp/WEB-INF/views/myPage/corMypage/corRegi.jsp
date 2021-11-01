@@ -3,21 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
---<head>
+<head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/common/default.css">
 <link rel="stylesheet" type="text/css" href="resources\css\common\footer.css">
 <link rel="stylesheet" type="text/css" href="resources\css\common\header.css">
 <link rel="stylesheet" type="text/css" href="resources\css\common\sidebar.css">
-<link rel="stylesheet" href="resources/css/Mypage/corMypage/Mypage_regi_cor.css">
+<link rel="stylesheet" href="resources/css/cormypage/corinfo/Mypage_regi_cor.css">
+ <link rel="stylesheet" type="text/css" href="resources/css/cormypage/corinfo/csch.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="resources/script/Mypage/header.js"></script>
 <script src="resources/script/Mypage/Mypage_main_dp.js"></script>
-<script src="resources/script/Mypage/corMypage/Mypage_regi_cor.js"></script>
-<script src="resources/script/Mypage/corMypage/MyPage_regi_cor_event.js"></script>
+<script src="resources/script/cormypage/corinfo/Mypage_regi_cor.js"></script>
+<script src="resources/script/cormypage/corinfo/MyPage_regi_cor_event.js"></script>
+<script src="resources/script/cormypage/corinfo/csch.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -160,7 +162,7 @@
 									<input type="text" name ="C_NAME" id="C_NAME" value="${data.NAME}"> 
 									<input type="text" name ="C_PHONE" id="C_PHONE" value="${data.PHONE}"> 
 									<input type="text" name ="C_EMAIL" id="C_EMAIL" value="${data.EMAIL}">
-									<input type="text" name ="C_CNAME" id="C_CNAME" value="${data.C_NAME}" readonly >
+									<input type="text" name ="C_CNAME"  value="${data.C_NAME}" readonly >
 									<Br>
 									<input type="text" name ="C_POS" id="C_POS" value="${data.POS}">
 									<div class="email_permission">
@@ -211,45 +213,52 @@
 										<div class="con">
 											<div class="company">
 												<div class="text">기업로고</div>
+											<c:choose>
+												<c:when test="${data.CORP_IMG eq '' or empty data.CORP_IMG}" >
 												<div class="input">
-												<c:if test ="${!empty data.CORP_IMG}">
 													<img class="logo" id ="logo" name ="logo" src="resources/images/cmypage/profile.png">
-												</c:if>	
 												</div>
-
+												</c:when>
+												<c:otherwise>
+													<div class="input">
+														<img class="logo" id ="logo" name ="logo" src="resources/upload/${data.CORP_IMG}">
+													</div>
+												</c:otherwise>
+												</c:choose>
 												<div>	
 													<button type="button" id="picuptbtn">사진올리기</button>
 													<button type="button" id="delpictbtn">파일삭제</button>
 												</div>
 											</div>
+											<input type ="hidden" name ="CCORP_NO" value="${data.CORP_NO}">
 											<div class="company">
 												<div class="text">기업검색</div>
 												<div class="input">
-													<button type="button">기업검색</button>
+													<button type="button" id="cSchBtn">기업검색</button>
 												</div>
 											</div>
 											<div class="company">
 												<div class="text">기업명</div>
 												<div class="input">
-													<input type="text" name="C_NAME" value="${data.C_NAME}" readonly>
+													<input type="text" name="C_CNAME" id ="C_CNAME" value="${data.C_NAME}" readonly>
 												</div>
 											</div>
 											<div class="company">
 												<div class="text">법인등록번호</div>
 												<div class="input">
-													<input type="text" name="CORP_NO" value="${data.CORP_NO}" readonly>
+													<input type="text" name="CORP_NO" id="CORP_NO" value="${data.CORP_NO}" readonly>
 												</div>
 											</div>
 											<div class="company">
 												<div class="text">사업자등록번호</div>
 												<div class="input">
-													<input type="text" name="C_BIZNO" value="${data.C_BIZNO}" readonly>
+													<input type="text" name="C_BIZNO" id="C_BIZNO" value="${data.C_BIZNO}" readonly>
 												</div>
 											</div>
 											<div class="company">
 												<div class="text">대표자명</div>
 												<div class="input">
-													<input type="text" name="C_BOSS" value="${data.C_BOSS}" readonly>
+													<input type="text" name="C_BOSS" id="C_BOSS" value="${data.C_BOSS}" readonly>
 												</div>
 											</div>
 											<div class="company">
@@ -258,6 +267,7 @@
 													<input type="text" id="CP_TEL" name="CP_TEL" placeholder="대표 연락처">
 												</div>
 											</div>
+											
 											<div class="company">
 												<div class="text">대표 이메일</div>
 												<div class="input">
@@ -288,21 +298,21 @@
 													<input type="text" id="addrdtl" placeholder="상세주소" value="${data.ADDR_DTL}">
 												</div>
 											</div>
-											<div class="company">
+<!-- 											<div class="company">
 												<div class="text">업종</div>
 												<div class="input">
 													<select>
 														<option value="-1">업종 선택</option>
 													</select>
 												</div>
-											</div>
+											</div> -->
 											<div class="company">
 												<div class="text">홈페이지 주소</div>
 												<div class="input">
-													<input type="text" name="C_HPAGE" value="${data.C_HPAGE}" placeholder="홈페이지 주소">
+													<input type="text" name="C_HPAGE" id="C_HPAGE" value="${data.C_HPAGE}" placeholder="홈페이지 주소">
 												</div>
 											</div>
-											<input type ="hidden" name ="imgname" id="imgname" value ="${data.CORP_IMG}">
+											<input type ="text" name ="hidden" id="imgname" value ="${data.CORP_IMG}">
 <!-- 											<div class="company">
 												<div class="text">중소기업 유무</div>
 												<div class="input">
@@ -473,6 +483,47 @@
 	</footer>
 	
 	
+	<div class="pop-container">
+        <div class="pop-out-container">
+        <button type="button" class="pop-close-btn">X</button>
+            <div class="pop-in-container">
+                <div class="pop-text-header">
+                    <h1>기업검색</h1>
+                </div>
+
+                <form class="pop-user" id="companySchForm">
+                	<input type="hidden" name="page" id="page" value="1">
+                	<input type="hidden" name="itemCnt" id="itemCnt">
+                    <div class="pop-input">
+                        <input type="button" id="schBtn" value="검색">
+                        <input type="text" name="schCName" id="schCName" placeholder="기업명">
+                    </div>
+                </form>
+
+                <!-- 5개 리스트 -->
+                <div class="company_wrap">
+                    <table>
+                        <thead>
+                            <tr>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- ㅇ -->
+                            <tr>
+
+                            </tr>
+                            <!-- ㅇ -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="paging_wrap"></div>
+                <hr>
+            </div>
+        </div>
+    </div>
+	
+	
 	
 <script>
 
@@ -489,17 +540,19 @@ $(document).ready(function(){
 	//기본메뉴 설정
 	$("#defaultmenu").click();
 
-	if($("#imgname").val() is not null) {
+	if($("#imgname").val() != "") {
 		chkfileupt = 1;
 		$("#picuptbtn").html("수정하기");
 		$("#delpictbtn").show();
-	} 
+	}
 	
 	
 	$("#empannc").on("click",function(){
 		location.href="/empannc";
-	})
-	
+	});
+	$("#defaultmenu").on("click",function(){
+	location.href="/cmyinfopage";
+	});
 	
 	
 	// 프로필사진 업로드 버튼 이벤트 처리
@@ -755,11 +808,17 @@ if($("#newpass").val() == $("#newpasschk").val()) {
 //기업정보설정 저장
 $("#uptcpinfo").on("click",function(){
 	
-	if(!chkUptCpInfoChk()) 
+	if(!chkUptCpInfoChk()){
 		return false;
+	}else {
+	
+		if(confirm("수정하시겠습니까?"))
+			uptCpInfoAjax();
+		
+	}
+		
 
-	if(confirm("수정하시겠습니까?"))
-		uptInfoAjax();
+	
 	
 });
 
@@ -779,7 +838,7 @@ function uptCpInfoAjax() {
 		success:function(res){
 			if(res.result =="success") {
 				alert("수정완료되었습니다").
-				location.href="corRegi";
+				location.href="cmyinfopage";
 			}else if(res.result =="failed") {
 				alert("수정오류");
 			}
@@ -808,7 +867,7 @@ function chkUptCpInfoChk(){
 //기업전화번호 유효성 검사
 function chkCpTel(){
 	
-	var getCheck = RegExp(/^\d{2,3}-\d{3,4}-\d{4}$/);
+	var getCheck = RegExp(/^[0-9]{8,13}$/);
 	
 	if($("#CP_TEL").val() == "") {
 		alert("대표번호를 입력해 주세요");
@@ -953,7 +1012,7 @@ var params = $("#uptinfoc").serialize();
 	 success : function(res) {
 		 if(res.result =="success") {
 		 	alert("수정완료되었습니다.");
-		 	location.href="corRegi";
+		 	location.href="cmyinfopage";
 		 
 		 }else if (res.result =="failed"){
 			alert("수정오류")

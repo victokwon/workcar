@@ -18,17 +18,16 @@ $(function() {
 	
 	$("#popOpen").on("click", function(){
 		/* 위치를 찾아야함 -> 버튼 상대위치  */
-		let targetENo = 1;
+		let targetENo = $("#empNo").val()
 		$("#applyBtn").attr("eNo", targetENo);
 		getResumeList(targetENo) 
 		$(".pop-container").show();
 	})
 	
 	$(".list_wrap").on("click", "tr", function () {
-		/* 위치를 찾아야함 -> 버튼 상대위치  */
 	  	let targetRNo = $(this).attr("rNo")
 		$("#applyBtn").attr("rNo", targetRNo);
-		$(".text_box").html("<b>지월할 이력서 번호: "+targetRNo+"</b>")
+		$(".text_box").html("<b>지원할 이력서 번호: "+targetRNo+"</b>")
     });
 	
     $("#applyBtn").on("click",function(){
@@ -80,7 +79,7 @@ function getResumeList(targetE){
 	    dataType: "json",
 	    success: function (res) {
 	     	if(res.result == "SUCCESS"){
-	     		drawList(res.list)
+	     		drawResumList(res.list)
 	     		drawPaging(res.pb)
 	     	}
 	    },
@@ -90,7 +89,7 @@ function getResumeList(targetE){
 	    }
   });
 }
-function drawList(list){
+function drawResumList(list){
 	let html = ""
 	
 	for (data of list){

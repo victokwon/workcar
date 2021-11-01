@@ -15,25 +15,34 @@ public class ApplyDao implements IApplyDao {
 
 	@Override
 	public HashMap<String, String> getinfo(HashMap<String, String> params) throws Throwable {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Apply_Info_Dtl_SQL.getinfo", params);
 	}
 
-	@Override
-	public HashMap<String, String> managerinfo(HashMap<String, String> params) throws Throwable {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne("Apply_Info_Dtl_SQL.managerinfo", params);
-	}
 
 	@Override
 	public int getinfo_Cnt(HashMap<String, String> params) throws Throwable {
-		// TODO Auto-generated method stub
 		return sqlSession.selectOne("Apply_Info_Dtl_SQL.getinfo_Cnt", params);
+	}
+	@Override
+	public List<HashMap<String, String>> getinfo_list(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Apply_Info_Dtl_SQL.getinfo_list", params);
 	}
 
 	@Override
-	public List<HashMap<String, String>> getinfo_list(HashMap<String, String> params) throws Throwable {
+	public int reviews(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.selectList("Apply_Info_Dtl_SQL.getinfo_list", params);
+		return sqlSession.update("Apply_Info_Dtl_SQL.reviews", params);
 	}
+
+	@Override
+	public HashMap<String, String> rating(HashMap<String, String> params) throws Throwable {
+		params.put("corpNo", sqlSession.selectOne("Apply_Info_Dtl_SQL.getCNo", params));
+		return sqlSession.selectOne("Apply_Info_Dtl_SQL.rating", params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getQualList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Apply_Info_Dtl_SQL.getQualList", params);
+	}
+
 }

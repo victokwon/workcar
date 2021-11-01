@@ -20,8 +20,7 @@
    href="resources\css\resume\resumeDtl.css">
 <link rel="stylesheet" type="text/css"
    href="resources\css\resume\floatRightNav.css">
-<link rel="stylesheet" type="text/css"
-   href="resources\css\change\pop.css">
+<link rel="stylesheet" type="text/css" href="resources\css\detail\pop.css">
 
 <script type="text/javascript"
    src="resources\script\jquery\jquery-1.12.4.min.js"></script>

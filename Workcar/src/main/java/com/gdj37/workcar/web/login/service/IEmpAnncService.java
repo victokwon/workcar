@@ -11,7 +11,9 @@ public interface IEmpAnncService {
 
 	int uptEmpAnncAjax(HashMap<String, String> params) throws Throwable;
 
-	int uptEmpQual(HashMap<String, String> params) throws Throwable;
+	//int uptEmpQual(HashMap<String, String> params) throws Throwable;
+
+	int uptEmpQual(HashMap<String, Object> empQual) throws Throwable;
 
 	
 

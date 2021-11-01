@@ -64,6 +64,7 @@ public class MyPageCorp {
 		
 		try {
 			int cnt = imycorpser.uptinfo(params);
+				cnt = imycorpser.uptinfopos(params);
 			if(cnt == 0) {
 				
 				result = "failed";
@@ -92,12 +93,18 @@ public class MyPageCorp {
 		
 		String result = "success";
 		
+		System.out.println("기업정보 수정AJax " + params);
 	
 		try {
-		
+			
+			
 			int cnt = imycorpser.uptcpinfo(params);
 			
-			if(cnt == 0) {
+			
+		
+
+			
+			if(cnt == 0 ) {
 				result ="failed";
 			}
 		} catch (Exception e) {

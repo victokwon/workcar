@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="HRSearch">
+	<select id="getHRSch1Cnt" parameterType="hashmap"
+		resultType="Integer">
+		SELECT COUNT(DISTINCT R.RESUM_NO) AS CNT
+		FROM RESUM R
+		JOIN MEMBER M
+		ON
+		R.MEM_NO = M.MEM_NO
+		JOIN RESUM_LOC RL
+		ON (R.RESUM_NO = RL.RESUM_NO)
+		JOIN
+		SECTOR S
+		ON (R.SECTOR_NO = S.SECTOR_NO)
+		JOIN REGION RG
+		ON (R.REGION_NO =
+		RG.REGION_NO)
+		JOIN CITY C
+		ON (RG.CITY_NO = C.CITY_NO)
+		JOIN RESUM_WORK RW
+		ON (R.RESUM_NO = RW.RESUM_NO)
+		FULL OUTER JOIN RESUM_QUAL RQ
+		ON
+		(R.RESUM_NO = RQ.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+		AND OPN_CHK = 1
+		<if test="searchTxt != null and searchTxt != ''">
+			<if test="sectorNo != null and sectorNo != ''">
+				AND S.SECTOR_NO = #{sectorNo}
+			</if>
+
+			<if test="region neq 16 and region != null and region !=''">
+				AND RG.REGION_NO = #{region}
+			</if>
+			<if test="sal != null and sal != ''">
+				<choose>
+					<when test="sal eq 0">
+						AND PAY_GBN = '0'
+					</when>
+					<when test="sal eq 1 and minSal != null and minSal != ''">
+						AND PAY_GBN = '1'
+						AND PAY_LOW &gt;= #{minSal}
+					</when>
+					<when test="sal eq 1 and maxSal != null and maxSal != ''">
+						AND PAY_GBN = '1'
+						AND PAY_HIGH &lt;= #{maxSal}
+					</when>
+				</choose>
+			</if>
+			<if test="work_type != null and work_type != ''">
+				AND RW.WORK_TYPE = #{work_type}
+			</if>
+			<if test="gradu != null and gradu != ''">
+				AND GRADU = #{gradu}
+			</if>
+			<if test="qualno != null and qualno != ''">
+				AND QUAL_NO IN (${qualno})
+
+			</if>
+
+			<choose>
+				<when test="searchGbn eq 0">
+					AND M.NAME LIKE '%' || #{searchTxt} || '%'
+					OR
+					SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+					OR CITY_NAME LIKE '%' ||
+					#{searchTxt} || '%'
+					OR REGION_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 1">
+					AND M.NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 2">
+					AND SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 3">
+					AND CITY_NAME LIKE '%' || #{searchTxt} || '%'
+					AND
+					REGION_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+
+		</if>
+
+
+
+
+		<if test="sectorNo != null and sectorNo != ''">
+			AND S.SECTOR_NO = #{sectorNo}
+		</if>
+
+		<if test="region neq 16 and region != null and region !=''">
+			AND RG.REGION_NO = #{region}
+		</if>
+		<if test="sal != null and sal != ''">
+			<choose>
+				<when test="sal eq 0">
+					AND PAY_GBN = '0'
+				</when>
+				<when test="sal eq 1 and minSal != null and minSal != ''">
+					AND PAY_GBN = '1'
+					AND PAY_LOW &gt;= #{minSal}
+				</when>
+				<when test="sal eq 1 and maxSal != null and maxSal != ''">
+					AND PAY_GBN = '1'
+					AND PAY_HIGH &lt;= #{maxSal}
+				</when>
+			</choose>
+		</if>
+		<if test="work_type != null and work_type != ''">
+			AND RW.WORK_TYPE = #{work_type}
+		</if>
+		<if test="gradu != null and gradu != ''">
+			AND GRADU = #{gradu}
+		</if>
+		<if test="qualno != null and qualno != ''">
+			AND QUAL_NO IN (${qualno})
+
+		</if>
+	</select>
+
+	<select id="getHRSch1List" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT 
+        H.RESUM_NO,H.NAME,SECTOR_NAME,CITY_NAME,REGION_NAME,H.CARR,
+        H.REG_DATE 
+   		FROM
+        (
+        SELECT R.MEM_NO, R.RESUM_NO
+           , M.NAME,SECTOR_NAME,CITY_NAME,REGION_NAME,
+            R.CARR, TO_CHAR(R.REG_DATE,'YYYY-MM-DD') REG_DATE,
+            ROW_NUMBER()OVER(ORDER BY R.MEM_NO ASC) AS ENUM 
+        FROM RESUM R 
+        JOIN MEMBER M 
+        ON R.MEM_NO = M.MEM_NO 
+        
+        JOIN (
+            SELECT DISTINCT RESUM_NO FROM RESUM_LOC
+            )  RL
+        ON (R.RESUM_NO = RL.RESUM_NO) 
+        
+        JOIN (
+            SELECT DISTINCT RESUM_NO FROM RESUM_QUAL 
+            )RQ 
+        ON (R.RESUM_NO = RQ.RESUM_NO) 
+        
+        JOIN (
+            SELECT SECTOR_NAME,SECTOR_NO FROM SECTOR 
+            ) S  
+        ON (R.SECTOR_NO = S.SECTOR_NO)
+        
+        JOIN (
+            SELECT REGION_NO, REGION_NAME, CITY_NO  FROM REGION 
+            ) RG
+        ON (R.REGION_NO = RG.REGION_NO) 
+        
+        JOIN CITY C 
+        ON (RG.CITY_NO = C.CITY_NO) 
+        
+        JOIN  (
+            SELECT DISTINCT RESUM_NO FROM RESUM_WORK 
+            )RW 
+        ON (R.RESUM_NO = RW.RESUM_NO)
+        
+        WHERE R.DEL_CHK = 0 
+        AND R.OPN_CHK = 1
+        
+		<if test="searchTxt != null and searchTxt != ''">
+			<if test="sectorNo != null and sectorNo != ''">
+				AND S.SECTOR_NO = #{sectorNo}
+			</if>
+
+			<if test="region neq 16 and region != null and region !=''">
+				AND RG.REGION_NO = #{region}
+			</if>
+			<if test="sal != null and sal != ''">
+				<choose>
+					<when test="sal eq 0">
+						AND PAY_GBN = '0'
+					</when>
+					<when test="sal eq 1 and minSal != null and minSal != ''">
+						AND PAY_GBN = '1'
+						AND PAY_LOW &gt;= #{minSal}
+					</when>
+					<when test="sal eq 1 and maxSal != null and maxSal != ''">
+						AND PAY_GBN = '1'
+						AND PAY_HIGH &lt;= #{maxSal}
+					</when>
+				</choose>
+			</if>
+			<if test="work_type != null and work_type != ''">
+				AND RW.WORK_TYPE = #{work_type}
+			</if>
+			<if test="gradu != null and gradu != ''">
+				AND GRADU = #{gradu}
+			</if>
+			<if test="qualno != null and qualno != ''">
+				AND QUAL_NO IN (${qualno})
+
+			</if>
+
+			<choose>
+				<when test="searchGbn eq 0">
+					AND M.NAME LIKE '%' || #{searchTxt} || '%'
+					OR
+					SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+					OR CITY_NAME LIKE '%' ||
+					#{searchTxt} || '%'
+					OR REGION_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 1">
+					AND M.NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 2">
+					AND SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 3">
+					AND CITY_NAME LIKE '%' || #{searchTxt} || '%'
+					OR
+					REGION_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+			</choose>
+
+		</if>
+
+
+
+
+		<if test="sectorNo != null and sectorNo != ''">
+			AND S.SECTOR_NO = #{sectorNo}
+		</if>
+
+		<if test="region neq 16 and region != null and region !=''">
+			AND RG.REGION_NO = #{region}
+		</if>
+		<if test="sal != null and sal != ''">
+			<choose>
+				<when test="sal eq 0">
+					AND PAY_GBN = '0'
+				</when>
+				<when test="sal eq 1 and minSal != null and minSal != ''">
+					AND PAY_GBN = '1'
+					AND PAY_LOW &gt;= #{minSal}
+				</when>
+				<when test="sal eq 1 and maxSal != null and maxSal != ''">
+					AND PAY_GBN = '1'
+					AND PAY_HIGH &lt;= #{maxSal}
+				</when>
+			</choose>
+		</if>
+		<if test="work_type != null and work_type != ''">
+			AND RW.WORK_TYPE = #{work_type}
+		</if>
+		<if test="gradu != null and gradu != ''">
+			AND GRADU = #{gradu}
+		</if>
+		<if test="qualno != null and qualno != ''">
+			AND QUAL_NO IN (${qualno})
+
+		</if>
+		)H
+		WHERE H.ENUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+
+	<select id="getAddContCnt" parameterType="hashmap"
+		resultType="Integer">
+		SELECT QUAL_CNT
+		FROM
+		(SELECT COUNT(*) QUAL_CNT FROM EMP_QUAL
+		WHERE EMP_NO = #{empNo}) Q
+
+	</select>
+	<select id="getQual" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT QUAL_NO, QUAL_NAME
+		FROM
+		(SELECT QUAL_NO, QUAL_NAME,
+		ROW_NUMBER() OVER (ORDER BY QUAL_NO) AS RNUM
+		FROM QUAL
+		WHERE QUAL_NAME
+		like '%'||#{schCName}||'%') Q
+		WHERE Q.RNUM BETWEEN #{startCnt} AND
+		#{endCnt}
+	</select>
+
+
+	<select id="getQualCnt" parameterType="hashmap" resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM QUAL
+		WHERE QUAL_NAME LIKE
+		'%'||#{schCName}||'%'
+	</select>
+
+	<select id="getSectorCnt" parameterType="hashmap"
+		resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM SECTOR
+		WHERE SECTOR_NAME LIKE
+		'%'||#{schCName}||'%'
+	</select>
+
+	<select id="getSector" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT SECTOR_NO, SECTOR_NAME
+		FROM
+		(SELECT SECTOR_NO,
+		SECTOR_NAME, ROW_NUMBER() OVER (ORDER BY SECTOR_NO) AS
+		RNUM
+		FROM SECTOR
+		WHERE SECTOR_NAME like '%'||#{schCName}||'%') S
+		WHERE S.RNUM BETWEEN
+		#{startCnt} AND #{endCnt}
+	</select>
+	<select id="getRegion" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT REGION_NO, REGION_NAME
+		FROM REGION
+		WHERE CITY_NO =
+		#{cityNo}
+		ORDER BY REGION_NO
+	</select>
+</mapper>

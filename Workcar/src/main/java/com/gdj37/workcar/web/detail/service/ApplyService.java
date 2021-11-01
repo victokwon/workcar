@@ -20,11 +20,6 @@ public class ApplyService implements IApplyService {
 		return iApplyDao.getinfo(params);
 	}
 
-	@Override
-	public HashMap<String, String> managerinfo(HashMap<String, String> params) throws Throwable {
-		// TODO Auto-generated method stub
-		return iApplyDao.managerinfo(params);
-	}
 
 	@Override
 	public int getinfo_Cnt(HashMap<String, String> params) throws Throwable {
@@ -37,4 +32,22 @@ public class ApplyService implements IApplyService {
 		// TODO Auto-generated method stub
 		return iApplyDao.getinfo_list(params);
 	}
+
+	@Override
+	public int reviews(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iApplyDao.reviews(params);
+	}
+
+	@Override
+	public HashMap<String, String> rating(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return iApplyDao.rating(params);
+	}
+
+	@Override
+	public List<HashMap<String, String>> getQualList(HashMap<String, String> params) throws Throwable {
+		return iApplyDao.getQualList(params);
+	}
+
 }

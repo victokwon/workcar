@@ -3,9 +3,15 @@ $(function () {
 	 
 	 $(".page1").on("click", "span", function(){
 	      $("#page").val($(this).attr("page"));
-	      
 	      reloadList();
 	   });
+
+	$(".mySlides").on("click","tr",function(){
+		$("#empNo").val($("this").attr("eNo"))
+		$("#actionForm").attr("action","applyDtail")
+		$("#actionForm").submit()
+	})
+   
 })
 function reloadList() {
 	var params = $("#actionForm").serialize();    /* serialize:데이터를 문자열로 변환시켜주는 함수 */
@@ -19,8 +25,8 @@ function reloadList() {
 		success: function(res){ /* ajax 통신이 성공 시 다음 함수 실행 */
 			console.log(res.list)
 			console.log(res.pb)
-			drawList(res.list);
-			drawPaging(res.pb);
+			drawList(res.list)
+			drawPaging(res.pb)
 		}, 
 	error: function(request,status,error){ /* ajax 통신이 실패 시 다음 함수 실행 */
 		console.log(error);
@@ -32,12 +38,12 @@ function drawList(list) {
 	var html="";
 	 
 	for(var data of list) {        
-		html += " <a href=\"#\" class=\"card\">                ";
-		html += "     <p>공고명 :  "+ data.EMP_TITLE + "</p>            ";
-		html += "     <p>기업명 :  "+ data.C_NAME + "</p>            ";
-        html += "     <p>직종 :"+ data.SECTOR_NO +"</p>            ";
-        html += "     <p>등록일 :"+ data.DLINE +" </p>      ";
-     	html += " </a>        ";
+	      html += "<tr eNo='" + data.EMP_NO + "'>"
+	      html += "    <td class='td_no'>" + data.EMP_TITLE + "</td>"
+	      html += "    <td class='td_name'>" + data.C_NAME + "</td>"
+	      html += "    <td class='td_name'>" + data.SECTOR_NAME + "</td>"
+	      html += "    <td class='td_date'>" + data.DLINE + "</td>"
+	      html += "</tr>"
 	}                                
 	
 	$(".mySlides").html(html);

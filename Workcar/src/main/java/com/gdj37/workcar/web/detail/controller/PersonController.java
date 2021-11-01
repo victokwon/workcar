@@ -28,16 +28,26 @@ public class PersonController {
 	
 	@RequestMapping(value = "/personDetail")
 	public ModelAndView personDetail(@RequestParam HashMap<String, String> params,
+			ModelAndView mav) throws Throwable {
+		
+		mav.addObject("sNo","1");
+		mav.setViewName("redirect:personDetails");
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/personDetails")
+	public ModelAndView personDetails(@RequestParam HashMap<String, String> params,
 							ModelAndView mav) throws Throwable {
 		
 int page = 1; //현재 P변수
-		
+		System.out.println(params);
 		if(params.get("page") != null) { //넘어오는 현재 P가 존재할 시 
 			page = Integer.parseInt(params.get("page"));
 		}
 		
-		int cnt = iPersonService.getB1Cnt(params); //총 게시글 개수
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 5, 3);
+		int cnt = iPersonService.list_paging(params); //총 게시글 개수
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 4, 5);
 	    
 		//데이터 시작, 종료 번호 추가
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
@@ -46,28 +56,28 @@ int page = 1; //현재 P변수
 		
 		
 		
-		HashMap<String, String> data1 = iPersonService.getM1(params);
-		HashMap<String, String> data2 = iPersonService.getM2(params);
+		HashMap<String, String> jiwonja = iPersonService.jiwonja(params);
+		HashMap<String, String> wish = iPersonService.wish(params);
 		
-		List<HashMap<String, String>> list1 = iPersonService.getM3(params);
+		List<HashMap<String, String>> Qualification = iPersonService.Qualification(params);
+		List<HashMap<String, String>> flang = iPersonService.flang(params);
+		HashMap<String, String> career = iPersonService.career(params);
 		
-		HashMap<String, String> data4 = iPersonService.getM4(params);
-		HashMap<String, String> data5 = iPersonService.getM5(params);
-		HashMap<String, String> data6 = iPersonService.getM6(params);
-		HashMap<String, String> data7 = iPersonService.getM7(params);
+		HashMap<String, String> grade = iPersonService.grade(params);
+		HashMap<String, String> edu = iPersonService.edu(params);
+		HashMap<String, String> resum = iPersonService.resum(params);
 		
-		List<HashMap<String, String>> list2 = iPersonService.getM8(params);
 		
-		mav.addObject("data1", data1);
-		mav.addObject("data2", data2);
+		mav.addObject("jiwonja", jiwonja);
+		mav.addObject("wish", wish);
 		
-		mav.addObject("data3", list1);
+		mav.addObject("Qualification", Qualification);
+		mav.addObject("flang",flang);
+		mav.addObject("career",career);
 		
-		mav.addObject("data4",data4);
-		mav.addObject("data5",data5);
-		mav.addObject("data6",data6);
-		mav.addObject("data7",data7);
-		mav.addObject("data8",list2);
+		mav.addObject("grade",grade);
+		mav.addObject("edu",edu);
+		mav.addObject("resum",resum);
 		mav.addObject("cnt",cnt);
 		
 		mav.addObject("page",page);
@@ -93,14 +103,14 @@ int page = 1; //현재 P변수
 			page = Integer.parseInt(params.get("page"));
 		}
 		
-		int cnt = iPersonService.getB1Cnt(params); //총 게시글 개수
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 2, 5);
+		int cnt = iPersonService.list_paging(params); //총 게시글 개수
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 5);
 	    
 		//데이터 시작, 종료 번호 추가
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
 		
-		List<HashMap<String, String>> list = iPersonService.getM9(params);
+		List<HashMap<String, String>> list = iPersonService.list_info(params);
 		
 		modelMap.put("pb",pb);
 		modelMap.put("list",list);
