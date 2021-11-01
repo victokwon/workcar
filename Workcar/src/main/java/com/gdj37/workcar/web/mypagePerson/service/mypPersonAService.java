@@ -23,9 +23,15 @@ public class mypPersonAService implements ImypPersonAService{
 	}
 
 	@Override
-	public int updateMyInfo(HashMap<String, String> params) throws Throwable {
+	public int updateMMyInfo(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return imypPersonADao.updateMyInfo(params);
+		return imypPersonADao.updateMMyInfo(params);
+	}
+	
+	@Override
+	public int updateIMyInfo(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return imypPersonADao.updateIMyInfo(params);
 	}
 
 	@Override

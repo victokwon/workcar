@@ -64,8 +64,10 @@ public class mypPersonController {
 		String result = "success";
 
 		try {
-			int cnt = 0;
 			
+			int Mcnt = 0;
+			int Icnt = 0;
+			int cnt = 0;
 			// CUD 처리
 			switch (params.get("gbn")) {
 			/*
@@ -79,15 +81,15 @@ public class mypPersonController {
 				if (params.get("pw") != "") {
 					params.put("pw", Utils.encryptAES128(params.get("pw")));
 				}
-				cnt = imypPersonAService.updateMyInfo(params);
-
+				Mcnt = imypPersonAService.updateMMyInfo(params);
+				Icnt = imypPersonAService.updateIMyInfo(params);
 				break;
 			case "d":
 				cnt = imypPersonAService.deleteMyInfo(params);
 				break;
 			}
 
-			if (cnt == 0) {
+			if (cnt==0 && Mcnt==0 && Icnt==0) {
 				result = "failed";
 			}
 		} catch (Exception e) {
