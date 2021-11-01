@@ -58,7 +58,9 @@
 		WFARE, to_char(TRUNC(avg(mgm))) MGM ,to_char(TRUNC(
 		sum(wlb+promo_poss+c_cult+wfare_pay+mgm)/count(wlb)/5)) TOTAL
 		from grade g join c_info ci on g.corp_no = ci.corp_no
-		where g.corp_no = #{corpNo}
+		where G.DEL_CHK =  0
+		AND G.PRCSS_GBN = 1
+		AND g.corp_no = #{corpNo}
 	</select>
 
 	<update id="reviews" parameterType="hashmap">

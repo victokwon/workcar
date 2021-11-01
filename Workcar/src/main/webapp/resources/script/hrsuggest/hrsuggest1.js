@@ -1,6 +1,6 @@
 $(function(){
 	$(".main_info").on("click", "#suggetDelBtn",function(){
-		let target = $(this).parent().parent().parent().parent().parent().remove()
+		$(this).parent().parent().parent().parent().parent().remove()
 	})
 	
 	$("#addEmpBtn").on("click", function(){

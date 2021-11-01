@@ -144,12 +144,17 @@
 	</select>
 
 
-	<update id="delAttention" parameterType="String">
+<!-- 	<update id="delAttention" parameterType="String">
 		UPDATE ATTND
 		SET DEL_CHK
 		= 1
 		WHERE ATTND_NO = #{target}
-	</update>
+	</update> -->
+
+	<delete id="delAttention" parameterType="String">
+		UPDATE ATTND
+		WHERE ATTND_NO = #{target}
+	</delete>
 
 
 	<select id="resumeMemNo" parameterType="hashmap"

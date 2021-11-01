@@ -74,9 +74,13 @@ public class MyCorpDAO implements IMyCorpDAO {
 		return sqlSession.selectList("mycorp.getAttndList",memNo);
 	}
 
+	/*
+	 * @Override public int delAttention(String target) throws Throwable { return
+	 * sqlSession.update("mycorp.delAttention",target); }
+	 */
 	@Override
 	public int delAttention(String target) throws Throwable {
-		return sqlSession.update("mycorp.delAttention",target);
+		return sqlSession.delete("mycorp.delAttention",target);
 	}
 
 	@Override

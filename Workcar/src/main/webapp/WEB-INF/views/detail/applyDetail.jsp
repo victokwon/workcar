@@ -37,6 +37,15 @@
 	</script>
 	<script>
 	 $(function () {
+		 $("#goList").on("click",function(){
+			 $("#empListForm").attr("action", "EmploySearchList")
+			 $("#empListForm").submit()
+		 })
+	/* 	 $(".cNameBox").on("click", function(){
+			 $("#")
+			 $("#empListForm").attr("action", "applyDetail")
+			 $("#empListForm").submit()
+		 }) */
 		
 		var mapContainer = document.getElementById("map"), // 지도를 표시할 div
 		  mapOption = {
@@ -231,6 +240,7 @@
    <form action="#" id="empListForm" method="post">
    		<input type="hidden" id="memNo" name="memNo" value="${sMNo }">
       	<input type="hidden" id="page" name="page" value="${param.page}">
+      	<input type="hidden" id="empNo" name="empno" value="${param.empno }">
    		<input type="hidden" id="empNo" name="empno" value="${param.empno }">
 		<input type="hidden" id="sectorNo" name="sectorNo" value="${param.sectorNo }">
 		<input type="hidden" id="startDate" name="startDate" value="${param.startDate }">
@@ -251,7 +261,7 @@
    
         <div class="left_main_menu">
             <div class="vertical-menu">
-                <a href="#" class="active">list</a>
+                <a href="#" class="active" id="goList">list</a>
                 <div >
                 	<table class="mySlides">
                 		
@@ -278,7 +288,7 @@
             	        <div class="input_box">
                            <div class="c_name">
 	                              <div class="text"><b>기업명</b></div>
-	                              <div class="input" id="cNameBox" cname="${applyinfo.C_NAME}"><b>${applyinfo.C_NAME}</b></div>
+	                              <div class="input" id="cNameBox" cname="${applyinfo.C_NAME}" cno="${applyinfo.CORP_NO}"><b>${applyinfo.C_NAME}</b></div>
                            </div>
                            <div class="sector">
 	                              <div class="text">직종</div>

@@ -329,11 +329,11 @@
 				<div class="footer_logo"></div>
 				<div class="footer_dtl_contents_1">명칭 (주)일력거 | 사업자등록번호
 					123-456-7891011</div>
-				<div class="footer_dtl_contents_2">등록일자 2021년 9월 ?일 | 발행
+				<div class="footer_dtl_contents_2">등록일자 2021년 9월 1일 | 발행
 					(주)일력거 | 편집 (주)일력거</div>
-				<div class="footer_dtl_contents_3">발행소 서울시 금천구 가산디지털2로 구디아카데미
+				<div class="footer_dtl_contents_3">발행소 우리집
 					| 전화번호 02-1234-5678</div>
-				<div class="copyright">©WorkRickshaw. All rights reserved.</div>
+				<div class="copyright">©WorkCar. All rights reserved.</div>
 			</div>
 		</div>
 	</footer>
