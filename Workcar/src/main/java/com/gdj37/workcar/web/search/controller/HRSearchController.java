@@ -40,12 +40,22 @@ public class HRSearchController {
 	}
 	@RequestMapping(value = "/HRSearchListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
 	@ResponseBody
-	public String HRSearchListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+	public String HRSearchListAjax(@RequestParam HashMap<String, String> params, @RequestParam (required=false) String[] qualno) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 //		System.out.println(params);
 		Map<String, Object> modelMap = new HashMap<String, Object>(); // 데이터를 담을 map
 		try {
-				
+			String qual ="";
+			if(qualno != null) {
+			for(int i=0; i<qualno.length;i++) {
+				qual += qualno[i];
+				if(i+1 != qualno.length) {
+					qual += " , ";
+				}
+			}
+			params.put("qualno", qual);
+			}
+			System.out.println(params.get("qualno"));	
 		
 		// 페이지 취득
 		int page = Integer.parseInt(params.get("page"));

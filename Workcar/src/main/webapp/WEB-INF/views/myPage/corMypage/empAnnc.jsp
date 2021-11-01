@@ -10,19 +10,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	<link rel="stylesheet" href="resources/css/empannc/default.css">
+	<link rel="stylesheet" href="resources/css/cormypage/empannc/default.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/header.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css">
-    <link rel="stylesheet" href="resources/css/empannc/empannc.css">
+    <link rel="stylesheet" href="resources/css/cormypage/empannc/empannc.css">
     <link rel="stylesheet" type="text/css" href="resources/css/resume/pop.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
      <script src="resources/script/empannc/header.js"></script>
     <script src="resources/script/empannc/mainbox.js"></script>
     <script src="resources/script/empannc/empannc.js"></script>
     <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
-    <script type="text/javascript" src="resources/script/empannc/sector.js"></script>
-    <script type="text/javascript" src="resources/script/empannc/qual.js"></script>
+    <script type="text/javascript" src="resources/script/cormypage/empannc/sector.js"></script>
+    <script type="text/javascript" src="resources/script/cormypage/empannc/qual.js"></script>
     
 </head>
 
@@ -178,7 +178,7 @@
 												<div class="input">
 													<input type="HIDDEN" id="SECTOR_NO" name="SECTOR_NO" readonly />
 													<input type="text" id="SECTOR_NAME" name="SECTOR_NAME" readonly />
-													<button type="button" id="sectorBtn">업종 검색</button>
+													<button type="button" id="sectorBtn" btn="s">업종 검색</button>
 												</div>
 											</div>
 											<div class="count">
@@ -407,26 +407,26 @@
 											<div class="method">
 												<div class="text">서류</div>
 												<div class="input">
-													<input type="checkbox" name="method" value="0" > 
+													<input type="checkbox" name="EMP_DOC" value="0" > 
 													<label for="method0">이력서</label> <br>
-													<input type="checkbox" name="method" value="1"  > 
+													<input type="checkbox" name="EMP_DOC" value="1"  > 
 													<label for="method1">경력기술서</label> <br>
-													<input type="checkbox" name="method" value="2" > 
+													<input type="checkbox" name="EMP_DOC" value="2" > 
 													<label for="method2">포트폴리오</label> <br>
-													<input type="checkbox" name="method" value="3" >
+													<input type="checkbox" name="EMP_DOC" value="3" >
 													<label for="method3">기타</label>
 												</div>
 											</div>
 											<div class="apply">
 												<div class="text">전형</div>
 												<div class="input">
-													<input type="checkbox" name="apply" value="0" >
+													<input type="checkbox" name="EMP_PRCS" value="0" >
 													<label for="apply0">서류전형</label> <br> <input
-														type="checkbox" name="apply" value="1" >
+														type="checkbox" name="EMP_PRCS" value="1" >
 													<label for="apply1">면접</label> <br> <input
-														type="checkbox" name="apply" value="2" >
+														type="checkbox" name="EMP_PRCS" value="2" >
 													<label for="apply2">인적성검사</label> <br> <input
-														type="checkbox" name="apply" value="3" >
+														type="checkbox" name="EMP_PRCS" value="3" >
 													<label for="apply3">기타</label>
 												</div>
 											</div>
@@ -542,7 +542,7 @@
                                 <th class='td_name'>내용</th>
                             </tr>
                         </thead>
-                        <tbody id="sectorList" no="">
+                        <tbody id="list_box" no="">
                         </tbody>
                     </table>
                 </div>
@@ -551,6 +551,8 @@
             </div>
         </div>
     </div>
+    
+    
 
 
 
@@ -609,6 +611,10 @@
 		
 		$("#mypagecorp").on("click", function() {
 			location.href = "/cmyinfopage";
+		});
+		
+		$("#defaultmenu").on("click",function(){
+			location.href = "/empannc";
 		});
 	   
 	   
@@ -717,7 +723,7 @@
 	
 	function uptEmpAnncAjax() {
 		
-		
+
 		var param = $("#uptForm1, #uptForm2, #uptForm3, #uptForm4, #uptForm6, #findregionAjax, #uptForm7").serialize();
 		
 		$.ajax({
@@ -940,7 +946,28 @@
 	}
 	
 	
+	
+	
+ $(".list_wrap").on("click", "tr", function () {
+	  	if($(".pop-container").attr("btn") == "q"){
+	  		let target = $("#list_box").attr("no");
+	  	    $("#QUAL_NO"+target+"").val($(this).attr("qNo"));
+	  	    $("#QUAL_NAME"+target+"").val($(this).attr("qName"));
+	  	    $(".pop-container").hide();
+	  	}else if($(".pop-container").attr("btn") == "s"){
+	  	    $("#SECTOR_NAME").val($(this).attr("sName"));
+	  	    $("#SECTOR_NO").val($(this).attr("sNo"));
+	  	    $(".pop-container").hide();
+	  		}
+	 });
+	
+	
+	
+	
+	
 	});
+
+	
 </script>
 
 

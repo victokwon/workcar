@@ -49,7 +49,7 @@ html {
 .main_content {
   color: white;
   padding: 20px 20px;
-  margin: 0 auto;
+  margin:  auto;
   width: 1000px;
   border-radius: 8px;
 }
@@ -306,6 +306,7 @@ table{
 .card_list .content:hover{
   border:8px solid #88a2f2;
   margin: -8px 0px;
+  cursor:pointer;
 }
 .card_list .content img{
   max-width:100%;
@@ -341,7 +342,9 @@ table{
   color:black;
   max-width:100%;
 }
-
+.content p{
+	font-size:14px;
+}
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 900px) {
   .column {

@@ -3,19 +3,22 @@
 <mapper namespace="EmploySearch">
 	<select id="getEmpSch1Cnt" parameterType="hashmap"
 		resultType="Integer">
-		SELECT COUNT(*) AS CNT
+		SELECT COUNT(DISTINCT EA.EMP_NO) AS CNT
 		FROM EMP_ANNC EA INNER JOIN C_MEMBER CM
-		ON
-		EA.MEM_NO = CM.MEM_NO
+		ON EA.MEM_NO = CM.MEM_NO
 		INNER JOIN C_INFO CI
 		ON CM.CORP_NO = CI.CORP_NO
-		INNER JOIN EMP_QUAL EQ
-		ON EA.EMP_NO = EQ.EMP_NO
+        <if test="qualno != null and qualno != ''">
+			 JOIN(SELECT DISTINCT EMP_NO FROM EMP_QUAL 
+			 			 WHERE QUAL_NO IN (${qualno})
+			 ) EQ
+        	 ON EA.EMP_NO = EQ.EMP_NO
 
+		</if>
 		WHERE DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
-				AND SECTOR_NO = #{sectorNo}
+				AND EA.SECTOR_NO = #{sectorNo}
 			</if>
 			<if test="startDate != null and startDate !=''">
 				AND REG_DATE &gt;= #{startDate}
@@ -48,10 +51,6 @@
 			<if test="gradu != null and gradu != ''">
 				AND GRADU = #{gradu}  
 			</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN (${qualno}) 
-
-			</if>
 
 			<choose>
 				<when test="searchGbn eq 0">
@@ -73,7 +72,7 @@
 
 
 		<if test="sectorNo != null and sectorNo != ''">
-			AND SECTOR_NO = #{sectorNo}
+			AND EA.SECTOR_NO = #{sectorNo}
 		</if>
 		<if test="startDate != null and startDate !=''">
 			AND REG_DATE &gt;= #{startDate}
@@ -123,10 +122,7 @@
 		<if test="gradu != null and gradu != ''">
 			AND GRADU = #{gradu}
 		</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN (${qualno})
 
-			</if>
 	</select>
 <!-- qualno : "1,2,3" -->
 <!-- (1,2,3) -->
@@ -135,23 +131,28 @@
 
 	<select id="getEmpSch1List" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT E.EMP_NO, E.CORP_IMG, E.C_NAME, E.EMP_TITLE
-		FROM (SELECT
-		EA.EMP_NO, CI.CORP_IMG, CI.C_NAME, EA.EMP_TITLE,
-		ROW_NUMBER()
-		OVER(ORDER BY EA.EMP_NO DESC) AS ENUM
-		FROM EMP_ANNC EA INNER JOIN
-		C_MEMBER CM
-		ON EA.MEM_NO = CM.MEM_NO
+		SELECT E.EMP_NO, E.CORP_IMG, E.C_NAME, E.EMP_TITLE, SECTOR_NAME, DLINE
+		FROM (SELECT EA.EMP_NO, CI.CORP_IMG, CI.C_NAME, EA.EMP_TITLE, SECTOR_NAME, TO_CHAR(DLINE,'YY/MM/DD') DLINE, 
+        ROW_NUMBER() OVER(ORDER BY EA.EMP_NO DESC) AS ENUM
+		FROM EMP_ANNC EA INNER JOIN C_MEMBER CM 
+        ON EA.MEM_NO = CM.MEM_NO
+        JOIN SECTOR S
+        ON (EA.SECTOR_NO = S.SECTOR_NO)
 		INNER JOIN C_INFO CI
-		ON CM.CORP_NO =
-		CI.CORP_NO
-		INNER JOIN EMP_QUAL EQ
-		ON EA.EMP_NO = EQ.EMP_NO
+        ON CM.CORP_NO = CI.CORP_NO 
+       
+        <if test="qualno != null and qualno != ''">
+			 JOIN(SELECT DISTINCT EMP_NO FROM EMP_QUAL 
+			  WHERE QUAL_NO IN (${qualno})
+			 ) EQ
+        	 ON EA.EMP_NO = EQ.EMP_NO
+			
+		</if>
+
 		WHERE EA.DEL_CHK = 0
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
-				AND SECTOR_NO = #{sectorNo}
+				AND EA.SECTOR_NO = #{sectorNo}
 			</if>
 			<if test="startDate != null and startDate !=''">
 				AND REG_DATE &gt;= #{startDate}
@@ -184,10 +185,7 @@
 			<if test="gradu != null and gradu != ''">
 				AND GRADU = #{gradu}
 			</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN (${qualno})
-
-			</if>
+			
 
 			<choose>
 				<when test="searchGbn eq 0">
@@ -209,7 +207,7 @@
 
 
 		<if test="sectorNo != null and sectorNo != ''">
-			AND SECTOR_NO = #{sectorNo}
+			AND EA.SECTOR_NO = #{sectorNo}
 		</if>
 		<if test="startDate != null and startDate !=''">
 			AND REG_DATE &gt;= #{startDate}
@@ -259,10 +257,8 @@
 		<if test="gradu != null and gradu != ''">
 			AND GRADU = #{gradu}
 		</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN (${qualno})
 
-			</if>
+
 		)E
 		WHERE E.ENUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>

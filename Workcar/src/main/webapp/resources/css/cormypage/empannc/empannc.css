@@ -1,0 +1,621 @@
+/* Set height of body and the document to 100% to enable "full page tabs" */
+body,
+html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+main {
+  position: relative;
+  z-index: 1;
+}
+.main_info {
+  background: #88a2f2;
+  width: 1000px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+.main_button {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.main_button:hover {
+  background-color: #88a2f2;
+}
+
+.main_content {
+  /* color: white; */
+  padding: 20px 20px;
+  height: 100%;
+  margin: 0 auto;
+  width: 1200px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.vertical_menu {
+  width: 200px;
+}
+
+.main_box {
+  margin: 0 20px;
+  width: 80%;
+  height: 100%;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 8px;
+  align-items: flex-start;
+}
+
+/* 소메뉴 수정 */
+
+.vertical_menu a {
+  background-color: whitesmoke;
+  color: black;
+  display: block;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 3px;
+  box-sizing: border-box;
+  margin: auto 0;
+}
+
+.vertical_menu a:hover {
+  border: 2px solid #1b50ee;
+  background-color: #3765f0;
+  color: white;
+}
+
+.main_content button {
+  font-size: 15px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: whitesmoke;
+  border: 1px solid #333;
+  color: black;
+  margin: auto 0;
+}
+.main_content button:hover {
+  box-sizing: border-box;
+  border: 1px solid #1b50ee;
+  background-color: #3765f0;
+  color: white;
+}
+
+.main_button_box {
+  margin: 0 auto;
+  width: 1000px;
+}
+
+/* 유저정보 */
+.user_wrap {
+  height: auto;
+  margin: 0 auto;
+  padding: 20px 0 20px 20px;
+  width: 1000px;
+  justify-items: center;
+}
+
+.user_box {
+  padding: 10px 10px 10px 10px;
+  background-color: #eee;
+  border-radius: 10px;
+  height: 100px;
+  width: 400px;
+  margin: 0 0;
+}
+
+.user_profile {
+  box-sizing: border-box;
+  border-radius: 50%;
+  float: left;
+  display: block;
+  width: 80px;
+  height: 80px;
+  background-color: #fff;
+}
+
+.user {
+  float: right;
+  width: calc(100% - 90px);
+  height: 100%;
+}
+
+.user_name {
+  height: 50%;
+  background-color: #fff;
+}
+
+.user_status {
+  height: 50%;
+  background-color: #fff;
+}
+
+main > .main_wrap {
+  font-size: 16px;
+  font-weight: bolder;
+  /* padding-top: 50px; */
+  width: 100%;
+  height: calc(100% - 180px);
+  background-color: #fff;
+}
+
+.button_container {
+  display: flex;
+  flex-direction: column;
+  width: calc(30% - 60px);
+  margin: 15px;
+}
+
+/* 이력서 디테일 */
+
+.apply_dtl_header {
+  display: flex;
+}
+.apply_dtl {
+  float: left;
+  margin: auto;
+}
+.apply_dtl_name {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.apply_dtl_date {
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.main_box .resume {
+  width: 100%;
+}
+
+.main_box .content {
+  width: 100%;
+  height: auto;
+  background-color: #3765f0;
+  /* border: 1px solid black; */
+  margin-bottom: 20px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.main_box .apply_dtl_header {
+  border-radius: 10px;
+}
+
+.main_box .content .dtl {
+  border-radius: 10px 10px 0px 0px;
+  background-color: #c4c7f2;
+  /* 높이 100% 수정해야함 */
+  height: 100%;
+  width: 100%;
+}
+.main_box .content .dtl .header {
+  height: 50px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #3765f0;
+  /* border-bottom: 2px #444 solid; */
+  border-radius: 10px 10px 0px 0px;
+  text-align: left;
+  padding-left: 20px;
+  line-height: 50px;
+}
+.main_box .content .dtl .con {
+  /* background-color: black; */
+  height: calc(100% - 50px);
+  padding: 0 20px;
+  padding-top: 10px;
+  display: flex;
+}
+
+/* 이력서 디테일 세부사항 */
+form {
+  width: 100%;
+}
+
+.main_box > .tilte {
+  margin-bottom: 20px;
+}
+
+/* 지원자정보,구직희망사항 */
+.tilte .header {
+  display: flex;
+  height: 60px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #eee;
+  border-radius: 10px;
+  text-align: left;
+  padding: 0 20px;
+  line-height: 50px;
+}
+
+.tilte .job_post_title > input {
+  height: 100%;
+  border-radius: 10px;
+  margin: auto;
+  border: 0;
+  padding: 0;
+  background-color: white;
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.tilte .button_box {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  margin: auto;
+}
+
+.tilte .button_box input {
+  border: 1px solid #777;
+  background-color: #eee;
+  border-radius: 5px;
+  color: black;
+  box-sizing: border-box;
+  font-size: 15px;
+}
+
+.tilte .button_box input:hover {
+  background-color: #3765f0;
+  color: white;
+  cursor: pointer;
+}
+
+.input_box {
+  width: auto;
+  margin-left: 30px;
+  padding: 0;
+}
+.input_box > .name,
+.input_box > .count,
+.input_box > .phone,
+.input_box > .email,
+.input_box > .location,
+.input_box > .edu,
+.input_box > .job,
+.input_box > .work_format,
+.input_box > .sal,
+.input_box > .major,
+.input_box > .career,
+.input_box > .job,
+.input_box > .job,
+.input_box > .type {
+  height: 30px;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 15px;
+  font-weight: bold;
+}
+.input_box .text {
+  line-height: 35px;
+  width: 100px;
+  border-right: 1px solid #999;
+}
+.input_box .input {
+  line-height: 30px;
+  margin-left: 20px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.input_box .input input[type="text"],
+.input_box .input select {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 150px;
+  height: 100%;
+  border: 0px;
+}
+#minSal,
+#maxSal,
+#minCareer,
+#maxCareer {
+  text-align: center;
+  width: 50px;
+  height: 25px;
+  border: 0px;
+  margin: 0 10px;
+  padding: 0;
+}
+
+input[disabled] {
+  font-size: 12px;
+  border: 0px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 130px;
+  height: 100%;
+  background-color: #888;
+  color: #eee;
+}
+
+input[readonly] {
+  font-size: 12px;
+  border: 0px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 130px;
+  height: 100%;
+  background-color: #888;
+  color: #fff;
+}
+
+label {
+  user-select: none;
+}
+
+.input_box .input label,
+.input_box .input input[type="checkbox"],
+.input_box .input input[type="radio"] {
+  margin: 0;
+}
+
+/* 자격증 */
+.input_box .sal .input input[type="text"] {
+  width: 100px;
+  margin: 0 10px;
+}
+
+.plus_btn,
+.minus_btn {
+  box-sizing: border-box;
+  border: 1px solid #777;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
+}
+.plus_btn:hover,
+.minus_btn:hover {
+  cursor: pointer;
+  border: 1px solid #1b50ee;
+  background-color: #3765f0;
+  line-height: 29px;
+  color: white;
+}
+
+.add_box {
+  flex-direction: column;
+}
+.add_box .input_box {
+  position: relative;
+  display: flex;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  background-color: #eee;
+  line-height:2;
+}
+.add_box .input_box .data_container {
+  height: 30px;
+  display: flex;
+  margin: auto;
+}
+.data_container input[type="text"] {
+  margin-left: 10px;
+  width: 80px;
+}
+.data_container input[readonly] {
+  width: 100px;
+}
+.minus_btn {
+  margin: 10px 20px;
+}
+.plus_btn {
+  margin: 10px auto;
+}
+
+/* 첨부파일 */
+#att {
+  display: none;
+}
+#fileSNm {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 50%;
+  line-height: 30px;
+  border: 1px solid #777;
+}
+.add_box .input_box .file_container {
+  width: calc(100% - 70px);
+  padding: 0 20px;
+  justify-content: space-between;
+}
+
+.add_box .text_box {
+  height: auto;
+  position: relative;
+  padding: 10px;
+  margin-bottom: 10px;
+  flex-direction: column;
+}
+
+.text_box input[type="text"] {
+  font-size: 12px;
+  border: 0px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: calc(100% - 100px);
+  height: 30px;
+  margin: 10px;
+}
+.add_box .text_box .data_container {
+  width: 100%;
+  /* padding: 20px; */
+  height: auto;
+}
+.data_container textarea {
+  resize: none;
+  margin: 0 10px;
+  width: 95%;
+  height: 200px;
+  border: 1px solid #777;
+  border-radius: 7px;
+  box-sizing: border-box;
+}
+/* 오른쪽 */
+.right {
+  display: flex;
+  flex-direction: column;
+  width: calc(40% - 200px);
+  margin: 0;
+  padding: 0;
+}
+
+.right .content {
+  width: 100%;
+  height: auto;
+  background-color: #3765f0;
+  /* border: 1px solid black; */
+  margin-bottom: 20px;
+  border-radius: 10px 10px 0px 0px;
+  margin: 0 0 20px 0;
+}
+
+.right .content .dtl .con {
+  /* background-color: black; */
+  height: calc(100% - 50px);
+  padding: 0 5px;
+  padding-top: 5px;
+  display: flex;
+}
+
+.right .content .dtl {
+  border-radius: 10px 10px 0px 0px;
+  background-color: #c4c7f2;
+  /* 높이 100% 수정해야함 */
+  height: 100%;
+  width: 100%;
+}
+
+.right .content .dtl .header {
+  height: 50px;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #3765f0;
+  /* border-bottom: 2px #444 solid; */
+  border-radius: 10px 10px 0px 0px;
+  text-align: left;
+  padding-left: 20px;
+  line-height: 50px;
+}
+
+.right .input_box {
+  margin: 0 5px;
+}
+
+.right .input_box .text {
+  line-height: 35px;
+  width: 50px;
+  border-right: 1px solid #999;
+}
+
+/* 채용정보 */
+.right .input_box > .name,
+.right .input_box > .dept,
+.right .input_box > .phone,
+.right .input_box > .email,
+.right .input_box > .start,
+.right .input_box > .end {
+  height: 30px;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.right .input_box input[readonly] {
+  font-size: 12px;
+  border: 0px;
+  font-weight: bold;
+  padding: 0px 10px;
+  width: 70px;
+  height: 100%;
+  background-color: #888;
+  color: #fff;
+}
+
+/* 진행사항 */
+.right .input_box > .method,
+.right .input_box > .apply {
+  height: auto;
+  display: flex;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.right .input_box .input input[type="text"] {
+  width: 70px;
+}
+
+/* 근무지 */
+.right .input_box > .location {
+  height: auto;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.input_box .location .input {
+  margin: 0 5px;
+}
+
+.right .input_box > .location .input_box {
+  display: flex;
+  flex-direction: column;
+}
+.right .input_box > .location .input select {
+  height: 30px;
+}
+.input_box .location .input button {
+  width: 100%;
+  margin-top: 10px;
+}
+.location_dtl {
+  width: 100%;
+  height: 30px;
+  background-color: #888;
+  color: #eee;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.saveboxouter {
+	background-color : #88a2f2
+}
+
+.headline {
+	position: absolute;
+    height: 60px !important;
+    width: 830px !important;
+}

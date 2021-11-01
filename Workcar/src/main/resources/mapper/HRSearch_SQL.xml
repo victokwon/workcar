@@ -3,18 +3,35 @@
 <mapper namespace="HRSearch">
 	<select id="getHRSch1Cnt" parameterType="hashmap"
 		resultType="Integer">
-		SELECT COUNT(*) AS CNT
-		FROM RESUM R JOIN MEMBER M
-        ON R.MEM_NO = M.MEM_NO
-		WHERE DEL_CHK = 0
+		SELECT COUNT(DISTINCT R.RESUM_NO) AS CNT
+		FROM RESUM R
+		JOIN MEMBER M
+		ON
+		R.MEM_NO = M.MEM_NO
+		JOIN RESUM_LOC RL
+		ON (R.RESUM_NO = RL.RESUM_NO)
+		JOIN
+		SECTOR S
+		ON (R.SECTOR_NO = S.SECTOR_NO)
+		JOIN REGION RG
+		ON (R.REGION_NO =
+		RG.REGION_NO)
+		JOIN CITY C
+		ON (RG.CITY_NO = C.CITY_NO)
+		JOIN RESUM_WORK RW
+		ON (R.RESUM_NO = RW.RESUM_NO)
+		FULL OUTER JOIN RESUM_QUAL RQ
+		ON
+		(R.RESUM_NO = RQ.RESUM_NO)
+		WHERE R.DEL_CHK = 0
+		AND OPN_CHK = 1
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
-				AND SECTOR_NO = #{sectorNo}
+				AND S.SECTOR_NO = #{sectorNo}
 			</if>
 
-
 			<if test="region neq 16 and region != null and region !=''">
-				AND REGION_NO = #{region}
+				AND RG.REGION_NO = #{region}
 			</if>
 			<if test="sal != null and sal != ''">
 				<choose>
@@ -31,31 +48,36 @@
 					</when>
 				</choose>
 			</if>
-			<if test="empGbn != null and empGbn != ''">
-				AND EMP_GBN = #{empGbn}
+			<if test="work_type != null and work_type != ''">
+				AND RW.WORK_TYPE = #{work_type}
 			</if>
 			<if test="gradu != null and gradu != ''">
 				AND GRADU = #{gradu}
 			</if>
 			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN  
-				<foreach item="qualno" index="index" collection="list"
-				      open="(" separator="," close=")">
-				        #{qualno}
-				 </foreach>
+				AND QUAL_NO IN (${qualno})
+
 			</if>
 
 			<choose>
 				<when test="searchGbn eq 0">
-					AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
+					AND M.NAME LIKE '%' || #{searchTxt} || '%'
 					OR
-					EA.EMP_TITLE LIKE '%' || #{searchTxt} || '%'
+					SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+					OR CITY_NAME LIKE '%' ||
+					#{searchTxt} || '%'
+					OR REGION_NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchGbn eq 1">
-					AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
+					AND M.NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchGbn eq 2">
-					AND EA.EMP_TITLE LIKE '%' || #{searchTxt} || '%'
+					AND SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 3">
+					AND CITY_NAME LIKE '%' || #{searchTxt} || '%'
+					AND
+					REGION_NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 
@@ -65,11 +87,11 @@
 
 
 		<if test="sectorNo != null and sectorNo != ''">
-			AND SECTOR_NO = #{sectorNo}
+			AND S.SECTOR_NO = #{sectorNo}
 		</if>
 
 		<if test="region neq 16 and region != null and region !=''">
-			AND REGION_NO = #{region}
+			AND RG.REGION_NO = #{region}
 		</if>
 		<if test="sal != null and sal != ''">
 			<choose>
@@ -86,75 +108,71 @@
 				</when>
 			</choose>
 		</if>
-		<if test="carr != null and carr != ''">
-			<choose>
-				<when test="carr eq 0">
-					AND CARR = '0'
-				</when>
-				<when test="carr eq 1">
-					AND CARR = '1'
-				</when>
-				<when test="carr eq 2 and minCareer != null and minCareer !=''">
-					AND CARR = '2'
-					AND CARR_Y &gt;= #{minCareer}
-				</when>
-				<when test="carr eq 2 and maxCareer != null and maxCareer !=''">
-					AND CARR = '2'
-					AND CARR_Y &lt;= #{maxCareer}
-				</when>
-			</choose>
-		</if>
-		<if test="empGbn != null and empGbn != ''">
-			AND EMP_GBN = #{empGbn}
+		<if test="work_type != null and work_type != ''">
+			AND RW.WORK_TYPE = #{work_type}
 		</if>
 		<if test="gradu != null and gradu != ''">
 			AND GRADU = #{gradu}
 		</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN  
-				<foreach item="qualno" index="index" collection="list"
-				      open="(" separator="," close=")">
-				        #{qualno}
-				 </foreach>
-			</if>
+		<if test="qualno != null and qualno != ''">
+			AND QUAL_NO IN (${qualno})
+
+		</if>
 	</select>
-
-
-
 
 	<select id="getHRSch1List" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT H.NAME,SECTOR_NAME,CITY_NAME,REGION_NAME,H.CARR, H.REG_DATE
-		FROM (SELECT
-		M.NAME,SECTOR_NAME,CITY_NAME,REGION_NAME,
-        R.CARR, TO_CHAR(R.REG_DATE, 'YYYY-MM-DD') REG_DATE,
-		ROW_NUMBER()OVER(ORDER BY R.MEM_NO DESC) AS ENUM
-		FROM RESUM R 
-        JOIN MEMBER M
-        ON R.MEM_NO = M.MEM_NO
-        JOIN RESUM_LOC RL
-        ON (R.RESUM_NO = RL.RESUM_NO)
-        JOIN SECTOR S
+		SELECT 
+        H.RESUM_NO,H.NAME,SECTOR_NAME,CITY_NAME,REGION_NAME,H.CARR,
+        H.REG_DATE 
+   		FROM
+        (
+        SELECT R.MEM_NO, R.RESUM_NO
+           , M.NAME,SECTOR_NAME,CITY_NAME,REGION_NAME,
+            R.CARR, TO_CHAR(R.REG_DATE,'YYYY-MM-DD') REG_DATE,
+            ROW_NUMBER()OVER(ORDER BY R.MEM_NO ASC) AS ENUM 
+        FROM RESUM R 
+        JOIN MEMBER M 
+        ON R.MEM_NO = M.MEM_NO 
+        
+        JOIN (
+            SELECT DISTINCT RESUM_NO FROM RESUM_LOC
+            )  RL
+        ON (R.RESUM_NO = RL.RESUM_NO) 
+        
+        JOIN (
+            SELECT DISTINCT RESUM_NO FROM RESUM_QUAL 
+            )RQ 
+        ON (R.RESUM_NO = RQ.RESUM_NO) 
+        
+        JOIN (
+            SELECT SECTOR_NAME,SECTOR_NO FROM SECTOR 
+            ) S  
         ON (R.SECTOR_NO = S.SECTOR_NO)
         
-        JOIN REGION RG
-        ON (R.REGION_NO = RG.REGION_NO)
-        JOIN CITY C
-        ON (RG.CITY_NO = C.CITY_NO)
-        WHERE R.DEL_CHK = 0
+        JOIN (
+            SELECT REGION_NO, REGION_NAME, CITY_NO  FROM REGION 
+            ) RG
+        ON (R.REGION_NO = RG.REGION_NO) 
+        
+        JOIN CITY C 
+        ON (RG.CITY_NO = C.CITY_NO) 
+        
+        JOIN  (
+            SELECT DISTINCT RESUM_NO FROM RESUM_WORK 
+            )RW 
+        ON (R.RESUM_NO = RW.RESUM_NO)
+        
+        WHERE R.DEL_CHK = 0 
+        AND R.OPN_CHK = 1
+        
 		<if test="searchTxt != null and searchTxt != ''">
 			<if test="sectorNo != null and sectorNo != ''">
-				AND SECTOR_NO = #{sectorNo}
-			</if>
-			<if test="startDate != null and startDate !=''">
-				AND REG_DATE &gt;= #{startDate}
-			</if>
-			<if test="endDate != null and endDate != ''">
-				AND DLINE &lt;= #{endDate}
+				AND S.SECTOR_NO = #{sectorNo}
 			</if>
 
 			<if test="region neq 16 and region != null and region !=''">
-				AND REGION_NO = #{region}
+				AND RG.REGION_NO = #{region}
 			</if>
 			<if test="sal != null and sal != ''">
 				<choose>
@@ -171,31 +189,36 @@
 					</when>
 				</choose>
 			</if>
-			<if test="empGbn != null and empGbn != ''">
-				AND EMP_GBN = #{empGbn}
+			<if test="work_type != null and work_type != ''">
+				AND RW.WORK_TYPE = #{work_type}
 			</if>
 			<if test="gradu != null and gradu != ''">
 				AND GRADU = #{gradu}
 			</if>
 			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN  
-				<foreach item="qualno" index="index" collection="list"
-				      open="(" separator="," close=")">
-				        #{qualno}
-				 </foreach>
+				AND QUAL_NO IN (${qualno})
+
 			</if>
 
 			<choose>
 				<when test="searchGbn eq 0">
-					AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
+					AND M.NAME LIKE '%' || #{searchTxt} || '%'
 					OR
-					EA.EMP_TITLE LIKE '%' || #{searchTxt} || '%'
+					SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+					OR CITY_NAME LIKE '%' ||
+					#{searchTxt} || '%'
+					OR REGION_NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchGbn eq 1">
-					AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
+					AND M.NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 				<when test="searchGbn eq 2">
-					AND EA.EMP_TITLE LIKE '%' || #{searchTxt} || '%'
+					AND SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+				</when>
+				<when test="searchGbn eq 3">
+					AND CITY_NAME LIKE '%' || #{searchTxt} || '%'
+					OR
+					REGION_NAME LIKE '%' || #{searchTxt} || '%'
 				</when>
 			</choose>
 
@@ -205,16 +228,11 @@
 
 
 		<if test="sectorNo != null and sectorNo != ''">
-			AND SECTOR_NO = #{sectorNo}
+			AND S.SECTOR_NO = #{sectorNo}
 		</if>
-		<if test="startDate != null and startDate !=''">
-			AND REG_DATE &gt;= #{startDate}
-		</if>
-		<if test="endDate != null and endDate != ''">
-			AND DLINE &lt;= #{endDate}
-		</if>
+
 		<if test="region neq 16 and region != null and region !=''">
-			AND REGION_NO = #{region}
+			AND RG.REGION_NO = #{region}
 		</if>
 		<if test="sal != null and sal != ''">
 			<choose>
@@ -231,41 +249,20 @@
 				</when>
 			</choose>
 		</if>
-		<if test="carr != null and carr != ''">
-			<choose>
-				<when test="carr eq 0">
-					AND CARR = '0'
-				</when>
-				<when test="carr eq 1">
-					AND CARR = '1'
-				</when>
-				<when test="carr eq 2 and minCareer != null and minCareer !=''">
-					AND CARR = '2'
-					AND CARR_Y &gt;= #{minCareer}
-				</when>
-				<when test="carr eq 2 and maxCareer != null and maxCareer !=''">
-					AND CARR = '2'
-					AND CARR_Y &lt;= #{maxCareer}
-				</when>
-			</choose>
-		</if>
-		<if test="empGbn != null and empGbn != ''">
-			AND EMP_GBN = #{empGbn}
+		<if test="work_type != null and work_type != ''">
+			AND RW.WORK_TYPE = #{work_type}
 		</if>
 		<if test="gradu != null and gradu != ''">
 			AND GRADU = #{gradu}
 		</if>
-			<if test="qualno != null and qualno != ''">
-			    AND QUAL_NO IN  
-				<foreach item="qualno" index="index" collection="list"
-				      open="(" separator="," close=")">
-				        #{qualno}
-				 </foreach>
-			</if>
+		<if test="qualno != null and qualno != ''">
+			AND QUAL_NO IN (${qualno})
+
+		</if>
 		)H
-		WHERE E.ENUM BETWEEN #{startCnt} AND #{endCnt}
+		WHERE H.ENUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
-	
+
 	<select id="getAddContCnt" parameterType="hashmap"
 		resultType="Integer">
 		SELECT QUAL_CNT
