@@ -32,7 +32,8 @@ public class CommonAOP {
 	public void imem() {}
 	
 	@Pointcut("execution(* com.gdj37.workcar..corpmp.corpAttndInfo(..))"
-			+ "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))" 	
+			+ "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))"
+ 
 			)
 	public void cmem() {}
 	
