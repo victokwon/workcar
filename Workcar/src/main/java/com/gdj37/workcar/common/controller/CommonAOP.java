@@ -27,17 +27,21 @@ public class CommonAOP {
 	 * && -> 필터 추가
 	 */
 	@Pointcut("execution(* com.gdj37.workcar..ResumeController.resumeList(..))"
-	/* + "&& execution(* com.gdj37.workcar..mypPersonController.personRegi(..))" */ 
+		+ "|| execution(* com.gdj37.workcar..imemActController.*(..))"
+		+ "&& !execution(* com.gdj37.workcar..imemActController.*Ajax(..))" 
 	/* + "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))" */
 			)
 	public void imem() {}
 	
 	@Pointcut("execution(* com.gdj37.workcar..corpmp.corpAttndInfo(..))"
 			+ "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))"
-			+ "|| execution(* com.gdj37.workcar..HRSearchController.*(..))" 
-			 + "&& !execution(* com.gdj37.workcar..HRSearchController.*Ajax(..))"
 			)
 	public void cmem() {}
+	
+	@Pointcut("execution(* com.gdj37.workcar..HRSearchController.*(..))" 
+			 + "&& !execution(* com.gdj37.workcar..HRSearchController.*Ajax(..))"
+			)
+	public void hrSch() {}
 	
 	@Pointcut("execution(* com.gdj37.workcar..ManageController.*(..))"
 	 + "&& !execution(* com.gdj37.workcar..ManageController.*Ajax(..))" 
@@ -93,6 +97,32 @@ public class CommonAOP {
 		  }else {
 			  if(session.getAttribute("sMNo")!=null) {
 				  mav.addObject("msg","기업회원이 아닙니다.");
+				  mav.setViewName("mainpage/mainpage");  
+			  }else {
+				  mav.addObject("msg","로그인이 필요합니다.");
+				  mav.setViewName("ca/login");
+			  }
+		  }
+		return mav;
+	}
+	
+	@Around("hrSch()") 
+	public ModelAndView hrSch(ProceedingJoinPoint joinPoint) throws Throwable {
+		ModelAndView mav = new ModelAndView();
+		
+		//Request 객체 취득
+		HttpServletRequest request
+		= ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes()).getRequest();
+		
+		HttpSession session = request.getSession();
+		
+		 if(String.valueOf(session.getAttribute("sMTy")).equals("1")||
+				 String.valueOf(session.getAttribute("sMTy")).equals("2")||
+				 String.valueOf(session.getAttribute("sMTy")).equals("3")) {
+			 mav = (ModelAndView)joinPoint.proceed();
+		  }else {
+			  if(session.getAttribute("sMNo")!=null) {
+				  mav.addObject("msg","검색권한이 없습니다.");
 				  mav.setViewName("mainpage/mainpage");  
 			  }else {
 				  mav.addObject("msg","로그인이 필요합니다.");
