@@ -65,6 +65,15 @@ $(document).ready(function(){
 		}
 	  	$(".paging_wrap").html("");
 	});
+	$("#row_box").on("click","td",function(){
+		if($(this).attr("class") != "no_data"){
+			$("#resumno").val($(this).attr("resumno"))
+			let target = "personDetail"
+			$("#actionForm1").attr("action", target)
+			$("#actionForm1").submit()
+		}
+
+	}) 
 	$(".paging_wrap").on("click","span",function(){
 		$("#pop_page").val($(this).attr("pop_page"));
 		if($(".pop-container").attr("btn") == "q"){
@@ -89,6 +98,35 @@ $(document).ready(function(){
 	$("#searchBtn").on("click", function(){
 		$("#page").val("1");
 		$("#oldTxt").val($("#searchTxt").val());
+		if($("#sal1").is(":checked")){
+			if(checkVal("#minSal")){
+				alert("최소금액을 입력해 주세요.")
+				$("#minSal").focus();
+				return false
+			}else if(checkVal("#maxSal")){
+				alert("최대금액을 입력해 주세요.")
+				$("#maxSal").focus();
+				return false
+			}else if(Number($("#minSal").val()) >= Number($("#maxSal").val())){
+				alert("최소금액이 최대금액보다 큽니다.")
+				return false
+			}
+		}
+		
+		if($("#career2").is(":checked")){
+			if(checkVal("#minCareer")){
+				alert("최소경력을 입력해 주세요.")
+				$("#minCareer").focus();
+				return false
+			}else if(checkVal("#maxCareer")){
+				alert("최대경력을 입력해 주세요.")
+				$("#maxCareer").focus();
+				return false
+			}else if(Number($("#minCareer").val()) >= Number($("#maxCareer").val())){
+				alert("최소경력이 최대경력보다 큽니다.")
+				return false
+			}
+		}
 		reloadList();
 	});
 	//키방지
@@ -116,22 +154,23 @@ $(document).ready(function(){
 	$("select[name='region']").each(function(idx) {
 		getRegion($("#city" + idx + "").val(), $(this), $(this).attr("selValue"));
 	});	
+	
+	
 });
 
 //데이터 취득
 function reloadList(){
-	var params1 = $("#actionForm1").serialize();
- 	var params2 = $("#actionForm2").serialize();
-	var params3 = $("#actionForm3").serialize();
+	var params = $("#actionForm1").serialize();
+ 
 	
 	$.ajax({
 		url : "HRSearchListAjax",
 		type : "post",
 		dataType : "json",
-		data : params1+"&"+params2+"&"+params3,
+		data : params,
 		success : function(res){
-			drawList(res.list);
-			drawPaging(res.pb);
+			drawList(res.list,res.cnt);
+			drawPaging(res.pb,res.cnt);
 		},
 		error: function(request,status,error){
 			console.log(error);
@@ -139,56 +178,66 @@ function reloadList(){
 	});
 }
 //목록 그리기
-function drawList(list) {
+function drawList(list,cnt) {
 	var html = "";
-	
-	for(var data of list) {
-		html += "<td class=\"column\">";
-		html += "<div class=\"content\">";
-		html += "<h3>" + data.NAME + "</h3>";
-		html += "<div>" ;
-		html += "<p>"+ data.SECTOR_NAME +"</p>";
-		html += "<span> 지역 :" + data.CITY_NAME + "</span>";
-		html += "<span> / " + data.REGION_NAME + "</span>";
-		html += "</div>" ;
-		html += "<div>" ;
-		html += "<span> 경력 : "+ data.CARR +" 년</span>";
-		html += "<span> / 등록일 : " + data.REG_DATE + "</span>";		
-		html += "</div>" ;
-		
-		html += "</div>";
+	if(cnt<=0){
+		html += "<td class='no_data'>";
+		html += "검색조건에 해당하는 데이터가 없습니다.";
 		html += "</td>";
-	}
+	}else{
+		for(var data of list) {
+			html += "<td class=\"column\" resumno=\""+data.RESUM_NO+"\">";
+			html += "<div class=\"content\">";
+			html += "<h3>" + data.NAME + "</h3>";
+			html += "<div>" ;
+			html += "<p>"+ data.SECTOR_NAME +"</p>";
+			html += "<span> 지역 :" + data.CITY_NAME + "</span>";
+			html += "<span> / " + data.REGION_NAME + "</span>";
+			html += "</div>" ;
+			html += "<div>" ;
+			html += "<span> 경력 : "+ data.CARR +" 년</span>";
+			html += "<span> / 등록일 : " + data.REG_DATE + "</span>";		
+			html += "</div>" ;
+			
+			html += "</div>";
+			html += "</td>";
 	
+		}
+	}
+
 	$(".row").html(html);
 }
-function drawPaging(pb) {
+function drawPaging(pb,cnt) {
 	var html = "";
 	/* html += "<span page=\"1\">처음</span>      "; */
 	
-	if($("#page").val() == "1") {
-	   html += "<span page=\"1\" class=\"prev\" \">&#10094;</span>      ";
-	} else {
-	   html += "<span class=\"prev\" page=\"" + ($("#page").val() * 1 - 1) + "\">&#10094;</span>      ";
-	}                                 // *1 해주면 int 로 자동변환됨. -는 상관없음. 
-	                                 // +는 문자열 결합으로 인식시켜버림.
-	                                 
-	for(var j = pb.startPcount ; j <= pb.endPcount ; j++) {
-	   if($("#page").val() == j) {
-	      html += "<span class=\"dot\"  page=\"" + j + "\" style=\"background-color:#717171\"> </span>  ";
-	   } else {
-	      html += "<span class=\"dot\"  page=\"" + j + "\"> </span>  ";
-	   }
-	}                                    
-	
-	if($("#page").val() == pb.maxPcount) {
-	   html += "<span class=\"next\"  page=\""
-	   html += pb.maxPcount
-	   html += "\">&#10095;</span>      "
-	} else {
-	   html += "<span class=\"next\"  page=\"" 
-	   html += ($("#page").val() * 1 + 1)
-	   html += "\">&#10095;</span>      ";
+	if(cnt<=0){
+		$("#page").val() == "0";
+	}else{
+		if($("#page").val() == "1") {
+		   html += "<span page=\"1\" class=\"prev\" \">&#10094;</span>      ";
+		} else {
+		   html += "<span class=\"prev\" page=\"" + ($("#page").val() * 1 - 1) + "\">&#10094;</span>      ";
+		}                                 // *1 해주면 int 로 자동변환됨. -는 상관없음. 
+		                                 // +는 문자열 결합으로 인식시켜버림.
+		                                 
+		for(var j = pb.startPcount ; j <= pb.endPcount ; j++) {
+		   if($("#page").val() == j) {
+		      html += "<span class=\"dot\"  page=\"" + j + "\" style=\"background-color:#717171\"> </span>  ";
+		   } else {
+		      html += "<span class=\"dot\"  page=\"" + j + "\"> </span>  ";
+		   }
+		}                                    
+		
+		if($("#page").val() == pb.maxPcount) {
+		   html += "<span class=\"next\"  page=\""
+		   html += pb.maxPcount
+		   html += "\">&#10095;</span>      "
+		} else {
+		   html += "<span class=\"next\"  page=\"" 
+		   html += ($("#page").val() * 1 + 1)
+		   html += "\">&#10095;</span>      ";
+		}
 	}
 	
 	
@@ -226,7 +275,25 @@ function regionOptionDraw(list, target, val){
 	   target.val(val);
    }
 }
-
+function checkInputText(){
+	$("input[type=text]").each(function(idx){
+		if($(this).val() == ""){
+			alert("입력값이 누락되었습니다.")
+			$(this).focus()
+			return false
+		}
+	})
+}
+function checkVal(sel) {
+	if($.trim($(sel).val()) == "") {
+		return true;
+	} else {
+		return false;
+	}
+}
+function linkGo(url){
+		location.href = url
+	}
 </script>
 </head>
 <body>
@@ -291,8 +358,8 @@ function regionOptionDraw(list, target, val){
 		<div class="topnav">
 
 			<!-- 로고 -->
-			<div class="topnav-centered">
-				<div class="logo_img"></div>
+			<div class="topnav-centered" onclick="linkGo('mainpage')">
+				<div class="logo_img" ></div>
 			</div>
 
 			<!-- 왼쪽 -->
@@ -382,9 +449,11 @@ function regionOptionDraw(list, target, val){
             </div>
 			
 			<div class="main_info">
+				<form action="#" id="actionForm1" method="post" class="tab_search_btn">
 				<div id="main_search" class="main_content">
 					<div class="search_top">
-						<form action="#" id="actionForm1" method="post" class="tab_search_btn">
+						
+						<input type="hidden" id="resumno" name="resumno" value="">
 							<select name="searchGbn" class="search_select" id="searchGbn">
 								<option value="0">전체</option>
 								<option value="1">이름</option>
@@ -399,13 +468,13 @@ function regionOptionDraw(list, target, val){
 								type="hidden" name="page" id="page" value="${page}" /> <input
 								type="hidden" name="no" id="no" />
 
-						</form>
+						
 
 					</div>
 					<!-- 검색 -->
 					<!-- 메인컨텐츠 -->
 					<div class="main_section">
-						<form action="#" id="actionForm2" method="post">
+						
 							
 							<div>
 								<!-- <span>직종분류 :</span> 
@@ -458,6 +527,8 @@ function regionOptionDraw(list, target, val){
 							<div class="sal">
 								<span>희망임금(월급) :</span>
 								<div class="input">
+									<label for="sal2">전체</label> 
+									<input type="radio" name="sal" value="2" id="sal2" checked="checked"> 
 									<label for="sal0">내규</label> 
 									<input type="radio" name="sal" value="0" id="sal0"> 
 									<label for="sal1">일반</label> 
@@ -469,12 +540,12 @@ function regionOptionDraw(list, target, val){
 							<div class="career">
 								<span>경력 :</span>
 								<div class="input">
-									<label> 무관 <input type="radio" name="carr" id="career0" class="radiobox" value="0" /></label> 
+									<label> 전체 <input type="radio" name="carr" id="career0" class="radiobox" value="2" checked="checked" /></label> 
 										<label> / 신입 
-											<input type="radio" name="carr" id="career1" class="radiobox" value="1" />
+											<input type="radio" name="carr" id="career1" class="radiobox" value="0" />
 										</label> 
 										<label> / 경력 
-											<input type="radio" name="carr" id="career2" class="radiobox" value="2" />
+											<input type="radio" name="carr" id="career2" class="radiobox" value="1" />
 										</label> 
 										<input type="text" class="input_box" placeholder="0" name="minCareer" id="minCareer" disabled class="year_input"> 년 ~ 
 										<input type="text" class="input_box" placeholder="10" name="maxCareer"  id="maxCareer" disabled class="year_input"> 년
@@ -483,20 +554,23 @@ function regionOptionDraw(list, target, val){
 							<div>
 								<span>희망근무형태 :</span>
 								
-								<label> 정규직 <input type="radio" name="work_type" class="radiobox" value="0" /></label>
-								<label> / 계약직 <input type="radio" name="work_type" class="radiobox" value="1" /> </label> 
-								<label> / 시간제 <input type="radio" name="work_type" class="radiobox" value="2" /></label> 
+								<label> 전체 <input type="radio" name="worktype" class="radiobox" value="5" checked="checked" /></label>
+								<label> /무관 <input type="radio" name="worktype" class="radiobox" value="0"  /></label>
+								<label> /정규직 <input type="radio" name="worktype" class="radiobox" value="1" /></label>
+								<label> / 계약직 <input type="radio" name="worktype" class="radiobox" value="2" /> </label> 
+								<label> / 시간제 <input type="radio" name="worktype" class="radiobox" value="3" /></label> 
+								<label> / 기타 <input type="radio" name="worktype" class="radiobox" value="4" /></label> 
 								
 							</div>
-						</form>
+						
 
 					</div>
 					<div id="more">
-						<form action="#" id="actionForm3" method="post">
+						
 							<input type="hidden" id="actGbn" name="actGbn">
 							<div>
 								<span>최종학력 :</span> 
-								<label> 전체 <input type="radio" name="gradu" class="radiobox" value="0" /></label>
+								<label> 전체 <input type="radio" name="gradu" class="radiobox" value="0" checked="checked" /></label>
 								<label> / 고등학교 <input type="radio" name="gradu" class="radiobox" value="1" /> </label> 
 								<label> / 전문대학 <input type="radio" name="gradu" class="radiobox" value="2" /></label>
 								<label> / 대학교 <input type="radio" name="gradu" class="radiobox" value="3" /></label> 
@@ -514,10 +588,10 @@ function regionOptionDraw(list, target, val){
 				
 
 							</div>
-						</form>
+						
 
 					</div>
-					<button onclick="moreBtn()" id="img_btn">
+					<button type="button" onclick="moreBtn()" id="img_btn">
 						<img src="resources/images/empsch/down.png" alt="down" id="icon">
 					</button>
 					<!-- Portfolio Gallery Grid -->
@@ -531,7 +605,7 @@ function regionOptionDraw(list, target, val){
 						<div class="mySlides">
 							<table>
 								<thead></thead>
-								<tbody>
+								<tbody id="row_box">
 									<tr class="row"></tr>
 								</tbody>
 							</table>
@@ -540,10 +614,9 @@ function regionOptionDraw(list, target, val){
 						<div class="page"></div>
 					</div>
 				</div>
-
+			</form>
 
 			</div>
-		</div>
 		</div>
 	</main>
 	<footer>

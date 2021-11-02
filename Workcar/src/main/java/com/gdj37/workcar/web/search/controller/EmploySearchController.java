@@ -70,6 +70,7 @@ public class EmploySearchController {
 		// 리스트 조회
 		List<HashMap<String, String>> list = iEmploySearchService.getEmpSch1List(params);
 		
+		modelMap.put("cnt", cnt);
 		modelMap.put("page", page);
 		modelMap.put("pb", pb);
 		modelMap.put("list", list);
