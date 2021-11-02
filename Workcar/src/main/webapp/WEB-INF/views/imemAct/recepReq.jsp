@@ -192,11 +192,8 @@ function linkGo(url){
 					
 					<form action="#" id="recepReqForm">
 						<input type="hidden" id="goMemNo" name="memNo" value="${sMNo}">
-						<input type="hidden" id="goEmpNo" name="empNo" value="">
-						<input type="hidden" id="goResumeNo" name="resumeNo" value="">
-						<input type="hidden" id="goCorpNo" name="corpNo" value="">
+						<input type="hidden" id="goEmpNo" name="empno" value="">
 						<input type="hidden" id="page" name="page" value="${page }">
-						<input type="hidden" id="actGbn" name="actGbn" value="Dtl">
 					</form>
 					<div id="recepReq_paging_wrap"></div>
 					

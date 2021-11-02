@@ -1,5 +1,11 @@
 $(function () {
-	 reloadList(); 
+	 if($("#gradu").val()==""){
+	 	$("#gradu").val(6)
+	 }
+ 	 if($("#empGbn").val()==""){
+	 	$("#empGbn").val(4)
+	 }
+	 reloadList();
 	 
 	 $(".page1").on("click", "span", function(){
 	      $("#page").val($(this).attr("page"));

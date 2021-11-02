@@ -38,6 +38,8 @@ public class ApplyContoller {
 									@RequestParam(required = false) String[] qualno,
 									ModelAndView mav) throws Throwable
 	{
+		System.out.println(params);
+		
 		if (params.get("empno") == null) {
 			mav.setViewName("redirect:EmploySearchList");
 			return mav;

@@ -241,7 +241,6 @@
    		<input type="hidden" id="memNo" name="memNo" value="${sMNo }">
       	<input type="hidden" id="page" name="page" value="${param.page}">
       	<input type="hidden" id="empNo" name="empno" value="${param.empno }">
-   		<input type="hidden" id="empNo" name="empno" value="${param.empno }">
 		<input type="hidden" id="sectorNo" name="sectorNo" value="${param.sectorNo }">
 		<input type="hidden" id="startDate" name="startDate" value="${param.startDate }">
 		<input type="hidden" id="endDate" name="endDate" value="${param.endDate }">
