@@ -30,7 +30,7 @@ public class PersonController {
 	public ModelAndView personDetail(@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
 		
-		mav.addObject("sNo",params.get("resumno"));
+		mav.addObject("sNo","1");
 		mav.setViewName("redirect:personDetails");
 		return mav;
 	}

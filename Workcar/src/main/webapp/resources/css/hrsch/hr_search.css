@@ -6,37 +6,31 @@ html {
   font-family: Arial;
   background-color: white;
 }
-/* main{
-  height:1440px;
-} */
+
 .main_info {
   background: #88a2f2;
   width: 1000px;
   margin: 0 auto;
   border-radius: 8px;
-  padding-bottom:20px
+  padding-bottom:20px;
 }
 
 /* Style tab links */
-.main_button {
-  background-color: #555;
+.main_h1_box {
+  margin: 0 auto;
+  width: 1000px;
+}
+.main_h1 {
+  background-color: #88a2f2;
   color: white;
   float: left;
-  border: none;
-  outline: none;
   cursor: pointer;
   padding: 14px 16px;
-  font-size: 17px;
-  width: 33.3%;
-}
-
-.main_button:hover {
-  background-color: #777;
+  width:968px;
 }
 
 .main_content {
   color: white;
-  display: none;
   padding: 20px 20px;
   margin: 0 auto;
   width: 1000px;
@@ -54,7 +48,7 @@ html {
   font-size: 17px;
   float:left;
 }
-.search_top input[type=text] {
+form.tab_search_btn input[type=text] {
   padding: 10px;
   font-size: 17px;
   border: 1px solid grey;
@@ -65,7 +59,7 @@ html {
   margin-left:10px;
 }
 
-.search_top button {
+form.tab_search_btn button {
   float: left;
   width: 13%;
   height:50px;
@@ -79,11 +73,11 @@ html {
   margin-left:-5px;
 }
 
-.search_top button:hover {
+form.tab_search_btn button:hover {
   background: #0b7dda;
 }
 
-.search_top::after {
+form.tab_search_btn::after {
   content: "";
   clear: both;
   display: table;
@@ -128,11 +122,7 @@ html {
   font-size: 13px;
 } */
 
-.main_button_box {
-  margin: 0 auto;
-  /* margin-top: 50px; */
-  width: 1000px;
-}
+
 main > .main_wrap {
   font-size: 16px;
   font-weight: bolder;
@@ -144,13 +134,9 @@ main > .main_wrap {
 /* 기본 */
 /* 검색 end */
 /* 상세검색 체크확인내용 */
-.main_section{
-	display: flex;
-	flex-direction: column;
-}
-.main_section, #more {
+.main_section  {
   width:800px;
-
+  height:auto;
   background-color:#c4c7f2;
   padding:10px;
   border-radius: 8px;
@@ -159,28 +145,23 @@ main > .main_wrap {
   margin:auto;
 }
 
-.main_section select,
-#more select{
+.main_section select{
   height:30px;
   border-radius: 8px;
   margin-top:5px;
-  border:1px solid grey;
 }
 .main_section .date{
   font-weight:bolder;
 }
-.main_section .input_box,
-#more .input_box{
-  height: 22px;
-  width:330px;
+.main_section .input_box{
+  height: 25px;
+  width:25%;
   border-radius: 8px;
   font-size: 17px;
   border: 1px solid grey;
   text-align: center;
-  font-size:14px;
 }
-.main_section .radiobx,
-#more .radiobx{
+.main_section .ckbox{
     position: relative;
     height: 25px;
     top:7px;
@@ -188,8 +169,7 @@ main > .main_wrap {
     border-radius: 8px;
     border: 1px solid grey;
 }
-.main_section label,
-#more label{
+.main_section label{
     position:relative;
 }
 .main_section .year_input{
@@ -202,6 +182,7 @@ main > .main_wrap {
     display: none;
     margin-top:10px;
     width:800px;
+    height:250px;
     background-color:#c4c7f2;
     padding:10px;
     border-radius: 8px;
@@ -217,78 +198,8 @@ main > .main_wrap {
     float:right;
     bottom:45px;
   }
- /* 자격증 */
- .lisence_box{
-  display:inline-block;
- }
- .data_container{
-  position:relative;
-  left:14%;
- }
-.lisence_box input,
-.data_container input{
- 	margin:10px 10px 0px 0px;
-}
 
- #qualSchBtn,
- #sectorBtn{
-	border-radius: 8px;
-	width:100px;
-	height: 25px;
-	border-radius: 8px;
-	border: 1px solid grey;
-	text-align: center;
-	line-height:25px;
-	padding:0px;
-	font-size:14px;
-	cursor:pointer;
- }
-
-
-.plus_btn,
-.minus_btn{
-  height: 25px;
-  width:25px;
-  border-radius: 8px;
-  border: 1px solid grey;
-  text-align: center;
-  line-height:25px;
-  padding:0px;
-  font-size:17px
-}
-.plus_btn:hover,
-.minus_btn:hover,
-#qualSchBtn:hover,
-#sectorBtn:hover{
-  cursor: pointer;
-  border: 1px solid #1b50ee;
-  background-color: #3765f0;
-  color: white;
-}
-#cancelBtn{
-	position: absolute;
-	right: 20px;
-	top: 20px;
-    border: 0px;
-    cursor: pointer;
-    width: 30px;
-    font-size: 17px;
-    font-weight: bolder;
-}
-.paging_wrap{
-	text-align:center;
-}
-.job{
-	margin-top:5px;
-}
-/* tr 클릭 막기 */
-#qual_th{
-	pointer-events : none;
-}
 /* 카드형식 이미지 */
-table{
-	width:100%;
-}
 .card_list{
   background-color:#c4c7f2;
   margin-top:20px;
@@ -298,14 +209,13 @@ table{
   color:black;
 }
 .card_list .content:hover{
-cursor:pointer;
   border:8px solid #88a2f2;
-  margin: -8px 0px;
+  margin:-8px;
 }
-.card_list .content img{
+/* .card_list .content img{
   max-width:100%;
   height:150px;
-}
+} */
 .row {
   display: inline-block;
   width:100%;
@@ -318,8 +228,8 @@ cursor:pointer;
 
 /* Create four equal columns that floats next to each other */
 .column {
-  width:30%;
-  display:inline-block;
+  float: left;
+  width: 33.3%;
 }
 
 /* Clear floats after rows */
@@ -334,7 +244,7 @@ cursor:pointer;
   background-color: white;
   padding: 10px;
   color:black;
-  max-width:100%;
+  border-radius: 8px;
 }
 
 /* Responsive layout - makes a two column-layout instead of four columns */
@@ -354,58 +264,69 @@ cursor:pointer;
 .main_margin{
   height:82px;
 }
-.location{
-	width:100%;
-}
-.location .input{
-	display:inline-block;
-	margin-top:5px;
-}
-.location .input select{
-	border:1px solid grey;
-}
-/* 급여 */
 
-.input {
-  line-height: 30px;
-  margin-left: 20px;
-  
-}
-.input input[type="text"],
-.input select {
-  font-size: 12px;
-  font-weight: bold;
-  padding: 0px 10px;
-  width: 150px;
-  border: 0px;
-}
-#minSal,
-#maxSal,
-#minCareer,
-#maxCareer {
-  text-align: center;
-  width: 100px;
+/* 자격증 */
+.plus_btn{
   height: 25px;
-  border: 0px;
-  margin: 0 10px;
-  padding: 0;
-  border-radius:8px;
+  width:25px;
+  border-radius: 8px;
+  border: 1px solid grey;
+  text-align: center;
+  line-height:25px;
+  padding:0px;
+  font-size:17px
 }
-.sal,.career{
-	display:flex;
-	margin:2px 0px;
+.plus_btn:hover{
+  cursor: pointer;
+  border: 1px solid #1b50ee;
+  background-color: #3765f0;
+  color: white;
 }
-.sal > span,
-.career > span{
-	margin-top:4px;
-}
-input[disabled] {
-  font-size: 12px;
-  border: 0px;
+/* .plus_btn,
+.minus_btn {
+  box-sizing: border-box;
+  border: 1px solid #777;
+  border-radius: 10px;
+  font-size: 20px;
   font-weight: bold;
-  padding: 0px 10px;
-  width: 130px;
-  height: 100%;
-  background-color: #888;
-  color: #eee;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  padding: 0;
 }
+.plus_btn:hover,
+.minus_btn:hover {
+  cursor: pointer;
+  border: 1px solid #1b50ee;
+  background-color: #3765f0;
+  line-height: 29px;
+  color: white;
+}.add_box {
+  flex-direction: column;
+}
+.add_box .input_box {
+  position: relative;
+  display: flex;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  background-color: #eee;
+}
+.add_box .input_box .data_container {
+  height: 30px;
+  display: flex;
+  margin: auto;
+}
+.data_container input[type="text"] {
+  margin-left: 10px;
+  width: 80px;
+}
+.data_container input[readonly] {
+  width: 100px;
+}
+.minus_btn {
+  margin: 10px 20px;
+}
+.plus_btn {
+  margin: 10px auto;
+} */
