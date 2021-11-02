@@ -34,12 +34,14 @@ public class CommonAOP {
 	
 	@Pointcut("execution(* com.gdj37.workcar..corpmp.corpAttndInfo(..))"
 			+ "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))"
- 
+			+ "|| execution(* com.gdj37.workcar..HRSearchController.*(..))" 
+			 + "&& !execution(* com.gdj37.workcar..HRSearchController.*Ajax(..))"
 			)
 	public void cmem() {}
 	
 	@Pointcut("execution(* com.gdj37.workcar..ManageController.*(..))"
 	 + "&& !execution(* com.gdj37.workcar..ManageController.*Ajax(..))" 
+	 
 			)
 	public void mng() {}
 	
