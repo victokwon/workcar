@@ -17,17 +17,20 @@
 	<!-- <select id="addMyInfo" parameterType="hashmap" resultType="hashmap">
 		
 	</select> -->
-	<!-- 정보수정 -->
-	<update id="updateMyInfo" parameterType="hashmap">
+	<!-- 개인정보수정 -->
+	<update id="updateMMyInfo" parameterType="hashmap">
 		UPDATE MEMBER SET PHONE=#{phone}, 
 						  EMAIL=#{email}, 
-						  BIRTH=#{birth},  
+						  INFOR_AGR=#{inforAgr}, 
+						  ACT_AGR=#{actAgr} 
+		WHERE MEM_NO = #{memNo} 
+	</update>
+	<update id="updateIMyInfo" parameterType="hashmap">
+		UPDATE MEMBER SET BIRTH=#{birth},  
 						  ZIP=#{zip}, 
 						  ADDR=#{addr}, 
 						  ADDR_DTL=#{addrDtl}, 
 						  PROF_PIC=#{profPic},
-						  M.INFOR_AGR=#{inforAgr}, 
-						  M.ACT_AGR=#{actAgr} 
 		WHERE MEM_NO = #{memNo} 
 	</update>
 	<!-- 회원탈퇴 -->

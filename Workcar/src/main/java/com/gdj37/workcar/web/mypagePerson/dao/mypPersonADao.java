@@ -24,11 +24,17 @@ public class mypPersonADao implements ImypPersonADao{
 	}
 
 	@Override
-	public int updateMyInfo(HashMap<String, String> params) throws Throwable {
+	public int updateMMyInfo(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub
-		return sqlSession.update("mypPerson.updateMyInfo", params);
+		return sqlSession.update("mypPerson.updateMMyInfo", params);
 	}
 
+	@Override
+	public int updateIMyInfo(HashMap<String, String> params) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.update("mypPerson.updateIMyInfo", params);
+	}
+	
 	@Override
 	public int deleteMyInfo(HashMap<String, String> params) throws Throwable {
 		// TODO Auto-generated method stub

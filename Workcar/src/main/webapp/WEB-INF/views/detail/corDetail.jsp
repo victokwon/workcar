@@ -36,121 +36,122 @@
 		<input type="hidden" id="cRNo" name="cRNo" value="">
 	</form>
 	<form action="#" id="starForm" method="post">
-		<input type="hidden" id="cRNo" name="cRNo" value="">
+		<input type="hidden" id="cRNo" name="cRNo" value="${corpor_info.CORP_NO}">
+		<input type="hidden" id="mNo" name="mNo">
 		<input type="hidden" id="work" name="work" value="">
 		<input type="hidden" id="promotion" name="promotion" value="">
 		<input type="hidden" id="culture" name="culture" value="">
 		<input type="hidden" id="welfare" name="welfare" value="">
 		<input type="hidden" id="management" name="management" value="">
 		<input type="hidden" id="GooneEval" name="GooneEval" value="">
-		<input type="hidden" id="Goprocess" name="Goprocess" value="">
 	</form>
 	<div id="mySidenav" class="sidenav">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		<div id="sdienav_ul">
+			<!-- 링크작업 -->
 			<ul>
-				<div>채용정보</div>
-				<li>통합검색</li>
-				<li>조회수 100</li>
-				<li>평점 100</li>
-			</ul>
-
+				<div onclick="linkGo(#)">채용정보</div>
+				<li onclick="linkGo(#)">통합검색</li>
+				<li onclick="linkGo(#)">조회수 100</li>
+				<li onclick="linkGo(#)">평점 100</li>
+			</ul> 
 			<ul>
-				<div>기업정보</div>
-				<li>통합검색</li>
-			</ul>
-			<ul>
-				<div>인재정보</div>
-				<li>통합검색</li>
+				<div onclick="linkGo(#)">기업정보</div>
+				<li onclick="linkGo(#)">통합검색</li>
 			</ul>
 			<ul>
-				<div>참여공간</div>
-				<li>공지사항</li>
-				<li>자주하는 질문</li>
+				<div onclick="linkGo(#)">인재정보</div>
+				<li onclick="linkGo(#)">통합검색</li>
 			</ul>
+			<ul>
+				<div onclick="linkGo(#)">참여공간</div>
+				<li onclick="linkGo(#)">공지사항</li>
+				<li onclick="linkGo(#)">자주하는 질문</li>
+			</ul>
+			<c:choose>
+				<c:when test="${sMTy eq 0}">
+					<ul>
+						<div onclick="linkGo(#)">마이페이지</div>
+						<li onclick="linkGo(#)">계정관리</li>
+						<li onclick="linkGo(#)">이력서관리</li>
+						<li onclick="linkGo(#)">활동내역</li>
+						<li onclick="linkGo(#)">관심정보</li>
+					</ul>
+				</c:when>
+				<c:when test="${sMTy eq 1 || sMTy eq 2}">
+					<ul>
+						<div onclick="linkGo(#)">마이페이지</div>
+						<li onclick="linkGo(#)">계정관리</li>
+						<li onclick="linkGo(#)">채용공고</li>
+						<li onclick="linkGo(#)">활동내역</li>
+						<li onclick="linkGo(#)">관심정보</li>
+					</ul>
+				</c:when>
+				<c:when test="${sMTy eq 3}">
+					<ul>
+						<div onclick="linkGo(#)">마이페이지</div>
+						<li onclick="linkGo(#)">계정관리</li>
+						<li onclick="linkGo(#)">회원관리</li>
+						<li onclick="linkGo(#)">신고관리</li>
+						<li onclick="linkGo(#)">평점관리</li>
+					</ul>
+				</c:when>
+			</c:choose>
 		</div>
 	</div>
-	<div class="side_bcc" id="side_bcc"></div>
+	<div class="side_bcc" id="side_bcc" onclick="closeNav()"></div>
 
 	<header>
-		<div id="mySidenav" class="sidenav">
-			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-			<div id="sdienav_ul">
-				<ul>
-					<div>채용정보</div>
-					<li>통합검색</li>
-					<li>조회수 100</li>
-					<li>평점 100</li>
-				</ul>
+		<!-- 네비게이션바 -->
+		<div class="topnav">
 
-				<ul>
-					<div>기업정보</div>
-					<li>통합검색</li>
-				</ul>
-				<ul>
-					<div>인재정보</div>
-					<li>통합검색</li>
-				</ul>
-				<ul>
-					<div>참여공간</div>
-					<li>공지사항</li>
-					<li>자주하는 질문</li>
-				</ul>
+			<!-- 로고 -->
+			<div class="topnav-centered" onclick="linkGo('mainpage')">
+				<div class="logo_img"></div>
 			</div>
+
+			<!-- 왼쪽 -->
+			<div class="hambuger" onclick="openNav()" id="hambuger_left">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+
+			<!-- 오른쪽 -->
+			<!-- 링크작업 -->
+			<c:choose>
+				<c:when test="${sMTy eq 0}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 1 || sMTy eq 2}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 3}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="topnav-right">
+						<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
-		<div class="side_bcc" id="side_bcc"></div>
-
-		<header>
-			<!-- 네비게이션바 -->
-			<div class="topnav">
-
-				<!-- 로고 -->
-				<div class="topnav-centered">
-					<div class="logo_img"></div>
-				</div>
-
-				<!-- 왼쪽 -->
-				<div class="hambuger" onclick="openNav()" id="hambuger_left">
-					<div></div>
-					<div></div>
-					<div></div>
-				</div>
-
-				<!-- 오른쪽 -->
-				<!-- 링크작업 -->
-				<c:choose>
-					<c:when test="${sMTy eq 0}">
-						<div class="topnav-right">
-							<div class="alarm"></div>
-							<a href="#iMemMypage"><strong>마이페이지</strong></a>
-							<div class="profile"></div>
-							<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-						</div>
-					</c:when>
-					<c:when test="${sMTy eq 1 || sMTy eq 2}">
-						<div class="topnav-right">
-							<div class="alarm"></div>
-							<a href="#cMemMypage"><strong>마이페이지</strong></a>
-							<div class="profile"></div>
-							<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-						</div>
-					</c:when>
-					<c:when test="${sMTy eq 3}">
-						<div class="topnav-right">
-							<div class="alarm"></div>
-							<a href="#mngMypage"><strong>마이페이지</strong></a>
-							<div class="profile"></div>
-							<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="topnav-right">
-							<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
-						</div>
-					</c:otherwise>
-				</c:choose>
-			</div>
-		</header>
+	</header>
 		<main class="main">
 			<div class="left_main_menu">
 				<div class="vertical-menu">
@@ -569,11 +570,12 @@
 						$(".submit").on("click",function () {
 							
 								$("#GooneEval").val($("#oneEval"))
-								$("#Goprocess").val($("#process"))
 							
-								alert("등록하시겠습니까?")
-								$("#starForm").attr("action", "corDetails")
-								$("#starForm").submit()	
+								if(confirm("등록하시겠습니까?")){
+									$("#mNo").val($("#userNo").attr("no"))
+									$("#starForm").attr("action", "corAdd")
+									$("#starForm").submit()
+								}
 							
 						})			
 						
@@ -668,11 +670,6 @@
 									<div>
 										<div class="modal_subject">한줄평</div>
 										<textarea name="oneEval" id="oneEval" cols="60" rows="1"
-											placeholder="내용을 입력해 주세요"></textarea>
-									</div>
-									<div>
-										<div class="modal_subject">처리사유</div>
-										<textarea name="process" id="process" cols="60" rows="5"
 											placeholder="내용을 입력해 주세요"></textarea>
 									</div>
 								</div>

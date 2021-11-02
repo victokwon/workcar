@@ -1,11 +1,10 @@
-package com.gdj37.workcar.web.detail.dao;
+package com.gdj37.workcar.web.detail.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-public interface IJobOfferDao {
+public interface IJobOfferService {
 
-	
 	public HashMap<String, String> jiwonja(HashMap<String, String> params) throws Throwable;
 	
 	public HashMap<String, String> wish(HashMap<String, String> params) throws Throwable;

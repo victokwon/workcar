@@ -9,10 +9,16 @@ public interface ImypPersonADao {
 
 	public int addMyInfo(HashMap<String, String> params) throws Throwable;
 
-	public int updateMyInfo(HashMap<String, String> params) throws Throwable;
+	public int updateMMyInfo(HashMap<String, String> params) throws Throwable;
 
+	public int updateIMyInfo(HashMap<String, String> params) throws Throwable;
+	
 	public int deleteMyInfo(HashMap<String, String> params) throws Throwable;
 
 	public int updatePass(HashMap<String, String> params) throws Throwable;
+
+	
+
+	
 
 }
