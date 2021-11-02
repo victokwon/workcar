@@ -6,23 +6,11 @@ $(function(){
      getRecepReq()
    })
 	
-/*   $(".pop-container").on("click",".prcssBtn",function(){
-   		
-   		if($("#prcssGbn").val() == '0'){
-			alert("미처리 상태로 처리할 수 없습니다.")
-			return	   	
-   		}else if($("#prcssGbn").val() == '2'){
-   			if($("#gradeRefuse").val() ==""){
-   				alert("거절내용이 누락되었습니다.")
-   				$("#gradeRefuse").focus()
-   				return
-   			}
-   		}
-   		
-		recepReqUpdate()
-   		$(".pop_wrap").hide();
-		$(".pop-container").html("")
-   })*/
+	$(".main_info").on("click","#goEmpBtn",function(){
+		$("#goEmpNo").val($(this).attr("eNo"))
+		$("#recepReqForm").attr("action","applyDetail")
+		$("#recepReqForm").submit()
+	})
    
     
 })   
