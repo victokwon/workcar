@@ -46,33 +46,26 @@
 					<when test="sal eq 1 and minSal != null and minSal != ''">
 						AND PAY_GBN = #{sal}
 						AND PAY_MIN &gt;= #{minSal}
-					</when>
-					<when test="sal eq 1 and maxSal != null and maxSal != ''">
-						AND PAY_GBN = #{sal}
-						AND PAY_MAX &lt;= #{maxSal}
+						AND
+						PAY_MAX &lt;= #{maxSal}
 					</when>
 				</choose>
 			</if>
-			<if test="carr != null and carr != ''">
-				<choose>
-					<when test="carr eq 0">
-						AND CARR = #{carr}
-					</when>
-					<when
-						test="carr eq 1 and minCareer != null and minCareer !=''">
-						AND CARR = #{carr}
-						AND CARR_PER &gt;= #{minCareer}
-					</when>
-					<when
-						test="carr eq 1 and maxCareer != null and maxCareer !=''">
-						AND CARR = #{carr}
-						AND CARR_PER &lt;= #{maxCareer}
-					</when>
-				</choose>
-			</if>
+		<if test="carr neq 3">
+			<choose>
+				<when test="carr eq 1">
+					AND CARR = #{carr}
+				</when>
+				<when test="carr eq 2 and minCareer != null and minCareer !=''">
+					AND CARR = #{carr}
+					AND CARR_PER &gt;= #{minCareer}
+					AND CARR_PER &lt;= #{maxCareer}
+				</when>
+			</choose>
+		</if>
 
 
-			<if test="gradu neq 0">
+			<if test="gradu neq 6">
 				AND GRADU = #{gradu}
 			</if>
 
@@ -119,30 +112,24 @@
 				<when test="sal eq 1 and minSal != null and minSal != ''">
 					AND PAY_GBN = #{sal}
 					AND PAY_MIN &gt;= #{minSal}
-				</when>
-				<when test="sal eq 1 and maxSal != null and maxSal != ''">
-					AND PAY_GBN = #{sal}
 					AND PAY_MAX &lt;= #{maxSal}
 				</when>
 			</choose>
 		</if>
-		<if test="carr != null and carr != ''">
+		<if test="carr neq 3">
 			<choose>
-				<when test="carr eq 0">
+				<when test="carr eq 1">
 					AND CARR = #{carr}
 				</when>
-				<when test="carr eq 1 and minCareer != null and minCareer !=''">
+				<when test="carr eq 2 and minCareer != null and minCareer !=''">
 					AND CARR = #{carr}
 					AND CARR_PER &gt;= #{minCareer}
-				</when>
-				<when test="carr eq 1 and maxCareer != null and maxCareer !=''">
-					AND CARR = #{carr}
 					AND CARR_PER &lt;= #{maxCareer}
 				</when>
 			</choose>
 		</if>
 
-		<if test="gradu neq 0">
+		<if test="gradu neq 6">
 			AND GRADU = #{gradu}
 		</if>
 
@@ -207,32 +194,25 @@
 					<when test="sal eq 1 and minSal != null and minSal != ''">
 						AND PAY_GBN = #{sal}
 						AND PAY_MIN &gt;= #{minSal}
-					</when>
-					<when test="sal eq 1 and maxSal != null and maxSal != ''">
-						AND PAY_GBN = #{sal}
-						AND PAY_MAX &lt;= #{maxSal}
+						AND
+						PAY_MAX &lt;= #{maxSal}
 					</when>
 				</choose>
 			</if>
-			<if test="carr != null and carr != ''">
-				<choose>
-					<when test="carr eq 0">
-						AND CARR = #{carr}
-					</when>
-					<when
-						test="carr eq 1 and minCareer != null and minCareer !=''">
-						AND CARR = #{carr}
-						AND CARR_PER &gt;= #{minCareer}
-					</when>
-					<when
-						test="carr eq 1 and maxCareer != null and maxCareer !=''">
-						AND CARR = #{carr}
-						AND CARR_PER &lt;= #{maxCareer}
-					</when>
-				</choose>
-			</if>
+		<if test="carr neq 3">
+			<choose>
+				<when test="carr eq 1">
+					AND CARR = #{carr}
+				</when>
+				<when test="carr eq 2 and minCareer != null and minCareer !=''">
+					AND CARR = #{carr}
+					AND CARR_PER &gt;= #{minCareer}
+					AND CARR_PER &lt;= #{maxCareer}
+				</when>
+			</choose>
+		</if>
 
-			<if test="gradu neq 0">
+			<if test="gradu neq 6">
 				AND GRADU = #{gradu}
 			</if>
 
@@ -279,30 +259,24 @@
 				<when test="sal eq 1 and minSal != null and minSal != ''">
 					AND PAY_GBN = #{sal}
 					AND PAY_MIN &gt;= #{minSal}
-				</when>
-				<when test="sal eq 1 and maxSal != null and maxSal != ''">
-					AND PAY_GBN = #{sal}
 					AND PAY_MAX &lt;= #{maxSal}
 				</when>
 			</choose>
 		</if>
-		<if test="carr != null and carr != ''">
+		<if test="carr neq 3">
 			<choose>
-				<when test="carr eq 0">
+				<when test="carr eq 1">
 					AND CARR = #{carr}
 				</when>
-				<when test="carr eq 1 and minCareer != null and minCareer !=''">
+				<when test="carr eq 2 and minCareer != null and minCareer !=''">
 					AND CARR = #{carr}
 					AND CARR_PER &gt;= #{minCareer}
-				</when>
-				<when test="carr eq 1 and maxCareer != null and maxCareer !=''">
-					AND CARR = #{carr}
 					AND CARR_PER &lt;= #{maxCareer}
 				</when>
 			</choose>
 		</if>
 
-		<if test="gradu neq 0">
+		<if test="gradu neq 6">
 			AND GRADU = #{gradu}
 		</if>
 

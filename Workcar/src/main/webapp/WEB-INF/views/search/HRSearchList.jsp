@@ -32,6 +32,14 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	if($("#gradu").val()==""){
+	 	$("#gradu").val(6)
+	 }
+ 	 if($("#carr").val()==""){
+ 	 	$("#carr").val(3)
+ 	 }
+ 	 
+ 	 
 	let qualCnt = 0;
 	$(".qual_wrap").on("click", "tr", function () {
 		if($(".pop-container").attr("btn") == "q"){
@@ -107,7 +115,7 @@ $(document).ready(function(){
 				alert("최대금액을 입력해 주세요.")
 				$("#maxSal").focus();
 				return false
-			}else if(Number($("#minSal").val()) >= Number($("#maxSal").val())){
+			}else if(Number($("#minSal").val()) > Number($("#maxSal").val())){
 				alert("최소금액이 최대금액보다 큽니다.")
 				return false
 			}
@@ -540,12 +548,12 @@ function linkGo(url){
 							<div class="career">
 								<span>경력 :</span>
 								<div class="input">
-									<label> 전체 <input type="radio" name="carr" id="career0" class="radiobox" value="2" checked="checked" /></label> 
+									<label> 전체 <input type="radio" name="carr" id="career0" class="radiobox" value="4" checked="checked" /></label> 
 										<label> / 신입 
-											<input type="radio" name="carr" id="career1" class="radiobox" value="0" />
+											<input type="radio" name="carr" id="career1" class="radiobox" value="1" />
 										</label> 
 										<label> / 경력 
-											<input type="radio" name="carr" id="career2" class="radiobox" value="1" />
+											<input type="radio" name="carr" id="career2" class="radiobox" value="2" />
 										</label> 
 										<input type="text" class="input_box" placeholder="0" name="minCareer" id="minCareer" disabled class="year_input"> 년 ~ 
 										<input type="text" class="input_box" placeholder="10" name="maxCareer"  id="maxCareer" disabled class="year_input"> 년
