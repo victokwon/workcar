@@ -47,6 +47,9 @@ $(document).ready(function(){
  	 if($("#empGbn").val()==""){
 	 	$("#empGbn").val(4)
 	 }
+ 	 if($("#carr").val()==""){
+ 	 	$("#carr").val(4)
+ 	 }
 	
 	
 	let qualCnt = 0;
