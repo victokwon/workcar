@@ -184,6 +184,7 @@ function drawCMemList(list, view, cnt) {
 	    html += '                          <div class="cmember_list">                                                                 '
 	    html += '                              <div class="dtl_box">                                                                    '
 	    html += '                                  <div class="cmember_dtl">                                                          '
+	    html += '                                      <div class="NO"><b>'+data.MEM_NO+'</b></div>                                           '
 	    html += '                                      <div class="col">                                                                '
 	    html += '                                          <div class="row">                                                            '
 	    html += '                                              <div class="text">성명</div>                                           '

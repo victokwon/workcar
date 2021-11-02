@@ -791,26 +791,26 @@
                                             <div class="input">
                                                 <select name="gradu" id="gradu" selValue="${DATA.GRADU}" >
                                                     <option value="-1">학력 선택</option>
-                                                    <option value="고등학교">고등학교</option>
-                                                    <option value="전문대학">전문대학</option>
-                                                    <option value="대학교">대학교</option>
-                                                    <option value="석사">석사</option>
-                                                    <option value="박사">박사</option>
+                                                    <option value="1">고등학교</option>
+                                                    <option value="2">전문대학</option>
+                                                    <option value="3">대학교</option>
+                                                    <option value="4">석사</option>
+                                                    <option value="5">박사</option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="carr">
                                             <div class="text">경력</div>
                                             <div class="input">
-                                                <input type="radio" name="carr" value="0" id="carr0">
+                                                <input type="radio" name="carr" value="1" id="carr0">
                                                 <label for="carr0">신입</label>
-                                                <input type="radio" name="carr" value="1" id="carr1">
+                                                <input type="radio" name="carr" value="2" id="carr1">
                                                 <label for="carr1">경력</label>
                                         		 <c:choose>
-                                                	<c:when test="${DATA.CARR eq 0}">
+                                                	<c:when test="${DATA.CARR eq 1}">
                                                 		<input type="text" name="carrPer" placeholder="경력" value="${DATA.CARR_PER}" id="carrPer" class="radioInput" readonly="readonly">년
                                                 	</c:when>
-                                                	<c:when test="${DATA.CARR eq 1}">
+                                                	<c:when test="${DATA.CARR eq 2}">
                                                 		<input type="text" name="carrPer" placeholder="경력" value="${DATA.CARR_PER}" id="carrPer" class="radioInput">년
                                                 	</c:when>                            	
                                                 </c:choose>         

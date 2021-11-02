@@ -86,6 +86,9 @@
 		JOIN MEMBER M
 		ON (G.APLMEM_NO = M.MEM_NO)
 		WHERE G.DEL_CHK = 0
+		<if test="aplmenNo neq '' and aplmenNo neq null">
+			AND APLMEM_NO = ${aplmenNo}
+		</if>
         <if test="prcss eq 'ing'.toString()">
         	AND PRCSS_GBN = 0
         </if>			
@@ -106,13 +109,16 @@
 			    TO_CHAR(REG_DATE,'YYYY-MM-DD') REG_DATE,
 			    TO_CHAR(PRCSS_DATE,'YYYY-MM-DD') PRCSS_DATE,
 			    M.WDRAWL_DATE,
-			    ROW_NUMBER() OVER(ORDER BY GRADE_NO) RNUM
+			    ROW_NUMBER() OVER(ORDER BY PRCSS_GBN DESC, GRADE_NO) RNUM
 			FROM GRADE G
 			JOIN MEMBER M
 			ON (G.APLMEM_NO = M.MEM_NO)
 			JOIN C_INFO CI
 			ON (G.CORP_NO = CI.CORP_NO)
             WHERE DEL_CHK = 0
+           	<if test="aplmenNo neq '' and aplmenNo neq null">
+				AND APLMEM_NO = ${aplmenNo}
+			</if>
             <if test="prcss eq 'ing'.toString()">
             	AND PRCSS_GBN = 0
             </if>		    
@@ -127,8 +133,7 @@
 		    WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM,
 		    EVAL, REFUSE_REASN, PRCSS_GBN,
 		    TO_CHAR(REG_DATE,'YYYY-MM-DD') REG_DATE,
-		    TO_CHAR(PRCSS_DATE,'YYYY-MM-DD') PRCSS_DATE,
-		    ROW_NUMBER() OVER(ORDER BY GRADE_NO) RNUM
+		    TO_CHAR(PRCSS_DATE,'YYYY-MM-DD') PRCSS_DATE
 		FROM GRADE G
 		JOIN MEMBER M
 		ON (G.APLMEM_NO = M.MEM_NO)
@@ -160,7 +165,7 @@
 	
 	<select id="getIMem" parameterType="hashmap" resultType="hashmap">
 		SELECT M.MEM_NO, NAME, ID, REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL, CAT_NAME,
-		SUBSTR(BIRTH,1,4) YEAR, SUBSTR(BIRTH,5,2) MONTH, SUBSTR(BIRTH,7,2) DAY, BIRTH
+		SUBSTR(BIRTH,1,4) YEAR, SUBSTR(BIRTH,5,2) MONTH, SUBSTR(BIRTH,7,2) DAY, BIRTH,
 		TO_CHAR(JOIN_DATE,'YYYY-MM-DD') JOIN_DATE, TO_CHAR(WDRAWL_DATE,'YYYY-MM-DD') WDRAWL_DATE
 		FROM MEMBER M
 		JOIN I_MEMBER IM

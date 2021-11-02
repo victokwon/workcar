@@ -248,6 +248,8 @@
 		<input type="hidden" id="region" name="region" value="${param.region }">
 		<input type="hidden" id="empGbn" name="empGbn" value="${param.empGbn }">
 		<input type="hidden" id="gradu" name="gradu" value="${param.gradu }">
+		<input type="hidden" id="minCareer" name="minCareer" value="${param.minCareer }">
+		<input type="hidden" id="maxCareer" name="maxCareer" value="${param.maxCareer }">
 		<input type="hidden" id="searchTxt" name="searchTxt" value="${param.searchTxt }">
 		<input type="hidden" id="searchGbn" name="searchGbn" value="${param.searchGbn }">
 		<input type="hidden" id="sal" name="sal" value="${param.sal }">

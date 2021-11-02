@@ -259,7 +259,7 @@
                            </div>
                            <div class="edu">
                               <div class="text">최종학력</div>
-                              <div class="input">${DATA.GRADU}</div>
+                              <div class="input">${DATA.GRADU_NAME}</div>
                            </div>
                            <div class="carr">
                             <div class="text">경력</div>

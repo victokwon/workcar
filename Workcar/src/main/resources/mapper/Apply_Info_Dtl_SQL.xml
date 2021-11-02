@@ -7,7 +7,7 @@
 		SELECT c_name, recruit_gbn, G.gradu,
 		major, CG.carr, PG.pay_gbn, pay_low,
 		pay_high, EG.emp_gbn,
-		dtl, addr, addr_dtl, 
+		dtl, addr, addr_dtl, CARR_Y,
 		TO_CHAR(REG_DATE,'YY/MM/DD') REG_DATE,
 		TO_CHAR(DLINE,'YY/MM/DD') DLINE, 
 		CASE 

@@ -45,16 +45,16 @@
 			<!-- 링크작업 -->
 			<ul>
 				<div onclick="linkGo('EmploySearchList')">채용정보</div>
-				<li onclick="linkGo(#)">통합검색</li>
-				<li onclick="linkGo(#)">조회수 100</li>
-				<li onclick="linkGo(#)">평점 100</li>
+				<li onclick="linkGo('EmploySearchList')">통합검색</li>
+				<li onclick="linkGo('')">조회수 100</li>
+				<li onclick="linkGo('')">평점 100</li>
 			</ul> 
 			<ul>
-				<div onclick="linkGo(#)">기업정보</div>
-				<li onclick="linkGo(#)">통합검색</li>
+				<div onclick="linkGo('HRSearchList')">인재정보</div>
+				<li onclick="linkGo('HRSearchList')">통합검색</li>
 			</ul>
 			<ul>
-				<div onclick="linkGo(#)">인재정보</div>
+				<div onclick="linkGo(#)">기업정보</div>
 				<li onclick="linkGo(#)">통합검색</li>
 			</ul>
 			<ul>
@@ -65,20 +65,20 @@
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<ul>
-						<div onclick="linkGo(#)">마이페이지</div>
-						<li onclick="linkGo(#)">계정관리</li>
-						<li onclick="linkGo(#)">이력서관리</li>
-						<li onclick="linkGo(#)">활동내역</li>
-						<li onclick="linkGo(#)">관심정보</li>
+						<div onclick="linkGo('')">마이페이지</div>
+						<li onclick="linkGo('')">계정관리</li>
+						<li onclick="linkGo('resumeLists')">이력서관리</li>
+						<li onclick="linkGo('recepReq')">활동내역</li>
+						<li onclick="linkGo('')">관심정보</li>
 					</ul>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<ul>
-						<div onclick="linkGo(#)">마이페이지</div>
-						<li onclick="linkGo(#)">계정관리</li>
-						<li onclick="linkGo(#)">채용공고</li>
-						<li onclick="linkGo(#)">활동내역</li>
-						<li onclick="linkGo(#)">관심정보</li>
+						<div onclick="linkGo('cmyinfopage')">마이페이지</div>
+						<li onclick="linkGo('cmyinfopage')">계정관리</li>
+						<li onclick="linkGo('empannc')">채용공고</li>
+						<li onclick="linkGo('')">활동내역</li>
+						<li onclick="linkGo('corpAttndInfo')">관심정보</li>
 					</ul>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
@@ -117,7 +117,7 @@
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
 						<div class="alarm"></div>
-						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<a href="''iMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
@@ -125,7 +125,7 @@
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
 						<div class="alarm"></div>
-						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<a href="''cMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
@@ -164,9 +164,9 @@
 				<div class="auto_search_wrap">
 					<!-- 데이터로 자동 그리기, 링크 -->
 					<ul>
-						<li onclick="linkGo(#)">검색1</li>
-						<li onclick="linkGo(#)">검색2</li>
-						<li onclick="linkGo(#)">검색3</li>
+						<li onclick="linkGo('')">검색1</li>
+						<li onclick="linkGo('')">검색2</li>
+						<li onclick="linkGo('')">검색3</li>
 					</ul>
 				</div>
 			</form>
@@ -187,12 +187,12 @@
 							<!-- display:none; div 상세메뉴선택 -->
 						</div>
 
-						<div class="main_contents_people" onclick="linkGo(#)">
+						<div class="main_contents_people" onclick="linkGo('HRSearchList')">
 							<span>인재검색</span>
 							<!-- display:none; div 상세메뉴선택 -->
 						</div>
 
-						<div class="main_contents_company" onclick="linkGo(#)"> 
+						<div class="main_contents_company" onclick="linkGo('')"> 
 							<span>기업검색</span>
 							<!-- display:none; div 상세메뉴선택 -->
 						</div>
@@ -203,7 +203,7 @@
 					<c:when test="${sMTy eq 0 || empty sMTy}">
 						<div class="menu_cards iM">
 							<div class="menu_card">
-								<div class="wrap">
+								<div class="wrap" onclick="linkGo('')">
 									<div class="img_settings"></div>
 								</div>
 								<div class="card_text">
@@ -218,7 +218,7 @@
 									<span>이력서관리</span>
 								</div>
 							</div>
-							<div class="menu_card" onclick="linkGo(#)">
+							<div class="menu_card" onclick="linkGo('recepReq')">
 								<div class="wrap">
 									<div class="img_activity"></div>
 								</div>
@@ -226,7 +226,7 @@
 									<span>활동내역</span>
 								</div>
 							</div>
-							<div class="menu_card" onclick="linkGo(#)">
+							<div class="menu_card" onclick="linkGo('')">
 								<div class="wrap">
 									<div class="img_attention"></div>
 								</div>
@@ -238,8 +238,8 @@
 					</c:when>
 
 					<c:when test="${sMTy eq 1 || sMTy eq 2}">
-						<div class="menu_cards cM">
-							<div class="menu_card">
+						<div class="menu_cards cM" >
+							<div class="menu_card" onclick="linkGo('cmyinfopage')">
 								<div class="wrap">
 									<div class="img_settings"></div>
 								</div>
@@ -247,7 +247,7 @@
 									<span>계정관리</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card" onclick="linkGo('empannc')">
 								<div class="wrap">
 									<div class="img_job_post"></div>
 								</div>
@@ -255,7 +255,7 @@
 									<span>채용공고</span>
 								</div>
 							</div>
-							<div class="menu_card">
+							<div class="menu_card" onclick="linkGo('')">
 								<div class="wrap">
 									<div class="img_activity"></div>
 								</div>

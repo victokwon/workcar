@@ -152,7 +152,7 @@
 	</update> -->
 
 	<delete id="delAttention" parameterType="String">
-		UPDATE ATTND
+		DELETE ATTND
 		WHERE ATTND_NO = #{target}
 	</delete>
 
