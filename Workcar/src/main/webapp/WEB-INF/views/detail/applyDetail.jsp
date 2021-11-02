@@ -23,7 +23,7 @@
 	<script type="text/javascript" src="resources\script\detail\resumeApply.js"></script>
     <script src="resources/script/detail/header.js"></script>
     <script type="text/javascript" src="resources/script/detail/apply_dtl_paging.js"></script>
-   	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	8ccb33b4781aed7d9d9321c853fa3055&libraries=services"></script>
+   	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5a7222e84f43da6e7dad790c0611a4f&libraries=services"></script>
    	
 	<script type="text/javascript"
 	src="resources\script\detail\ReportPop.js"></script>	
@@ -46,10 +46,10 @@
 			 $("#empListForm").attr("action", "applyDetail")
 			 $("#empListForm").submit()
 		 }) */
+	 });
 		 function linkGo(url){
 		 		location.href = url
 		 	}
-	 });
 	</script>
 
 	
@@ -206,7 +206,7 @@
    
    <form action="#" id="empListForm" method="post">
    		<input type="hidden" id="memNo" name="memNo" value="${sMNo }">
-      	<input type="hidden" id="page" name="page" value="${param.page}">
+      	<input type="hidden" id="page" name="page" value="${page}">
       	<input type="hidden" id="empNo" name="empno" value="${param.empno }">
 		<input type="hidden" id="sectorNo" name="sectorNo" value="${param.sectorNo }">
 		<input type="hidden" id="startDate" name="startDate" value="${param.startDate }">

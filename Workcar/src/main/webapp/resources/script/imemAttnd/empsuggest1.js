@@ -20,17 +20,17 @@ $(function(){
 
 
 function addEmp(target){
-	let params = $("#suggetResumeForm").serialize()
+	let params = $("#suggetEmpForm").serialize()
 	
   $.ajax({
     type: "POST",
     data: "memNo=" + $("#userNo").attr("no") +"&" + params,
-    url: "getsuggetResumeAjax",
+    url: "getSuggetEmpAjax",
     dataType: "json",
     success: function (res) {
      	if(res.result == "SUCCESS"){
 	     	drawEmpBox(res.data, target)
-	     	$("#suggetResumeForm").append('<input type="hidden" name="suggetResumeNo" value="'+res.data.RESUM_NO+'">')
+	     	$("#suggetEmpForm").append('<input type="hidden" name="suggetEmpNo" value="'+res.data.RESUM_NO+'">')
      	}else if(res.result == "FAILED"){
      		alert("추천할 인재가 없습니다.")
      	}

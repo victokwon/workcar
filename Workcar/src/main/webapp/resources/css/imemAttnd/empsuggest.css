@@ -16,17 +16,8 @@ main {
   margin: 0 auto;
   border-radius: 0 0 8px 8px;
 }
-.zero{
-	border-radius: 5px;
-	background-color: #eee;
-	font-weight: bolder;
-	font-size: 32px;
-	text-align: center;
-	line-height: 100px;
-	width: 100%;
-	height: 100px;
-}
-.main_button_box .main_button {
+
+.main_button {
   background-color: #555;
   color: white;
   float: left;
@@ -39,10 +30,9 @@ main {
   height: 100%;
 }
 
-.main_button_box .main_button:hover {
-	background-color: #88a2f2;
+.main_button:hover {
+  background-color: #88a2f2;
 }
-
 
 .main_content {
   display: flex;
@@ -192,15 +182,15 @@ tr {
 }
 
 /* 諛뺤뒪 而⑦듃濡?*/
-.recepReq {
+.emp_attention {
   display: table;
 }
-.stared {
+.emp_suggest {
   display: none;
 }
 
-.recepReq_list,
-.stared_list {
+.emp_attention_list,
+.emp_suggest_list {
   display: flex;
   width: 100%;
   height: 100px;
@@ -213,17 +203,17 @@ tr {
   width: 70px;
   height: 70px;
   margin: 15px;
-  background-image: url(../../../images/common/profile2.png);
+  background-image: url(../../images/common/profile2.png);
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .dtl_box {
-	width: calc(100% - 70px);
   display: flex;
+  width: calc(70% - 60px);
   margin: 15px 0;
-  flex-direction: row;
+  flex-direction: column;
 }
 
 .job_post_title {
@@ -241,7 +231,7 @@ tr {
 .button_container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: calc(30% - 60px);
   margin: 15px;
 }
 .button_container .job_post_state,
@@ -256,9 +246,8 @@ tr {
   height: 30px;
   margin: auto;
 }
-.main_content .button_box .n_hover,
+.main_content .button_box .n_hovern,
 .main_content .button_box .n_hover{
-	border: 0px;
 	background-color: #777;
 	color: white;
 	cursor: default;
@@ -278,18 +267,17 @@ table .button_container .button_box button
 
 /* ?몃??ы빆 諛뺤뒪 */
 
-.stared_dtl .row .text,
-.recepReq_dtl .row .text {
+.emp_suggest_dtl .row .text,
+.emp_attention_dtl .row .text {
   font-size: 10px;
-  width: 60px;
+  width: 50px;
   border-right: 1px solid #333;
   text-align: right;
   margin: 5px 0;
   margin-right: 3px;
 }
-
-.stared_dtl .row .data,
-.recepReq_dtl .row .data {
+.emp_suggest_dtl .row .data,
+.emp_attention_dtl .row .data {
   font-size: 10px;
   width: 100px;
   text-align: center;
@@ -298,44 +286,42 @@ table .button_container .button_box button
   overflow: hidden; 
   text-overflow: ellipsis;
 }
-.main_box .stared_dtl .row .null,
-.main_box .recepReq_dtl .row .null {
+.main_box .emp_suggest_dtl .row .null,
+.main_box .emp_attention_dtl .row .null {
 	border-bottom: 0px;
 }
-.recepReq_dtl .row .title, .stared_dtl .row .title{
-	width: 260px;
-}
 
-.recepReq_dtl,
-.stared_dtl {
+
+.emp_attention_dtl,
+.emp_suggest_dtl {
   height: 100%;
 }
-.recepReq_dtl .col,
-.stared_dtl .col {
+.emp_attention_dtl .col,
+.emp_suggest_dtl .col {
   display: flex;
   width: 100%;
   height: 50%;
   flex-direction: row;
   background-color: #eee;
 }
-.recepReq_dtl .row,
-.stared_dtl .row {
+.emp_attention_dtl .row,
+.emp_suggest_dtl .row {
   display: flex;
   flex-direction: row;
-
+  width: 50%;
   height: 100%;
 }
-.recepReq_dtl .row .text,
-.recepReq_dtl .row .data,
-.stared_dtl .row .text,
-.stared_dtl .row .data {
+.emp_attention_dtl .row .text,
+.emp_attention_dtl .row .data,
+.emp_suggest_dtl .row .text,
+.emp_suggest_dtl .row .data {
   border-right: 0px;
   font-size: 13px;
   font-weight: bold;
   line-height: 25px;
 }
-.recepReq_dtl .row .data,
-.stared_dtl .row .data {
+.emp_attention_dtl .row .data,
+.emp_suggest_dtl .row .data {
   border-bottom: 1px solid #999;
   margin: auto 0;
 }
@@ -374,44 +360,3 @@ table .button_container .button_box button
   width: 100%;
   border: 0px;
 }
-
-
-
-
-.inner_wrap{
-	max-height:640px; 
-	width: 100%;
-	
-}
-#stared_paging_wrap{
-	display: none;
-}
-#recepReq_paging_wrap, #stared_paging_wrap{
-	text-align: center;
-	background-color: #eee;
-	height: 20pxpx;
-	width: 100%;
-	margin: 10px auto;
-}
-#recepReq_paging_wrap span, #stared_paging_wrap span{
-	color: black;
-	font-size: 20px;
-	font-weight: bold;
-	width: 10px;
-	margin: 0 5px;
-	height: 20px;
-}
-#recepReq_paging_wrap span:hover, #stared_paging_wrap span:hover{
-	cursor: pointer;
-	color: #666;
-	font-weight: bolder;
-}
-
-/* 평점 */
- .star_rating .checked{
-	color: gold;
-} 
-	
-
-	
-	

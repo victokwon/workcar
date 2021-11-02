@@ -81,8 +81,8 @@ public class MyCorpService implements IMyCorpService {
 		return imycorpdao.delAttention(target);
 	}
 	@Override
-	public HashMap<String, String> getSuggetEmp(HashMap<String, Object> params) throws Throwable {
-		return imycorpdao.getSuggetEmp(params);
+	public HashMap<String, String> getsuggetResume(HashMap<String, Object> params) throws Throwable {
+		return imycorpdao.getsuggetResume(params);
 	}
 	@Override
 	public int addAttned(HashMap<String, String> params) throws Throwable {

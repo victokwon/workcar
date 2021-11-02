@@ -119,14 +119,10 @@
 		<!-- Tab 버튼 태그 -->
 		<div class="main_button_box">
 			<div class="main_button_box">
-				<a class="main_button regi"
-					onclick="openPage('main_regi', this, '#88a2f2')" id="defaultmenu">계정관리</a> <a
-					class="main_button member"
-					onclick="openPage('main_member', this, '#88a2f2')"id="empannc" >채용공고</a> <a
-					class="main_button report"
-					onclick="openPage('main_report', this, '#88a2f2')" id="activechk">활동내역</a>
-				<a class="main_button star_manage"
-					onclick="openPage('main_inter', this, '#88a2f2')" id="attinfo">관심정보</a>
+				<button type="button" class="main_button" onclick="linkGo('')">계정관리</button>
+				<button type="button" class="main_button" onclick="linkGo('resumeList')">이력서관리</button>
+				<button type="button" class="main_button" onclick="linkGo('recepReq')">활동내역</button>
+				<button type="button" class="main_button" onclick="linkGo('empsugget')">관심정보</button>
 			</div>
 			<!-- 메인 -->
 			<div class="main_info">

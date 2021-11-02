@@ -79,7 +79,7 @@
 		SELECT NAME, TO_CHAR(CHN_DATE,'YYYY-MM-DD') CHN_DATE,
 		SECTOR_NAME, CMC.CARR, CARR_PER, CITY_NAME, REGION_NAME, ATTND_NO
 		FROM
-		ATTND A
+		RESUM_ATTND A
 		JOIN MEMBER M
 		ON (A.T_MEM_NO = M.MEM_NO)
 		JOIN RESUM R
@@ -101,7 +101,7 @@
 		A.E_MEM_NO = #{memNo}
 	</select>
 
-	<select id="getSuggetEmp" parameterType="hashmap"
+	<select id="getsuggetResume" parameterType="hashmap"
 		resultType="hashmap">
 		SELECT NAME, CHN_DATE, SECTOR_NAME, CARR, CARR_PER, CITY_NAME,
 		REGION_NAME, RESUM_NO
@@ -127,15 +127,15 @@
 		C_SECTOR CS JOIN C_MEMBER CM ON (CM.CORP_NO = CS.CORP_NO) WHERE MEM_NO
 		= #{memNo}) MS
 		ON (MS.SECTOR_NO = R.SECTOR_NO)
-		LEFT JOIN ATTND A
+		LEFT JOIN RESUM_ATTND A
 		ON (A.RESUM_NO = R.RESUM_NO)
 		WHERE R.DEL_CHK = 0
 		AND A.RESUM_NO IS NULL
-		<if test="suggetEmpNoList neq null">
+		<if test="suggetResumeNoList neq null">
 			AND NOT R.RESUM_NO IN (
-			<foreach collection="suggetEmpNoList" item="item"
+			<foreach collection="suggetResumeNoList" item="item"
 				separator=",">
-				#{item.suggetEmpNo}
+				#{item.suggetResumeNo}
 			</foreach>
 			)
 		</if>
@@ -152,7 +152,7 @@
 	</update> -->
 
 	<delete id="delAttention" parameterType="String">
-		DELETE ATTND
+		DELETE RESUM_ATTND
 		WHERE ATTND_NO = #{target}
 	</delete>
 
@@ -161,11 +161,12 @@
 		resultType="String">
 		SELECT MEM_NO
 		FROM RESUM
-		WHERE RESUM_NO = #{resumeNo}
+		WHERE 1 = 1
+		AND RESUM_NO = #{resumeNo}
 	</select>
 
 	<insert id="addAttned">
-		INSERT INTO ATTND(
+		INSERT INTO RESUM_ATTND(
 		ATTND_NO,
 		E_MEM_NO,
 		T_MEM_NO,
@@ -202,7 +203,8 @@
 		AND MEM_NO = ${memNo}
 		AND SR.EMP_NO IS NULL
 		) E
-		WHERE E.RNUM BETWEEN #{startCnt} AND #{endCnt}
+		WHERE 1 = 1 
+		AND E.RNUM BETWEEN #{startCnt} AND #{endCnt}
 		ORDER BY EMP_NO
 	</select>
 

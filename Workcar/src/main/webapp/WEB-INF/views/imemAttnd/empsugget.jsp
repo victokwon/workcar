@@ -16,33 +16,48 @@
 <link rel="stylesheet" type="text/css"
 	href="resources\css\common\sidebar.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\imemAct\req\req.css">
+	href="resources\css\mainpage\searchbar.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\imemAct\req\pop.css">
-<link rel="stylesheet"
-   href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+   href="resources\css\hrsuggest\hrsuggest.css">
+<link rel="stylesheet" type="text/css"
+   href="resources\css\hrsuggest\pop.css">
    
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
 	src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript"
-	src="resources\script\imemAct\req\reqListNPrcss.js"></script>
+	src="resources\script\hrsuggest\hrsuggest1.js"></script>
 <script type="text/javascript"
-	src="resources\script\imemAct\req\reqPop.js"></script> 
-
+	src="resources\script\hrsuggest\hrsuggest2.js"></script>
+<script type="text/javascript"
+	src="resources\script\hrsuggest\hrsuggest3.js"></script>
+	
 <script type="text/javascript">
+$(function () {
+	$(function () {
+		  $("#empAttention").on("click", function () {
+		    $(".emp_attention").css("display", "table");
+		    $(".emp_suggest").css("display", "none");
+		  });
+		  
+		  $("#empSuggest").on("click", function () {
+		    $(".emp_attention").css("display", "none");
+		    $(".emp_suggest").css("display", "table");
+		  });
+		});
+	
+
+
+
+}) 
+
 function linkGo(url){
 	location.href = url
 }
 </script>
 </head>
 <body>
-		
-<div class="pop_wrap">
-	<div class="pop-container"></div> 
-</div>	
-
 <!-- 헤더 -->
 	<div id="mySidenav" class="sidenav">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -105,7 +120,7 @@ function linkGo(url){
 		<div class="topnav">
 
 			<!-- 로고 -->
-			<div class="topnav-centered" onclick="linkGo('mainpage')">
+			<div class="topnav-centered">
 				<div class="logo_img"></div>
 			</div>
 
@@ -165,37 +180,74 @@ function linkGo(url){
 		</div>
 		<div id="test"></div>
 		<div class="main_button_box">
-			<button type="button" class="main_button" onclick="linkGo('')">계정관리</button>
-			<button type="button" class="main_button" onclick="linkGo('resumeList')">이력서관리</button>
-			<button type="button" class="main_button" onclick="linkGo('recepReq')">활동내역</button>
-			<button type="button" class="main_button" onclick="linkGo('empAttnd')">관심정보</button>
+			<button type="button" class="main_button">계정관리</button>
+			<button type="button" class="main_button">채용공고</button>
+			<button type="button" class="main_button">활동내역</button>
+			<button type="button" class="main_button">관심정보</button>
 		</div>
 		
+	 <div class="pop-container">
+        <div class="pop-out-container">
+        <button type="button" class="pop-close-btn">X</button>
+            <div class="pop-in-container">
+                <div class="pop-text-header">
+                    <h1></h1>
+                </div>
+                <!-- 5개 리스트 -->
+                <div class="list_wrap">
+                    <table>
+                        <thead>
+                            <tr eNo="다시 선택">
+                                <th class='td_no'>번호</th>
+                                <th class='td_name'>내용</th>
+                                <th class='td_date'>마감일</th>
+                            </tr>
+                        </thead>
+                        <tbody id="list_box" >
+                        	<tr eNo="1">
+                        		<td class='td_no'></td>
+                        		<td class='td_name'></td>
+                        		<td class='td_date'></td>
+                        	</tr>
+                        </tbody>
+                    </table>
+                    <input type="hidden" id="page">
+                </div>
+                <hr>
+                <div class="paging_wrap"></div>
+                <div class="pop-input">
+               		<div class="text_box"></div>
+                    <input type="button" class="sch-btn" id="selectBtn" rNo="" value="요청하기">
+                </div>
+            </div>
+        </div>
+    </div>
+    
 		<div class="main_info">
 			<div id="main_inter" class="main_content">
 				<div class="vertical_menu">
-					<span onclick="linkGo('recepReq')" ><a href="#" id="recepReq">받은 입사요청</a></span> 
-					<span onclick="linkGo('submitResum')" ><a href="#" id="submitResum">보낸 이력서</a></span>
+	<!-- 				<form action="#" id="resumeGo">
+						<input type="hidden" id="userNO" name="userNO">
+						 <input type="hidden" id="resumeNO" name="resumeNO">
+					</form> -->
+					<!-- 이력서 리스트 메뉴 출력 -->
+					<a href="#" id="empAttention">관심인재</a> <a href="#" id="empSuggest">인재추천</a>
 				</div>
 				
 				<div class="main_box">
-					<div class="inner_wrap">
-						<table class="recepReq">
+					<!-- <table class="please_apply"> -->
+					<table class="emp_attention">
+					</table>
+					<!-- <table class="company_grade"> -->
+					<form action="#" id="suggetEmpForm">
+					</form>
+					<table class="emp_suggest">
 							<tr>
-								<td>
-									<div class="zero">처리할 내용이 없습니다.</div>
+								<td class="job_post_add">
+									<button type="button" class="" id="addEmpBtn">인재 더보기</button>
 								</td>
 							</tr>
-						</table>
-					</div>
-					
-					<form action="#" id="recepReqForm">
-						<input type="hidden" id="goMemNo" name="memNo" value="${sMNo}">
-						<input type="hidden" id="goEmpNo" name="empno" value="">
-						<input type="hidden" id="page" name="page" value="${page }">
-					</form>
-					<div id="recepReq_paging_wrap"></div>
-					
+					</table>
 				</div>
 			</div>
 

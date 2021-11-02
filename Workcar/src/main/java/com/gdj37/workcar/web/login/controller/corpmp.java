@@ -80,27 +80,27 @@ public class corpmp {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/getSuggetEmpAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
-	public String getSuggetEmpAjax(@RequestParam HashMap<String, String> params, @RequestParam(required = false) String[] suggetEmpNo) throws Throwable {
+	@RequestMapping(value = "/getsuggetResumeAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	public String getsuggetResumeAjax(@RequestParam HashMap<String, String> params, @RequestParam(required = false) String[] suggetResumeNo) throws Throwable {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		String result = CommonProperties.RESULT_FAILED;
 		try {
 			HashMap<String, Object> paramMap = new HashMap<String, Object>();
 			paramMap.put("memNo", params.get("memNo"));
-			if(suggetEmpNo != null) {
-				List<HashMap<String, Object>> suggetEmpNoList = new ArrayList<HashMap<String, Object>>();
-				HashMap<String, Object> suggetEmpNoNmMap;
-				for (int i = 0; i < suggetEmpNo.length; i++) {
-					suggetEmpNoNmMap = new HashMap<String, Object>();
-					suggetEmpNoNmMap.put("suggetEmpNo", suggetEmpNo[i]);
-					suggetEmpNoList.add(suggetEmpNoNmMap);
-					System.out.println(suggetEmpNoNmMap.toString());
+			if(suggetResumeNo != null) {
+				List<HashMap<String, Object>> suggetResumeNoList = new ArrayList<HashMap<String, Object>>();
+				HashMap<String, Object> suggetResumeNoNmMap;
+				for (int i = 0; i < suggetResumeNo.length; i++) {
+					suggetResumeNoNmMap = new HashMap<String, Object>();
+					suggetResumeNoNmMap.put("suggetResumeNo", suggetResumeNo[i]);
+					suggetResumeNoList.add(suggetResumeNoNmMap);
+					System.out.println(suggetResumeNoNmMap.toString());
 				}
-				paramMap.put("suggetEmpNoList",suggetEmpNoList);
+				paramMap.put("suggetResumeNoList",suggetResumeNoList);
 			}
 			System.out.println(paramMap.toString());
-			HashMap<String, String> data = imycorpser.getSuggetEmp(paramMap);
+			HashMap<String, String> data = imycorpser.getsuggetResume(paramMap);
 			if(data != null) {
 				modelMap.put("data", data);
 				result = CommonProperties.RESULT_SUCCESS;

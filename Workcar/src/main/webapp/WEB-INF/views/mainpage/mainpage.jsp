@@ -69,7 +69,7 @@
 						<li onclick="linkGo('')">계정관리</li>
 						<li onclick="linkGo('resumeLists')">이력서관리</li>
 						<li onclick="linkGo('recepReq')">활동내역</li>
-						<li onclick="linkGo('empAttnd')">관심정보</li>
+						<li onclick="linkGo('empsugget')">관심정보</li>
 					</ul>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
@@ -226,7 +226,7 @@
 									<span>활동내역</span>
 								</div>
 							</div>
-							<div class="menu_card" onclick="linkGo('empAttnd')">
+							<div class="menu_card" onclick="linkGo('empsugget')">
 								<div class="wrap">
 									<div class="img_attention"></div>
 								</div>
