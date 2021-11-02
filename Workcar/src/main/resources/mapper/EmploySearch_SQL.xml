@@ -47,12 +47,9 @@
 					</when>
 				</choose>
 			</if>
-			<if test="carr != null and carr != ''">
+			<if test="carr neq 4">
 				<choose>
-					<when test="carr eq 0">
-						AND CARR = #{carr}
-					</when>
-					<when test="carr eq 1">
+					<when test="carr neq 2">
 						AND CARR = #{carr}
 					</when>
 					<when
@@ -116,14 +113,11 @@
 				</when>
 			</choose>
 		</if>
-		<if test="carr != null and carr != ''">
+		<if test="carr neq 4">
 			<choose>
-				<when test="carr eq 0">
-					AND CARR = #{carr}
-				</when>
-				<when test="carr eq 1">
-					AND CARR = #{carr}
-				</when>
+					<when test="carr neq 2">
+						AND CARR = #{carr}
+					</when>
 				<when test="carr eq 2 and minCareer != null and minCareer !=''">
 					AND CARR = #{carr}
 					AND CARR_Y &gt;= #{minCareer}
@@ -200,7 +194,7 @@
 
 				</choose>
 			</if>
-			<if test="carr != null and carr != ''">
+			<if test="carr neq 4">
 				<choose>
 					<when test="carr neq 2">
 						AND CARR = #{carr}
@@ -264,12 +258,9 @@
 				</when>
 			</choose>
 		</if>
-		<if test="carr != null and carr != ''">
+		<if test="carr neq 4">
 			<choose>
-				<when test="carr eq 0">
-					AND CARR = #{carr}
-				</when>
-				<when test="carr eq 1">
+				<when test="carr neq 2">
 					AND CARR = #{carr}
 				</when>
 				<when test="carr eq 2 and minCareer != null and minCareer !=''">
