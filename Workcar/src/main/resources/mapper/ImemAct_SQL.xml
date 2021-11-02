@@ -24,25 +24,32 @@
 		WHERE RS.DEL_CHK = 0
 		AND	R.MEM_NO = #{memNo}
 	</select>
-	
+	<!-- 리스트 -->
 	<select id="getSubResum" parameterType="hashmap" resultType="hashmap">
 		SELECT 
-			RS.EMP_NO, RS.RESUM_NO,
-			EMP_TITLE, TO_CHAR(EA.DLINE,'YYYY-MM-DD') DLINE,
-			TO_CHAR(RS.REG_DATE,'YYYY-MM-DD') REG_DATE, FIND_CHK, PRCSS_STATE,
+			EMP_NO, RESUM_NO, EMP_TITLE, DLINE,
+			REG_DATE, FIND_CHK, PRCSS_STATE,
 			RESUM_NAME
-		FROM RESUM_SUPP RS
-		JOIN EMP_ANNC EA
-		ON (RS.EMP_NO = EA.EMP_NO)
-		JOIN RESUM R
-		ON (RS.RESUM_NO = R.RESUM_NO)		
-		WHERE RS.DEL_CHK = 0
-		AND	R.MEM_NO = #{memNo}
-		ORDER BY DLINE
+		FROM 
+			(
+			SELECT 
+				RS.EMP_NO, RS.RESUM_NO,
+				EMP_TITLE, TO_CHAR(EA.DLINE,'YYYY-MM-DD') DLINE,
+				TO_CHAR(RS.REG_DATE,'YYYY-MM-DD') REG_DATE, FIND_CHK, PRCSS_STATE,
+				RESUM_NAME, ROW_NUMBER() OVER(ORDER BY EA.DLINE) RNUM
+			FROM RESUM_SUPP RS
+			JOIN EMP_ANNC EA
+			ON (RS.EMP_NO = EA.EMP_NO)
+			JOIN RESUM R
+			ON (RS.RESUM_NO = R.RESUM_NO)		
+			WHERE RS.DEL_CHK = 0
+			AND	R.MEM_NO = #{memNo}
+			) SR
+		WHERE SR.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 	
 	<update id="changeSubResum" parameterType="hashmap" >
-		UPDATE RESUM_SUPP SET 
+		UPDATE RESUM_SUPP SET
 			RESUM_NO = #{cResumeNo}
 		WHERE RESUM_NO = #{resumeNo}
 		AND EMP_NO = #{empNo}
@@ -59,35 +66,43 @@
 		FROM SUPP_REQ SR
         WHERE SR.MEM_NO = #{memNo}
 	</select>
-	
+	<!-- 리스트 처리 -->
 	<select id="getRecepReq" parameterType="hashmap" resultType="hashmap">
-	    SELECT 
-	        SR.EMP_NO, 
-	        EMP_TITLE, TO_CHAR(EA.DLINE,'YYYY-MM-DD') DLINE, C_NAME,
-	        TO_CHAR(SR.REG_DATE,'YYYY-MM-DD') REG_DATE, REFUSE_CHK,
+	    SELECT
+	    	EMP_NO, 
+	        EMP_TITLE, DLINE, C_NAME,
+	        REG_DATE, REFUSE_CHK,
 	        WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM
-	    FROM SUPP_REQ SR
-	    JOIN EMP_ANNC EA
-	    ON (SR.EMP_NO = EA.EMP_NO)
-	    JOIN C_MEMBER CM
-	    ON (CM.MEM_NO = EA.MEM_NO)
-	    JOIN C_INFO CI
-	    ON (CM.CORP_NO = CI.CORP_NO)
-	    JOIN (
-	        SELECT CORP_NO, 
-	            ROUND(SUM(WLB)/COUNT(WLB)) WLB, 
-	            ROUND(SUM(PROMO_POSS)/COUNT(PROMO_POSS)) PROMO_POSS, 
-	            ROUND(SUM(C_CULT)/COUNT(C_CULT)) C_CULT, 
-	            ROUND(SUM(WFARE_PAY)/COUNT(WFARE_PAY)) WFARE_PAY, 
-	            ROUND(SUM(MGM)/COUNT(MGM)) MGM
-	        FROM GRADE
-	        WHERE DEL_CHK = 0
-	        AND PRCSS_GBN = 1
-	        GROUP BY CORP_NO
-	        ) G
-	    ON (G.CORP_NO = CM.CORP_NO) 
-	    WHERE SR.MEM_NO = #{memNo}
-	    ORDER BY DLINE
+        FROM
+		    (
+		    SELECT 
+		        SR.EMP_NO, 
+		        EMP_TITLE, TO_CHAR(EA.DLINE,'YYYY-MM-DD') DLINE, C_NAME,
+		        TO_CHAR(SR.REG_DATE,'YYYY-MM-DD') REG_DATE, REFUSE_CHK,
+		        WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM, ROW_NUMBER() OVER(ORDER BY SR.REG_DATE, REFUSE_CHK) RNUM
+		    FROM SUPP_REQ SR
+		    JOIN EMP_ANNC EA
+		    ON (SR.EMP_NO = EA.EMP_NO)
+		    JOIN C_MEMBER CM
+		    ON (CM.MEM_NO = EA.MEM_NO)
+		    JOIN C_INFO CI
+		    ON (CM.CORP_NO = CI.CORP_NO)
+		    JOIN (
+		        SELECT CORP_NO, 
+		            ROUND(SUM(WLB)/COUNT(WLB)) WLB, 
+		            ROUND(SUM(PROMO_POSS)/COUNT(PROMO_POSS)) PROMO_POSS, 
+		            ROUND(SUM(C_CULT)/COUNT(C_CULT)) C_CULT, 
+		            ROUND(SUM(WFARE_PAY)/COUNT(WFARE_PAY)) WFARE_PAY, 
+		            ROUND(SUM(MGM)/COUNT(MGM)) MGM
+		        FROM GRADE
+		        WHERE DEL_CHK = 0
+		        AND PRCSS_GBN = 1
+		        GROUP BY CORP_NO
+	        	) G
+		    ON (G.CORP_NO = CM.CORP_NO) 
+		    WHERE SR.MEM_NO = #{memNo}
+	    	) SR
+		WHERE SR.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 	
 	<update id="recepReqRefuse" parameterType="hashmap">

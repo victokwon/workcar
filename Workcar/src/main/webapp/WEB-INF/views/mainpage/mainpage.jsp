@@ -54,8 +54,8 @@
 				<li onclick="linkGo('HRSearchList')">통합검색</li>
 			</ul>
 			<ul>
-				<div onclick="linkGo(#)">기업정보</div>
-				<li onclick="linkGo(#)">통합검색</li>
+				<div onclick="linkGo('CInfoSearchList')">기업정보</div>
+				<li onclick="linkGo('CInfoSearchList')">통합검색</li>
 			</ul>
 			<ul>
 				<div onclick="linkGo('mainSpace')">참여공간</div>
@@ -69,7 +69,7 @@
 						<li onclick="linkGo('')">계정관리</li>
 						<li onclick="linkGo('resumeLists')">이력서관리</li>
 						<li onclick="linkGo('recepReq')">활동내역</li>
-						<li onclick="linkGo('')">관심정보</li>
+						<li onclick="linkGo('empAttnd')">관심정보</li>
 					</ul>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
@@ -192,7 +192,7 @@
 							<!-- display:none; div 상세메뉴선택 -->
 						</div>
 
-						<div class="main_contents_company" onclick="linkGo('')"> 
+						<div class="main_contents_company" onclick="linkGo('CInfoSearchList')"> 
 							<span>기업검색</span>
 							<!-- display:none; div 상세메뉴선택 -->
 						</div>
@@ -226,7 +226,7 @@
 									<span>활동내역</span>
 								</div>
 							</div>
-							<div class="menu_card" onclick="linkGo('')">
+							<div class="menu_card" onclick="linkGo('empAttnd')">
 								<div class="wrap">
 									<div class="img_attention"></div>
 								</div>

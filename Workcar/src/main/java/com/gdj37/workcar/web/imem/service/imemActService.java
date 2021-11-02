@@ -1,50 +1,54 @@
-package com.gdj37.workcar.web.imemAct.dao;
+package com.gdj37.workcar.web.imem.service;
 
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
-@Repository
-public class imemActDAO implements IimemActDAO {
-	@Autowired SqlSession sqlSession;
+import com.gdj37.workcar.web.imem.dao.IimemActDAO;
+
+@Service
+public class imemActService implements IimemActService {
+	@Autowired IimemActDAO iimemActDAO;
 
 	@Override
 	public int imemUpdateGrd(HashMap<String, String> params) throws Throwable {
-		return sqlSession.update("ImemAct_SQL.imemUpdateGrd", params);
+		return iimemActDAO.imemUpdateGrd(params);
 	}
 
 	@Override
 	public int getSubResumCnt(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectOne("ImemAct_SQL.getSubResumCnt", params);
+		return iimemActDAO.getSubResumCnt(params);
 	}
+
 	@Override
 	public List<HashMap<String, String>> getSubResum(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectList("ImemAct_SQL.getSubResum", params);
+		return iimemActDAO.getSubResum(params);
 	}
+
 	@Override
 	public int changeSubResum(HashMap<String, String> params) throws Throwable {
-		return sqlSession.update("ImemAct_SQL.changeSubResum", params);
+		return iimemActDAO.changeSubResum(params);
 	}
+
 	@Override
 	public int DelSupResum(HashMap<String, String> params) throws Throwable {
-		return sqlSession.delete("ImemAct_SQL.DelSupResum", params);
+		return iimemActDAO.DelSupResum(params);
 	}
 
 	@Override
 	public int getRecepReqCnt(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectOne("ImemAct_SQL.getRecepReqCnt", params);
+		return iimemActDAO.getRecepReqCnt(params);
 	}
 
 	@Override
 	public List<HashMap<String, String>> getRecepReq(HashMap<String, String> params) throws Throwable {
-		return sqlSession.selectList("ImemAct_SQL.getRecepReq", params);
+		return iimemActDAO.getRecepReq(params);
 	}
 
 	@Override
 	public int recepReqRefuse(HashMap<String, String> params) throws Throwable {
-		return sqlSession.update("ImemAct_SQL.recepReqRefuse", params);
+		return iimemActDAO.recepReqRefuse(params);
 	}
 }

@@ -176,7 +176,6 @@ function linkGo(url){
 				<div class="vertical_menu">
 					<span onclick="linkGo('recepReq')" ><a href="#" id="recepReq">받은 입사요청</a></span> 
 					<span onclick="linkGo('submitResum')" ><a href="#" id="submitResum">보낸 이력서</a></span>
-					<span onclick="linkGo('imemStar')" ><a href="#" id="imemStar">평점관리</a></span>
 				</div>
 				
 				<div class="main_box">

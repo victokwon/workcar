@@ -1,4 +1,4 @@
-package com.gdj37.workcar.web.imemAct.dao;
+package com.gdj37.workcar.web.imem.dao;
 
 import java.util.HashMap;
 import java.util.List;

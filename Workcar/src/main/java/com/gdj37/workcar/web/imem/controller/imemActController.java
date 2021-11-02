@@ -1,4 +1,4 @@
-package com.gdj37.workcar.web.imemAct.controller;
+package com.gdj37.workcar.web.imem.controller;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.common.CommonProperties;
 import com.gdj37.workcar.common.bean.PagingBean;
 import com.gdj37.workcar.common.service.IPagingService;
-import com.gdj37.workcar.web.imemAct.service.IimemActService;
+import com.gdj37.workcar.web.imem.service.IimemActService;
 @Controller
 public class imemActController {
 	
