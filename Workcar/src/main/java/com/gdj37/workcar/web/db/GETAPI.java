@@ -55,7 +55,7 @@ public class GETAPI {
 	        urlBuilder.append("&" + URLEncoder.encode("corpNm","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /* 법인 이름*/
 	        urlBuilder.append("&" + URLEncoder.encode("empeAvgCnwkTermCtt","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*평균 근속 연수*/
 	        urlBuilder.append("&" + URLEncoder.encode("smenpYn","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*중소기업 여부*/
-		
+	       
 	        String url = urlBuilder.toString();
 	        System.out.println(url);
 	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
