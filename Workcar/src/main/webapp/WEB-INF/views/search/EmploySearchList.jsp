@@ -40,6 +40,18 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	
+	if($("#gradu").val()==""){
+	 	$("#gradu").val(6)
+	 }
+ 	 if($("#empGbn").val()==""){
+	 	$("#empGbn").val(4)
+	 }
+ 	 if($("#carr").val()==""){
+ 	 	$("#carr").val(4)
+ 	 }
+	
+	
 	let qualCnt = 0;
 	$(".qual_wrap").on("click", "tr", function () {
 		if($(".pop-container").attr("btn") == "q"){
