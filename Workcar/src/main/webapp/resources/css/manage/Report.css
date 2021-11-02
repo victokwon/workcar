@@ -186,6 +186,11 @@ td {
   height: auto;
 }
 
+.apply_detail tr {
+  display: flex;
+  flex-direction: row;
+}
+
 tr {
   display: flex;
   flex-direction: column;

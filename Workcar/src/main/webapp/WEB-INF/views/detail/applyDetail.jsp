@@ -198,7 +198,7 @@
 		</div>
 	</header>
 	
-	<div class="pop-container">
+	<div class="pop-container apply_detail">
         <div class="pop-out-container">
         <button type="button" class="pop-close-btn">X</button>
             <div class="pop-in-container">
