@@ -409,3 +409,10 @@ input[disabled] {
   background-color: #888;
   color: #eee;
 }
+.no_data {
+	width: 100%;
+	font-size: 1.5em;
+	text-align: center;
+	display: inline-block;
+	margin: 60 px 0 px;
+}

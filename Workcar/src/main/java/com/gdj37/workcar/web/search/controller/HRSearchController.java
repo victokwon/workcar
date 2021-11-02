@@ -62,13 +62,13 @@ public class HRSearchController {
 		// 개수 취득
 		int cnt = iHRSearchService.getHRSch1Cnt(params);
 		// 페이징 정보 취득
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 9);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 3);
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
 
 		// 리스트 조회
 		List<HashMap<String, String>> list = iHRSearchService.getHRSch1List(params);
-		
+		modelMap.put("cnt", cnt);
 		modelMap.put("page", page);
 		modelMap.put("pb", pb);
 		modelMap.put("list", list);
