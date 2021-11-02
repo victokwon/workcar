@@ -36,7 +36,26 @@ public class CorporController {
 		return mav;
 	}
 	
-	
+	@RequestMapping(value="/corAdd")
+	public ModelAndView corAdd (@RequestParam HashMap<String,String> params,ModelAndView mav ) throws Throwable {
+		
+		int starEnroll = iCorporService.starEnroll(params);
+		  
+		if(starEnroll <= 0 ) {
+			 mav.addObject("msg", "평점등록 정상 동작되지 않았습니다."); 
+		}
+		/*
+		 * params.put("GooneEval", params.get("GooneEval")); params.put("management",
+		 * params.get("management")); params.put("welfare", params.get("welfare"));
+		 * params.put("culture", params.get("culture")); params.put("promotion",
+		 * params.get("promotion")); params.put("work", params.get("work"));
+		 */
+		
+		/* mav.addObject("starEnroll", starEnroll); */
+		mav.setViewName("detail/corDetail");
+		return mav;
+		
+	}
 	
 	
 	@RequestMapping(value = "/corDetails")
@@ -61,25 +80,11 @@ public class CorporController {
 		int reviews = iCorporService.reviews(params); 
 		HashMap<String, String> corpor_info = iCorporService.corporinfo(params);
 		HashMap<String, String> rating = iCorporService.rating(params);
-		int starEnroll = iCorporService.starEnroll(params);
 		
-		
-		/*
-		 * System.out.println(
-		 * "-------------------------------------------------------------------------------------"
-		 * ); params.put("Goprocess", params.get("Goprocess"));
-		 * System.out.println(params.put("Goprocess", params.get("Goprocess")));
-		 * params.put("GooneEval", params.get("GooneEval"));
-		 * System.out.println(params.put("GooneEval", params.get("GooneEval")));
-		 * params.put("management", params.get("management")); params.put("welfare",
-		 * params.get("welfare")); params.put("culture", params.get("culture"));
-		 * params.put("promotion", params.get("promotion")); params.put("work",
-		 * params.get("work"));
-		 */
+		 
 		params.put("reviews", reviews+"");  // 조회수 업데이트
 		
 		mav.addObject("rating", rating);
-		mav.addObject("starEnroll", starEnroll);
 		mav.addObject("corpor_info", corpor_info);
 		/* mav.addObject("coRPno", corpor_info.get("CORP_NO")); */
 		mav.addObject("cnt", cnt);

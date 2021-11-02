@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="resources/css/detail/floatRightNav.css">
     <script type="text/javascript"
 		src="resources/script/jquery/jquery-1.12.4.min.js"></script>
-		<script type="text/javascript" src="resources/script/detail/person_dtl_paging.js"></script>
+		<script type="text/javascript" src="resources/script/detail/joboffer_dtl_paging.js"></script>
 		
    
 </head>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="jobOfferDetail_SQL">
+
+	<select id="jiwonja" parameterType="hashmap" resultType="hashmap">
+		select m.name, im.gender , im.addr, im.addr_dtl , r.gradu gradu, r.resum_no as sno
+		from member m  join 
+		i_member im on m.mem_no = im.mem_no
+		join resum r on r.mem_no = im.mem_no
+		where r.resum_no = #{sNo}
+		and mem_gbn = 0
+	</select>
+	<select id="wish" parameterType="hashmap" resultType="hashmap">
+	select rw.work_type wtype , r.pay_max rpaymax , r.pay_min rpaymin, st.sector_name snm, rg.region_name rnm, ty.city_name city
+	from resum r 
+	join resum_work rw 
+	on r.resum_no = rw.resum_no 
+    join sector st on r.sector_no = st.sector_no
+    join region rg on r.region_no = rg.region_no
+    join city ty on rg.city_no = ty.city_no
+	WHERE R.DEL_CHK = 0
+	AND R.RESUM_NO = #{sNo}
+	</select>
+	<select id="Qualification" parameterType="hashmap" resultType="hashmap">
+	select rq.rating rt, to_char(rq.pass_date,'yy/mm/dd') pd, rq.issu_agcy ia 
+    from member m join i_member im on m.mem_no = im.mem_no
+    join resum r on m.mem_no = r.mem_no
+    join resum_qual rq on rq.resum_no = r.resum_no
+    where r.resum_no = #{sNo}
+    and mem_gbn = 0
+	</select>
+	<select id="career" parameterType="hashmap" resultType="hashmap">
+	select rc.c_name rcname, rc.dpart rcdp, to_char(rc.st_date,'yy-mm-dd') rcst , to_char(rc.end_date,'yy-mm-dd') rced, rc.carr_cntt rcct, rc.pos rcp 
+    from member m join i_member im on m.mem_no = im.mem_no
+    join resum r on m.mem_no = r.mem_no
+    join resum_carr rc on r.resum_no = rc.resum_no
+    where r.resum_no = #{sNo}
+    and mem_gbn = 0
+	</select>
+	<select id="grade" parameterType="hashmap" resultType="hashmap">
+	select re.sch_name  as scname, re.sol resol, re.major remajor, to_char(re.st_date,'yy/mm/dd') rest, to_char(re.end_date,'yy/mm/dd') reed, re.edu_etc reee 
+    from member m join i_member im on m.mem_no = im.mem_no
+    join resum r on m.mem_no = r.mem_no
+    join resum_edu re on re.resum_no = r.resum_no
+    where r.resum_no = #{sNo}
+    and mem_gbn = 0 
+	</select>
+	<select id="edu" parameterType="hashmap" resultType="hashmap">
+	select iedu_name eduname, cose_name cosename, to_char(st_date,'yy/mm/dd') st, to_char(end_date,'yy/mm/dd') ed,edu_cntt cnt 
+    from member m join i_member im on m.mem_no = im.mem_no
+    join resum r on m.mem_no = r.mem_no
+    join resum_iedu ri on ri.resum_no = r.resum_no
+    where r.resum_no = #{sNo}
+    and mem_gbn = 0 
+	</select>
+	<select id="resum" parameterType="hashmap" resultType="hashmap">
+	select rs.sintro_name hename , rs.sintro_cntt sintroname, to_char(r.reg_date,'yyyy-mm-dd') as DT
+    from member m join i_member im on m.mem_no = im.mem_no
+    join resum r on m.mem_no = r.mem_no
+    join resum_sintro rs on rs.resum_no = r.resum_no
+    where r.resum_no = #{sNo}
+    and mem_gbn = 0
+	</select>
+	<select id="flang" parameterType="hashmap" resultType="hashmap">
+	select rf.flang_no fn, rf.flang_type ft, rf.flang_grade fg, fl.flang_name fname
+    from member m join i_member im on m.mem_no = im.mem_no
+    join resum r on m.mem_no = r.mem_no
+    join resum_flang rf on r.resum_no = rf.resum_no
+	join flang fl on rf.flang_no = fl.flang_no
+    where r.resum_no = #{sNo}
+    and mem_gbn = 0
+	</select>
+	<select id="list_info" parameterType="hashmap" resultType="hashmap">
+		SELECT name, sector_name, region_name, DT, rnum
+		FROM (
+		        SELECT m.name, st.sector_name sector_name , rg.region_name region_name,ct.city_name, TO_CHAR(r.reg_date, 'YYYY-MM-DD') AS DT,
+		ROW_NUMBER() OVER (ORDER BY r.resum_no DESC) AS RNUM
+		FROM resum r join member m
+			on r.mem_no = m.mem_no
+            join sector st on r.sector_no = st.sector_no
+            join region rg on r.region_no = rg.region_no
+            join city ct on ct.city_no = rg.city_no
+		WHERE opn_chk = 1
+        and r.mem_no = 1
+        
+        ) mr
+		WHERE mr.RNUM BETWEEN #{startCnt} AND #{endCnt}
+	</select>
+	
+	<select id="list_paging" parameterType="hashmap"
+		resultType="Integer">
+		SELECT COUNT(*) AS CNT
+		FROM resum
+		WHERE opn_chk = 1
+	</select>
+	
+	
+</mapper>
