@@ -37,5 +37,23 @@ public class EmpAnncDAO implements IEmpAnncDAO {
 		return sqlSession.insert("empannc.uptEmpQual",empQual);
 	}
 
+	@Override
+	public int uptDocBox(HashMap<String, Object> docBox) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("empannc.uptDocBox",docBox);
+	}
+
+	@Override
+	public int uptEmpBox(HashMap<String, Object> prcsBox) throws Throwable {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("empannc.uptEmpBox",prcsBox);
+	}
+
+	@Override
+	public int uptAttchFile(HashMap<String, String> params) throws Throwable {
+		
+		return sqlSession.insert("empannc.uptAttchFile",params);
+	}
+
 
 }

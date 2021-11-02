@@ -23,7 +23,7 @@ ORDER BY REGION_NO
 
 <insert id="uptEmpAnncAjax" parameterType="hashmap">
 		INSERT INTO EMP_ANNC (EMP_NO, MEM_NO, EMP_TITLE, SECTOR_NO, EMP_PER, EMP_GBN, PAY_GBN, PAY_LOW, 
-	PAY_HIGH, GRADU, CARR, CARR_Y, DTL, REG_DATE, DLINE, REGION_NO, MAJOR, RECRUIT_GBN)
+	PAY_HIGH, GRADU, CARR, CARR_Y, DTL, REG_DATE, DLINE, REGION_NO, MAJOR, RECRUIT_GBN, EMP_DOC, EMP_PRCS, CITY_NO)
 	VALUES (
 		EMP_NO_SEQ.NEXTVAL,
 		#{MEM_NO},
@@ -42,7 +42,10 @@ ORDER BY REGION_NO
 		#{DLINE},
 		#{REGION},
 		#{MAJOR},
-		#{RECRUIT_GBN}		
+		#{RECRUIT_GBN},
+		#{EMP_DOC},
+		#{EMP_PRCS},
+		#{CITY}
 	)	
 </insert>
 
@@ -54,7 +57,36 @@ ORDER BY REGION_NO
 	#{QUAL_NAME}
 
 	)
-
 </insert>
+
+
+<insert id="uptAttchFile" parameterType="hashmap" >
+	INSERT INTO EMP_ATTCH (ATTCH_NO, EMP_NO, ATTCH_NAME)
+	VALUES (
+	EMP_ATTCH_SEQ.NEXTVAL,
+	EMP_NO_SEQ.CURRVAL,
+	#{ATTCH_NAME}
+
+	)
+</insert>
+
+
+<!-- <insert id="uptDocBox" parameterType="hashmap" >
+	INSERT INTO EMP_PRCSBOX (EMP_NO, QUAL_NO, EMP_PRCS)
+	VALUES (
+	EMP_NO_SEQ.CURRVAL,
+	#{EMP_PRCS}
+	)
+</insert>
+
+
+<insert id="prcsBox" parameterType="hashmap" >
+	INSERT INTO EMP_DOCBOX (EMP_NO, EMP_DOC)
+	VALUES (
+	EMP_NO_SEQ.CURRVAL,
+	#{EMP_DOC}
+	)
+</insert> -->
+
 		
 </mapper>

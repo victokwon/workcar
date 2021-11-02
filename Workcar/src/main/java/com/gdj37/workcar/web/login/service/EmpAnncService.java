@@ -38,6 +38,24 @@ public class EmpAnncService implements IEmpAnncService {
 		return  iempannc.uptEmpQual(empQual);
 	}
 
+	@Override
+	public int uptDocBox(HashMap<String, Object> docBox) throws Throwable {
+		
+		return iempannc.uptDocBox(docBox);
+	}
+
+	@Override
+	public int uptEmpBox(HashMap<String, Object> prcsBox) throws Throwable {
+		
+		return iempannc.uptEmpBox(prcsBox);
+	}
+
+	@Override
+	public int uptAttchFile(HashMap<String, String> params) throws Throwable {
+		
+		return iempannc.uptAttchFile(params);
+	}
+
 	/*
 	 * @Override public int uptEmpQual(HashMap<String, String> params) throws
 	 * Throwable {

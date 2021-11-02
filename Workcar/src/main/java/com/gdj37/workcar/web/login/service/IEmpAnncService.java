@@ -15,6 +15,11 @@ public interface IEmpAnncService {
 
 	int uptEmpQual(HashMap<String, Object> empQual) throws Throwable;
 
+	int uptDocBox(HashMap<String, Object> docBox) throws Throwable;
+
+	int uptEmpBox(HashMap<String, Object> prcsBox) throws Throwable;
+
+	int uptAttchFile(HashMap<String, String> params)throws Throwable;
 	
 
 }
