@@ -15,4 +15,6 @@ public interface IimemActDAO {
 	public int getRecepReqCnt(HashMap<String, String> params)throws Throwable;
 	public List<HashMap<String, String>> getRecepReq(HashMap<String, String> params)throws Throwable;
 
+	public int recepReqRefuse(HashMap<String, String> params)throws Throwable;
+
 }

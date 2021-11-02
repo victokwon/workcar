@@ -42,4 +42,9 @@ public class imemActDAO implements IimemActDAO {
 	public List<HashMap<String, String>> getRecepReq(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("ImemAct_SQL.getRecepReq", params);
 	}
+
+	@Override
+	public int recepReqRefuse(HashMap<String, String> params) throws Throwable {
+		return sqlSession.update("ImemAct_SQL.recepReqRefuse", params);
+	}
 }

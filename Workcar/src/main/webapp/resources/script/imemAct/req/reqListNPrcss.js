@@ -12,6 +12,10 @@ $(function(){
 		$("#recepReqForm").submit()
 	})
    
+   	$(".recepReq").on("click", "#refuseBtn",function(){
+		$("#goEmpNo").val($(this).attr("eNo"))
+		recepReqRefuse() 
+	})
     
 })   
     
@@ -179,18 +183,19 @@ function drawPaging(pb) {
 
 
 
-function recepReqUpdate(act){
-	let params = $("#prcssForm").serialize()
+function recepReqRefuse(){
+
+	let params = $("#recepReqForm").serialize()
 	
 	$.ajax({
     type: "POST",
     data: params,
-    url: "updaterecepReqAjax",
+    url: "recepReqRefuseAjax",
     dataType: "json",
     success: function (res) {
      	if(res.result == "SUCCESS"){
 			alert("처리에 성공했습니다.")
-				getRecepReq()
+				getRecepReq()	
      	}else if(res.result == "FAILED"){
      		alert("처리에 실패했습니다.")
      	}

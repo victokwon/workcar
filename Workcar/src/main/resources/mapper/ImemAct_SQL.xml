@@ -89,4 +89,11 @@
 	    WHERE SR.MEM_NO = #{memNo}
 	    ORDER BY DLINE
 	</select>
+	
+	<update id="recepReqRefuse" parameterType="hashmap">
+		UPDATE SUPP_REQ
+		SET REFUSE_CHK = 1
+		WHERE MEM_NO = #{memNo} 
+		AND EMP_NO = #{empno}
+	</update>
 </mapper>

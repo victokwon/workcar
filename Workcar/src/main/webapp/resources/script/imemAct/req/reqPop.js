@@ -35,10 +35,12 @@ $(function() {
     	$(".pop-container").html();
     })
     
+    
+    
 	
 })
 
-function PA(){
+function PA(act){
 	
 	let params = $("#prcssForm").serialize()
 	

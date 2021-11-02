@@ -46,4 +46,9 @@ public class imemActService implements IimemActService {
 	public List<HashMap<String, String>> getRecepReq(HashMap<String, String> params) throws Throwable {
 		return iimemActDAO.getRecepReq(params);
 	}
+
+	@Override
+	public int recepReqRefuse(HashMap<String, String> params) throws Throwable {
+		return iimemActDAO.recepReqRefuse(params);
+	}
 }
