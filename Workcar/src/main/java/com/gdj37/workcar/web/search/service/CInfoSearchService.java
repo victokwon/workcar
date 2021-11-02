@@ -22,4 +22,15 @@ public class CInfoSearchService implements ICInfoSearchService{
 	public List<HashMap<String, String>> getCInfoSch1List(HashMap<String, String> params) throws Throwable {
 		return iCInfoSearchDAO.getCInfoSch1List(params);
 	}
+
+	@Override
+	public void updateCInfoHit(HashMap<String, String> params) throws Throwable {
+		iCInfoSearchDAO.updateCInfoHit(params);
+		
+	}
+
+	@Override
+	public HashMap<String, String> getCInfo(HashMap<String, String> params) throws Throwable {
+		return iCInfoSearchDAO.getCInfo(params);
+	}
 }

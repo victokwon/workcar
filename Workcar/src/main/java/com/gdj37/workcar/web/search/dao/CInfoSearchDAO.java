@@ -22,4 +22,15 @@ public class CInfoSearchDAO implements ICInfoSearchDAO{
 		return sqlSession.selectList("CinfoSearch.getCInfoSch1List", params);
 	}
 
+	@Override
+	public void updateCInfoHit(HashMap<String, String> params) throws Throwable {
+		sqlSession.update("CinfoSearch.updateCInfoHit", params);
+		
+	}
+
+	@Override
+	public HashMap<String, String> getCInfo(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("CinfoSearch.getCInfo", params);
+	}
+
 }

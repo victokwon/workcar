@@ -2,19 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="CinfoSearch">
 
-	<select id="getCInfoSch1Cnt" parameterType="hashmap" resultType="Integer">
+	<select id="getCInfoSch1Cnt" parameterType="hashmap"
+		resultType="Integer">
 		SELECT COUNT(*)AS CNT
 		FROM C_INFO CI
 		JOIN C_SECTOR CS
-		ON (CI.CORP_NO = CS.CORP_NO)
+		ON (CI.CORP_NO =
+		CS.CORP_NO)
 		JOIN SECTOR S
 		ON (CS.SECTOR_NO = S.SECTOR_NO)
-		WHERE CI.WRK_CNT &gt;= 1
+		WHERE
+		CI.WRK_CNT &gt;= 1
 		<choose>
 			<when test="searchGbn eq 0">
 				AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
-				OR S.SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
-				
+				OR
+				S.SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+
 			</when>
 			<when test="searchGbn eq 1">
 				AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
@@ -23,24 +27,29 @@
 				AND S.SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
 			</when>
 		</choose>
-		
+
 	</select>
-	<select id="getCInfoSch1List" parameterType="hashmap" resultType="hashmap">
+	<select id="getCInfoSch1List" parameterType="hashmap"
+		resultType="hashmap">
 		SELECT C.CORP_NO,C.CORP_IMG,C.C_NAME, C.ADDR,C.C_BOSS, C.SECTOR_NAME
 		FROM (
-        SELECT CI.CORP_NO,CI.CORP_IMG,CI.C_NAME, CI.ADDR,CI.C_BOSS,S.SECTOR_NAME,
-        ROW_NUMBER()OVER(ORDER BY CI.CORP_NO DESC) AS ENUM
-        FROM C_INFO CI
+		SELECT CI.CORP_NO,CI.CORP_IMG,CI.C_NAME,
+		CI.ADDR,CI.C_BOSS,S.SECTOR_NAME,
+		ROW_NUMBER()OVER(ORDER BY CI.CORP_NO
+		DESC) AS ENUM
+		FROM C_INFO CI
 		JOIN C_SECTOR CS
 		ON CI.CORP_NO = CS.CORP_NO
 		JOIN SECTOR S
-		ON CS.SECTOR_NO = S.SECTOR_NO
+		ON
+		CS.SECTOR_NO = S.SECTOR_NO
 		WHERE CI.WRK_CNT &gt;= 1
 		<choose>
 			<when test="searchGbn eq 0">
 				AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
-				OR S.SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
-				
+				OR
+				S.SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
+
 			</when>
 			<when test="searchGbn eq 1">
 				AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
@@ -49,7 +58,19 @@
 				AND S.SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
 			</when>
 		</choose>
-        )C
+		)C
 		WHERE C.ENUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
+	<select id="getCInfo" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT CORP_NO,C_NAME,WRK_CNT,CORP_IMG,ZIP,ADDR,ADDR_DTL,
+		VIEWS,C_BOSS,C_BIZNO
+		FROM C_INFO
+		WHERE 1 = 1
+		AND CORP_NO = #{corpno}
+	</select>
+	<update id="updateCInfoHit" parameterType="hashmap">
+		UPDATE C_INFO SET VIEWS = VIEWS + 1
+		WHERE CORP_NO = #{corpno}
+	</update>
 </mapper>

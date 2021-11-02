@@ -113,7 +113,7 @@ function drawList(list,cnt) {
 		html += "</td>";
 	}else{
 		for(var data of list) {
-			html += "<td class=\"column\" resumno=\""+data.CORP_NO+"\">";
+			html += "<td class=\"column\" corpno=\""+data.CORP_NO+"\">";
 			html += "<div class=\"content\">";
 			html += "<img src=\"resources/images/common/logo.png\" />     ";
 				if(data.CORP_IMG != null){
@@ -325,9 +325,9 @@ function linkGo(url){
 							<button type="button" id="searchBtn">
 								<i class="fa fa-search"></i>
 							</button>
-							<input type="hidden" id="oldTxt" value="${param.searchTxt}" /> <input
-								type="hidden" name="page" id="page" value="${page}" /> <input
-								type="hidden" name="no" id="no" />
+							<input type="hidden" id="oldTxt" value="${param.searchTxt}" /> 
+							<input type="hidden" name="page" id="page" value="${page}" />
+							<input type="hidden" name="corpno" id="corpno"/>
 
 						
 
