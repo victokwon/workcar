@@ -23,9 +23,9 @@ public class SaveDB {
 		try {
 			
 			conn = DriverManager.getConnection(url,id,pass);	
-			pstmt = conn.prepareStatement("INSERT INTO C_INFO3 (CORP_NO, C_NAME, WRK_CNT, ZIP, ADDR, ADDR_DTL, C_BOSS, C_BIZNO, C_TEL, C_EST, "
-					+ "C_SAL,C_PAGE,C_CRNAME) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
-			System.out.println("susex");
+			pstmt = conn.prepareStatement("INSERT INTO C_INFO (CORP_NO, C_NAME, WRK_CNT, ZIP, ADDR, ADDR_DTL, C_BOSS, "
+					+ " C_BIZNO, C_TEL, C_HPAGE) VALUES(?,?,?,?,?,?,?,?,?,?)");
+			System.out.println("success");
 			
 			for (int i = 0; i<dbdata.size(); i++) {
 				
@@ -39,13 +39,13 @@ public class SaveDB {
 				String C_BOSS = dbdata.get(i).enpRprFnm;
 				String C_BIZNO = dbdata.get(i).bzno;
 				String C_TEL = dbdata.get(i).enpTlno;
-				String C_EST = dbdata.get(i).enpEstbDt;
-				String C_SAL = dbdata.get(i).enpPn1AvgSlryAmt;
-				String C_PAGE = dbdata.get(i).enpHmpgUrl;
-				String C_CRNAME = dbdata.get(i).corpNm;
-				String C_SBCHK = dbdata.get(i).smenpYn;
-				String C_CWY = dbdata.get(i).empeAvgCnwkTermCtt;
-				String C_CTYPE = dbdata.get(i).enpMainBizNm;
+				/* String C_EST = dbdata.get(i).enpEstbDt; */
+				/* String C_SAL = dbdata.get(i).enpPn1AvgSlryAmt; */
+				String C_HPAGE = dbdata.get(i).enpHmpgUrl;
+				/* String C_CRNAME = dbdata.get(i).corpNm; */
+				/* String C_SBCHK = dbdata.get(i).smenpYn; */
+				/* String C_CWY = dbdata.get(i).empeAvgCnwkTermCtt; */
+				/* String C_CTYPE = dbdata.get(i).enpMainBizNm; */
 				
 				
 				
@@ -58,11 +58,13 @@ public class SaveDB {
 				pstmt.setString(7, C_BOSS);
 				pstmt.setString(8, C_BIZNO);
 				pstmt.setString(9, C_TEL);
-				pstmt.setString(10, C_EST);
-				pstmt.setString(11, C_SAL);
-				pstmt.setString(12, C_PAGE);
-				pstmt.setString(13, C_CRNAME);
-				pstmt.setString(14, C_SBCHK);
+				/*
+				 * pstmt.setString(10, C_EST); pstmt.setString(11, C_SAL);
+				 */
+				pstmt.setString(10, C_HPAGE);
+				/*
+				 * pstmt.setString(13, C_CRNAME); pstmt.setString(14, C_SBCHK);
+				 */
 				
 				pstmt.executeUpdate();
 				

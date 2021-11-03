@@ -1,7 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 
 <!DOCTYPE html>
 <html>
@@ -50,6 +51,19 @@
 		 function linkGo(url){
 		 		location.href = url
 		 	}
+<<<<<<< HEAD
+		 
+
+	/* 	 function adjustHeight() {
+			  var textEle = $(".apply_dtl");
+			  textEle[0].style.height = 'auto';
+			  var textEleHeight = textEle.prop('scrollHeight');
+			  textEle.css('height', textEleHeight);
+			};
+			adjustHeight(); */
+	 });
+=======
+>>>>>>> branch 'main' of https://github.com/victokwon/workcar.git
 	</script>
 
 	
@@ -293,11 +307,14 @@
                 <br>
                 <hr>
                 <div class="main_detail_2">
-                    <textarea class="apply_dtl" disabled="disabled">${applyinfo.DTL }</textarea>
+                    <div class="apply_dtl">
+                    ${fn:replace(applyinfo.DTL, '.', '.<br><br>')}</div>
                 </div>
 				<script>
 					
 						$(function () {
+							
+							
 						    		for (var i=1; i<=  ${rating.TOTAL}; i++) { 
 						    		$(".total_rating"+i).addClass("checked");
 						    		}
