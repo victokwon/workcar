@@ -430,9 +430,19 @@ input[disabled] {
 	text-align: center;
 	display: inline-block;
 }
-.column p{
-	font-size:12px;
+
+.column p {
+	font-size: 12px;
 }
-.column .column_div{
-	margin:5px 0px;
+
+.column .column_div {
+	margin: 5px 0px;
+}
+
+.sn_overflow {
+	display: inline-block;
+	width: 270px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

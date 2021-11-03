@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="api">
+	<insert id="insertCInfo" parameterType="com.gdj37.workcar.web.db.DBDTO">
+		INSERT INTO C_INFO (CORP_NO, C_NAME, WRK_CNT, ZIP, ADDR, C_BOSS, C_BIZNO, C_TEL, C_HPAGE) 
+		VALUES(#{crno}, #{enpPbanCmpyNm}, #{enpEmpeCnt}, #{enpOzpno}, #{enpBsadr},
+			   #{enpRprFnm}, #{bzno}, #{enpTlno}, #{enpHmpgUrl})
+	</insert>
+	
+	<select id="getCorpNo" parameterType="String" resultType="Integer">
+		SELECT COUNT(*)
+		FROM C_INFO
+		WHERE CORP_NO = #{corpNo}
+	</select>
+</mapper>

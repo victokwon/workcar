@@ -36,7 +36,7 @@ $(document).ready(function(){
 	$("#row_box").on("click","td",function(){
 		if($(this).attr("class") != "no_data"){
 			$("#corpno").val($(this).attr("corpno"))
-			let target = "personDetail"
+			let target = "corDetail"
 			$("#actionForm1").attr("action", target)
 			$("#actionForm1").submit()
 		}
@@ -125,7 +125,7 @@ function drawList(list,cnt) {
 			html += "</div>" ;
 			html += "<div class=\"column_div\">" ;
 			html += "<span> 대표 : "+ data.C_BOSS +"</span>";
-			html += "<p> 업종 : "+ data.SECTOR_NAME +"</p>";
+			html += "<p class=\"sn_overflow\"> 업종 : "+ data.SECTOR_NAME +"</p>";
 			html += "</div>" ;
 			
 			html += "</div>";
@@ -133,7 +133,7 @@ function drawList(list,cnt) {
 	
 		}
 	}
-
+	$(".card_list_char").children().html("검색리스트 "+cnt + "건") 
 	$(".row").html(html);
 }
 function drawPaging(pb,cnt) {
@@ -315,7 +315,7 @@ function linkGo(url){
 				<div id="main_search" class="main_content">
 					<div class="search_top">
 						
-						<input type="hidden" id="resumno" name="resumno" value="">
+						<input type="hidden" name="corpno" id="corpno"/>
 							<select name="searchGbn" class="search_select" id="searchGbn">
 								<option value="0">전체</option>
 								<option value="1">기업명</option>
@@ -327,7 +327,7 @@ function linkGo(url){
 							</button>
 							<input type="hidden" id="oldTxt" value="${param.searchTxt}" /> 
 							<input type="hidden" name="page" id="page" value="${page}" />
-							<input type="hidden" name="corpno" id="corpno"/>
+							
 
 						
 

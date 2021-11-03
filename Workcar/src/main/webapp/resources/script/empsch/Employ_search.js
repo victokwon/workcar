@@ -4,6 +4,7 @@ function openPage(pageName,elmnt,color) {
     tabcontent = document.getElementsByClassName("main_content");
     for (i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
+      
     }
     tablinks = document.getElementsByClassName("main_button");
     for (i = 0; i < tablinks.length; i++) {

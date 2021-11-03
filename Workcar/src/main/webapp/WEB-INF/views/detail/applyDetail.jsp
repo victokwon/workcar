@@ -1,7 +1,8 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>    
 
 <!DOCTYPE html>
 <html>
@@ -23,7 +24,7 @@
 	<script type="text/javascript" src="resources\script\detail\resumeApply.js"></script>
     <script src="resources/script/detail/header.js"></script>
     <script type="text/javascript" src="resources/script/detail/apply_dtl_paging.js"></script>
-   	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5a7222e84f43da6e7dad790c0611a4f&libraries=services"></script>
+   	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	8ccb33b4781aed7d9d9321c853fa3055&libraries=services"></script>
    	
 	<script type="text/javascript"
 	src="resources\script\detail\ReportPop.js"></script>	
@@ -46,10 +47,19 @@
 			 $("#empListForm").attr("action", "applyDetail")
 			 $("#empListForm").submit()
 		 }) */
-	 });
 		 function linkGo(url){
 		 		location.href = url
 		 	}
+		 
+
+	/* 	 function adjustHeight() {
+			  var textEle = $(".apply_dtl");
+			  textEle[0].style.height = 'auto';
+			  var textEleHeight = textEle.prop('scrollHeight');
+			  textEle.css('height', textEleHeight);
+			};
+			adjustHeight(); */
+	 });
 	</script>
 
 	
@@ -206,7 +216,7 @@
    
    <form action="#" id="empListForm" method="post">
    		<input type="hidden" id="memNo" name="memNo" value="${sMNo }">
-      	<input type="hidden" id="page" name="page" value="${page}">
+      	<input type="hidden" id="page" name="page" value="${param.page}">
       	<input type="hidden" id="empNo" name="empno" value="${param.empno }">
 		<input type="hidden" id="sectorNo" name="sectorNo" value="${param.sectorNo }">
 		<input type="hidden" id="startDate" name="startDate" value="${param.startDate }">
@@ -293,11 +303,16 @@
                 <br>
                 <hr>
                 <div class="main_detail_2">
-                    <textarea class="apply_dtl" disabled="disabled">${applyinfo.DTL }</textarea>
+                    <div class="apply_dtl">
+                   <%--  ${fn:replace(applyinfo.DTL, '\\r\\n', '.<br>')} --%>
+                   ${applyinfo.DTL}
+                    </div>
                 </div>
 				<script>
 					
 						$(function () {
+							
+							
 						    		for (var i=1; i<=  ${rating.TOTAL}; i++) { 
 						    		$(".total_rating"+i).addClass("checked");
 						    		}

@@ -33,6 +33,7 @@ public class EmploySearchController {
 		if (params.get("page") != null) {
 			page = Integer.parseInt(params.get("page"));
 		}
+		
 		mav.addObject("page", page);
 		mav.setViewName("search/EmploySearchList");
 

@@ -1,18 +1,23 @@
 package com.gdj37.workcar.web.db;
 
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
-import org.w3c.dom.Document;
+import java.util.Iterator;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 public class GETAPI {
 	
 	
-	static ArrayList<DBDTO> dbdata = new ArrayList<>();
 	
 	public static String getTagvalue(String tag, Element eElement) {
 		
@@ -24,9 +29,9 @@ public class GETAPI {
 	}
 	
 	
-	public static void getApiData() {
-		
-		int page = 1;
+	public static ArrayList<DBDTO> getApiData() {
+		ArrayList<DBDTO> dbdata = new ArrayList<>();
+		int page = 3;
 		
 		try {
 		
@@ -37,31 +42,54 @@ public class GETAPI {
 	        urlBuilder.append("?" + URLEncoder.encode("serviceKey","UTF-8") + "=eOL4NOL32DV9JCLTdjEcP9bUmBk7Bea945HsGfJrfKLlvf0Xz5tpHHHMP9THVPtzOG7OgPjLfuK3YAj6HfzLdQ=="); /*Service Key*/	
 	        urlBuilder.append("&" + URLEncoder.encode("basDt","UTF-8") + "=" + URLEncoder.encode("20211001", "UTF-8")); /*작업 또는 거래의 기준이 되는 일자(년월일)*/
 	        urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode(ppage, "UTF-8")); /*페이지번호*/
-	        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*한 페이지 결과 수*/
-	        urlBuilder.append("&" + URLEncoder.encode("resultType","UTF-8") + "=" + URLEncoder.encode("xml", "UTF-8")); /*결과형식(xml/json)*/
-	        urlBuilder.append("&" + URLEncoder.encode("crno","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*법인등록번호*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpPbanCmpyNm","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*회사이름*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpEmpeCnt","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*직원수*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpOzpno","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*우편번호*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpBsadr","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*주소*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpDtadr","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*상세주소*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpRprFnm","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*대표자이름*/
-	        urlBuilder.append("&" + URLEncoder.encode("bzno","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*사업자등록번호*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpTlno","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*전화번호*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpEstbDt","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*설립일자*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpPn1AvgSlryAmt","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*평균급여약*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpMainBizNm","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*영위사업*/
-	        urlBuilder.append("&" + URLEncoder.encode("enpHmpgUrl","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*폼페이지 주소*/
-	        urlBuilder.append("&" + URLEncoder.encode("corpNm","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /* 법인 이름*/
-	        urlBuilder.append("&" + URLEncoder.encode("empeAvgCnwkTermCtt","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*평균 근속 연수*/
-	        urlBuilder.append("&" + URLEncoder.encode("smenpYn","UTF-8") + "=" + URLEncoder.encode("", "UTF-8")); /*중소기업 여부*/
+	        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("8000", "UTF-8")); /*한 페이지 결과 수*/
+	        urlBuilder.append("&" + URLEncoder.encode("resultType","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*결과형식(xml/json)*/
 	       
-	        String url = urlBuilder.toString();
-	        System.out.println(url);
+	        System.out.println(urlBuilder.toString());
+	        URL url = new URL(urlBuilder.toString());
+	        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+	        conn.setRequestMethod("GET");
+	        conn.setRequestProperty("Content-type", "application/json");
+	        System.out.println("Response code: " + conn.getResponseCode());
+	        BufferedReader rd;
+	        if(conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+	            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	        } else {
+	            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+	        }
+	        StringBuilder sb = new StringBuilder();
+	        String line;
+	        while ((line = rd.readLine()) != null) {
+	            sb.append(line);
+	        }
+	        rd.close();
+	        conn.disconnect();
+	        String json = sb.toString();
+	        JSONParser parser = new JSONParser();
+
+	        JSONObject obj = (JSONObject) parser.parse(json);
+	        JSONObject response = (JSONObject) obj.get("response");
+	        JSONObject body = (JSONObject) response.get("body");
+	        JSONObject items = (JSONObject) body.get("items");
+	        
+	        JSONArray arr = (JSONArray) items.get("item");
+	        
+	        for(int i = 0 ; i < arr.size() ; i++) {
+	        	JSONObject data = (JSONObject) arr.get(i);
+	        	
+	        	DBDTO dbdt  = null;
+	        	dbdt =  new DBDTO((String)data.get("crno"),(String)data.get("corpNm"),(String)data.get("enpEmpeCnt"),(String)data.get("enpOzpno"),
+	        			(String)data.get("enpBsadr"),(String)data.get("enpDtadr"),(String)data.get("enpRprFnm"),(String)data.get("bzno")
+        				,(String)data.get("enpTlno"),(String)data.get("enpEstbDt"),(String)data.get("enpPn1AvgSlryAmt"),(String)data.get("enpMainBizNm"),
+        				(String)data.get("enpHmpgUrl")
+        				,(String)data.get("corpNm"),(String)data.get("empeAvgCnwkTermCtt"),(String)data.get("smenpYn"));
+        		
+        		dbdata.add(dbdt);
+	        }
+	        /*
 	        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 	        Document doc = dBuilder.parse(url);
-	        
 	        doc.getDocumentElement().normalize();
 	        NodeList nList =doc.getElementsByTagName("item");
 	        
@@ -74,20 +102,19 @@ public class GETAPI {
 	        		
 	        		Element eElement = (Element)nNode;
 	        		
-	        		dbdt =  new DBDTO(getTagvalue("crno",eElement),getTagvalue("enpPbanCmpyNm",eElement),getTagvalue("enpEmpeCnt",eElement),getTagvalue("enpOzpno",eElement),
+	        		dbdt =  new DBDTO(getTagvalue("crno",eElement),getTagvalue("corpNm",eElement),getTagvalue("enpEmpeCnt",eElement),getTagvalue("enpOzpno",eElement),
 	        				getTagvalue("enpBsadr",eElement),getTagvalue("enpDtadr",eElement),getTagvalue("enpRprFnm",eElement),getTagvalue("bzno",eElement)
 	        				,getTagvalue("enpTlno",eElement),getTagvalue("enpEstbDt",eElement),getTagvalue("enpPn1AvgSlryAmt",eElement),getTagvalue("enpMainBizNm",eElement),getTagvalue("enpHmpgUrl",eElement)
 	        				,getTagvalue("corpNm",eElement),getTagvalue("empeAvgCnwkTermCtt",eElement),getTagvalue("smenpYn",eElement));
 	        		
 	        		dbdata.add(dbdt);
-	        		
 	        	}
 	        	
 	        }
-	        
+	        */
 	 
-	        if(page<100) {
-	        	page += 1;
+	        if(arr.size() == 8000) {
+	        	page++;
 	        	
 	        }else 
 	        	break;
@@ -99,7 +126,7 @@ public class GETAPI {
 		
 	}
 	
-	
+	return dbdata;
 	
 	
 	

@@ -65,7 +65,7 @@
 		</if>
 
 
-			<if test="gradu neq 6">
+			<if test="gradu neq 6 and gradu neq 0">
 				AND GRADU = #{gradu}
 			</if>
 
@@ -129,9 +129,9 @@
 			</choose>
 		</if>
 
-		<if test="gradu neq 6">
-			AND GRADU = #{gradu}
-		</if>
+			<if test="gradu neq 6 and gradu neq 0">
+				AND GRADU = #{gradu}
+			</if>
 
 	</select>
 
@@ -212,7 +212,7 @@
 			</choose>
 		</if>
 
-			<if test="gradu neq 6">
+			<if test="gradu neq 6 and gradu neq 0">
 				AND GRADU = #{gradu}
 			</if>
 
@@ -276,9 +276,9 @@
 			</choose>
 		</if>
 
-		<if test="gradu neq 6">
-			AND GRADU = #{gradu}
-		</if>
+			<if test="gradu neq 6 and gradu neq 0">
+				AND GRADU = #{gradu}
+			</if>
 
 		)H
 		WHERE H.ENUM BETWEEN #{startCnt} AND #{endCnt}

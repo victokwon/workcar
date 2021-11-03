@@ -203,6 +203,7 @@ function drawList(list,cnt) {
 		html += "</td>";
 	}else{
 		for(var data of list) {
+			
 			html += '<td class="column" empno="'+data.EMP_NO+'">';
 			html += "<div class=\"content\">";
 			html += "<div>"+ data.EMP_NO +"</div>";
@@ -214,10 +215,11 @@ function drawList(list,cnt) {
 			html += "<span>" + data.EMP_TITLE + "</span>";
 			html += "</div>";
 			html += "</td>";
+			
 		}
 	}
-	
-	$(".row").html(html);
+	$(".card_list_char").children().html("검색리스트 "+cnt + "건") 
+	$(".row").html(html); 
 }
 function drawPaging(pb,cnt) {
 	var html = "";
@@ -451,7 +453,7 @@ function linkGo(url){
 		<div class="main_wrap">
 			<div class="main_button_box">
 				<button class="main_button"
-					onclick="openPage('main_search', this, '#88a2f2')" id="defaultOpen">통합
+					onclick="openPage('main_search', this, '#88a2f2')" id="defaultOpen" >채용 통합
 					검색</button>
 				<button class="main_button"
 					onclick="openPage('main_hits', this,'#88a2f2')">조회수 100</button>
