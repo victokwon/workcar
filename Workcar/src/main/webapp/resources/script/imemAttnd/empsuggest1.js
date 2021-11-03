@@ -30,9 +30,9 @@ function addEmp(target){
     success: function (res) {
      	if(res.result == "SUCCESS"){
 	     	drawEmpBox(res.data, target)
-	     	$("#suggetEmpForm").append('<input type="hidden" name="suggetEmpNo" value="'+res.data.RESUM_NO+'">')
+	     	$("#suggetEmpForm").append('<input type="hidden" name="suggetEmpNo" value="'+res.data.EMP_NO+'">')
      	}else if(res.result == "FAILED"){
-     		alert("추천할 인재가 없습니다.")
+     		alert("추천할 채용이 없습니다.")
      	}
      	console.log(res.result)
     },
@@ -54,42 +54,44 @@ function drawEmpBox(data,target) {
 	html +=     '    				<div class="emp_suggest_dtl">                   '
 	html +=     '    					<div class="col">                           '
 	html +=     '    						<div class="row">                       '
-	html +=     '    							<div class="text">이름</div>         '
-	html +=     '    							<div class="data">'+data.NAME+'</div>      '
+	html +=     '    							<div class="text">공고</div>         '
+	html +=     '    							<div class="data">'+data.EMP_TITLE+'</div>      '
 	html +=     '    							<!-- 이름 링크 -->                    '
 	html +=     '    						</div>                                  '
 	html +=     '    						<div class="row">                       '
-	html +=     '    							<div class="text"></div>            '
-	html +=     '    							<div class="data null"></div>            '
+	html +=     '    							<div class="text">업종</div>            '
+	html +=     '    							<div class="data">'+data.SECTOR_NAME+'</div>            '
 	html +=     '    						</div>                                  '
 	html +=     '    						<div class="row">                       '
-	html +=     '    							<div class="text">등록일</div>        '
-	html +=     '    							<div class="data">'+data.CHN_DATE+'</div> '
+	html +=     '    							<div class="text">공고일</div>        '
+	html +=     '    							<div class="data">'+data.REG_DATE+'</div> '
 	html +=     '    						</div>                                  '
 	html +=     '    					</div>                                      '
 	html +=     '    					<div class="col">                           '
 	html +=     '    						<div class="row">                       '
-	html +=     '    							<div class="text">업종</div>         '
-	html +=     '    							<div class="data">'+data.SECTOR_NAME+'</div>      '
+	html +=     '    							<div class="text">기업</div>         '
+	html +=     '    							<div class="data">'+data.C_NAME+'</div>      '
 	html +=     '    						</div>                                  '
 	html +=     '    						<div class="row">                       '
-	html +=     '    							<div class="text">경력</div>         '
-	html +=     '    							<div class="data">'+data.CARR+' / '+data.CARR_PER+'</div>         '
+	html +=     '    							<div class="text">평점</div>         '
+	html +=     '    							<div class="data">'
+	html+= '	<div class="star_rating" score="'+(data.WLB+ data.PROMO_POSS + data.C_CULT + data.WFARE_PAY + data.MGM)/5+'">          </div>               '
+	html +=     ' </div>         '
 	html +=     '    						</div>                                  '
 	html +=     '    						<div class="row">                       '
-	html +=     '    							<div class="text">지역</div>         '
-	html +=     '    							<div class="data">'+data.CITY_NAME+' / '+data.REGION_NAME+'</div>         '
+	html +=     '    							<div class="text">마감일</div>         '
+	html +=     '    							<div class="data">'+data.DLINE+'</div>         '
 	html +=     '    						</div>                                  '
 	html +=     '    					</div>                                      '
 	html +=     '    				</div>                                          '
 	html +=     '    			</div>                                              '
 	html +=     '    			<div class="button_container">                      '
 	html +=     '    				<div class="button_box b">                        '
-	html +=     '    					<button type="button" class="b_hover" id="attnedAddBtn" no="'+data.RESUM_NO+'">관심</button>          '
-	html +=     '    					<button type="button" class="b_hover" id="suggetDelBtn">삭제</button>          '
+	html +=     '    					<button type="button" class="b_hover" id="attnedAddBtn" eNo="'+data.EMP_NO+'">관심</button>          '
+	html +=     '    					<button type="button" class="b_hover" id="suggetDelBtn" >삭제</button>          '
 	html +=     '    				</div>   '
     html +=     '					<div class="button_box b">                                              '
-	html +=     '    					<button type="button" class="b_hover" id="JCBtn">입사요청</button>           '
+	html +=     '    					<button type="button" class="b_hover JA_btn" id="JABtn" eNo="'+data.EMP_NO+'">지원하기</button>           '
     html +=     '					</div>                                               '
 	html +=     '    			</div>                                              '
 	html +=     '    		</div>                                                  '
@@ -97,16 +99,29 @@ function drawEmpBox(data,target) {
 	html +=		'	</tr>                                                           '
 
 	target.prepend(html)
+	
+	$(".star_rating").each(function(idx){
+		let score = $(this).attr("score")
+			html = ''
+		for(let i = 0; i<Math.round(score); i++){
+			html+= '	    <span class="fa fa-star checked"></span>             '
+		}
+		for(let i = 0; i<5-Math.round(score); i++){
+			html+= '	    <span class="fa fa-star"></span>             '
+		}
+		$(this).html(html)
+	})
+		
 }	
 
 
 function addAttned(target){
 
-let params ="resumeNo=" + target.attr("no") +"&memNo=" + $("#userNo").attr("no")
+let params ="empNo=" + target.attr("eno") +"&memNo=" + $("#userNo").attr("no")
   $.ajax({
     type: "POST",
     data: params,
-    url: "addAttnedAjax",
+    url: "addIAttnedAjax",
     dataType: "json",
     success: function (res) {
      	if(res.result == "SUCCESS"){

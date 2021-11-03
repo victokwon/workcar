@@ -402,13 +402,6 @@ public class ResumeController {
 	
 	
 	
-	// 이력서 지원
-	@RequestMapping(value = "/resumeApply")
-	public ModelAndView resumeApply(ModelAndView mav) {
-			
-		mav.setViewName("/resume/resumeApply");
-		return mav;
-	}
 	
 	
 	@ResponseBody

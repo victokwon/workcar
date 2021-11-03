@@ -29,6 +29,8 @@ public class CommonAOP {
 	@Pointcut("execution(* com.gdj37.workcar..ResumeController.resumeList(..))"
 		+ "|| execution(* com.gdj37.workcar..imemActController.*(..))"
 		+ "&& !execution(* com.gdj37.workcar..imemActController.*Ajax(..))" 
+		+ "|| execution(* com.gdj37.workcar..imemAttndController.*(..))"
+		+ "&& !execution(* com.gdj37.workcar..imemAttndController.*Ajax(..))" 
 	/* + "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))" */
 			)
 	public void imem() {}
