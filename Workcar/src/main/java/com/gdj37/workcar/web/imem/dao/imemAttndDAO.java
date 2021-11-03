@@ -17,7 +17,7 @@ public class imemAttndDAO implements IimemAttndDAO {
 	}
 	@Override
 	public HashMap<String, String> getsuggetEmp(HashMap<String, Object> paramMap) {
-		return sqlSession.selectOne("ImemActNAttnd_SQL.getAttndList", paramMap);
+		return sqlSession.selectOne("ImemActNAttnd_SQL.getSuggetEmp", paramMap);
 	}
 	@Override
 	public int delAttnd(String target) {

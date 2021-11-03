@@ -38,6 +38,7 @@ function drawAttndPage(){
     url: "drawIAttndPageAjax",
     dataType: "json",
     success: function (res) {
+    console.log(res.LIST)
      	if(res.result == "SUCCESS"){
      		drawAttndList(res.LIST)
      	}
@@ -55,8 +56,7 @@ function drawAttndList(list){
 	html = ""
 
 	for(data of list){
-	html =""
-		html += '                                                                                                                              '
+	html += '                                                                                                                              '
 	html +=    	'	<tr >                                                            '
 	html +=     '    	<td >                                          '
 	html +=     '    		<div class="emp_suggest_list">                          '
