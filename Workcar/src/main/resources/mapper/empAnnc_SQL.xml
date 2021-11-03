@@ -21,7 +21,7 @@ ORDER BY REGION_NO
 
 
 
-<insert id="uptEmpAnncAjax" parameterType="hashmap">
+<insert id="insEmpAnncAjax" parameterType="hashmap">
 		INSERT INTO EMP_ANNC (EMP_NO, MEM_NO, EMP_TITLE, SECTOR_NO, EMP_PER, EMP_GBN, PAY_GBN, PAY_LOW, 
 	PAY_HIGH, GRADU, CARR, CARR_Y, DTL, REG_DATE, DLINE, REGION_NO, MAJOR, RECRUIT_GBN, EMP_DOC, EMP_PRCS, CITY_NO)
 	VALUES (
@@ -49,7 +49,7 @@ ORDER BY REGION_NO
 	)	
 </insert>
 
-<insert id="uptEmpQual" parameterType="hashmap" >
+<insert id="insEmpQual" parameterType="hashmap" >
 	INSERT INTO EMP_QUAL (EMP_NO, QUAL_NO, QUAL_NAME)
 	VALUES (
 	EMP_NO_SEQ.CURRVAL,
@@ -60,7 +60,7 @@ ORDER BY REGION_NO
 </insert>
 
 
-<insert id="uptAttchFile" parameterType="hashmap" >
+<insert id="insAttchFile" parameterType="hashmap" >
 	INSERT INTO EMP_ATTCH (ATTCH_NO, EMP_NO, ATTCH_NAME)
 	VALUES (
 	EMP_ATTCH_SEQ.NEXTVAL,

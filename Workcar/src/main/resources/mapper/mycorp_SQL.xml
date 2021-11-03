@@ -7,8 +7,7 @@
 			MEM_NO = #{memberNO} -->
 
 		SELECT ID, NAME, PHONE, EMAIL, INFOR_AGR, ACT_AGR, M.MEM_NO, C.POS,
-		CI.CORP_NO, CI.C_NAME,
-		CI.C_BIZNO, CI.C_BOSS, CI.ADDR, CI.ADDR_DTL, CI.C_HPAGE, CI.ZIP, CI.CORP_IMG
+		CI.CORP_NO, CI.C_NAME, CI.C_BIZNO, CI.C_BOSS, CI.ADDR, CI.ADDR_DTL, CI.C_HPAGE, CI.ZIP, CI.CORP_IMG, CI.C_TEL, CI.C_EMAIL
 		FROM MEMBER M JOIN C_MEMBER C ON (M.MEM_NO = C.MEM_NO)
 		JOIN C_INFO CI ON ( C.CORP_NO = CI.CORP_NO)
 		WHERE M.MEM_NO = #{memberNO}
@@ -35,8 +34,9 @@
 	</update>
 
 	<update id="uptcpinfo" parameterType="hashmap">
-
-
+	UPDATE C_INFO SET C_TEL = #{CP_TEL}, C_EMAIL = #{CP_EMAIL}, ZIP = #{ZIP}, ADDR = #{ADDR}, ADDR_DTL = #{ADDR_DTL}, 
+	C_HPAGE = #{C_HPAGE}, C_BIZNO = #{C_BIZNO}, CORP_NO = #{CORP_NO}, CORP_IMG = #{CORP_IMG}
+	WHERE CORP_NO = #{CORP_NO}
 	</update>
 
 	<select id="imemCnt" parameterType="hashMap"

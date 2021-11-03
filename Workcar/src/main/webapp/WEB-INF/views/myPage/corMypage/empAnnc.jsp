@@ -142,12 +142,13 @@
 
 				<div id="main_apply" class="main_content">
 
-					<!--          <div class="vertical_menu">
+					         <div class="vertical_menu">
 
-                    이력서 리스트 메뉴 출력
+                 
                     <a href="#" id="jobPost">채용공고 관리</a>
+                    
                     <a href="#" id="jobResume">받은 이력서</a>
-                </div> -->
+                </div>
 
 					<div class="main_box">
 					<form action="#" id="uptForm1" method="post" class="form1" >
@@ -176,7 +177,7 @@
 											<div class="name">
 												<div class="text">업종</div>
 												<div class="input">
-													<input type="text" id="SECTOR_NO" name="SECTOR_NO" readonly />
+													<input type="hidden" id="SECTOR_NO" name="SECTOR_NO" readonly />
 													<input type="text" id="SECTOR_NAME" name="SECTOR_NAME" readonly />
 													<button type="button" id="sectorBtn" btn="s">업종 검색</button>
 												</div>
@@ -619,7 +620,11 @@
 	  }
 	});
 		
-		
+	//삭제버튼	
+	  $(".add_box").on("click", ".minus_btn", function () {
+		    $(this).parent().html("");
+		    cnt -= 1 ;
+		  });
 		
 		
 		
@@ -712,10 +717,10 @@
 		
 		$("#uptBtn").on("click",function(){
 			
-			if(chkfinal()){
+			if(chkfinal()){ 
 			confirm("저장하시겠습니까?");
-			uptEmpAnncAjax();
-			}
+			insEmpAnncAjax();
+			 } 
 			
 			
 	});
@@ -756,14 +761,14 @@
 	// 저장 Ajax
 	
 	
-	function uptEmpAnncAjax() {
+	function insEmpAnncAjax() {
 		
 
 		var param = $("#uptForm1, #uptForm2, #uptForm3, #uptForm4, #uptForm6, #findregionAjax, #uptForm7, #empFileForm").serialize();
 		
 		$.ajax({
 			
-			url : "uptEmpAnncAjax",
+			url : "insEmpAnncAjax",
 			type : "post",
 			data : param,
 			dataType : "json",
@@ -808,11 +813,8 @@
 			alert("공고일 또는 마감일을 입력하여 주십시오");
 			return false;
 			
-		}else {
-			checkDate();
 		}
-			
-		
+		return true;
 	}
 	
 	

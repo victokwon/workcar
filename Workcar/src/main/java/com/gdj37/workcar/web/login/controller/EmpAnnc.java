@@ -81,8 +81,8 @@ public class EmpAnnc {
 	
 	//채용공고등록Ajax
 	@ResponseBody
-	@RequestMapping(value="/uptEmpAnncAjax",method=RequestMethod.POST, produces ="text/json; UTF-8")
-	public String uptEmpAnncAjax (@RequestParam HashMap<String,String> params,
+	@RequestMapping(value="/insEmpAnncAjax",method=RequestMethod.POST, produces ="text/json; UTF-8")
+	public String insEmpAnncAjax (@RequestParam HashMap<String,String> params,
 			@RequestParam(required =false)String[] QUAL_NO,
 			@RequestParam(required=false)String[] EMP_DOC,
 			@RequestParam(required=false)String[] EMP_PRCS
@@ -130,8 +130,8 @@ public class EmpAnnc {
 		
 		
 		try {
-				cnt += iempannc.uptEmpAnncAjax(params);
-				cnt += iempannc.uptAttchFile(params);
+				cnt += iempannc.insEmpAnncAjax(params);
+				cnt += iempannc.insAttchFile(params);
 				 System.out.println("paaaaaaaam"+params);	
 				
 				if(cnt == 2) {
@@ -139,45 +139,15 @@ public class EmpAnnc {
 					empQual.put("EMP_NO",params.get("EMP_NO"));
 					for(int i =0; i<QUAL_NO.length; i++) {		
 						empQual.put("QUAL_NO",QUAL_NO[i]);
-						cnt+= iempannc.uptEmpQual(empQual);
+						cnt+= iempannc.insEmpQual(empQual);
 						
 		
 					}
 					
 			}
-				
-				
 
-				
-				
+			System.out.println("cntcntcnt: " + cnt);
 
-
-					
-					
-
-	/*			} else if(cnt>0) {
-					docBox = new HashMap<String,Object>();
-					docBox.put("EMP_DOC",params.get("EMP_DOC"));
-					for(int i =0; i<QUAL_NO.length; i++) {		
-						docBox.put("EMP_DOC",QUAL_NO[i]);
-						cnt= iempannc.uptDocBox(docBox);
-		
-					}
-				
-				}
-				
-				 else if(cnt>0) {
-					 prcsBox = new HashMap<String,Object>();
-					 prcsBox.put("EMP_DOC",params.get("EMP_DOC"));
-					for(int i =0; i<QUAL_NO.length; i++) {		
-						prcsBox.put("EMP_DOC",QUAL_NO[i]);
-						cnt= iempannc.uptEmpBox(prcsBox);
-		
-					}
-				
-				}*/
-				
-		//	System.out.println("Cnt :" + cnt);
 			if(cnt != 3) {
 				result = "failed";
 			}
