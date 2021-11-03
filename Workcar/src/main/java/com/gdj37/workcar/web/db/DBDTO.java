@@ -43,6 +43,198 @@ public class DBDTO {
 		
 		
  	}
+
+
+
+	public String getCrno() {
+		return crno;
+	}
+
+
+
+	public void setCrno(String crno) {
+		this.crno = crno;
+	}
+
+
+
+	public String getEnpPbanCmpyNm() {
+		return enpPbanCmpyNm;
+	}
+
+
+
+	public void setEnpPbanCmpyNm(String enpPbanCmpyNm) {
+		this.enpPbanCmpyNm = enpPbanCmpyNm;
+	}
+
+
+
+	public String getEnpEmpeCnt() {
+		return enpEmpeCnt;
+	}
+
+
+
+	public void setEnpEmpeCnt(String enpEmpeCnt) {
+		this.enpEmpeCnt = enpEmpeCnt;
+	}
+
+
+
+	public String getEnpOzpno() {
+		return enpOzpno;
+	}
+
+
+
+	public void setEnpOzpno(String enpOzpno) {
+		this.enpOzpno = enpOzpno;
+	}
+
+
+
+	public String getEnpBsadr() {
+		return enpBsadr;
+	}
+
+
+
+	public void setEnpBsadr(String enpBsadr) {
+		this.enpBsadr = enpBsadr;
+	}
+
+
+
+	public String getEnpDtadr() {
+		return enpDtadr;
+	}
+
+
+
+	public void setEnpDtadr(String enpDtadr) {
+		this.enpDtadr = enpDtadr;
+	}
+
+
+
+	public String getEnpRprFnm() {
+		return enpRprFnm;
+	}
+
+
+
+	public void setEnpRprFnm(String enpRprFnm) {
+		this.enpRprFnm = enpRprFnm;
+	}
+
+
+
+	public String getBzno() {
+		return bzno;
+	}
+
+
+
+	public void setBzno(String bzno) {
+		this.bzno = bzno;
+	}
+
+
+
+	public String getEnpTlno() {
+		return enpTlno;
+	}
+
+
+
+	public void setEnpTlno(String enpTlno) {
+		this.enpTlno = enpTlno;
+	}
+
+
+
+	public String getEnpEstbDt() {
+		return enpEstbDt;
+	}
+
+
+
+	public void setEnpEstbDt(String enpEstbDt) {
+		this.enpEstbDt = enpEstbDt;
+	}
+
+
+
+	public String getEnpPn1AvgSlryAmt() {
+		return enpPn1AvgSlryAmt;
+	}
+
+
+
+	public void setEnpPn1AvgSlryAmt(String enpPn1AvgSlryAmt) {
+		this.enpPn1AvgSlryAmt = enpPn1AvgSlryAmt;
+	}
+
+
+
+	public String getEnpMainBizNm() {
+		return enpMainBizNm;
+	}
+
+
+
+	public void setEnpMainBizNm(String enpMainBizNm) {
+		this.enpMainBizNm = enpMainBizNm;
+	}
+
+
+
+	public String getEnpHmpgUrl() {
+		return enpHmpgUrl;
+	}
+
+
+
+	public void setEnpHmpgUrl(String enpHmpgUrl) {
+		this.enpHmpgUrl = enpHmpgUrl;
+	}
+
+
+
+	public String getCorpNm() {
+		return corpNm;
+	}
+
+
+
+	public void setCorpNm(String corpNm) {
+		this.corpNm = corpNm;
+	}
+
+
+
+	public String getEmpeAvgCnwkTermCtt() {
+		return empeAvgCnwkTermCtt;
+	}
+
+
+
+	public void setEmpeAvgCnwkTermCtt(String empeAvgCnwkTermCtt) {
+		this.empeAvgCnwkTermCtt = empeAvgCnwkTermCtt;
+	}
+
+
+
+	public String getSmenpYn() {
+		return smenpYn;
+	}
+
+
+
+	public void setSmenpYn(String smenpYn) {
+		this.smenpYn = smenpYn;
+	}
 	
 	
 	
