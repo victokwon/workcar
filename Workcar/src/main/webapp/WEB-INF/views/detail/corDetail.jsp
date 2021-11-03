@@ -35,16 +35,7 @@
 		<input type="hidden" id="page" name="page" value="${page}"> 
 		<input type="hidden" id="cRNo" name="cRNo" value="">
 	</form>
-	<form action="#" id="starForm" method="post">
-		<input type="hidden" id="cRNo" name="cRNo" value="${corpor_info.CORP_NO}">
-		<input type="hidden" id="mNo" name="mNo">
-		<input type="hidden" id="work" name="work" value="">
-		<input type="hidden" id="promotion" name="promotion" value="">
-		<input type="hidden" id="culture" name="culture" value="">
-		<input type="hidden" id="welfare" name="welfare" value="">
-		<input type="hidden" id="management" name="management" value="">
-		<input type="hidden" id="GooneEval" name="GooneEval" value="">
-	</form>
+	
 	<div id="mySidenav" class="sidenav">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		<div id="sdienav_ul">
@@ -210,10 +201,11 @@
 							    		}
 						});
 					</script>
-					<button
-						class="main_detail_repport main_report_status btn btn-primary"
-						data-toggle="modal" data-target=".star_process">평점등록</button>
-					<div class="main_rating">
+					<c:if test="${!empty sMNo }">
+						<button class="main_detail_repport main_report_status btn btn-primary"
+							data-toggle="modal" data-target=".star_process">평점등록</button>
+					</c:if>
+						<div class="main_rating">
 						<h3>총 평점</h3>
 						<div class="star_rating total_rating">
 							<span class="fa fa-star total_rating1"></span> <span
@@ -568,8 +560,8 @@
 						
 						
 						$(".submit").on("click",function () {
-							
-								$("#GooneEval").val($("#oneEval"))
+							/* 
+								$("#GooneEval").val($("#oneEval").html()) */
 							
 								if(confirm("등록하시겠습니까?")){
 									$("#mNo").val($("#userNo").attr("no"))
@@ -669,8 +661,18 @@
 									</div>
 									<div>
 										<div class="modal_subject">한줄평</div>
-										<textarea name="oneEval" id="oneEval" cols="60" rows="1"
+										<form action="#" id="starForm" method="post">
+		<input type="hidden" id="cRNo" name="cRNo" value="${corpor_info.CORP_NO}">
+		<input type="hidden" id="mNo" name="mNo" value="">
+		<input type="hidden" id="work" name="work" value="">
+		<input type="hidden" id="promotion" name="promotion" value="">
+		<input type="hidden" id="culture" name="culture" value="">
+		<input type="hidden" id="welfare" name="welfare" value="">
+		<input type="hidden" id="management" name="management" value="">
+		<!-- <input type="hidden" id="GooneEval" name="GooneEval" value=""> -->
+										<textarea name="GooneEval" id="GooneEval" cols="60" rows="1"
 											placeholder="내용을 입력해 주세요"></textarea>
+	</form>
 									</div>
 								</div>
 							</div>

@@ -59,6 +59,10 @@ public class ApplyContoller {
 			
 			
 			HashMap<String,String> applyinfo = iApplyService.getinfo(params);
+			/*
+			 * String DTL = applyinfo.get("DTL"); DTL = DTL.replace("\r\n", "<br>");
+			 * applyinfo.put("DTL", DTL);
+			 */
 			int reviews = iApplyService.reviews(params); 
 			HashMap<String, String> rating = iApplyService.rating(params);
 			
