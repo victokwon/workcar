@@ -14,6 +14,7 @@ $(function() {
 	$("#popOpen").on("click", function(){
 		/* 위치를 찾아야함 -> 버튼 상대위치  */
 		let targetENo = $("#empNo").val()
+		console.log(targetENo)
 		$("#applyBtn").attr("eNo", targetENo);
 		getResumeList(targetENo) 
 		$(".pop-container").show();
@@ -62,7 +63,6 @@ function PA(targetR, targetE){
 }
 
 function getResumeList(targetENo){
-	console.log(targetE)
 	let params = "memNo=" + $("#memNo").val() + "&empNo=" + targetENo
 	
 	 $.ajax({
