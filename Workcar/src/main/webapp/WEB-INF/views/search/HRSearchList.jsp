@@ -32,9 +32,6 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
-	if($("#gradu").val()==""){
-	 	$("#gradu").val(6)
-	 }
  	 if($("#carr").val()==""){
  	 	$("#carr").val(3)
  	 }
@@ -212,7 +209,7 @@ function drawList(list,cnt) {
 	
 		}
 	}
-
+	$(".card_list_char").children().html("검색리스트 "+cnt + "건") 
 	$(".row").html(html);
 }
 function drawPaging(pb,cnt) {
@@ -453,7 +450,7 @@ function linkGo(url){
 		</div>
 		<div class="main_wrap">
 			<div class="main_h1_box">
-                <h1 class="main_h1">인재검색</h1>
+                <h1 class="main_h1" onclick="linkGo('HRSearchList')" >인재검색</h1>
             </div>
 			
 			<div class="main_info">
@@ -578,7 +575,7 @@ function linkGo(url){
 							<input type="hidden" id="actGbn" name="actGbn">
 							<div>
 								<span>최종학력 :</span> 
-								<label> 전체 <input type="radio" name="gradu" class="radiobox" value="0" checked="checked" /></label>
+								<label> 전체 <input type="radio" name="gradu" class="radiobox" value="6" checked="checked" /></label>
 								<label> / 고등학교 <input type="radio" name="gradu" class="radiobox" value="1" /> </label> 
 								<label> / 전문대학 <input type="radio" name="gradu" class="radiobox" value="2" /></label>
 								<label> / 대학교 <input type="radio" name="gradu" class="radiobox" value="3" /></label> 

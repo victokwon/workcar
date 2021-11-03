@@ -30,8 +30,8 @@ public class CorporController {
 	@RequestMapping(value = "/corDetail")
 	public ModelAndView corDetail(@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
-		
-		mav.addObject("cRNo","1101111707178"); 
+		System.out.println(params);
+		mav.addObject("cRNo",params.get("corpno")); 
 		mav.setViewName("redirect:corDetails");
 		return mav;
 	}
