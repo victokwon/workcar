@@ -38,7 +38,7 @@ public class CorporController {
 	
 	@RequestMapping(value="/corAdd")
 	public ModelAndView corAdd (@RequestParam HashMap<String,String> params,ModelAndView mav ) throws Throwable {
-		
+		System.out.println(params);
 		int starEnroll = iCorporService.starEnroll(params);
 		  
 		if(starEnroll <= 0 ) {
@@ -52,7 +52,7 @@ public class CorporController {
 		 */
 		
 		/* mav.addObject("starEnroll", starEnroll); */
-		mav.setViewName("detail/corDetail");
+		mav.setViewName("redirect:corDetails");
 		return mav;
 		
 	}
