@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -14,12 +16,12 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/common/header.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css">
-    <link rel="stylesheet" href="resources/css/cormypage/empannc/empannc.css">
+    <link rel="stylesheet" href="resources/css/empannc/empannc.css">
     <link rel="stylesheet" type="text/css" href="resources/css/resume/pop.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script src="resources/script/empannc/header.js"></script>
-    <script src="resources/script/empannc/mainbox.js"></script>
-    <script src="resources/script/empannc/empannc.js"></script>
+     <script src="resources/script/cormypage/empannc/header.js"></script>
+    <script src="resources/script/cormypage/empannc/mainbox.js"></script>
+    <script src="resources/script/cormypage/empannc/empannc.js"></script>
     <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/sector.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/qual.js"></script>
@@ -176,8 +178,8 @@
 											<div class="name">
 												<div class="text">업종</div>
 												<div class="input">
-													<input type="HIDDEN" id="SECTOR_NO" name="SECTOR_NO" readonly />
-													<input type="text" id="SECTOR_NAME" name="SECTOR_NAME" readonly />
+													<input type="HIDDEN" id="SECTOR_NO" name="SECTOR_NO" value="${data.SECTOR_NO}" readonly />
+													<input type="text" id="SECTOR_NAME" name="SECTOR_NAME" value="${data.SECTOR_NAME}" readonly />
 													<button type="button" id="sectorBtn" btn="s">업종 검색</button>
 												</div>
 											</div>
@@ -272,9 +274,9 @@
 													<input type="radio" name="CARR" id="career2" value="2"
 													<c:if test="${data.CARR eq 2}">checked="checked"</c:if>/>
 													<label for="career2">경력 </label>
-												</div>
-												<div>
-													<input type="text" id="CARR_Y" NAME="CARR_Y" style="width:50px; height:20px;" value="${data.CARR_Y}" disabled >년
+												
+									
+													<input type="text" id="CARR_Y" NAME="CARR_Y" style="width:20px; height:20px;" value="${data.CARR_Y}" disabled >년
 												<!-- 	~ <input type="text" placeholder="0" id="maxCareer"
 														disabled>년 -->
 												</div>
@@ -290,6 +292,20 @@
 								<div class="dtl">
 									<div class="header">자격증</div>
 									<div class="con add_box">
+									<c:if test ="${!empty qlist}">
+									<c:set var="cntt" value ="0" />
+										<c:forEach var="list" items="${qlist}">
+											<div class="input_box " id="qualInput${cntt}" no="cnt${cntt}" noName="qualNo">
+												<input type="button" class="minus_btn" id="delBtn" value="－">
+												<div class="data_container">
+													<button type="button" id="qualBtn" no="${cntt}" >자격증검색</button>
+													<input class="qual_input" name="QUAL_NO" id="QUAL_NO${cntt}" value="${list.QUAL_NO}" type="hidden" readonly>
+	        										<input class="qual_input" name="QUAL_NAME" id="QUAL_NAME${cntt}" value="${list.QUAL_NAME}" type="text" disabled style="width:200px; text-align:center; margin-left:30px;">	        										
+												</div>
+											</div>
+											 <c:set var="cntt" value="${cntt + 1 }" />
+										</c:forEach>
+									</c:if>		
 										<!-- js를 통해 추가되는 내용 -->
 <!-- 										<div class="input_box ">
 											<input type="button" class="minus_btn" id="delBtn" value="－">
@@ -319,8 +335,9 @@
 										<div class="input_box ">
 											<!-- <input type="button" class="minus_btn" id="delBtn" value="－"> -->
 											<div class="data_container file_container">
-												파일이름 : <input type ="text" id="fileSNm" value="${data.CORP_IMG}" disabled>
-												<input type="hidden" id="empFineName" value="${data.CORP_IMG}">
+											
+												파일이름 : <input type ="text" id="showName" value="${data.ATTCH_NAME}" disabled>
+												<input type="hidden" id="ATTCH_NAME" name="ATTCH_NAME" value="${data.ATTCH_NAME}">
 												<button type="button" id="empFileUploadBtn">파일업로드</button>
 												<button type="button" id="empFileUpDelBtn">파일삭제</button>
 											</div>
@@ -410,46 +427,38 @@
 											<div class="start">
 												<div class="text">공고일</div>
 												<div class="input">
-													<input type="date" name="REG_DATE" size="5" value="${data.REG_DATE}" placeholder="공고일">
+													<input type="date" name="REG_DATE" size="5" value="<fmt:formatDate value='${data.REG_DATE}' pattern='yyyy-MM-dd'/>" placeholder="공고일">
 												</div>
 											</div>
 											<div class="end">
 												<div class="text">마감일</div>
 												<div class="input">
-													<input type="date" name="DLINE" value="${data.REG_DATE}" placeholder="마감일">
+													<input type="date" name="DLINE" value="<fmt:formatDate value='${data.DLINE}' pattern='yyyy-MM-dd'/>" placeholder="마감일">
 												</div>
 											</div>
 											<div class="method">
 												<div class="text">서류</div>
 												<div class="input">
-													<input type="checkbox" name="EMP_DOC" value="0" 
-													<c:if test="${data.EMP_DOC eq 0}">checked="checked"</c:if>> 
+													<input type="checkbox" name="EMP_DOC"  id="EMP_DOC0" value="0" > 
 													<label for="method0">이력서</label> <br>
-													<input type="checkbox" name="EMP_DOC" value="1"  
-													<c:if test="${data.EMP_DOC eq 1}">checked="checked"</c:if>> 
+													<input type="checkbox" name="EMP_DOC" id="EMP_DOC1" value="1" > 
 													<label for="method1">경력기술서</label> <br>
-													<input type="checkbox" name="EMP_DOC" value="2" 
-													<c:if test="${data.EMP_DOC eq 2}">checked="checked"</c:if> > 
+													<input type="checkbox" name="EMP_DOC" id="EMP_DOC2" value="2"> 
 													<label for="method2">포트폴리오</label> <br>
-													<input type="checkbox" name="EMP_DOC" value="3"  
-													<c:if test="${data.EMP_DOC eq 3}">checked="checked"</c:if>>
+													<input type="checkbox" name="EMP_DOC" id="EMP_DOC3" value="3" >
 													<label for="method3">기타</label>
 												</div>
 											</div>
 											<div class="apply">
 												<div class="text">전형</div>
 												<div class="input">
-													<input type="checkbox" name="EMP_PRCS" value="0" 
-													<c:if test="${data.EMP_PRCS eq 0}">checked="checked"</c:if>>
-													<label for="apply0">서류전형</label> <br> <input
-														type="checkbox" name="EMP_PRCS" value="1" 
-														<c:if test="${data.EMP_PRCS eq 1}">checked="checked"</c:if>>
-													<label for="apply1">면접</label> <br> <input
-														type="checkbox" name="EMP_PRCS" value="2" 
-														<c:if test="${data.EMP_PRCS eq 2}">checked="checked"</c:if>>
-													<label for="apply2">인적성검사</label> <br> <input
-														type="checkbox" name="EMP_PRCS" value="3" 
-														<c:if test="${data.EMP_PRCS eq 3}">checked="checked"</c:if>>
+													<input type="checkbox" name="EMP_PRCS" id="EMP_PRCS0" value="0" >
+													<label for="apply0">서류전형</label> <br> 
+													<input type="checkbox" name="EMP_PRCS" id="EMP_PRCS1" value="1">
+													<label for="apply1">면접</label> <br> 
+													<input type="checkbox" name="EMP_PRCS" id="EMP_PRCS2" value="2">
+													<label for="apply2">인적성검사</label> <br> 
+													<input type="checkbox" name="EMP_PRCS" id="EMP_PRCS3" value="3">
 													<label for="apply3">기타</label>
 												</div>
 											</div>
@@ -473,26 +482,26 @@
 										<div class="input_box">
 											<div class="location">
 												<div class="input">
-													<select name="CITY" id="CITY">
+													<select name="CITY" id="CITY" >
 														<option value="-1">도/광역시 선택</option>
-														<option value="0">강원</option>
-														<option value="1">경기</option>
-														<option value="2">경남</option>
-														<option value="3">경북</option>
-														<option value="4">광주</option>
-														<option value="5">대구</option>
-														<option value="6">대전</option>
-														<option value="7">부산</option>
-														<option value="8">서울</option>
-														<option value="9">울산</option>
-														<option value="10">인천</option>
-														<option value="11">전남</option>
-														<option value="12">전북</option>
-														<option value="13">제주</option>
-														<option value="14">충남</option>
-														<option value="15">충북</option>
+														<option value="0" id="CITY0" >강원</option>
+														<option value="1" id="CITY1">경기</option>
+														<option value="2" id="CITY2">경남</option>
+														<option value="3" id="CITY3">경북</option>
+														<option value="4" id="CITY4">광주</option>
+														<option value="5" id="CITY5">대구</option>
+														<option value="6" id="CITY6">대전</option>
+														<option value="7" id="CITY7">부산</option>
+														<option value="8" id="CITY8">서울</option>
+														<option value="9" id="CITY9">울산</option>
+														<option value="10" id="CITY10">인천</option>
+														<option value="11" id="CITY11">전남</option>
+														<option value="12" id="CITY12">전북</option>
+														<option value="13" id="CITY13">제주</option>
+														<option value="14" id="CITY14">충남</option>
+														<option value="15" id="CITY15">충북</option>
 													</select> 
-													<select name="REGION" id="REGION">
+													<select name="REGION" id="REGION" selValue="${data.REGION_NO}">
 											<!-- 			<option value="-1">시/군/구 선택</option> -->
 													</select>
 													<!-- <div class="location_dtl">세부주소 검색</div> -->
@@ -516,10 +525,10 @@
 												<div class="input">
 													<select name="RECRUIT_GBN" id="RECRUIT_GBN">
 														<option value="-1">공개 여부 선택</option>
-														<option value="0">공개</option>
-														<option value="1">비공개</option>
+														<option value="0" <c:if test="${data.RECRUIT_GBN eq 0}">selected="selected"</c:if>>공개</option>
+														<option value="1" <c:if test="${data.RECRUIT_GBN eq 1}">selected="selected"</c:if>>비공개</option>
 													</select>
-												 <button type="button" id="uptBtn">저장</button> 
+												 <button type="button" id="uptBtn">수정</button> 
 												</div>
 											</div>
 											<!-- 위치 api -->
@@ -608,14 +617,123 @@
 
 <script>
 	$(document).ready(function(){
-		
-		//파일 업로드 체크
-	   var chkfileupt = 0;
+	
+	//자격증 개수 체크
+  	 var cnt = ${cntt};
+	console.log("cntt값"+${cntt});
+	//파일 업로드 체크
+   var chkfileupt = 0;
 
-		//자격증 개수 체크
-	   var cnt = 1;
-	   
-	   if ($("#empFineName").val() != "") {	 
+		
+   // 자격증 1
+	$("#addBtn1").on("click", function () {
+	  
+	    
+	    if(cnt <4){
+	    
+       let html = "";
+       html += '<div class="input_box " id="qualInput'+cnt+'" no="'+cnt+'" noName="qualNo">';
+       html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
+       html += '<div class="data_container">';
+       html += '<button type="button" id="qualBtn" no="'+cnt+'" >자격증검색</button>';
+       html += '<input class="qual_input" name="QUAL_NO" id="QUAL_NO'+cnt+'" type="hidden" readonly>';
+       html += '<input class="qual_input" name="QUAL_NAME" id="QUAL_NAME'+cnt+'" value="자격증 명" type="text" disabled style="width:200px; text-align: center; margin-left: 30px;">';
+       html += " </div>";
+       html += " </div>";
+	
+	  $(this).parent().prepend(html);
+	  cnt += 1
+	  
+	  }else{
+	  alert("자격증은 3개 이상 등록이 불가능합니다.")
+	  }
+	});
+	
+	
+	
+	
+	//체크값 불러오기	
+		var doc = "${data.EMP_DOC}";
+		var prcs = "${data.EMP_PRCS}";
+
+		for(var i =0; i<=3; i++) {
+			var docVal = "EMP_DOC"+i;
+			for(var b =0; b<doc.length; b++) {
+
+				/* var doca = doc[b]; */
+				if(doc[b] == document.getElementById(docVal).value){						
+					document.getElementById(docVal).setAttribute("checked",true);			
+			}
+		}
+	}
+		
+		for(var i =0; i<=3; i++) {
+			var prcsVal = "EMP_PRCS"+i;
+			for(var b =0; b<doc.length; b++) {
+
+				/* var prcsa = prcs[b]; */
+
+				if(prcs[b] == document.getElementById(prcsVal).value){						
+					document.getElementById(prcsVal).setAttribute("checked",true);
+					
+			}
+		}
+	}
+		
+		
+	
+	//이미지 파일 체크
+		
+	(function(){
+		var img = "${data.ATTCH_NAME}";
+	if(img != "") {
+		$("#empFileShow").attr("src","resources/upload/"+img);
+	}
+	
+	})();
+		
+
+/* 	//도시 체크
+	var city = "${data.CITY_NO}";
+	console.log("city값"+city);
+	var region = "${data.REGION_NO}";
+	var regionlenth;
+	for(var i =0; i<=15; i++) {
+		
+		var cityid = "CITY"+i;
+		console.log( document.getElementById(cityid).value);
+		if(city == document.getElementById(cityid).value){
+		document.getElementById(cityid).setAttribute("selected","selected");	
+		findregionAjax();
+		
+		console.log("renggggg"+$("option[name=REGION]").length);
+		
+		break;
+		}
+	}
+	
+	   $("select").each(function(idx) {
+		   if($(this).attr("selValue") != "") {
+			   $(this).val($(this).attr("selValue"));
+		   }
+	   });
+	 */
+	
+	
+/* 	
+	for(var i =0; i<20; i++) {
+		findregionAjax();
+		var regionid = "REGION"+i;
+		console.log(regionid);
+		if(region == document.getElementById(regionid).value){
+			document.getElementById(regionid).setAttribute("selected","selected");	
+			break;
+		
+		}
+	} */
+		
+
+	   if ($("#ATTCH_NAME").val() != "") {	 
 		   chkfileupt = 1;
 		   $("#showImgFileDiv").show();
 		   $("#empFileUpDelBtn").show();
@@ -640,16 +758,22 @@
 			location.href = "/mngancpage";
 		});
 	   
-	   
+		//파일이름정리
+		if($("#showName").val() != '') {
+			$("#showName").html($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+		}
+		
+		
+		
 	   //업로드 파일 삭제처리
 	   $("#empFileUpDelBtn").on("click",function(){
-		  
+		  alert("첨부파일이 삭제되었습니다");
 		   chkfileupt = 0;
 		   $("#showImgFileDiv").hide();
 		   $("#empFileUpDelBtn").hide();
 		   $("#empFileUploadBtn").show();
-		   $("#fileSNm").val("");
-		   $("#empFineName").val("");
+		   $("#showName").val("");
+		   $("#ATTCH_NAME").val("");
 	   });
 		
 				
@@ -678,7 +802,7 @@
 						
 						if(res.fileName.length >0) {
 							
-							$("#empFineName").val(res.fileName[0]);
+							$("#ATTCH_NAME").val(res.fileName[0]);
 							chkfileupt = 1;
 						   $("#showImgFileDiv").show();
 						   $("#empFileUpDelBtn").show();
@@ -695,7 +819,7 @@
 				}	
 			});
 			fileForm.submit();
-			$("#fileSNm").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+			$("#showName").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
 		});
 
 		
@@ -704,9 +828,13 @@
 		
 		$("#uptBtn").on("click",function(){
 			
+		if(confirm("수정 하시겠습니까?")){
+			
 			if(chkfinal()){
-			uptEmpAnncAjax();
-			}
+				uptEmpAnncAjax();
+				}
+		}
+		
 	});
 		
 		
@@ -747,7 +875,7 @@
 	function uptEmpAnncAjax() {
 		
 
-		var param = $("#uptForm1, #uptForm2, #uptForm3, #uptForm4, #uptForm6, #findregionAjax, #uptForm7").serialize();
+		var param = $("#uptForm1, #uptForm2, #uptForm3, #uptForm4, #uptForm6, #findregionAjax, #uptForm7, #empFileForm").serialize();
 		
 		$.ajax({
 			
@@ -758,7 +886,7 @@
 			success : function(res) {
 				
 				if(res.result == "success") {
-					alert("저장에 성공했습니다.");
+					alert("수정이 완료되었습니다.");
 					location.href = "mainpage";
 				}else if (res.result =="failed") {
 					alert("오류가 발생했습니다");
@@ -778,12 +906,85 @@
 	
 	function chkfinal() {
 		
-		if(numChk() && headlinechk() && headlinechk() && empGbnChk() && empPayChk() && empgraduChk() && empCarrChk() ){
+		if( dateChk() && numChk() && headlinechk() && headlinechk() && empGbnChk() && empPayChk() &&
+				empgraduChk() && empCarrChk() && areaChk() && opnChk() ){
 			return true;
 		} else {
 			return false;
 		}
 	}
+	
+	//날짜 입력 체크
+	function dateChk() {
+		
+
+		
+		if($("#REG_DATE").val() == "" || $("#DLINE").val() == "") {
+			alert("공고일 또는 마감일을 입력하여 주십시오");
+			return false;
+			
+		}else {
+			checkDate();
+		}
+			
+		
+	}
+	
+	//날짜 유효성
+	function checkDate() {
+		var Date1 = $("#REG_DATE").val();
+		var date1 = Date1.split("-");
+
+		var y1 = parseInt(date1[0],10);
+		var m1 = parseInt(date1[1],10);
+		var d1 = parseInt(date1[2],10);
+		
+		var Date2 = $("#DLINE").val();
+		var date2 = Date2.split("-");
+
+		var y2 = parseInt(date2[0],10);
+		var m2 = parseInt(date2[1],10);
+		var d2 = parseInt(date2[2],10);
+		
+		
+		var nowDate = new Date();
+		
+		var ny = nowDate.getFullYear();
+		var nm = nowDate.getMonth() + 1;
+		var nd = nowDate.getDate();
+
+		if(y1>y2 || ((y2==ny) && (y2>ny+1)) || y1 < ny || m1 > m2 || ((y2==y1) && (m2<nm)) ) {
+			
+			alert("날짜의 범위가 유효하지 않습니다.");
+			return false;
+		}
+		
+		
+		return true
+	}
+	
+	
+	//지역 선택여부
+	function areaChk() {
+		if($("#CITY").val == -1 || $("#CITY").val == "") {
+			alert("근무지역을 선택해 주십시오.");
+			return false;
+		}
+			return true;
+	}
+	
+	
+	//공개 여부 체크
+	
+	function opnChk(){
+	if($("#RECRUIT_GBN").val == -1 || $("#RECRUIT_GBN").val == "" ) {
+		alert("공개 여부를 설정하여 주십시오.");
+		return false;			
+	}
+	
+		return true;	
+}
+	
 	
 	
 	
@@ -807,7 +1008,8 @@
 			$("#EMP_PER").focus();
 			return false;
 		}
-		return true
+	
+			return true;
 }
 		
 
@@ -865,8 +1067,8 @@
 				$("#maxSal").focus();
 			}
 			return false;
-		}
-		 if ($("#sal1").is(":checked")) {
+		}	
+		 if ($("#sal1").is(":checked")  && $("#minSal").val() != "" && $("#maxSal").val() != "" ) {
 			
 			if(!chk.test($("#maxSal").val() || !chk.test($("#minSal").val()))){
 				alert("급여조건에 유효하지 않은 문자가 있거나 입력 범위를 초과했습니다.");
@@ -876,8 +1078,17 @@
 				return false;
 				
 			}		
+		} 
+		 
+		 if($("#minSal").val() > $("#maxSal").val()) {
+			alert("급여란의 범위가 잘못되었습니다.");
+			$("#minSal").val("");
+			$("#maxSal").val("");
+			$("#minSal").focus();
+			return false;
+			
 		}
-		
+
 		return true;
 		
 	}
@@ -897,11 +1108,13 @@
 	
 	//경력요건 확인
 	
-	var chk = RegExp(/^[0-9]{1,2}$/);
-	
+
 	function empCarrChk(){
+		var chk = RegExp(/^[0-9]{1,2}$/);
+		
 		if($("input[name=CARR]").is(":checked") == false ) {
 			alert("경력 요건란이 선택되지 않았습니다.");
+			$("input[name=CARR]").focus();
 			return false;
 		}	
 		if($("#career2").is(":checked") && $("#CARR_Y").val() =="" ) {
@@ -924,7 +1137,7 @@
 	
 	
 	//근무지 검색 Ajax 
-		
+	
 	function findregionAjax() {
 
 		
@@ -955,7 +1168,7 @@
 		});
 	}
 	
-// 지역목록 출력 
+	// 지역목록 출력 
 	function drawRegion(list){
 		
 		var html = "";
@@ -967,8 +1180,22 @@
 		
 		$("#REGION").html(html);
 	}
+/* 	function drawRegion(list){
+		
+		var html = "";
+		
+		for(data of list) {
+
+		 	for(var i =0; i i++){
+		 		
+		 		var regid = i;
 	
+		 	}
+		 	html += '<option value="'+data.REGION_NO+'" id=REGION_NO'+regid+'>'+data.REGION_NAME +'</option>'
+		$("#REGION").html(html);
+	}
 	
+	} */
 	
 	
  $(".list_wrap").on("click", "tr", function () {

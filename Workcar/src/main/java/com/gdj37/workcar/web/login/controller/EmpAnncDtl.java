@@ -22,10 +22,13 @@ public class EmpAnncDtl {
 	public ModelAndView empAncDtl(@RequestParam HashMap<String,String> params, ModelAndView mav) throws Throwable {
 		
 	HashMap<String,String> data = iempdtlser.empAncDtl(params);
+	List<HashMap<String,String>> qlist = iempdtlser.qaulList(params);
 	
+	System.out.println("toString"+qlist.toString());
 	
 	
 	mav.addObject("data",data);
+	mav.addObject("qlist",qlist);
 	mav.setViewName("myPage/corMypage/empAncDtl");
 	return mav;
 	}

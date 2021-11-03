@@ -239,7 +239,7 @@ function linkGo(url){
 					<table class="emp_attention">
 					</table>
 					<!-- <table class="company_grade"> -->
-					<form action="#" id="suggetEmpForm">
+					<form action="#" id="suggetResumeForm">
 					</form>
 					<table class="emp_suggest">
 							<tr>

@@ -14,12 +14,12 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/common/header.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css">
-    <link rel="stylesheet" href="resources/css/cormypage/empannc/empannc.css">
+    <link rel="stylesheet" href="resources/css/empannc/empannc.css">
     <link rel="stylesheet" type="text/css" href="resources/css/resume/pop.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script src="resources/script/empannc/header.js"></script>
-    <script src="resources/script/empannc/mainbox.js"></script>
-    <script src="resources/script/empannc/empannc.js"></script>
+     <script src="resources/script/cormypage/empannc/header.js"></script>
+    <script src="resources/script/cormypage/empannc/mainbox.js"></script>
+    <script src="resources/script/cormypage/empannc/empannc.js"></script>
     <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/sector.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/qual.js"></script>
@@ -176,7 +176,7 @@
 											<div class="name">
 												<div class="text">업종</div>
 												<div class="input">
-													<input type="HIDDEN" id="SECTOR_NO" name="SECTOR_NO" readonly />
+													<input type="text" id="SECTOR_NO" name="SECTOR_NO" readonly />
 													<input type="text" id="SECTOR_NAME" name="SECTOR_NAME" readonly />
 													<button type="button" id="sectorBtn" btn="s">업종 검색</button>
 												</div>
@@ -207,9 +207,9 @@
 													<label for="sal0">내규</label> 
 													<input type="radio" name="PAY_GBN" value="1" id="sal1"> 
 													<label for="sal1">일반</label>
-													<input type="text" placeholder="최저금액" id="minSal" name="PAY_MIN" disabled>만원
+													<input type="text" placeholder="최저금액" id="minSal" name="PAY_MIN" disabled>만 원
 													~ 
-													<input type="text" placeholder="최대금액" id="maxSal" name="PAY_MAX" disabled>만원
+													<input type="text" placeholder="최대금액" id="maxSal" name="PAY_MAX" disabled>만 원
 												</div>
 											</div>
 										</div>
@@ -256,10 +256,10 @@
 													<input type="radio"name="CARR" id="career1" value="1">
 													<label for="career1">신입</label>
 													<input type="radio" name="CARR" id="career2" value="2">
-													<label for="career2">경력 </label>
-												</div>
-												<div>
-													<input type="text" id="CARR_Y" NAME="CARR_Y" style="width:50px; height:20px;" disabled>년
+													<label for="career2">경력</label>
+												
+											
+													<input type="text" id="CARR_Y" NAME="CARR_Y" style="width:20px; height:20px;" disabled> 년
 												<!-- 	~ <input type="text" placeholder="0" id="maxCareer"
 														disabled>년 -->
 												</div>
@@ -295,7 +295,7 @@
 							enctype="multi/form-data">
 							<input type="file" accept="image/*" name="att" id="att">
 						</form> -->
-						<form action="empFileAploadAjax" method="post">
+						<form id="empFileForm" action="empFileAploadAjax" method="post">
 							<div class="content apply_dtl_attch" id="resumeAttach">
 								<div class="dtl">
 									<div class="header">첨부파일</div>
@@ -304,8 +304,8 @@
 										<div class="input_box ">
 											<!-- <input type="button" class="minus_btn" id="delBtn" value="－"> -->
 											<div class="data_container file_container">
-												파일이름 : <input type ="text" id="fileSNm" disabled>
-												<input type="hidden" id="empFineName">
+												파일이름 : <input type ="text" id="showName" name="showName" disabled>
+												<input type="hidden" id="ATTCH_NAME" name="ATTCH_NAME">
 												<button type="button" id="empFileUploadBtn">파일업로드</button>
 												<button type="button" id="empFileUpDelBtn">파일삭제</button>
 											</div>
@@ -395,13 +395,13 @@
 											<div class="start">
 												<div class="text">공고일</div>
 												<div class="input">
-													<input type="date" name="REG_DATE" size="5" placeholder="공고일">
+													<input type="date" name="REG_DATE" id="REG_DATE" size="5" placeholder="공고일">
 												</div>
 											</div>
 											<div class="end">
 												<div class="text">마감일</div>
 												<div class="input">
-													<input type="date" name="DLINE" placeholder="마감일">
+													<input type="date" name="DLINE" id="DLINE" placeholder="마감일">
 												</div>
 											</div>
 											<div class="method">
@@ -592,7 +592,38 @@
 		//자격증 개수 체크
 	   var cnt = 1;
 	   
-	   if ($("#empFineName").val() != "") {	 
+		
+		
+		
+		//자격증 
+	$("#addBtn1").on("click", function () {
+	  
+	    
+	    if(cnt <4){
+	    
+        let html = "";
+        html += '<div class="input_box " id="qualInput'+cnt+'" no="'+cnt+'" noName="qualNo">';
+        html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
+        html += '<div class="data_container">';
+        html += '<button type="button" id="qualBtn" no="'+cnt+'" >자격증검색</button>';
+        html += '<input class="qual_input" name="QUAL_NO" id="QUAL_NO'+cnt+'" type="hidden" readonly>';
+        html += '<input class="qual_input" name="QUAL_NAME" id="QUAL_NAME'+cnt+'" value="자격증 명" type="text" disabled style="width:200px; text-align: center; margin-left: 30px;">';
+        html += " </div>";
+        html += " </div>";
+	
+	  $(this).parent().prepend(html);
+	  cnt += 1
+	  
+	  }else{
+	  alert("자격증은 3개 이상 등록이 불가능합니다.")
+	  }
+	});
+		
+		
+		
+		
+		
+	   if ($("#ATTCH_NAME").val() != "") {	 
 		   chkfileupt = 1;
 		   $("#showImgFileDiv").show();
 		   $("#empFileUpDelBtn").show();
@@ -625,8 +656,8 @@
 		   $("#showImgFileDiv").hide();
 		   $("#empFileUpDelBtn").hide();
 		   $("#empFileUploadBtn").show();
-		   $("#fileSNm").val("");
-		   $("#empFineName").val("");
+		   $("#showName").val("");
+		   $("#ATTCH_NAME").val("");
 	   });
 		
 				
@@ -655,7 +686,7 @@
 						
 						if(res.fileName.length >0) {
 							
-							$("#empFineName").val(res.fileName[0]);
+							$("#ATTCH_NAME").val(res.fileName[0]);
 							chkfileupt = 1;
 						   $("#showImgFileDiv").show();
 						   $("#empFileUpDelBtn").show();
@@ -672,7 +703,7 @@
 				}	
 			});
 			fileForm.submit();
-			$("#fileSNm").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+			$("#showName").val($(this).val().substring($(this).val().lastIndexOf("\\")+1));
 		});
 
 		
@@ -682,9 +713,13 @@
 		$("#uptBtn").on("click",function(){
 			
 			if(chkfinal()){
+			confirm("저장하시겠습니까?");
 			uptEmpAnncAjax();
 			}
+			
+			
 	});
+		
 		
 		
 		
@@ -724,7 +759,7 @@
 	function uptEmpAnncAjax() {
 		
 
-		var param = $("#uptForm1, #uptForm2, #uptForm3, #uptForm4, #uptForm6, #findregionAjax, #uptForm7").serialize();
+		var param = $("#uptForm1, #uptForm2, #uptForm3, #uptForm4, #uptForm6, #findregionAjax, #uptForm7, #empFileForm").serialize();
 		
 		$.ajax({
 			
@@ -755,13 +790,87 @@
 	
 	function chkfinal() {
 		
-		if(numChk() && headlinechk() && headlinechk() && empGbnChk() && empPayChk() && empgraduChk() && empCarrChk() ){
+		if( dateChk() && numChk() && headlinechk() && headlinechk() && empGbnChk() && empPayChk() &&
+				empgraduChk() && empCarrChk() && areaChk() && opnChk() ){
 			return true;
 		} else {
 			return false;
 		}
 	}
 	
+	
+	//날짜 입력 체크
+	function dateChk() {
+		
+
+		
+		if($("#REG_DATE").val() == "" || $("#DLINE").val() == "") {
+			alert("공고일 또는 마감일을 입력하여 주십시오");
+			return false;
+			
+		}else {
+			checkDate();
+		}
+			
+		
+	}
+	
+	
+	//날짜 유효성
+	function checkDate() {
+		var Date1 = $("#REG_DATE").val();
+		var date1 = Date1.split("-");
+
+		var y1 = parseInt(date1[0],10);
+		var m1 = parseInt(date1[1],10);
+		var d1 = parseInt(date1[2],10);
+		
+		var Date2 = $("#DLINE").val();
+		var date2 = Date2.split("-");
+
+		var y2 = parseInt(date2[0],10);
+		var m2 = parseInt(date2[1],10);
+		var d2 = parseInt(date2[2],10);
+		
+		
+		var nowDate = new Date();
+		
+		var ny = nowDate.getFullYear();
+		var nm = nowDate.getMonth() + 1;
+		var nd = nowDate.getDate();
+		if(y1>y2 || ((y2==ny) && (y2>ny+1)) || y1 < ny || m1 > m2 || ((y2==y1) && (m2<nm)) ) {
+			
+			alert("날짜의 범위가 유효하지 않습니다.");
+			return false;
+		}
+		
+		
+		return true
+	}
+	
+	
+
+	//지역 선택여부
+	function areaChk() {
+		if($("#CITY").val == -1 || $("#CITY").val == "") {
+			alert("근무지역을 선택해 주십시오.");
+			return false;
+		}
+			return true;
+	}
+	
+	
+	
+	//공개 여부 체크
+	
+	function opnChk(){
+	if($("#RECRUIT_GBN").val == -1 || $("#RECRUIT_GBN").val == "" ) {
+		alert("공개 여부를 설정하여 주십시오.");
+		return false;			
+	}
+	
+		return true;	
+}
 	
 	
 	//모집인원 체크
@@ -784,7 +893,8 @@
 			$("#EMP_PER").focus();
 			return false;
 		}
-		return true
+	
+			return true;
 }
 		
 
@@ -842,8 +952,8 @@
 				$("#maxSal").focus();
 			}
 			return false;
-		}
-		 if ($("#sal1").is(":checked")) {
+		}	
+		 if ($("#sal1").is(":checked")  && $("#minSal").val() != "" && $("#maxSal").val() != "" ) {
 			
 			if(!chk.test($("#maxSal").val() || !chk.test($("#minSal").val()))){
 				alert("급여조건에 유효하지 않은 문자가 있거나 입력 범위를 초과했습니다.");
@@ -853,8 +963,17 @@
 				return false;
 				
 			}		
+		} 
+		 
+		 if($("#minSal").val() > $("#maxSal").val()) {
+			alert("급여란의 범위가 잘못되었습니다.");
+			$("#minSal").val("");
+			$("#maxSal").val("");
+			$("#minSal").focus();
+			return false;
+			
 		}
-		
+
 		return true;
 		
 	}
@@ -874,11 +993,13 @@
 	
 	//경력요건 확인
 	
-	var chk = RegExp(/^[0-9]{1,2}$/);
-	
+
 	function empCarrChk(){
+		var chk = RegExp(/^[0-9]{1,2}$/);
+		
 		if($("input[name=CARR]").is(":checked") == false ) {
 			alert("경력 요건란이 선택되지 않았습니다.");
+			$("input[name=CARR]").focus();
 			return false;
 		}	
 		if($("#career2").is(":checked") && $("#CARR_Y").val() =="" ) {

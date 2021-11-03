@@ -16,6 +16,12 @@ public interface IEmpAnncDAO {
 	 * int uptEmpQual(HashMap<String, String> params) throws Throwable;
 	 */
 
+	int uptDocBox(HashMap<String, Object> docBox) throws Throwable;
+
+	int uptEmpBox(HashMap<String, Object> prcsBox) throws Throwable;
+
+	int uptAttchFile(HashMap<String, String> params) throws Throwable;
+
 	
 
 }

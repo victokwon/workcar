@@ -141,13 +141,10 @@
                 
                 <div class="main_box">
                 
-                    <table class="job_post_tab">
+                <table class="job_post_tab">
                    <c:forEach var ="data" items="${list}"> 
-
-                        <tr id="dtlBody" EMP_NO="${data.EMP_NO}">
+                        <tr id="dtlBody" >
                             <td jobPostNo="1">
-		                   		<input type="hidden" id="EMP_NOO" value="${data.EMP_NO}">
-		                   		<input type="hidden" id="MEM_NOO"  value="${data.MEM_NO}">
                                 <div class="job_post_list">
                                     <div class="logo"></div>
                                     <div class="dtl_box">
@@ -190,10 +187,12 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                        
                                     </div>
                                     <div class="button_container">
                                         <div class="job_post_state">${data.OPNCHK}</div>
-                                        <div class="button_box"> 
+                                        <div class="button_box" eno="${data.EMP_NO}" rno="${data.MEM_NO}"> 
                                             <button id="openDtl">열람</button>
                                             <button id="delDtl">삭제</button>
                                         </div>
@@ -303,38 +302,35 @@ $(document).ready(function(){
 	
 	btnchk =null;
 	
-	$("#dtlBody").on("click","#delDtl",function(){
-		var empno = $("#EMP_NOO").val();
-		var memno = $("#MEM_NOO").val();
-		$("#EMP_NO").val(empno);
-		$("#MEM_NO").val(memno);
-		
-		if(confirm("삭제하시겠습니까?")) {			
-			 delEmpAnc();
-		}
-		
-	});
-	
-	$("#dtlBody").on("click","#openDtl",function(){
-		var empno = $("#EMP_NOO").val();
-		var memno = $("#MEM_NOO").val();
-		$("#EMP_NO").val(empno);
-		$("#MEM_NO").val(memno);
+	$(".job_post_tab").on("click","#openDtl",function(){
+		$("#EMP_NO").val($(this).parent().attr("eno"));
+		$("#MEM_NO").val($(this).parent().attr("rno"));
 		
 		$("#empancDtl").attr("action","empAncDtl");
 		$("#empancDtl").submit();
 		
+
+		
+		
 	});
+	
+	$(".job_post_tab").on("click","#delDtl",function(){
+		$("#EMP_NO").val($(this).parent().attr("eno"));
+		$("#MEM_NO").val($(this).parent().attr("rno"));
+
+		if(confirm("삭제하시겠습니까?")) {			
+			 delEmpAnc();
+		}
+	});
+	
+
 	
 	$("#writeBtn").click(function(){
 		
 		location.href ="empannc";
 	});
 	
-	$("#openDtl").click(function(){
-		location.href="empAncDtl";
-	});
-	
+
 });
 
 
@@ -360,11 +356,6 @@ function delEmpAnc(){
 		error : function(request,status,error) {
 			console.log(error);
 		}
-		
-		
-	
-		
-		
 		
 	});
 	

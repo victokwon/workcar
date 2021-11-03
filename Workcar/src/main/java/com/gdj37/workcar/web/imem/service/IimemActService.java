@@ -1,4 +1,4 @@
-package com.gdj37.workcar.web.imemAct.service;
+package com.gdj37.workcar.web.imem.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +14,8 @@ public interface IimemActService {
 
 	public int getRecepReqCnt(HashMap<String, String> params)throws Throwable;
 	public List<HashMap<String, String>> getRecepReq(HashMap<String, String> params)throws Throwable;
+
+	public int recepReqRefuse(HashMap<String, String> params)throws Throwable;
 
 
 }

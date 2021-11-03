@@ -12,6 +12,10 @@ $(function(){
 		$("#recepReqForm").submit()
 	})
    
+   	$(".recepReq").on("click", "#refuseBtn",function(){
+		$("#goEmpNo").val($(this).attr("eNo"))
+		recepReqRefuse() 
+	})
     
 })   
     
@@ -30,6 +34,7 @@ function getRecepReq(){
      		drawRecepReqList(res.list, res.cnt)
      		$("#page").val(res.page)
      		if(res.cnt != '0'){
+     		console.log(res.pb)
      			drawPaging(res.pb)
      		}
      	}else if(res.result == "FAILED"){
@@ -46,7 +51,6 @@ function getRecepReq(){
 
 function drawRecepReqList(list, cnt) {
 	let html = ""
-	
 	
 	
 	
@@ -101,32 +105,22 @@ function drawRecepReqList(list, cnt) {
 	    html += '                                  <div class="button_box">                                                             '
 	    html += '                                      <button type="button" id="goEmpBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" >확인</button>             '
 	    html += '                                  </div>                                                                               '
-	    html += '                                  <div class="button_box">                                                             '
-		html += '                                      <button type="button" id="tApplyBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" >지원</button>             '
-	    html += '                                      <button type="button" id="refuseBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" >거절</button>             '
-	    html += '                                  </div>                                                                               '
+	    if(data.REFUSE_CHK != 1){
+		    html += '                                  <div class="button_box">                                                             '
+			html += '                                      <button type="button" id="tApplyBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" >지원</button>             '
+		    html += '                                      <button type="button" id="refuseBtn" class="b_hover" mNo="'+data.MEM_NO+'" eNo="'+data.EMP_NO+'" >거절</button>             '
+		    html += '                                  </div>                                                                               '
+	    }
 	    html += '                              </div>                                                                                   '
 	    html += '                          </div>                                                                                       '
 	    html += '                      </td>                                                                                            '
 	    html += '                  </tr>                                                                                                '
-	
+		}
 		
 	
                                      
 	
 	
-		$(".star_rating").each(function(idx){
-		let score = $(this).attr("score")
-			html = ''
-		for(let i = 0; i<Math.round(score); i++){
-			html+= '	    <span class="fa fa-star checked"></span>             '
-		}
-		for(let i = 0; i<5-Math.round(score); i++){
-			html+= '	    <span class="fa fa-star"></span>             '
-		}
-		$(this).html(html)
-	})
-	}
 	
 	
 		$(".recepReq").html(html)
@@ -179,18 +173,19 @@ function drawPaging(pb) {
 
 
 
-function recepReqUpdate(act){
-	let params = $("#prcssForm").serialize()
+function recepReqRefuse(){
+
+	let params = $("#recepReqForm").serialize()
 	
 	$.ajax({
     type: "POST",
     data: params,
-    url: "updaterecepReqAjax",
+    url: "recepReqRefuseAjax",
     dataType: "json",
     success: function (res) {
      	if(res.result == "SUCCESS"){
 			alert("처리에 성공했습니다.")
-				getRecepReq()
+				getRecepReq()	
      	}else if(res.result == "FAILED"){
      		alert("처리에 실패했습니다.")
      	}

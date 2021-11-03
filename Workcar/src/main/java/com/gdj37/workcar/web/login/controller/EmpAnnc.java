@@ -84,39 +84,101 @@ public class EmpAnnc {
 	@RequestMapping(value="/uptEmpAnncAjax",method=RequestMethod.POST, produces ="text/json; UTF-8")
 	public String uptEmpAnncAjax (@RequestParam HashMap<String,String> params,
 			@RequestParam(required =false)String[] QUAL_NO,
-			@RequestParam List<String> prcsChkkBox,
-			@RequestParam List<String> DocChkkBox
-			/*@RequestParam(required=false)String[] EMP_DOC,
-			@RequestParam(required=false)String[] EMP_PRCS*/) throws Throwable {
+			@RequestParam(required=false)String[] EMP_DOC,
+			@RequestParam(required=false)String[] EMP_PRCS
+			) throws Throwable {
 		
 		int cnt = 0;
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String,Object> modelMap = new HashMap<String,Object>();
 		HashMap<String,Object> empQual;
+		HashMap<String,Object> docBox;
+		HashMap<String,Object> prcsBox;
 		String result = "success";
 
+			
+			if (EMP_DOC != null) {
+				String Doc = "";	
+				for (int i = 0; i < EMP_DOC.length; i++) {
+
+					Doc += EMP_DOC[i];
+					if (i + 1 != EMP_DOC.length) {
+
+						Doc += ",";
+					}
+					params.put("EMP_DOC", Doc);
+				}
+			}
+						
+			if (EMP_PRCS != null) {
+				String Prcs = "";
+				for (int i = 0; i < EMP_PRCS.length; i++) {
+
+					Prcs += EMP_PRCS[i];
+					if (i + 1 != EMP_PRCS.length) {
+
+						Prcs += ",";
+					}
+					params.put("EMP_PRCS", Prcs);
+				}
+			}
+		
+			
+			//System.out.println("EMP_DOCCCCC : " +params.get("EMP_DOC"));
+			//System.out.println("EMP_DOCCCCC : " +params.get("EMP_PRCS"));
+		
+		
 		
 		try {
 				cnt += iempannc.uptEmpAnncAjax(params);
+				cnt += iempannc.uptAttchFile(params);
+				 System.out.println("paaaaaaaam"+params);	
 				
-				
-				if(cnt>0) {
+				if(cnt == 2) {
 					empQual = new HashMap<String,Object>();
 					empQual.put("EMP_NO",params.get("EMP_NO"));
 					for(int i =0; i<QUAL_NO.length; i++) {		
 						empQual.put("QUAL_NO",QUAL_NO[i]);
-						cnt= iempannc.uptEmpQual(empQual);
-				}
+						cnt+= iempannc.uptEmpQual(empQual);
+						
+		
+					}
 					
-				if(cnt>0) {
-					
-					
-				}
-				
 			}
 				
+				
+
+				
+				
+
+
+					
+					
+
+	/*			} else if(cnt>0) {
+					docBox = new HashMap<String,Object>();
+					docBox.put("EMP_DOC",params.get("EMP_DOC"));
+					for(int i =0; i<QUAL_NO.length; i++) {		
+						docBox.put("EMP_DOC",QUAL_NO[i]);
+						cnt= iempannc.uptDocBox(docBox);
+		
+					}
+				
+				}
+				
+				 else if(cnt>0) {
+					 prcsBox = new HashMap<String,Object>();
+					 prcsBox.put("EMP_DOC",params.get("EMP_DOC"));
+					for(int i =0; i<QUAL_NO.length; i++) {		
+						prcsBox.put("EMP_DOC",QUAL_NO[i]);
+						cnt= iempannc.uptEmpBox(prcsBox);
+		
+					}
+				
+				}*/
+				
 		//	System.out.println("Cnt :" + cnt);
-			if(cnt == 0) {
+			if(cnt != 3) {
 				result = "failed";
 			}
 		} catch (Exception e) {

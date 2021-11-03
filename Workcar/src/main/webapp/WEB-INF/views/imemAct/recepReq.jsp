@@ -168,7 +168,7 @@ function linkGo(url){
 			<button type="button" class="main_button" onclick="linkGo('')">계정관리</button>
 			<button type="button" class="main_button" onclick="linkGo('resumeList')">이력서관리</button>
 			<button type="button" class="main_button" onclick="linkGo('recepReq')">활동내역</button>
-			<button type="button" class="main_button" onclick="linkGo('')">관심정보</button>
+			<button type="button" class="main_button" onclick="linkGo('empsugget')">관심정보</button>
 		</div>
 		
 		<div class="main_info">
@@ -182,11 +182,11 @@ function linkGo(url){
 				<div class="main_box">
 					<div class="inner_wrap">
 						<table class="recepReq">
-						<tr>
-							<td>
-								<div class="zero">처리할 내용이 없습니다.</div>
-							</td>
-						</tr>
+							<tr>
+								<td>
+									<div class="zero">처리할 내용이 없습니다.</div>
+								</td>
+							</tr>
 						</table>
 					</div>
 					

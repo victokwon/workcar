@@ -32,7 +32,7 @@ public class MngEmpAnc {
 		
 		if(session.getAttribute("sMNo")!= null) {
 			String memberNo = String.valueOf(session.getAttribute("sMNo"));
-			System.out.println("memberNO"+memberNo);
+	//System.out.println("memberNO"+memberNo);
 		HashMap<String,String> data = imycorpser.cMemberDtl(memberNo);
 		List<HashMap<String,String>> list = imngser.empAncList(memberNo);
 		//System.out.println("list list"+ list.toString());

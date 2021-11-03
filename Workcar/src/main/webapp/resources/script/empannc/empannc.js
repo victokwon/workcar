@@ -27,7 +27,7 @@ var cnt = 1;
     }
   });*/
 
-  // 자격증 1
+/*  // 자격증 1
 	$("#addBtn1").on("click", function () {
 	  
 	    
@@ -38,8 +38,8 @@ var cnt = 1;
         html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
         html += '<div class="data_container">';
         html += '<button type="button" id="qualBtn" no="'+cnt+'" >자격증검색</button>';
-        html += '<input class="qual_input" name="QUAL_NO[]" id="QUAL_NO'+cnt+'" type="hidden" readonly>';
-        html += '<input class="qual_input" name="QUAL_NAME[]" id="QUAL_NAME'+cnt+'" value="자격증 명" type="text" disabled style="width:200px; text-align: center; margin-left: 30px;">';
+        html += '<input class="qual_input" name="QUAL_NO" id="QUAL_NO'+cnt+'" type="hidden" readonly>';
+        html += '<input class="qual_input" name="QUAL_NAME" id="QUAL_NAME'+cnt+'" value="자격증 명" type="text" disabled style="width:200px; text-align: center; margin-left: 30px;">';
         html += " </div>";
         html += " </div>";
 	
@@ -49,7 +49,7 @@ var cnt = 1;
 	  }else{
 	  alert("자격증은 3개 이상 등록이 불가능합니다.")
 	  }
-	});
+	});*/
 
   // 첨부파일 2
   $("#addBtn7").on("click", function () {

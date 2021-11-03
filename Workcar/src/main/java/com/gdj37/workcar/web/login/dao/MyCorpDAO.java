@@ -88,8 +88,8 @@ public class MyCorpDAO implements IMyCorpDAO {
 	}
 
 	@Override
-	public HashMap<String, String> getSuggetEmp(HashMap<String, Object> params) throws Throwable {
-		return sqlSession.selectOne("mycorp.getSuggetEmp",params);
+	public HashMap<String, String> getsuggetResume(HashMap<String, Object> params) throws Throwable {
+		return sqlSession.selectOne("mycorp.getsuggetResume",params);
 	}
 
 	@Override
