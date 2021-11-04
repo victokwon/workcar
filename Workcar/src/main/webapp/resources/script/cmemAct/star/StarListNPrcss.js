@@ -69,7 +69,7 @@ function drawGrdList(list, cnt) {
 	    html += '                                          <div class="row">                                                            '
 	    html += '                                              <div class="text">평점</div>                                         '
 	    html += '                                              <div class="data title"> '
-	    html+= '	<div class="star_rating" score="'+(data.WLB+ data.PROMO_POSS + data.C_CULT + data.WFARE_PAY + data.MGM)/5+'">                        '
+	    html+= '	<div class="star_rating_list" score="'+(data.WLB+ data.PROMO_POSS + data.C_CULT + data.WFARE_PAY + data.MGM)/5+'">                        '
 		html+= '	</div>                                           '
 	    html += '                                              </div>                              '
 	    html += '                                          </div>                                                                       '
@@ -116,7 +116,7 @@ function drawGrdList(list, cnt) {
 	
 	$(".staring").html(html)
 	
-	$(".star_rating").each(function(idx){
+	$(".star_rating_list").each(function(idx){
 		let score = $(this).attr("score")
 			html = ''
 		for(let i = 0; i<Math.round(score); i++){

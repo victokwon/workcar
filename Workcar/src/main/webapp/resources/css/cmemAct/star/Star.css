@@ -408,7 +408,7 @@ table .button_container .button_box button
 }
 
 /* 평점 */
- .star_rating .checked{
+ .star_rating_list .checked{
 	color: gold;
 } 
 	

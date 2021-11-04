@@ -167,17 +167,6 @@ function linkGo(url){
 		</div>
 	</header>
 	<main>
-		<div class="main_wrap">
-			<div class="user_wrap">
-				<div class="user_box">
-					<div class="user_profile"></div>
-					<div class="user">
-						<div class="user_name"></div>
-						<div class="user_status"></div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div id="test"></div>
 		<div class="main_button_box">
 			<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>

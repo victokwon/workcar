@@ -151,7 +151,7 @@ function linkGo(url){
 		</div>
 	</header>
 	<main>
-		<div class="main_wrap">
+<!-- 		<div class="main_wrap">
 			<div class="user_wrap">
 				<div class="user_box">
 					<div class="user_profile"></div>
@@ -161,7 +161,7 @@ function linkGo(url){
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div id="test"></div>
 		<div class="main_button_box">
 			<button type="button" class="main_button" onclick="linkGo('')">계정관리</button>

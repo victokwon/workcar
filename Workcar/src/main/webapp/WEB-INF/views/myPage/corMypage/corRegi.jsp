@@ -110,23 +110,12 @@ function linkGo(URL){
 		</div>
 	</header>
 	<main>
-		<div class="main_wrap">
-			<div class="user_wrap">
-				<div class="user_box">
-					<div class="user_profile"></div>
-					<div class="user">
-						<div class="user_name"></div>
-						<div class="user_status"></div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<!-- Tab 버튼 태그 -->
 			<div class="main_button_box">
-				<button type="button" id="cmyinfopage" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
-				<button type="button"  class="main_button" onclick="linkGo('mngancpage')">이력서관리</button>
-				<button type="button" class="main_button" onclick="linkGo('recepReq')">활동내역</button>
-				<button type="button" class="main_button" onclick="linkGo('empsugget')">관심정보</button>
+				<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
+				<button type="button" class="main_button" onclick="linkGo('empannc')">이력서관리</button>
+				<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
+				<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
 			</div>
 			<!-- 메인 -->
 			<div class="main_info">

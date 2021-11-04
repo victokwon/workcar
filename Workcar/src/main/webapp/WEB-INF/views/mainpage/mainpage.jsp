@@ -16,8 +16,6 @@
 <link rel="stylesheet" type="text/css"
 	href="resources\css\common\sidebar.css">
 <link rel="stylesheet" type="text/css"
-	href="resources\css\mainpage\searchbar.css">
-<link rel="stylesheet" type="text/css"
 	href="resources\css\mainpage\mainpage.css">
 
 <script type="text/javascript"
@@ -147,29 +145,7 @@
 	<!-- 	<button id="iMBtn">개인</button>
 	<button id="cMBtn">기업</button>
 	<button id="mMBtn">관리자</button> -->
-	<!-- 서치바 -->
 
-	<!-- 검색작업 -->
-	<div class="search_wrap">
-		<div class="main_search_bar">
-			<form action="#" id="mainSearchForm">
-				<!-- <div class="search_img"></div> -->
-				<!-- 메인서치 -->
-				<input type="text"  name="" placeholder="  채용, 기업, 인재 등"
-					autocomplete="off"> <input type="button" id="mainSearchBtn"
-					value="검색">
-				<!-- 자동검색-ajax-keyup, 코어태그 작성? -->
-				<div class="auto_search_wrap">
-					<!-- 데이터로 자동 그리기, 링크 -->
-					<ul>
-						<li onclick="linkGo('')">검색1</li>
-						<li onclick="linkGo('')">검색2</li>
-						<li onclick="linkGo('')">검색3</li>
-					</ul>
-				</div>
-			</form>
-		</div>
-	</div>
 
 	<!-- 메인 -->
 	<main>
