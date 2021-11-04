@@ -108,54 +108,57 @@
    </div>
    <div class="side_bcc" id="side_bcc" onclick="closeNav()"></div>
 
-   <header>
-      <!-- 네비게이션바 -->
-      <div class="topnav">
+	<header>
+		<!-- 네비게이션바 -->
+		<div class="topnav">
 
-         <!-- 로고 -->
-         <div class="topnav-centered">
-            <div class="logo_img"></div>
-         </div>
+			<!-- 로고 -->
+			<div class="topnav-centered">
+				<div class="logo_img" onclick="linkGo('mainpage')"></div>
+			</div>
 
-         <!-- 왼쪽 -->
-         <div class="hambuger" onclick="openNav()" id="hambuger_left">
-            <div></div>
-            <div></div>
-            <div></div>
-         </div>
-         <c:choose>
-            <c:when test="${sMTy eq 0}">
-               <div class="topnav-right">
-                  <div class="alarm"></div>
-                  <a href="#iMemMypage"><strong>마이페이지</strong></a>
-                  <div class="profile" ></div>
-                  <strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-               </div>
-            </c:when>
-            <c:when test="${sMTy eq 1 || sMTy eq 2}">
-               <div class="topnav-right">
-                  <div class="alarm"></div>
-                  <a href="#cMemMypage"><strong>마이페이지</strong></a>
-                  <div class="profile"></div>
-                  <strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-               </div>
-            </c:when>
-            <c:when test="${sMTy eq 3}">
-               <div class="topnav-right">
-                  <div class="alarm"></div>
-                  <a href="#mngMypage"><strong>마이페이지</strong></a>
-                  <div class="profile"></div>
-                  <strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-               </div>
-            </c:when>
-            <c:otherwise>
-               <div class="topnav-right">
-                  <a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
-               </div>
-            </c:otherwise>
-         </c:choose>
-      </div>
-   </header>
+			<!-- 왼쪽 -->
+			<div class="hambuger" onclick="openNav()" id="hambuger_left">
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+
+			<!-- 오른쪽 -->
+			<!-- 링크작업 -->
+			<c:choose>
+				<c:when test="${sMTy eq 0}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 1 || sMTy eq 2}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:when test="${sMTy eq 3}">
+					<div class="topnav-right">
+						<div class="alarm"></div>
+						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<div class="profile"></div>
+						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="topnav-right">
+						<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
+					</div>
+				</c:otherwise>
+			</c:choose>
+		</div>
+	</header>
 
    <main>
       <div class="main_button_box">
