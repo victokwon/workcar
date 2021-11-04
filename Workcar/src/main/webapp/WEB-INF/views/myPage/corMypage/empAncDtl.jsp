@@ -25,7 +25,11 @@
     <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/sector.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/qual.js"></script>
-    
+    <script type="text/javascript">
+    	function linkGo(url) {
+			location.herf = url
+		}
+    </script>
 </head>
 
 <body>
@@ -76,24 +80,21 @@
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
@@ -111,7 +112,7 @@
 		<div class="main_button_box">
 			<div class="main_button_box">
 				<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
-				<button type="button" class="main_button" onclick="linkGo('empannc')">이력서관리</button>
+				<button type="button" class="main_button" onclick="linkGo('mngancpage')">채용공고</button>
 				<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
 				<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
 			</div>

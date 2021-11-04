@@ -79,12 +79,32 @@ header{
     background-size: cover;
 }
 
-.profile{
+.im_profile{
 	width: 30px;
 	height: 30px;
 	margin: 5px;
 	border-radius: 50%;
- 	background-image: url(../../images/common/wprofile.png);
+ 	background-image: url(../../images/common/im_profile.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.cm_profile{
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+	border-radius: 50%;
+ 	background-image: url(../../images/common/cm_profile.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.mng_profile{
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+	border-radius: 50%;
+ 	background-image: url(../../images/common/mng_profile.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

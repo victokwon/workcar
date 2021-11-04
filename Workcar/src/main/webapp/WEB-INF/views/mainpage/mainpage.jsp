@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>일력거</title>
 <link rel="stylesheet" type="text/css"
 	href="resources\css\common\default.css">
 <link rel="stylesheet" type="text/css"
@@ -61,7 +61,7 @@
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<ul>
-						<div onclick="linkGo('')">마이페이지</div>
+						<div onclick="linkGo('resumeLists')">마이페이지</div>
 						<li onclick="linkGo('')">계정관리</li>
 						<li onclick="linkGo('resumeLists')">이력서관리</li>
 						<li onclick="linkGo('recepReq')">활동내역</li>
@@ -72,7 +72,7 @@
 					<ul>
 						<div onclick="linkGo('cmyinfopage')">마이페이지</div>
 						<li onclick="linkGo('cmyinfopage')">계정관리</li>
-						<li onclick="linkGo('empannc')">채용공고</li>
+						<li onclick="linkGo('mngancpage')">채용공고</li>
 						<li onclick="linkGo('sendReq')">활동내역</li>
 						<li onclick="linkGo('cmemAttnd')">관심정보</li>
 					</ul>
@@ -114,15 +114,15 @@
 					<div class="topnav-right">
 						<!-- <div class="alarm"></div> -->
 						<a href="resumeList"><strong >마이페이지</strong></a>
-						<div class="profile"></div>
+						<div class="im_profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
 						<!-- <div class="alarm"></div> -->
-						<a href="empannc"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
+						<a href="cmyinfopage"><strong>마이페이지</strong></a>
+						<div class="cm_profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
@@ -130,7 +130,7 @@
 					<div class="topnav-right">
 						<!-- <div class="alarm"></div> -->
 						<a href="manageMemberList"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
+						<div class="mng_profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
@@ -221,7 +221,7 @@
 									<span>계정관리</span>
 								</div>
 							</div>
-							<div class="menu_card" onclick="linkGo('empannc')">
+							<div class="menu_card" onclick="linkGo('mngancpage')">
 								<div class="wrap">
 									<div class="img_job_post"></div>
 								</div>

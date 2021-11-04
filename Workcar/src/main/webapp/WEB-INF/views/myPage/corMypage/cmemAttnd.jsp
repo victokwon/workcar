@@ -170,7 +170,7 @@ function linkGo(url){
 		<div id="test"></div>
 		<div class="main_button_box">
 			<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
-			<button type="button" class="main_button" onclick="linkGo('empannc')">이력서관리</button>
+			<button type="button" class="main_button" onclick="linkGo('mngancpage')">채용공고</button>
 			<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
 			<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
 		</div>

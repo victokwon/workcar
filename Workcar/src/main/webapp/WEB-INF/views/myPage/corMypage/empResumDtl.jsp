@@ -26,39 +26,27 @@
 <script type="text/javascript" src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript">
    $(function() {
-      if("${msg}"!=""){
-         alert(${msg})
-      }
-      console.log()
-	    if("${DATA.PROF_PIC}"!=""){
-	    	$("#profile").attr("style", "background-image: url(resources/upload/${DATA.PROF_PIC }")
-	    }
-	    
       $("#resumeList").on("click","div",function(){
          let resumeNo = $(this).attr("resumeNo")
          $("#resumeNo").val(resumeNo)
          $("#actGbn").val("Dtl")
-         $("#resumeGo").attr("action", "resumeDtl")
+         $("#empResumeGo").attr("action", "resumeDtl")
          $("#resumeGo").submit()
       })
-      
-      $("#updateBtn").on("click",function(){
-         $("#actGbn").val("Up")
-         $("#resumeGo").attr("action", "resumeDtl")
-         $("#resumeGo").submit()
-      })
-      
 
    })
 
    function linkGo(url) {
       location.href = url
    }
+   function linkBack() {
+		history.back()   
+	}
 </script>
 </head>
 
 <body>
-   <form action="#" id="resumeGo" method="post">
+   <form action="#" id="empResumeGo" method="post">
       <input type="hidden" id="memNo" name="memNo" value="${sMNo}">
       <input type="hidden" id="resumeNo" name="resumeNo" value="${DATA.RESUM_NO }">
       <input type="hidden" id="actGbn" name="actGbn" >
@@ -170,25 +158,36 @@
    </header>
 
    <main>
-      <div class="main_wrap">
-         <div class="user_wrap">
-            <div class="user_box">
-               <div class="user_profile" ></div>
-               <div class="user">
-                  <div class="user_name"></div>
-                  <div class="user_status"></div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <div id="test"></div>
       <div class="main_button_box">
-         <button type="button" class="main_button">계정관리</button>
-         <button type="button" class="main_button" id="defaultOpen" onclick="linkGo('resumeList')">이력서관리</button>
-         <button type="button" class="main_button">활동내역</button>
-         <button type="button" class="main_button">관심정보</button>
+			<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
+			<button type="button" class="main_button" onclick="linkGo('mngancpage')">채용공고</button>
+			<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
+			<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
       </div>
       <div class="main_info">
+	      
+	      <div class="vertical_menu">
+	               <table id="resumeList">
+	                  <c:forEach var="data" items="${LIST }">
+	                     <tr>
+	                        <td>
+	                           <div resumeNo="${data.RESUM_NO }">
+	                              <a href="#">${data.RESUM_NAME }</a>
+	                           </div>
+	                        </td>
+	                     </tr>
+	                  </c:forEach>
+	                  <c:if test="${CNT < 5  }">
+	                     <tr>
+	                        <td>
+	                           <div class="apply_list">
+	                              <a href="resumeDtlAdd" id="addBtn"> 추가 </a>
+	                           </div>
+	                        </td>
+	                     </tr>
+	                  </c:if>
+	               </table>
+	            </div>
 
          <div id="main_apply" class="main_content">
             <div class="vertical_menu">
@@ -202,15 +201,6 @@
                         </td>
                      </tr>
                   </c:forEach>
-                  <c:if test="${CNT < 5  }">
-                     <tr>
-                        <td>
-                           <div class="apply_list">
-                              <a href="resumeDtlAdd" id="addBtn"> 추가 </a>
-                           </div>
-                        </td>
-                     </tr>
-                  </c:if>
                </table>
             </div>
             <!-- form 내부의 button 동작 막기 -->
@@ -222,8 +212,13 @@
                      <span class="apply_dtl_date">&nbsp;[${DATA.OPN_CHK_NAME}]</span>
                   </div>
                   <div class="apply_btn">
-                     <button type="button" id="updateBtn">수정</button>
-                     <button type="button" id="listBtn" onclick="linkGo('resumeList')">목록</button>
+                  		<select id="" name="" selValue="${ DATA.PRCSS_STATE}">
+                  			<option value="0">미처리</option>
+                  			<option value="1">서류합격</option>
+                  			<option value="2">불합겨</option>
+                  		</select>
+                     <button type="button" id="prcssBtn">처리</button>
+                     <button type="button" id="listBtn" onclick="linkBack()">뒤로</button>
                   </div>
                </div>
                <!-- form 설정 -->

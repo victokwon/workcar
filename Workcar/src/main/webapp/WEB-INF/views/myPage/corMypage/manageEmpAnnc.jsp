@@ -20,6 +20,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="resources/script/cormypage/empannc/mainbox.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/mngempanc/mngempanc.js"></script>
+    <script type="text/javascript">
+	    function linkGo(url){
+	    	location.href = url
+	    }
+    </script>
 </head>
 
 <body>
@@ -104,10 +109,10 @@
     <main>
         <div id="test"></div>
 			<div class="main_button_box">
-				<button type="button" id="cmyinfopage" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
-				<button type="button" id="mngancpage" class="main_button" onclick="linkGo('mngancpage')">이력서관리</button>
-				<button type="button" class="main_button" onclick="linkGo('recepReq')">활동내역</button>
-				<button type="button" class="main_button" onclick="linkGo('empsugget')">관심정보</button>
+				<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
+				<button type="button" class="main_button" onclick="linkGo('mngancpage')">채용공고</button>
+				<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
+				<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
 			</div>
         <div class="main_info">
 

@@ -167,5 +167,5 @@ button {
   background: #ff6937;
 }
 main{
-	height:  calc(100% - 201px);
+	min-height: calc(100% - 201px);
 }
