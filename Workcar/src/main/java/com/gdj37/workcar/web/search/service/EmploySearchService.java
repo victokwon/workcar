@@ -52,4 +52,9 @@ public class EmploySearchService implements IEmploySearchService{
 	public List<HashMap<String, String>> getRegion(HashMap<String, String> params) throws Throwable {
 		return iEmploySearchDAO.getRegion(params);
 	}
+
+	@Override
+	public List<HashMap<String, String>> getEmployViewsTop1List(HashMap<String, String> params) throws Throwable {
+		return iEmploySearchDAO.getEmployViewsTop1List(params);
+	}
 }

@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	<link rel="stylesheet" href="resources/css/cormypage/empannc/default.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/common/default.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/header.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css">
@@ -25,11 +25,11 @@
     <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/sector.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/qual.js"></script>
-    <script type="text/javascript">
-    	function linkGo(url) {
-			location.herf = url
-		}
-    </script>
+	<script type="text/javascript">
+	function linkGo(url){
+		location.href = url;
+	}
+	</script>
 </head>
 
 <body>
@@ -65,7 +65,7 @@
 
 			<!-- 로고 -->
 			<div class="topnav-centered">
-				<div class="logo_img"></div>
+				<div class="logo_img" onclick="linkGo('mainpage')"></div>
 			</div>
 
 			<!-- 왼쪽 -->
@@ -80,21 +80,24 @@
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#iMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#cMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#mngMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
@@ -1189,25 +1192,8 @@
 		$("#REGION").html(html);
 		$("#REGION").val(region);
 		
-		
 	}
-/* 	function drawRegion(list){
-		
-		var html = "";
-		
-		for(data of list) {
 
-		 	for(var i =0; i i++){
-		 		
-		 		var regid = i;
-	
-		 	}
-		 	html += '<option value="'+data.REGION_NO+'" id=REGION_NO'+regid+'>'+data.REGION_NAME +'</option>'
-		$("#REGION").html(html);
-	}
-	
-	} */
-	
 	
 
 	

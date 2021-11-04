@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,20 +25,28 @@ public class EmpAnncDtl {
 	
 	
 	@RequestMapping("/empAncDtl")
-	public ModelAndView empAncDtl(@RequestParam HashMap<String,String> params, ModelAndView mav) throws Throwable {
+	public ModelAndView empAncDtl(HttpSession session, @RequestParam HashMap<String,String> params, ModelAndView mav) throws Throwable {
+	
+		if( session.getAttribute("sMNo") != null && ( session.getAttribute("sMTy") == null || Integer.parseInt(String.valueOf(session.getAttribute("sMTy"))) == 0)) {
+
+			
+			mav.setViewName("redirect:errorpage");
+		} else if (session.getAttribute("sMNo") != null) {
+	
+			HashMap<String,String> data = iempdtlser.empAncDtl(params);
+			List<HashMap<String,String>> qlist = iempdtlser.qaulList(params);
+			
+			System.out.println("toString"+qlist.toString());
+			
+			mav.addObject("data",data);
+			mav.addObject("qlist",qlist);
+			mav.setViewName("myPage/corMypage/empAncDtl");
+		}else {
+			mav.setViewName("redirect:mainpage");
+		}
+		return mav;
+		}
 		
-	HashMap<String,String> data = iempdtlser.empAncDtl(params);
-	List<HashMap<String,String>> qlist = iempdtlser.qaulList(params);
-	
-	System.out.println("toString"+qlist.toString());
-	
-	
-	mav.addObject("data",data);
-	mav.addObject("qlist",qlist);
-	mav.setViewName("myPage/corMypage/empAncDtl");
-	return mav;
-	}
-	
 	
 	
 	//채용공고수정Ajax
@@ -82,12 +92,10 @@ public class EmpAnncDtl {
 					params.put("EMP_PRCS", Prcs);
 				}
 			}
-		
-			
+					
 			//System.out.println("EMP_DOCCCCC : " +params.get("EMP_DOC"));
 			//System.out.println("EMP_DOCCCCC : " +params.get("EMP_PRCS"));
-		
-		
+			
 		
 		try {
 				cnt += iempdtlser.uptEmpAnncAjax(params);

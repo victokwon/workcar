@@ -86,4 +86,48 @@ public class CInfoSearchController {
 		}
 		return mav;
 	}
+	@RequestMapping(value = "/CorpViewsTopList")
+	public ModelAndView CorpViewsTopList(@RequestParam HashMap<String, String> params, ModelAndView mav)throws Throwable {
+		int page = 1;
+
+		if (params.get("page") != null) {
+			page = Integer.parseInt(params.get("page"));
+		}
+		
+		mav.addObject("page", page);
+		mav.setViewName("TOPRANK/CorpViewsTopList");
+
+		return mav;
+	}
+	@RequestMapping(value = "/CorpViewsTopchListAjax", method = RequestMethod.POST, produces = "text/json;charset=UTF-8")
+	@ResponseBody
+	public String CorpViewsTopchListAjax(@RequestParam HashMap<String, String> params) throws Throwable {
+		ObjectMapper mapper = new ObjectMapper();
+//		System.out.println(params);
+		Map<String, Object> modelMap = new HashMap<String, Object>(); // 데이터를 담을 map
+		try {
+
+			// 페이지 취득
+			int page = Integer.parseInt(params.get("page"));
+			// 개수 취득
+			int cnt = iCInfoSearchService.getCInfoSch1Cnt(params);
+			// 페이징 정보 취득
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 100, 1);
+			params.put("startCnt", Integer.toString(pb.getStartCount()));
+			params.put("endCnt", Integer.toString(pb.getEndCount()));
+
+			// 리스트 조회
+			List<HashMap<String, String>> list = iCInfoSearchService.getViewsTop1List(params);
+
+			modelMap.put("cnt", cnt);
+			modelMap.put("page", page);
+			modelMap.put("pb", pb);
+			modelMap.put("list", list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 데이터를 문자열화
+		return mapper.writeValueAsString(modelMap);
+	}
+	
 }

@@ -31,7 +31,11 @@ public class EmpAnnc {
 	@RequestMapping(value="/empannc")
 	public ModelAndView empannc (HttpSession session, ModelAndView mav) throws Throwable {
 		
-		if(session.getAttribute("sMNo") != null) {
+		if( session.getAttribute("sMNo") != null && ( session.getAttribute("sMTy") == null || Integer.parseInt(String.valueOf(session.getAttribute("sMTy"))) == 0) ) {
+			
+			mav.setViewName("redirect:errorpage");
+			
+		}else if(session.getAttribute("sMNo") != null) {
 		String memberNo = String.valueOf(session.getAttribute("sMNo"));
 		
 		HashMap<String,String> data = imycorpser.cMemberDtl(memberNo);
@@ -39,7 +43,7 @@ public class EmpAnnc {
 		mav.addObject("data",data);
 		mav.setViewName("myPage/corMypage/empAnnc");
 		
-		} else {
+		} else{
 			
 			mav.setViewName("redirect:mainpage");
 		}
@@ -92,8 +96,7 @@ public class EmpAnnc {
 		ObjectMapper mapper = new ObjectMapper();
 		Map<String,Object> modelMap = new HashMap<String,Object>();
 		HashMap<String,Object> empQual;
-		HashMap<String,Object> docBox;
-		HashMap<String,Object> prcsBox;
+
 		String result = "success";
 
 			
@@ -122,12 +125,9 @@ public class EmpAnnc {
 					params.put("EMP_PRCS", Prcs);
 				}
 			}
-		
-			
+					
 			//System.out.println("EMP_DOCCCCC : " +params.get("EMP_DOC"));
-			//System.out.println("EMP_DOCCCCC : " +params.get("EMP_PRCS"));
-		
-		
+			//System.out.println("EMP_DOCCCCC : " +params.get("EMP_PRCS"));		
 		
 		try {
 				cnt += iempannc.insEmpAnncAjax(params);
@@ -158,5 +158,15 @@ public class EmpAnnc {
 		modelMap.put("result", result);
 		return mapper.writeValueAsString(modelMap);
 	}
+	
+	
+	@RequestMapping("/errorpage")
+	public ModelAndView errorpage (ModelAndView mav)  {
+		
+		mav.setViewName("myPage/corMypage/accesseDenied");
+		return mav;
+	}
+	
+
 	
 }

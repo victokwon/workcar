@@ -63,7 +63,7 @@
 
 			<!-- 로고 -->
 			<div class="topnav-centered">
-				<div class="logo_img"></div>
+				<div class="logo_img" onclick="linkGo('mainpage')"></div>
 			</div>
 
 			<!-- 왼쪽 -->
@@ -78,21 +78,24 @@
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#iMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#cMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#mngMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>

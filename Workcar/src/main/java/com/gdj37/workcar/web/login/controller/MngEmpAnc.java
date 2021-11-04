@@ -29,17 +29,24 @@ public class MngEmpAnc {
 	@RequestMapping("/mngancpage")
 	public ModelAndView mngancpage (HttpSession session, ModelAndView mav) throws Throwable {
 		
-		if(session.getAttribute("sMNo")!= null) {
-			String memberNo = String.valueOf(session.getAttribute("sMNo"));
-	//System.out.println("memberNO"+memberNo);
-	//	HashMap<String,String> data = imycorpser.cMemberDtl(memberNo);
-		List<HashMap<String,String>> list = imngser.empAncList(memberNo);
-		//System.out.println("list list"+ list.toString());
+		if( session.getAttribute("sMNo") != null && ( session.getAttribute("sMTy") == null || Integer.parseInt(String.valueOf(session.getAttribute("sMTy"))) == 0)) {
 		
+			mav.setViewName("redirect:errorpage");
+		}
+		
+		else if(session.getAttribute("sMNo")!= null) {
+			String memberNo = String.valueOf(session.getAttribute("sMNo"));
+		//System.out.println("memberNO"+memberNo);
+		//	HashMap<String,String> data = imycorpser.cMemberDtl(memberNo);
+		List<HashMap<String,String>> list = imngser.empAncList(memberNo);
+		//System.out.println("list list"+ list.toString());	
 		//mav.addObject("memdata",data);
 		mav.addObject("list",list);
-		}
 		mav.setViewName("myPage/corMypage/manageEmpAnnc");
+		}else {
+			mav.setViewName("redirect:mainpage");
+		}
+		
 		return mav;
 	}
 	

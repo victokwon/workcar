@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/common/default.css">
-<link rel="stylesheet" type="text/css" href="resources\css\common\footer.css">
-<link rel="stylesheet" type="text/css" href="resources\css\common\header.css">
-<link rel="stylesheet" type="text/css" href="resources\css\common\sidebar.css">
-<link rel="stylesheet" href="resources/css/cormypage/corinfo/Mypage_regi_cor.css">
- <link rel="stylesheet" type="text/css" href="resources/css/cormypage/corinfo/csch.css" >
+<link rel="stylesheet" type="text/css" href="resources/css/common/default.css">
+<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css">
+<link rel="stylesheet" type="text/css" href="resources/css/common/header.css">
+<link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css">
+<link rel="stylesheet" type="text/css" href="resources/css/cormypage/corinfo/Mypage_regi_cor.css">
+<link rel="stylesheet" type="text/css" href="resources/css/cormypage/corinfo/csch.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -28,6 +28,7 @@ function linkGo(url){
 	location.href = url;
 }
 </script>
+
 </head>
 <body>
 	<!-- 사이드바 -->
@@ -64,7 +65,7 @@ function linkGo(url){
 
 			<!-- 로고 -->
 			<div class="topnav-centered">
-				<div class="logo_img"></div>
+				<div class="logo_img" onclick="linkGo('mainpage')"></div>
 			</div>
 
 			<!-- 왼쪽 -->
@@ -79,21 +80,24 @@ function linkGo(url){
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#iMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#cMemMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<div class="topnav-right">
-						<a href="cmyinfopage"><strong >마이페이지</strong></a>
+						<div class="alarm"></div>
+						<a href="#mngMypage"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>

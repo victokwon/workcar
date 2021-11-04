@@ -13,4 +13,6 @@ public interface ICInfoSearchService {
 
 	public HashMap<String, String> getCInfo(HashMap<String, String> params)throws Throwable;
 
+	public List<HashMap<String, String>> getViewsTop1List(HashMap<String, String> params)throws Throwable;
+
 }
