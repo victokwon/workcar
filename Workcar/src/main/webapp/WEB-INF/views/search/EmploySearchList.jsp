@@ -181,7 +181,7 @@ function reloadList(){
 
 	
 	$.ajax({
-		url : "EmploySearchListAjax",
+		url : "EmployViewsTopList",
 		type : "post",
 		dataType : "json",
 		data : params,

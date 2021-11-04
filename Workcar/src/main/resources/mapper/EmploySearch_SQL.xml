@@ -8,8 +8,7 @@
 		C_MEMBER CM
 		ON EA.MEM_NO = CM.MEM_NO
 		INNER JOIN C_INFO CI
-		ON CM.CORP_NO =
-		CI.CORP_NO
+		ON CM.CORP_NO = CI.CORP_NO
 		<if test="qualno != null and qualno != ''">
 			JOIN(SELECT DISTINCT EMP_NO FROM EMP_QUAL
 			WHERE QUAL_NO IN
@@ -68,6 +67,7 @@
 			<if test="gradu neq 6">
 				AND GRADU = #{gradu}
 			</if>
+			
 
 			<choose>
 				<when test="searchGbn eq 0">
@@ -338,5 +338,23 @@
 		WHERE CITY_NO =
 		#{cityNo}
 		ORDER BY REGION_NO
+	</select>
+	<select id="getEmployViewsTop1List" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT E.EMP_NO, E.CORP_IMG, E.C_NAME, E.EMP_TITLE, SECTOR_NAME, DLINE,VIEWS
+		FROM (SELECT EA.EMP_NO, CI.CORP_IMG, CI.C_NAME, EA.EMP_TITLE,
+		SECTOR_NAME, TO_CHAR(DLINE,'YY/MM/DD') DLINE, EA.VIEWS,
+		ROW_NUMBER() OVER(ORDER BY EA.VIEWS DESC, EA.EMP_NO DESC) AS ENUM
+		FROM EMP_ANNC EA INNER JOIN
+		C_MEMBER CM
+		ON EA.MEM_NO = CM.MEM_NO
+		JOIN SECTOR S
+		ON (EA.SECTOR_NO = S.SECTOR_NO)
+		INNER JOIN C_INFO CI
+		ON CM.CORP_NO = CI.CORP_NO
+        WHERE EA.DEL_CHK = 0
+		AND RECRUIT_GBN = 0
+        )E
+        ORDER BY E.VIEWS DESC, E.EMP_NO DESC
 	</select>
 </mapper>

@@ -33,4 +33,9 @@ public class CInfoSearchService implements ICInfoSearchService{
 	public HashMap<String, String> getCInfo(HashMap<String, String> params) throws Throwable {
 		return iCInfoSearchDAO.getCInfo(params);
 	}
+
+	@Override
+	public List<HashMap<String, String>> getViewsTop1List(HashMap<String, String> params) throws Throwable {
+		return iCInfoSearchDAO.getViewsTop1List(params);
+	}
 }

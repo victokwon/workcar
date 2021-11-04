@@ -446,3 +446,6 @@ input[disabled] {
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+.content_div{
+	margin-bottom:5px;
+}

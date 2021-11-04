@@ -13,10 +13,11 @@
 		ON (CS.SECTOR_NO = S.SECTOR_NO)
 		WHERE
 		CI.WRK_CNT &gt;= 1
+
 		<choose>
-			<when test="searchGbn eq 0">
+			<when test="searchGbn eq 0 ">
 				AND CI.C_NAME LIKE '%' || #{searchTxt} || '%'
-				OR
+				or
 				S.SECTOR_NAME LIKE '%' || #{searchTxt} || '%'
 
 			</when>
@@ -73,4 +74,22 @@
 		UPDATE C_INFO SET VIEWS = VIEWS + 1
 		WHERE CORP_NO = #{corpno}
 	</update>
+	<select id="getViewsTop1List" parameterType="hashmap" resultType="hashmap">
+		SELECT C.CORP_NO,C.CORP_IMG,C.C_NAME, C.ADDR,C.C_BOSS, C.SECTOR_NAME, C.VIEWS, C.WRK_CNT
+		FROM (
+		SELECT CI.CORP_NO,CI.CORP_IMG,CI.C_NAME,
+		CI.ADDR,CI.C_BOSS,S.SECTOR_NAME,CI.VIEWS,CI.WRK_CNT,
+		ROW_NUMBER()OVER(ORDER BY CI.VIEWS DESC, CI.WRK_CNT DESC) AS ENUM
+		FROM C_INFO CI
+		JOIN C_SECTOR CS
+		ON CI.CORP_NO = CS.CORP_NO
+		JOIN SECTOR S
+		ON
+		CS.SECTOR_NO = S.SECTOR_NO
+        WHERE ROWNUM &lt;= 100
+		AND CI.WRK_CNT &gt;= 1)
+        C
+        ORDER BY C.VIEWS DESC, C.WRK_CNT DESC
+	</select>
+	
 </mapper>

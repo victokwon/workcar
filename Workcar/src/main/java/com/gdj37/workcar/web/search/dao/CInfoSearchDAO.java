@@ -33,4 +33,9 @@ public class CInfoSearchDAO implements ICInfoSearchDAO{
 		return sqlSession.selectOne("CinfoSearch.getCInfo", params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> getViewsTop1List(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("CinfoSearch.getViewsTop1List", params);
+	}
+
 }

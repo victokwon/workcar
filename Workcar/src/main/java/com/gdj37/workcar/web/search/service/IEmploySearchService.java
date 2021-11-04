@@ -21,4 +21,6 @@ public interface IEmploySearchService {
 
 	public List<HashMap<String, String>> getRegion(HashMap<String, String> params)throws Throwable;
 
+	public List<HashMap<String, String>> getEmployViewsTop1List(HashMap<String, String> params)throws Throwable;
+
 }
