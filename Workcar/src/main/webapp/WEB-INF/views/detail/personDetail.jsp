@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
     <link rel="stylesheet" href="resources/css/common/default.css">
-    <link rel="stylesheet" href="resources/css/detail/header.css">
+    <link rel="stylesheet" href="resources/css/common/header.css">
     <link rel="stylesheet" href="resources/css/detail/sidebar.css">
     <link rel="stylesheet" href="resources/css/detail/footer.css">
     
@@ -17,7 +17,11 @@
     <script type="text/javascript"
 		src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript" src="resources/script/detail/person_dtl_paging.js"></script>
-		
+		<script>
+		function linkGo(url){
+			location.href = url
+		}
+		</script>
    
 </head>
 <body>
@@ -57,7 +61,7 @@
 		<div class="topnav">
 
 			<!-- 로고 -->
-			<div class="topnav-centered">
+				<div class="topnav-centered" onclick="linkGo('mainpage')">
 				<div class="logo_img"></div>
 			</div>
 

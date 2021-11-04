@@ -21,6 +21,24 @@
         </if>     
 		ORDER BY RESUM_NO
 	</select>
+	
+	<select id="empResumeList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT MEM_NO, R.RESUM_NO, OPN_CHK, RESUM_NAME,
+		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE,
+		TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
+		FROM RESUM R
+		<if test="empNo neq '' and empNo neq null">
+			LEFT OUTER JOIN (SELECT RESUM_NO, EMP_NO FROM RESUM_SUPP WHERE EMP_NO = #{empNo}) RS
+            ON (R.RESUM_NO = RS.RESUM_NO)
+		</if>        
+		WHERE DEL_CHK = 0
+        AND MEM_NO = #{memNo}
+       	<if test="empNo neq '' and empNo neq null">
+            AND EMP_NO IS NULL   
+        </if>     
+		ORDER BY RESUM_NO
+	</select>
 
 	<update id="applyResume" parameterType="hashmap">
 		UPDATE RESUM SET
@@ -155,7 +173,6 @@
 		ON (RQ.QUAL_NO = Q.QUAL_NO)
 		WHERE
 		R.DEL_CHK = 0
-		AND MEM_NO = #{memNo}
 		AND R.RESUM_NO = #{resumeNo}
 	</select>
 
@@ -170,7 +187,6 @@
 		F
 		ON (RF.FLANG_NO = F.FLANG_NO)
 		WHERE R.DEL_CHK = 0
-		AND MEM_NO = #{memNo}
 		AND R.RESUM_NO = #{resumeNo}
 	</select>
 
@@ -184,7 +200,6 @@
 		FROM RESUM R JOIN RESUM_CARR RC
 		ON (R.RESUM_NO = RC.RESUM_NO)
 		WHERE R.DEL_CHK = 0
-		AND MEM_NO = #{memNo}
 		AND R.RESUM_NO = #{resumeNo}
 	</select>
 
@@ -199,7 +214,6 @@
 		ON (R.RESUM_NO = RE.RESUM_NO)
 		WHERE R.DEL_CHK
 		= 0
-		AND MEM_NO = #{memNo}
 		AND R.RESUM_NO = #{resumeNo}
 	</select>
 
@@ -214,7 +228,6 @@
 		ON (R.RESUM_NO = RI.RESUM_NO)
 		WHERE R.DEL_CHK
 		= 0
-		AND MEM_NO = #{memNo}
 		AND R.RESUM_NO = #{resumeNo}
 	</select>
 
@@ -227,7 +240,6 @@
 		ON (R.RESUM_NO = RS.RESUM_NO)
 		WHERE R.DEL_CHK = 0
 		AND
-		MEM_NO = #{memNo}
 		AND R.RESUM_NO = #{resumeNo}
 	</select>
 
@@ -239,9 +251,7 @@
 		ON
 		(R.RESUM_NO = RA.RESUM_NO)
 		WHERE R.DEL_CHK = 0
-		AND MEM_NO = #{memNo}
-		AND
-		R.RESUM_NO = #{resumeNo}
+		AND R.RESUM_NO = #{resumeNo}
 	</select>
 
 	<select id="getAddContCnt" parameterType="hashmap"

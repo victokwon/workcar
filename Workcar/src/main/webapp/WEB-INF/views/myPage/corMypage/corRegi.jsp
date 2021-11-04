@@ -24,8 +24,8 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
 <script type="text/javascript">
-function linkGo(URL){
-	location.herf = URL
+function linkGo(url){
+	location.href = url;
 }
 </script>
 </head>
@@ -79,24 +79,21 @@ function linkGo(URL){
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
@@ -110,23 +107,12 @@ function linkGo(URL){
 		</div>
 	</header>
 	<main>
-		<div class="main_wrap">
-			<div class="user_wrap">
-				<div class="user_box">
-					<div class="user_profile"></div>
-					<div class="user">
-						<div class="user_name"></div>
-						<div class="user_status"></div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<!-- Tab 버튼 태그 -->
 			<div class="main_button_box">
-				<button type="button" id="cmyinfopage" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
-				<button type="button"  class="main_button" onclick="linkGo('mngancpage')">이력서관리</button>
-				<button type="button" class="main_button" onclick="linkGo('recepReq')">활동내역</button>
-				<button type="button" class="main_button" onclick="linkGo('empsugget')">관심정보</button>
+				<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
+				<button type="button" class="main_button" onclick="linkGo('mngancpage')">채용공고</button>
+				<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
+				<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
 			</div>
 			<!-- 메인 -->
 			<div class="main_info">

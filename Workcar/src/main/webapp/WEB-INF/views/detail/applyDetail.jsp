@@ -47,9 +47,6 @@
 			 $("#empListForm").attr("action", "applyDetail")
 			 $("#empListForm").submit()
 		 }) */
-		 function linkGo(url){
-		 		location.href = url
-		 	}
 		 
 
 	/* 	 function adjustHeight() {
@@ -60,6 +57,9 @@
 			};
 			adjustHeight(); */
 	 });
+		 function linkGo(url){
+		 		location.href = url
+		 	}
 	</script>
 
 	

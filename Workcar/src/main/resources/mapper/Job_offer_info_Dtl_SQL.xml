@@ -80,8 +80,12 @@
             join sector st on r.sector_no = st.sector_no
             join region rg on r.region_no = rg.region_no
             join city ct on ct.city_no = rg.city_no
+            join resum_supp rs on rs.resum_no = r.resum_no
+            join emp_annc ea on rs.emp_no = ea.emp_no
 		WHERE opn_chk = 1
         and r.mem_no = 1
+        and rs.resum_no = #{sNo}
+        and rs.emp_no = #{empno}
         
         ) mr
 		WHERE mr.RNUM BETWEEN #{startCnt} AND #{endCnt}
@@ -90,8 +94,9 @@
 	<select id="list_paging" parameterType="hashmap"
 		resultType="Integer">
 		SELECT COUNT(*) AS CNT
-		FROM resum
-		WHERE opn_chk = 1
+		FROM resum r
+        join resum_supp rs on r.resum_no = rs.resum_no
+        join emp_annc ea on rs.emp_no = ea.emp_no
 	</select>
 	
 	

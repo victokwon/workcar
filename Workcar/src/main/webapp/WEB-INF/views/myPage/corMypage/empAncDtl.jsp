@@ -25,7 +25,11 @@
     <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/sector.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/qual.js"></script>
-    
+    <script type="text/javascript">
+    	function linkGo(url) {
+			location.herf = url
+		}
+    </script>
 </head>
 
 <body>
@@ -76,24 +80,21 @@
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#iMemMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#cMemMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#mngMypage"><strong>마이페이지</strong></a>
+						<a href="cmyinfopage"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
@@ -108,35 +109,12 @@
 	</header>
 
     <main>
-        <div class="main_wrap">
-            <div class="user_wrap">
-                <div class="user_box">
-                    <div class="user_profile"></div>
-                    <div class="user">
-                        <div class="user_name"></div>
-                        <div class="user_status"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-<!--         <div id="test"></div>
-        <div class="main_button_box">
-            <button type="button" class="main_button" onclick="openPage('main_regi', this)" id="mypagecorp">계정관리</button>
-            <button type="button" class="main_button" onclick="openPage('main_apply', this)" id="defaultmenu">채용공고</button>
-            <button type="button" class="main_button" onclick="openPage('main_act', this)" id ="activechk">활동내역</button>
-            <button type="button" class="main_button" onclick="openPage('main_inter', this)" id ="attinfo" >관심정보</button>
-        </div> -->
-
 		<div class="main_button_box">
 			<div class="main_button_box">
-				<a class="main_button regi"
-					onclick="openPage('main_regi', this, '#88a2f2')" id="mypagecorp2">계정관리</a>
-				<a class="main_button member"
-					onclick="openPage('main_apply', this, '#88a2f2')" id="defaultmenu2">채용공고</a>
-				<a class="main_button report"
-					onclick="openPage('main_act', this, '#88a2f2')" id="activechk2">활동내역</a>
-				<a class="main_button star_manage"
-					onclick="openPage('main_inter', this, '#88a2f2')" id="attinfo2">관심정보</a>
+				<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
+				<button type="button" class="main_button" onclick="linkGo('mngancpage')">채용공고</button>
+				<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
+				<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
 			</div>
 
 			<div class="main_info">

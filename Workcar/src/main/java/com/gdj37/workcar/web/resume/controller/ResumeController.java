@@ -448,4 +448,48 @@ public class ResumeController {
 		return mapper.writeValueAsString(modelMap);
 	}
 	
+	
+	
+	
+	
+	@RequestMapping(value = "/empResumDtl")
+	public ModelAndView empResumDtl(ModelAndView mav, 
+			@RequestParam HashMap<String, String> params,
+			HttpSession session) throws Throwable {
+		params.put("memNo", String.valueOf(session.getAttribute("sMNo")));
+		params.put("actGbn", "empResume");
+		List<HashMap<String, String>> list = iResumeService.empResumeList(params);
+//       이력서 숫자 카운트
+		int cnt = iResumeService.getResumeCnt(params);
+		HashMap<String, String> data = iResumeService.getResumeDtl(params);
+		List<HashMap<String, String>> work = iResumeService.resumeDtlWork(params);
+		List<HashMap<String, String>> qual = iResumeService.resumeDtlQual(params);
+		List<HashMap<String, String>> flang = iResumeService.resumeDtlFlang(params);
+		List<HashMap<String, String>> carr = iResumeService.resumeDtlCarr(params);
+		List<HashMap<String, String>> edu = iResumeService.resumeDtlEdu(params);
+		List<HashMap<String, String>> iedu = iResumeService.resumeDtlIedu(params);
+		List<HashMap<String, String>> sintro = iResumeService.resumeDtlSintro(params);
+		List<HashMap<String, String>> attach = iResumeService.resumeDtlAttach(params);
+		List<HashMap<String, String>> loc = iResumeService.resumeDtlLoc(params);
+
+		mav.addObject("CNT", cnt);
+		mav.addObject("LIST", list);
+		mav.addObject("DATA", data);
+
+		mav.addObject("WORK", work);
+		mav.addObject("LOC", loc);
+
+		mav.addObject("QUAL", qual);
+		mav.addObject("FLANG", flang);
+		mav.addObject("CARR", carr);
+		mav.addObject("EDU", edu);
+		mav.addObject("IEDU", iedu);
+		mav.addObject("SINTRO", sintro);
+		mav.addObject("ATTACH", attach);
+		
+		
+		
+		mav.setViewName("myPage/corMypage/empResumDtl");	
+		return mav;
+	}
 }

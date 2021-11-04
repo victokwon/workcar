@@ -226,6 +226,7 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</footer>
+
 	<script>
         var acc = document.getElementsByClassName("accordion");
         var i;

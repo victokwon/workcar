@@ -31,17 +31,20 @@ public class CommonAOP {
 		+ "&& !execution(* com.gdj37.workcar..imemActController.*Ajax(..))" 
 		+ "|| execution(* com.gdj37.workcar..imemAttndController.*(..))"
 		+ "&& !execution(* com.gdj37.workcar..imemAttndController.*Ajax(..))" 
-	/* + "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))" */
 			)
 	public void imem() {}
 	
-	@Pointcut("execution(* com.gdj37.workcar..corpmp.corpAttndInfo(..))"
-			+ "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))"
+	@Pointcut("execution(* com.gdj37.workcar..cmemAttndController.*(..))"
+			+ "&& !execution(* com.gdj37.workcar..cmemAttndController.*Ajax(..))"
+			+ "|| execution(* com.gdj37.workcar..cmemActController.*(..))"
+			+ "&& !execution(* com.gdj37.workcar..cmemActController.*Ajax(..))"
 			)
 	public void cmem() {}
 	
 	@Pointcut("execution(* com.gdj37.workcar..HRSearchController.*(..))" 
 			 + "&& !execution(* com.gdj37.workcar..HRSearchController.*Ajax(..))"
+			 + "||execution(* com.gdj37.workcar..PersonController.*(..))" 
+			 + "&& !execution(* com.gdj37.workcar..PersonController.*Ajax(..))"
 			)
 	public void hrSch() {}
 	
@@ -157,6 +160,7 @@ public class CommonAOP {
 		  }
 		return mav;
 	}
+	
 
 }
 

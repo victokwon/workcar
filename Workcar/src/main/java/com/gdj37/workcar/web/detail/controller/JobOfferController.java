@@ -30,7 +30,9 @@ public class JobOfferController {
 	public ModelAndView personDetail(@RequestParam HashMap<String, String> params,
 			ModelAndView mav) throws Throwable {
 		
-		mav.addObject("sNo","1");
+		
+		mav.addObject("sNo",params.get("resumno"));
+		mav.addObject("empno",params.get("empno"));
 		mav.setViewName("redirect:joboffers");
 		return mav;
 	}

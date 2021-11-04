@@ -27,4 +27,10 @@ public class MngEmpAncService implements IMngEmpAncService {
 		return imngdao.delEmpAnc(params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> empResumeList(HashMap<String, String> params) throws Throwable {
+		
+		return imngdao.empResumeList(params);
+	}
+
 }
