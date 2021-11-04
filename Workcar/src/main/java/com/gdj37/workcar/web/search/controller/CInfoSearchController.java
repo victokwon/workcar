@@ -50,7 +50,7 @@ public class CInfoSearchController {
 			// 개수 취득
 			int cnt = iCInfoSearchService.getCInfoSch1Cnt(params);
 			// 페이징 정보 취득
-			PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 5);
+			PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
 			params.put("startCnt", Integer.toString(pb.getStartCount()));
 			params.put("endCnt", Integer.toString(pb.getEndCount()));
 

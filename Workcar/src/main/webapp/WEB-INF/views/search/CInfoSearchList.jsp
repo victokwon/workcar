@@ -121,7 +121,7 @@ function drawList(list,cnt) {
 				}
 			html += "<h3>" + data.C_NAME + "</h3>";
 			html += "<div class=\"column_div\">" ;
-			html += "<span>"+ data.ADDR +"</span>";
+			html += "<span class=\"sn_overflow\">"+ data.ADDR +"</span>";
 			html += "</div>" ;
 			html += "<div class=\"column_div\">" ;
 			html += "<span> 대표 : "+ data.C_BOSS +"</span>";
