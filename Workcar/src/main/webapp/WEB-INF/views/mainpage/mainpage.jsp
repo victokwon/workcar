@@ -46,8 +46,6 @@
 			<ul>
 				<div onclick="linkGo('EmploySearchList')">채용정보</div>
 				<li onclick="linkGo('EmploySearchList')">통합검색</li>
-				<li onclick="linkGo('')">조회수 100</li>
-				<li onclick="linkGo('')">평점 100</li>
 			</ul> 
 			<ul>
 				<div onclick="linkGo('HRSearchList')">인재정보</div>
@@ -77,8 +75,8 @@
 						<div onclick="linkGo('cmyinfopage')">마이페이지</div>
 						<li onclick="linkGo('cmyinfopage')">계정관리</li>
 						<li onclick="linkGo('empannc')">채용공고</li>
-						<li onclick="linkGo('')">활동내역</li>
-						<li onclick="linkGo('corpAttndInfo')">관심정보</li>
+						<li onclick="linkGo('sendReq')">활동내역</li>
+						<li onclick="linkGo('cmemAttnd')">관심정보</li>
 					</ul>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
@@ -116,24 +114,24 @@
 			<c:choose>
 				<c:when test="${sMTy eq 0}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="''iMemMypage"><strong>마이페이지</strong></a>
+						<!-- <div class="alarm"></div> -->
+						<a href="resumeList"><strong >마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 1 || sMTy eq 2}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="''cMemMypage"><strong>마이페이지</strong></a>
+						<!-- <div class="alarm"></div> -->
+						<a href="empannc"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
 				<c:when test="${sMTy eq 3}">
 					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="manageRegi"><strong>마이페이지</strong></a>
+						<!-- <div class="alarm"></div> -->
+						<a href="manageMemberList"><strong>마이페이지</strong></a>
 						<div class="profile"></div>
 						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
@@ -255,7 +253,7 @@
 									<span>채용공고</span>
 								</div>
 							</div>
-							<div class="menu_card" onclick="linkGo('')">
+							<div class="menu_card" onclick="linkGo('sendReq')">
 								<div class="wrap">
 									<div class="img_activity"></div>
 								</div>
@@ -263,7 +261,7 @@
 									<span>활동내역</span>
 								</div>
 							</div>
-							<div class="menu_card" onclick="linkGo('corpAttndInfo')">
+							<div class="menu_card" onclick="linkGo('cmemAttnd')">
 								<div class="wrap">
 									<div class="img_attention"></div>
 								</div>

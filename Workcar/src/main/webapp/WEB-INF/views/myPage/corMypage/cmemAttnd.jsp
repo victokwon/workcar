@@ -18,20 +18,20 @@
 <link rel="stylesheet" type="text/css"
 	href="resources\css\mainpage\searchbar.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\hrsuggest\hrsuggest.css">
+   href="resources\css\cmemAttnd\hrsuggest.css">
 <link rel="stylesheet" type="text/css"
-   href="resources\css\hrsuggest\pop.css">
+   href="resources\css\cmemAttnd\pop.css">
    
 <script type="text/javascript"
 	src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
 	src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript"
-	src="resources\script\hrsuggest\hrsuggest1.js"></script>
+	src="resources\script\cmemAttnd\hrsuggest1.js"></script>
 <script type="text/javascript"
-	src="resources\script\hrsuggest\hrsuggest2.js"></script>
+	src="resources\script\cmemAttnd\hrsuggest2.js"></script>
 <script type="text/javascript"
-	src="resources\script\hrsuggest\hrsuggest3.js"></script>
+	src="resources\script\cmemAttnd\hrsuggest3.js"></script>
 	
 <script type="text/javascript">
 $(function () {
@@ -180,10 +180,10 @@ function linkGo(url){
 		</div>
 		<div id="test"></div>
 		<div class="main_button_box">
-			<button type="button" class="main_button">계정관리</button>
-			<button type="button" class="main_button">채용공고</button>
-			<button type="button" class="main_button">활동내역</button>
-			<button type="button" class="main_button">관심정보</button>
+			<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
+			<button type="button" class="main_button" onclick="linkGo('empannc')">이력서관리</button>
+			<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
+			<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
 		</div>
 		
 	 <div class="pop-container">

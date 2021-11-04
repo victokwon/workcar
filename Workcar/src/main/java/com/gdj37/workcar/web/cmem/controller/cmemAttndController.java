@@ -1,4 +1,4 @@
-package com.gdj37.workcar.web.login.controller;
+package com.gdj37.workcar.web.cmem.controller;
 
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import com.gdj37.workcar.common.service.IPagingService;
 import com.gdj37.workcar.web.login.service.IMyCorpService;
 
 @Controller
-public class corpmp {
+public class cmemAttndController {
 	
 	@Autowired
 	IMyCorpService imycorpser;
@@ -32,9 +32,9 @@ public class corpmp {
 	
 	
 	
-	@RequestMapping(value = "/corpAttndInfo")
-	public ModelAndView corpAttndInfo(ModelAndView mav)  {
-		mav.setViewName("myPage/corMypage/hrsugget");
+	@RequestMapping(value = "/cmemAttnd")
+	public ModelAndView cmemAttnd(ModelAndView mav)  {
+		mav.setViewName("myPage/corMypage/cmemAttnd");
 		return mav;
 	}
 	

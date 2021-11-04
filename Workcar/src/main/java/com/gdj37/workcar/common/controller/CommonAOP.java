@@ -31,12 +31,13 @@ public class CommonAOP {
 		+ "&& !execution(* com.gdj37.workcar..imemActController.*Ajax(..))" 
 		+ "|| execution(* com.gdj37.workcar..imemAttndController.*(..))"
 		+ "&& !execution(* com.gdj37.workcar..imemAttndController.*Ajax(..))" 
-	/* + "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))" */
 			)
 	public void imem() {}
 	
-	@Pointcut("execution(* com.gdj37.workcar..corpmp.corpAttndInfo(..))"
-			+ "&& !execution(* com.gdj37.workcar..corpmp.*Ajax(..))"
+	@Pointcut("execution(* com.gdj37.workcar..cmemAttndController.*(..))"
+			+ "&& !execution(* com.gdj37.workcar..cmemAttndController.*Ajax(..))"
+			+ "|| execution(* com.gdj37.workcar..cmemActController.*(..))"
+			+ "&& !execution(* com.gdj37.workcar..cmemActController.*Ajax(..))"
 			)
 	public void cmem() {}
 	
@@ -157,6 +158,7 @@ public class CommonAOP {
 		  }
 		return mav;
 	}
+	
 
 }
 
