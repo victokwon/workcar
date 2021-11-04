@@ -186,16 +186,16 @@
                 <div class="list_wrap">
                     <table>
                         <thead>
-                            <tr rNo="다시 선택">
+                            <tr rNo="X">
                                 <th class='td_no'>번호</th>
                                 <th class='td_name'>내용</th>
                                 <th class='td_date'>최종수정일</th>
                             </tr>
                         </thead>
                         <tbody id="list_box" >
-                        	<tr rNo="1">
+                        	<tr rNo="X">
                         		<td class='td_no'></td>
-                        		<td class='td_name'></td>
+                        		<td class='td_name'>지원가능한 이력서가 없습니다.</td>
                         		<td class='td_date'></td>
                         	</tr>
                         </tbody>
@@ -205,7 +205,7 @@
                 <div class="paging_wrap"></div>
                 <div class="pop-input">
                		<div class="text_box"></div>
-                    <input type="button" class="sch-btn" id="applyBtn" rNo="" eNo="" value="요청하기">
+                    <input type="button" class="sch-btn" id="applyBtn" rNo="" eNo="" value="지원하기">
                 </div>
             </div>
         </div>
@@ -406,7 +406,7 @@
         <hr>
         <div class="right_main_menu">
         	<c:if test="${sMTy eq 0 }">
-            	<button class="right_main_apply" id="popOpen">지원하기</button>
+            	<button class="right_main_apply" id="popOpen" eNo="${param.empno}">지원하기</button>
             	<button class="main_detail_repport" id="dclBtn">채용정보신고</button>
         	</c:if>
         	

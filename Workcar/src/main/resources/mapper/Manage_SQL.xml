@@ -83,11 +83,20 @@
 	<select id="getGrdCnt" parameterType="hashmap" resultType="int">
 		SELECT COUNT(*)
 		FROM GRADE G
-		JOIN MEMBER M
-		ON (G.APLMEM_NO = M.MEM_NO)
+		<if test="staredMemNo neq '' and staredMemNo neq null">
+			JOIN MEMBER M
+			ON (G.APLMEM_NO = M.MEM_NO)
+		</if>
+		<if test="staredMemNo neq '' and staredMemNo neq null">
+			JOIN C_MEMBER CM
+			ON (G.CORP_NO = CM.CORP_NO)
+		</if>
 		WHERE G.DEL_CHK = 0
 		<if test="aplmenNo neq '' and aplmenNo neq null">
 			AND APLMEM_NO = ${aplmenNo}
+		</if>
+		<if test="staredMemNo neq '' and staredMemNo neq null">
+			AND CM.MEM_NO = ${staredMemNo}
 		</if>
         <if test="prcss eq 'ing'.toString()">
         	AND PRCSS_GBN = 0
@@ -115,7 +124,14 @@
 			ON (G.APLMEM_NO = M.MEM_NO)
 			JOIN C_INFO CI
 			ON (G.CORP_NO = CI.CORP_NO)
+			<if test="staredMemNo neq '' and staredMemNo neq null">
+			JOIN C_MEMBER CM
+			ON (G.CORP_NO = CM.CORP_NO)
+			</if>
             WHERE DEL_CHK = 0
+			<if test="staredMemNo neq '' and staredMemNo neq null">
+				AND CM.MEM_NO = ${staredMemNo}
+			</if>            
            	<if test="aplmenNo neq '' and aplmenNo neq null">
 				AND APLMEM_NO = ${aplmenNo}
 			</if>

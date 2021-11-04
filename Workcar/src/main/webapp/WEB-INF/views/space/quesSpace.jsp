@@ -269,7 +269,6 @@ $(document).ready(function() {
 			</div>
 		</div>
 	</footer>
-            <!-- 바닐라스크립트 로드 -->
     <script type="text/javascript" src="resources/script/Mypage/header.js.js"></script>
     <script type="text/javascript" src="resources/script/space/mainbox.js"></script>
 </body>

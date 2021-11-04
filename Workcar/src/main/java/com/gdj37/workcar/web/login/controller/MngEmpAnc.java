@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gdj37.workcar.web.login.service.IMngEmpAncService;
 import com.gdj37.workcar.web.login.service.IMyCorpService;
@@ -35,6 +34,7 @@ public class MngEmpAnc {
 	//System.out.println("memberNO"+memberNo);
 		HashMap<String,String> data = imycorpser.cMemberDtl(memberNo);
 		List<HashMap<String,String>> list = imngser.empAncList(memberNo);
+		List<HashMap<String,String>> list2 = imngser.empAncList(memberNo);
 		//System.out.println("list list"+ list.toString());
 		
 		mav.addObject("memdata",data);
@@ -47,7 +47,7 @@ public class MngEmpAnc {
 	
 	//채용 공고 리스트 삭제
 	@ResponseBody
-	@RequestMapping( value = "/delEmpAncAjax", method = RequestMethod.POST, produces = "text/json; charset=UTF8")
+	@RequestMapping( value = "/delEmpAncAjax", method = RequestMethod.POST, produces = "text/json; charset=UTF-8")
 	public String delEmpAncAjax(ModelAndView mav, @RequestParam HashMap<String,String> params) throws Throwable {
 		
 		ObjectMapper mapper = new ObjectMapper();
@@ -69,4 +69,35 @@ public class MngEmpAnc {
 		return mapper.writeValueAsString(modelMap);
 		
 	}
+	
+	
+	//이력서 리스트 불러오기
+	@ResponseBody
+	@RequestMapping(value="/ancResumeLists", method=RequestMethod.POST, produces="text/json; charset=UTF-8")
+	public String ancResumeLists(ModelAndView mav, @RequestParam HashMap<String,String> params) throws Throwable {
+		
+		ObjectMapper mapper = new ObjectMapper();
+		Map<String,Object> modelMap = new HashMap<String,Object>();
+		String result ="success";
+		try {
+			List<HashMap<String,String>> rlist = imngser.empResumeList(params);
+			
+			if(rlist == null) {
+				result ="failed";
+			}
+			modelMap.put("rlist",rlist);
+			
+		} catch (Exception e) {
+			result="error";
+			e.printStackTrace();
+			
+		}
+		modelMap.put("result", result);
+		return mapper.writeValueAsString(modelMap);
+		
+	}
+	
+	
+	
+	
 }

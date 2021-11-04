@@ -14,6 +14,7 @@ $(function() {
 	$("#popOpen").on("click", function(){
 		/* 위치를 찾아야함 -> 버튼 상대위치  */
 		let targetENo = $("#empNo").val()
+		console.log(targetENo)
 		$("#applyBtn").attr("eNo", targetENo);
 		getResumeList(targetENo) 
 		$(".pop-container").show();
@@ -26,8 +27,12 @@ $(function() {
     });
 	
     $("#applyBtn").on("click",function(){
-    	PA($(this).attr("rNo"),$(this).attr("eNo"))
-    	$(".pop-container").hide();
+    	if($(this).attr("rNo") == "X"){
+			alert("선택된 이력서가 없습니다.")
+    	}else{
+	    	PA($(this).attr("rNo"),$(this).attr("eNo"))
+	    	$(".pop-container").hide();
+    	}
     })
     
 	
@@ -57,9 +62,8 @@ function PA(targetR, targetE){
   });
 }
 
-function getResumeList(targetE){
-	console.log(targetE)
-	let params = "memNo=" + $("#memNo").val() + "&empNo=" + targetE
+function getResumeList(targetENo){
+	let params = "memNo=" + $("#memNo").val() + "&empNo=" + targetENo
 	
 	 $.ajax({
 	    type: "POST",
@@ -82,6 +86,7 @@ function drawResumList(list){
 	let html = ""
 	
 	for (data of list){
+
 	 html += "<tr "
       
       html += "rNo="
@@ -96,7 +101,6 @@ function drawResumList(list){
       
       html += "</tr>"
 	}
-	
 	$("#list_box").html(html)
-}
+	}
 

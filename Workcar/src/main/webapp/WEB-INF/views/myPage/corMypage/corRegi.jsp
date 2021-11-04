@@ -19,10 +19,15 @@
 <script src="resources/script/Mypage/Mypage_main_dp.js"></script>
 <script src="resources/script/cormypage/corinfo/Mypage_regi_cor.js"></script>
 <script src="resources/script/cormypage/corinfo/MyPage_regi_cor_event.js"></script>
-<script src="resources/script/cormypage/corinfo/csch.js"></script>
+ <script src="resources/script/cormypage/corinfo/csch.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
+<script type="text/javascript">
+function linkGo(URL){
+	location.herf = URL
+}
+</script>
 </head>
 <body>
 	<!-- 사이드바 -->
@@ -117,10 +122,9 @@
 			</div>
 		</div>
 		<!-- Tab 버튼 태그 -->
-		<div class="main_button_box">
 			<div class="main_button_box">
-				<button type="button" class="main_button" onclick="linkGo('')">계정관리</button>
-				<button type="button" class="main_button" onclick="linkGo('resumeList')">이력서관리</button>
+				<button type="button" id="cmyinfopage" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
+				<button type="button"  class="main_button" onclick="linkGo('mngancpage')">이력서관리</button>
 				<button type="button" class="main_button" onclick="linkGo('recepReq')">활동내역</button>
 				<button type="button" class="main_button" onclick="linkGo('empsugget')">관심정보</button>
 			</div>
@@ -200,39 +204,30 @@
 						<div class="main_box_title_position">
 							<h3 class="main_box_title main_box_title1">기업정보 설정</h3>
 						</div>
-						<form action="#" id="uptCpInfo" method="post">
+						<form action="#" id="uptCpInfoForm" method="post">
 							<div>
-								<div class="content " id="recru_info">
+								<div class="content ">
 									<div class="dtl">
 										<button type="button" id="uptcpinfo">저장</button>
 										<!-- <button type="button">수정</button> -->
 										<div class="con">
 											<div class="company">
 												<div class="text">기업로고</div>
-											<c:choose>
-												<c:when test="${data.CORP_IMG eq '' or empty data.CORP_IMG}" >
-												<div class="input">
-													<img class="logo" id ="logo" name ="logo" src="resources/images/cmypage/profile.png">
-												</div>
-												</c:when>
-												<c:otherwise>
 													<div class="input">
-														<img class="logo" id ="logo" name ="logo" src="resources/upload/${data.CORP_IMG}">
+														<img class="logo" id ="logo" name ="logo" src="">
 													</div>
-												</c:otherwise>
-												</c:choose>
 												<div>	
 													<button type="button" id="picuptbtn">사진올리기</button>
 													<button type="button" id="delpictbtn">파일삭제</button>
 												</div>
 											</div>
-											<input type ="hidden" name ="CCORP_NO" value="${data.CORP_NO}">
-											<div class="company">
+											<!--  <input type ="hidden" name ="CCORP_NO" value="${data.CORP_NO}"> -->
+<!-- 											<div class="company">
 												<div class="text">기업검색</div>
 												<div class="input">
 													<button type="button" id="cSchBtn">기업검색</button>
 												</div>
-											</div>
+											</div> -->
 											<div class="company">
 												<div class="text">기업명</div>
 												<div class="input">
@@ -260,14 +255,14 @@
 											<div class="company">
 												<div class="text">대표 연락처</div>
 												<div class="input">
-													<input type="text" id="CP_TEL" name="CP_TEL" placeholder="대표 연락처">
+													<input type="text" id="CP_TEL" name="CP_TEL"  value="${data.C_TEL}" placeholder="대표 연락처">
 												</div>
 											</div>
 											
 											<div class="company">
 												<div class="text">대표 이메일</div>
 												<div class="input">
-													<input type="text" id="CP_EMAIL" name="CP_EMAIL" placeholder="대표 이메일">
+													<input type="text" id="CP_EMAIL" name="CP_EMAIL" value="${data.C_EMAIL}"  placeholder="대표 이메일">
 												</div>
 											</div>
 											<div class="company">				
@@ -279,19 +274,19 @@
 											<div class="company">
 												<div class="text">우편번호</div>
 												<div class="input">
-													<input type="text" id="zip" name ="ZIP" value="${data.ZIP}" readonly placeholder="우편번호">
+													<input type="text" id="ZIP" name ="ZIP" value="${data.ZIP}" readonly placeholder="우편번호">
 												</div>
 											</div>
 											<div class="company">
 												<div class="text">주소</div>
 												<div class="input">
-													<input type="text" id="addr" name="addr" readonly placeholder="주소" value="${data.ADDR}">
+													<input type="text" id="ADDR" name="ADDR" readonly placeholder="주소" value="${data.ADDR}">
 												</div>
 											</div>
 											<div class="company">
 												<div class="text">상세주소</div>
 												<div class="input">
-													<input type="text" id="addrdtl" placeholder="상세주소" value="${data.ADDR_DTL}">
+													<input type="text" id="ADDR_DTL" name ="ADDR_DTL" placeholder="상세주소" value="${data.ADDR_DTL}">
 												</div>
 											</div>
 <!-- 											<div class="company">
@@ -308,7 +303,7 @@
 													<input type="text" name="C_HPAGE" id="C_HPAGE" value="${data.C_HPAGE}" placeholder="홈페이지 주소">
 												</div>
 											</div>
-											<input type ="text" name ="hidden" id="imgname" value ="${data.CORP_IMG}">
+											<input type ="hidden" name ="CORP_IMG" id="CORP_IMG" value ="${data.CORP_IMG}">
 <!-- 											<div class="company">
 												<div class="text">중소기업 유무</div>
 												<div class="input">
@@ -533,10 +528,26 @@ $(document).ready(function(){
 	var chkpass = 0;
 	// 파일업로드 체크
 	var chkfileupt = 0;
+	
+	
+	//이미지 파일 체크
+	(function(){
+		var img = "${data.CORP_IMG}";
+	if(img != "") {
+		$("#logo").attr("src","resources/upload/"+img);
+	} else {
+		$("#logo").attr("src","resources/images/cmypage/profile.png");
+	}
+	})();
+	
+	
+	
 	//기본메뉴 설정
-	$("#defaultmenu").click();
+	 $("#cmyinfopage").click(); 
 
-	if($("#imgname").val() != "") {
+	
+	
+	if($("#CORP_IMG").val() != "") {
 		chkfileupt = 1;
 		$("#picuptbtn").html("수정하기");
 		$("#delpictbtn").show();
@@ -576,7 +587,7 @@ $(document).ready(function(){
 					
 					if(res.fileName.length>0){
 						
-						$("#imgname").val(res.fileName[0]);
+						$("#CORP_IMG").val(res.fileName[0]);
 						chkfileupt = 1;
 						
 						$("#logo").attr("src","resources/upload/"+res.fileName[0]);
@@ -604,7 +615,7 @@ $(document).ready(function(){
 	//파일삭제 버튼 누르면 원상복구하기
 	$("#delpictbtn").on("click",function(){
 		
-		$("#imgname").val("");
+		$("#CORP_IMG").val("");
 		$("#delpictbtn").hide();
 		chkfileupt = 0;
 		$("#picuptbtn").html("사진올리기");
@@ -823,7 +834,7 @@ $("#uptcpinfo").on("click",function(){
 
 function uptCpInfoAjax() {
 	
-	var params = $("#uptCpInfo").serialize();
+	var params = $("#uptCpInfoForm").serialize();
 	
 	$.ajax({
 		

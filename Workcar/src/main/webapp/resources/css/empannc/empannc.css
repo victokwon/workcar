@@ -239,7 +239,7 @@ form {
 
 /* 지원자정보,구직희망사항 */
 .tilte .header {
-  display: flex;
+/*   display: flex;
   height: 60px;
   color: white;
   font-size: 15px;
@@ -248,7 +248,17 @@ form {
   border-radius: 10px;
   text-align: left;
   padding: 0 20px;
-  line-height: 50px;
+  line-height: 50px; */
+    display: flex;
+    height: 60px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #eee;
+    border-radius: 10px;
+    text-align: left;
+    padding: 0px;
+    line-height: 50px;
 }
 
 .tilte .job_post_title > input {
@@ -616,9 +626,12 @@ input#showName {
 }
 
 .headline {
-	position: absolute;
+	/* position: absolute;
     height: 60px !important;
-    width: 830px !important;
+    width: 830px !important; */
+    position: absolute;
+    height: 60px !important;
+    width: 712px !important;
 }
 
 #input#CARR_Y:disabled {
@@ -626,4 +639,13 @@ input#showName {
 	width:50px; 
 	height:12px;
 	
+}
+
+
+a#jobPost {
+    margin: 1px 1px 10px 1px;
+}
+
+div#main_apply {
+    width: 1200px;
 }

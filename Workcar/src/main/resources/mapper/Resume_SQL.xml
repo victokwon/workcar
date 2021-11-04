@@ -3,12 +3,22 @@
 <mapper namespace="Resume_SQL">
 	<select id="resumeList" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME,
+		SELECT MEM_NO, R.RESUM_NO, OPN_CHK, RESUM_NAME,
+         <if test="empNo neq '' and empNo neq null">
+            EMP_NO,
+        </if>     
 		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE,
 		TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
-		FROM RESUM
+		FROM RESUM R
+		<if test="empNo neq '' and empNo neq null">
+			LEFT OUTER JOIN (SELECT RESUM_NO, EMP_NO FROM RESUM_SUPP WHERE EMP_NO = #{empNo}) RS
+            ON (R.RESUM_NO = RS.RESUM_NO)
+		</if>        
 		WHERE DEL_CHK = 0
-		AND MEM_NO = #{memNo}
+        AND MEM_NO = #{memNo}
+       	<if test="empNo neq '' and empNo neq null">
+            AND EMP_NO IS NULL   
+        </if>     
 		ORDER BY RESUM_NO
 	</select>
 

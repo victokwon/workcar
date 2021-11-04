@@ -25,6 +25,12 @@ public class MngEmpAncDAO implements IMngEmpAncDAO {
 		return sqlSession.update("mngempanc.delEmpAnc",params);
 	}
 
+	@Override
+	public List<HashMap<String, String>> empResumeList(HashMap<String, String> params) throws Throwable {
+		
+		return sqlSession.selectList("mngempanc.empResumeList",params);
+	}
+
 
 	}
 

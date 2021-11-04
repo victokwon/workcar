@@ -656,10 +656,10 @@
         </div>
         <div id="test"></div>
         <div class="main_button_box">
-            <button type="button" class="main_button">계정관리</button>
-            <button type="button" class="main_button" id="defaultOpen" onclick="linkGo('resumeList')">이력서관리</button>
-            <button type="button" class="main_button">활동내역</button>
-            <button type="button" class="main_button">관심정보</button>
+			<button type="button" class="main_button" onclick="linkGo('')">계정관리</button>
+			<button type="button" class="main_button" onclick="linkGo('resumeList')">이력서관리</button>
+			<button type="button" class="main_button" onclick="linkGo('recepReq')">활동내역</button>
+			<button type="button" class="main_button" onclick="linkGo('empsugget')">관심정보</button>
         </div>
         <div class="main_info">
 

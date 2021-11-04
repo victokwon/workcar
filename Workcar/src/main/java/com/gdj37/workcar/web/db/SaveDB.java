@@ -18,13 +18,13 @@ public class SaveDB {
 		
 		GETAPI.getApiData();
 		
-		ArrayList<DBDTO> dbdata = GETAPI.dbdata;
+		ArrayList<DBDTO> dbdata = GETAPI.dbdata; 
 		
 		try {
 			
 			conn = DriverManager.getConnection(url,id,pass);	
-			pstmt = conn.prepareStatement("INSERT INTO C_INFO (CORP_NO, C_NAME, WRK_CNT, ZIP, ADDR, ADDR_DTL, C_BOSS, "
-					+ " C_BIZNO, C_TEL, C_HPAGE) VALUES(?,?,?,?,?,?,?,?,?,?)");
+			pstmt = conn.prepareStatement("INSERT INTO C_INFO (CORP_NO, C_NAME, WRK_CNT, ZIP, ADDR, C_BOSS, "
+					+ " C_BIZNO, C_TEL, C_HPAGE) VALUES(?,?,?,?,?,?,?,?,?)");
 			System.out.println("success");
 			
 			for (int i = 0; i<dbdata.size(); i++) {
@@ -35,7 +35,7 @@ public class SaveDB {
 				String WRK_CNT = dbdata.get(i).enpEmpeCnt;
 				String ZIP = dbdata.get(i).enpOzpno;
 				String ADDR = dbdata.get(i).enpBsadr;
-				String ADDR_DTL = dbdata.get(i).enpDtadr;
+				/* String ADDR_DTL = dbdata.get(i).enpDtadr; */
 				String C_BOSS = dbdata.get(i).enpRprFnm;
 				String C_BIZNO = dbdata.get(i).bzno;
 				String C_TEL = dbdata.get(i).enpTlno;
@@ -54,14 +54,14 @@ public class SaveDB {
 				pstmt.setString(3, WRK_CNT);
 				pstmt.setString(4, ZIP);
 				pstmt.setString(5, ADDR);
-				pstmt.setString(6, ADDR_DTL);
-				pstmt.setString(7, C_BOSS);
-				pstmt.setString(8, C_BIZNO);
-				pstmt.setString(9, C_TEL);
+				/* pstmt.setString(6, ADDR_DTL); */
+				pstmt.setString(6, C_BOSS);
+				pstmt.setString(7, C_BIZNO);
+				pstmt.setString(8, C_TEL);
 				/*
 				 * pstmt.setString(10, C_EST); pstmt.setString(11, C_SAL);
 				 */
-				pstmt.setString(10, C_HPAGE);
+				pstmt.setString(9, C_HPAGE);
 				/*
 				 * pstmt.setString(13, C_CRNAME); pstmt.setString(14, C_SBCHK);
 				 */

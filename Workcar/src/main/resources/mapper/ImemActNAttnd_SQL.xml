@@ -15,249 +15,257 @@
 		DEL_CHK = 0
 		AND GRADE_NO = #{gradeNo}
 	</update>
-	
-	<select id="getSubResumCnt" parameterType="hashmap" resultType="int">
+
+	<select id="getSubResumCnt" parameterType="hashmap"
+		resultType="int">
 		SELECT COUNT(*) CNT
 		FROM RESUM_SUPP RS
 		JOIN RESUM R
-		ON (RS.RESUM_NO = R.RESUM_NO)
+		ON
+		(RS.RESUM_NO = R.RESUM_NO)
 		WHERE RS.DEL_CHK = 0
-		AND	R.MEM_NO = #{memNo}
+		AND R.MEM_NO = #{memNo}
 	</select>
 	<!-- 리스트 -->
-	<select id="getSubResum" parameterType="hashmap" resultType="hashmap">
-		SELECT 
-			EMP_NO, RESUM_NO, EMP_TITLE, DLINE,
-			REG_DATE, FIND_CHK, PRCSS_STATE,
-			RESUM_NAME
-		FROM 
-			(
-			SELECT 
-				RS.EMP_NO, RS.RESUM_NO,
-				EMP_TITLE, TO_CHAR(EA.DLINE,'YYYY-MM-DD') DLINE,
-				TO_CHAR(RS.REG_DATE,'YYYY-MM-DD') REG_DATE, FIND_CHK, PRCSS_STATE,
-				RESUM_NAME, ROW_NUMBER() OVER(ORDER BY EA.DLINE) RNUM
-			FROM RESUM_SUPP RS
-			JOIN EMP_ANNC EA
-			ON (RS.EMP_NO = EA.EMP_NO)
-			JOIN RESUM R
-			ON (RS.RESUM_NO = R.RESUM_NO)		
-			WHERE RS.DEL_CHK = 0
-			AND	R.MEM_NO = #{memNo}
-			) SR
+	<select id="getSubResum" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT
+		EMP_NO, RESUM_NO, EMP_TITLE, DLINE,
+		REG_DATE, FIND_CHK, PRCSS_STATE,
+		RESUM_NAME
+		FROM
+		(
+		SELECT
+		RS.EMP_NO, RS.RESUM_NO,
+		EMP_TITLE, TO_CHAR(EA.DLINE,'YYYY-MM-DD') DLINE,
+		TO_CHAR(RS.REG_DATE,'YYYY-MM-DD') REG_DATE, FIND_CHK, PRCSS_STATE,
+		RESUM_NAME, ROW_NUMBER() OVER(ORDER BY EA.DLINE) RNUM
+		FROM RESUM_SUPP RS
+		JOIN EMP_ANNC EA
+		ON (RS.EMP_NO = EA.EMP_NO)
+		JOIN RESUM R
+		ON (RS.RESUM_NO = R.RESUM_NO)
+		WHERE RS.DEL_CHK = 0
+		AND R.MEM_NO = #{memNo}
+		) SR
 		WHERE SR.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
-	
-	<update id="changeSubResum" parameterType="hashmap" >
-		UPDATE RESUM_SUPP SET
-			RESUM_NO = #{cResumeNo}
+
+	<update id="changeSubResum" parameterType="hashmap">
+		UPDATE
+		RESUM_SUPP SET
+		RESUM_NO = #{cResumeNo}
 		WHERE RESUM_NO = #{resumeNo}
 		AND EMP_NO = #{empNo}
 	</update>
-	
-	<delete id="DelSupResum" parameterType="hashmap" >
-		DELETE RESUM_SUPP
+
+	<delete id="DelSupResum" parameterType="hashmap">
+		DELETE
+		RESUM_SUPP
 		WHERE RESUM_NO = #{resumeNo}
 		AND EMP_NO = #{empNo}
 	</delete>
-	
-	<select id="getRecepReqCnt" parameterType="hashmap" resultType="int">
+
+	<select id="getRecepReqCnt" parameterType="hashmap"
+		resultType="int">
 		SELECT COUNT(*) CNT
 		FROM SUPP_REQ SR
-        WHERE SR.MEM_NO = #{memNo}
+		WHERE SR.MEM_NO = #{memNo}
 	</select>
 	<!-- 리스트 처리 -->
-	<select id="getRecepReq" parameterType="hashmap" resultType="hashmap">
-	    SELECT
-	    	EMP_NO, 
-	        EMP_TITLE, DLINE, C_NAME,
-	        REG_DATE, REFUSE_CHK,
-	        WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM
-        FROM
-		    (
-		    SELECT 
-		        SR.EMP_NO, 
-		        EMP_TITLE, TO_CHAR(EA.DLINE,'YYYY-MM-DD') DLINE, C_NAME,
-		        TO_CHAR(SR.REG_DATE,'YYYY-MM-DD') REG_DATE, REFUSE_CHK,
-		        WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM, ROW_NUMBER() OVER(ORDER BY SR.REG_DATE, REFUSE_CHK) RNUM
-		    FROM SUPP_REQ SR
-		    JOIN EMP_ANNC EA
-		    ON (SR.EMP_NO = EA.EMP_NO)
-		    JOIN C_MEMBER CM
-		    ON (CM.MEM_NO = EA.MEM_NO)
-		    JOIN C_INFO CI
-		    ON (CM.CORP_NO = CI.CORP_NO)
-		    JOIN (
-		        SELECT CORP_NO, 
-		            ROUND(SUM(WLB)/COUNT(WLB)) WLB, 
-		            ROUND(SUM(PROMO_POSS)/COUNT(PROMO_POSS)) PROMO_POSS, 
-		            ROUND(SUM(C_CULT)/COUNT(C_CULT)) C_CULT, 
-		            ROUND(SUM(WFARE_PAY)/COUNT(WFARE_PAY)) WFARE_PAY, 
-		            ROUND(SUM(MGM)/COUNT(MGM)) MGM
-		        FROM GRADE
-		        WHERE DEL_CHK = 0
-		        AND PRCSS_GBN = 1
-		        GROUP BY CORP_NO
-	        	) G
-		    ON (G.CORP_NO = CM.CORP_NO) 
-		    WHERE SR.MEM_NO = #{memNo}
-	    	) SR
+	<select id="getRecepReq" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT
+		EMP_NO,
+		EMP_TITLE, DLINE, C_NAME,
+		REG_DATE, REFUSE_CHK,
+		WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM
+		FROM
+		(
+		SELECT
+		SR.EMP_NO,
+		EMP_TITLE, TO_CHAR(EA.DLINE,'YYYY-MM-DD') DLINE, C_NAME,
+		TO_CHAR(SR.REG_DATE,'YYYY-MM-DD') REG_DATE, REFUSE_CHK,
+		WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM, ROW_NUMBER() OVER(ORDER BY
+		SR.REG_DATE, REFUSE_CHK) RNUM
+		FROM SUPP_REQ SR
+		JOIN EMP_ANNC EA
+		ON (SR.EMP_NO = EA.EMP_NO)
+		JOIN C_MEMBER CM
+		ON (CM.MEM_NO = EA.MEM_NO)
+		JOIN C_INFO CI
+		ON (CM.CORP_NO = CI.CORP_NO)
+		JOIN (
+		SELECT CORP_NO,
+		ROUND(SUM(WLB)/COUNT(WLB)) WLB,
+		ROUND(SUM(PROMO_POSS)/COUNT(PROMO_POSS)) PROMO_POSS,
+		ROUND(SUM(C_CULT)/COUNT(C_CULT)) C_CULT,
+		ROUND(SUM(WFARE_PAY)/COUNT(WFARE_PAY)) WFARE_PAY,
+		ROUND(SUM(MGM)/COUNT(MGM)) MGM
+		FROM GRADE
+		WHERE DEL_CHK = 0
+		AND PRCSS_GBN = 1
+		GROUP BY CORP_NO
+		) G
+		ON (G.CORP_NO = CM.CORP_NO)
+		WHERE SR.MEM_NO = #{memNo}
+		) SR
 		WHERE SR.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
-	
+
 	<update id="recepReqRefuse" parameterType="hashmap">
 		UPDATE SUPP_REQ
-		SET REFUSE_CHK = 1
-		WHERE MEM_NO = #{memNo} 
+		SET
+		REFUSE_CHK = 1
+		WHERE MEM_NO = #{memNo}
 		AND EMP_NO = #{empno}
 	</update>
-	
-	
-	
-	
-	<select id="getAttndList" parameterType="hashmap" resultType="hashmap">
-		SELECT ATTND_NO, CITY_NAME, REGION_NAME, SECTOR_NAME, 
-        C_NAME, EA.EMP_NO,
-        EMP_TITLE, 
-        DLINE,
-        WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM
-		FROM EMP_ATTND EA 
-        JOIN EMP_ANNC ENC
-        ON (EA.EMP_NO = ENC.EMP_NO)
-        JOIN C_MEMBER CM
-        ON (EA.E_MEM_NO = CM.MEM_NO)
-        JOIN C_INFO CI
-        ON (CM.CORP_NO = CI.CORP_NO)
-        JOIN (
-            SELECT CORP_NO, 
-                ROUND(SUM(WLB)/COUNT(WLB)) WLB, 
-                ROUND(SUM(PROMO_POSS)/COUNT(PROMO_POSS)) PROMO_POSS, 
-                ROUND(SUM(C_CULT)/COUNT(C_CULT)) C_CULT, 
-                ROUND(SUM(WFARE_PAY)/COUNT(WFARE_PAY)) WFARE_PAY, 
-                ROUND(SUM(MGM)/COUNT(MGM)) MGM
-            FROM GRADE
-            WHERE DEL_CHK = 0
-            AND PRCSS_GBN = 1
-            GROUP BY CORP_NO
-            ) G
-        ON (CM.CORP_NO = G.CORP_NO) 
+
+
+	<select id="getAttndList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT ATTND_NO,
+		CITY_NAME, REGION_NAME, SECTOR_NAME,
+		TO_CHAR(ENC.REG_DATE,'YYYY-MM-DD') REG_DATE,
+		EMP_TITLE, TO_CHAR(DLINE,'YYYY-MM-DD') DLINE,
+		WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM,
+		C_NAME, EA.EMP_NO,
+		E_MEM_NO, T_MEM_NO
+		FROM EMP_ATTND EA
+		JOIN EMP_ANNC ENC
+		ON (EA.EMP_NO = ENC.EMP_NO)
+		JOIN C_MEMBER CM
+		ON (ENC.MEM_NO = CM.MEM_NO)
+		JOIN C_INFO CI
+		ON (CM.CORP_NO = CI.CORP_NO)
+		JOIN (
+		SELECT CORP_NO,
+		ROUND(SUM(WLB)/COUNT(WLB)) WLB,
+		ROUND(SUM(PROMO_POSS)/COUNT(PROMO_POSS)) PROMO_POSS,
+		ROUND(SUM(C_CULT)/COUNT(C_CULT)) C_CULT,
+		ROUND(SUM(WFARE_PAY)/COUNT(WFARE_PAY)) WFARE_PAY,
+		ROUND(SUM(MGM)/COUNT(MGM)) MGM
+		FROM GRADE
+		WHERE DEL_CHK = 0
+		AND PRCSS_GBN = 1
+		GROUP BY CORP_NO
+		) G
+		ON (CM.CORP_NO = G.CORP_NO)
 		JOIN
 		(SELECT CITY_NAME, REGION_NAME, REGION_NO, RE.CITY_NO
 		FROM REGION RE
 		JOIN CITY C
 		ON(C.CITY_NO = RE.CITY_NO)) RE
-		ON (ENC.REGION_NO = RE.REGION_NO)
+		ON (ENC.REGION_NO =
+		RE.REGION_NO)
 		JOIN SECTOR S
 		ON (ENC.SECTOR_NO = S.SECTOR_NO)
 		WHERE EA.DEL_CHK = 0
 		AND
 		EA.E_MEM_NO = #{memNo}
 	</select>
-	
+
 	<select id="getSuggetEmp" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT NAME, CHN_DATE, SECTOR_NAME, CARR, CARR_PER, CITY_NAME,
-		REGION_NAME, RESUM_NO
-		FROM (SELECT NAME, TO_CHAR(CHN_DATE,'YYYY-MM-DD')
-		CHN_DATE, SECTOR_NAME, CMC.CARR, CARR_PER, CITY_NAME, REGION_NAME,
-		R.RESUM_NO, ROW_NUMBER() OVER(ORDER BY DBMS_RANDOM.VALUE) RNUM,
-		R.DEL_CHK
-		FROM RESUM R
-		JOIN MEMBER M
-		ON (R.MEM_NO = M.MEM_NO)
-		JOIN (SELECT CAT_NAME CARR, SCD_CAT
-		FROM COMM_CODE WHERE FST_CAT = 6) CMC
-		ON (CMC.SCD_CAT = R.CARR)
-		JOIN
-		(SELECT CITY_NAME, REGION_NAME, REGION_NO, RE.CITY_NO
-		FROM REGION RE
-		JOIN CITY C
-		ON(C.CITY_NO = RE.CITY_NO)) RE
-		ON (R.REGION_NO = RE.REGION_NO)
-		JOIN SECTOR S
-		ON (R.SECTOR_NO = S.SECTOR_NO)
-		JOIN (SELECT SECTOR_NO FROM
-		C_SECTOR CS JOIN C_MEMBER CM ON (CM.CORP_NO = CS.CORP_NO) WHERE MEM_NO
-		= #{memNo}) MS
-		ON (MS.SECTOR_NO = R.SECTOR_NO)
-		LEFT JOIN RESUM_ATTND A
-		ON (A.RESUM_NO = R.RESUM_NO)
-		WHERE R.DEL_CHK = 0
-		AND A.RESUM_NO IS NULL
-		<if test="suggetEmpNoList neq null">
-			AND NOT R.RESUM_NO IN (
-			<foreach collection="suggetEmpNoList" item="item"
-				separator=",">
-				#{item.suggetEmpNo}
-			</foreach>
-			)
-		</if>
-		) V
+		SELECT 
+		    C_NAME, REG_DATE, DLINE, EMP_TITLE, ATTND_NO,
+		    SECTOR_NAME, CITY_NAME,	REGION_NAME, 
+		    EMP_NO,
+		    WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM
+		FROM 
+			(
+			SELECT EA.EMP_NO, C_NAME, EMP_TITLE, ATTND_NO,
+			TO_CHAR(REG_DATE,'YYYY-MM-DD') REG_DATE,
+			TO_CHAR(DLINE,'YYYY-MM-DD') DLINE,  
+			SECTOR_NAME, CITY_NAME, REGION_NAME,
+			WLB, PROMO_POSS, C_CULT, WFARE_PAY, MGM,
+			ROW_NUMBER() OVER(ORDER BY DBMS_RANDOM.VALUE) RNUM,
+			EA.DEL_CHK
+			FROM EMP_ANNC EA
+			JOIN C_MEMBER CM
+			ON (EA.MEM_NO = CM.MEM_NO)
+			JOIN C_INFO CI
+			ON (CM.CORP_NO = CI.CORP_NO)
+			JOIN (
+			SELECT CORP_NO,
+                ROUND(SUM(WLB)/COUNT(WLB)) WLB,
+                ROUND(SUM(PROMO_POSS)/COUNT(PROMO_POSS)) PROMO_POSS,
+                ROUND(SUM(C_CULT)/COUNT(C_CULT)) C_CULT,
+                ROUND(SUM(WFARE_PAY)/COUNT(WFARE_PAY)) WFARE_PAY,
+                ROUND(SUM(MGM)/COUNT(MGM)) MGM
+			FROM GRADE
+			WHERE DEL_CHK = 0
+			AND PRCSS_GBN = 1
+			GROUP BY CORP_NO
+			) G
+			ON (CM.CORP_NO = G.CORP_NO)
+			JOIN
+				(
+				SELECT CITY_NAME, REGION_NAME, REGION_NO,
+				RE.CITY_NO
+				FROM REGION RE
+				JOIN CITY C
+				ON(C.CITY_NO = RE.CITY_NO)
+				) RE
+				ON (EA.REGION_NO = RE.REGION_NO)
+			JOIN SECTOR S
+			ON (EA.SECTOR_NO = S.SECTOR_NO)
+			JOIN (
+				SELECT DISTINCT SECTOR_NO 
+				FROM RESUM
+				WHERE 1=1
+                AND MEM_NO = #{memNo}
+                AND DEL_CHK = 0
+                ) MS
+				ON (MS.SECTOR_NO = EA.SECTOR_NO)
+			LEFT JOIN EMP_ATTND A
+			ON (A.EMP_NO = EA.EMP_NO)
+			WHERE
+			EA.DEL_CHK = 0
+			AND A.EMP_NO IS NULL
+			<if test="suggetEmpNoList neq null">
+				AND NOT EA.EMP_NO IN (
+				<foreach collection="suggetEmpNoList" item="item"
+					separator=",">
+					#{item.suggetEmpNo}
+				</foreach>
+				)
+			</if>
+			) V
 		WHERE V.RNUM = 1
 	</select>
 
 
-<!-- 	<update id="delAttention" parameterType="String">
-		UPDATE ATTND
-		SET DEL_CHK
-		= 1
-		WHERE ATTND_NO = #{target}
-	</update> -->
 
-	<delete id="delAttention" parameterType="String">
-		DELETE RESUM_ATTND
-		WHERE ATTND_NO = #{target}
+
+	<delete id="delAttnd" parameterType="String">
+		DELETE EMP_ATTND
+		WHERE
+		ATTND_NO = #{target}
 	</delete>
 
 
-	<select id="resumeMemNo" parameterType="hashmap"
+
+	<select id="empMemNo" parameterType="hashmap"
 		resultType="String">
 		SELECT MEM_NO
-		FROM RESUM
+		FROM EMP_ANNC
 		WHERE 1 = 1
-		AND RESUM_NO = #{resumeNo}
+		AND EMP_NO = #{empNo}
 	</select>
-
+	
 	<insert id="addAttned">
-		INSERT INTO RESUM_ATTND(
+		INSERT INTO EMP_ATTND(
 		ATTND_NO,
 		E_MEM_NO,
 		T_MEM_NO,
-		RESUM_NO
+		EMP_NO
 		) VALUES (
-		ATTND_SEQ.NEXTVAL,
+		EMP_ATTND_SEQ.NEXTVAL,
 		#{memNo},
 		#{tMemNo},
-		#{resumeNo}
+		#{empNo}
 		)
 	</insert>
 
-	<select id="getEmpCnt" parameterType="hashmap" resultType="int">
-		SELECT COUNT(*) CNT
-		FROM EMP_ANNC EA
-		LEFT OUTER JOIN (SELECT EMP_NO FROM SUPP_REQ WHERE MEM_NO = #{tMemNo} ) SR
-		ON (EA.EMP_NO = SR.EMP_NO)
-		WHERE DEL_CHK = 0
-		AND MEM_NO = ${memNo}
-		AND SR.EMP_NO IS NULL
-	</select>
-
-	<select id="getEmp" parameterType="hashmap" resultType="hashmap">
-		SELECT
-		EMP_NO, EMP_TITLE, DLINE
-		FROM
-		(
-		SELECT EA.EMP_NO, EMP_TITLE, TO_CHAR(DLINE, 'YYYY-MM-DD') DLINE,
-		ROW_NUMBER() OVER (ORDER BY DLINE) AS RNUM
-		FROM EMP_ANNC EA
-		LEFT OUTER JOIN (SELECT EMP_NO FROM SUPP_REQ WHERE MEM_NO = #{tMemNo} ) SR
-		ON (EA.EMP_NO = SR.EMP_NO)
-		WHERE DEL_CHK = 0
-		AND MEM_NO = ${memNo}
-		AND SR.EMP_NO IS NULL
-		) E
-		WHERE 1 = 1 
-		AND E.RNUM BETWEEN #{startCnt} AND #{endCnt}
-		ORDER BY EMP_NO
-	</select>
 </mapper>

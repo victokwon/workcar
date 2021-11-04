@@ -9,4 +9,6 @@ public interface IMngEmpAncService {
 
 	int delEmpAnc(HashMap<String, String> params) throws Throwable;
 
+	List<HashMap<String, String>> empResumeList(HashMap<String, String> params) throws Throwable;
+
 }

@@ -27,15 +27,15 @@ public class EmpAnncService implements IEmpAnncService {
 	}
 
 	@Override
-	public int uptEmpAnncAjax(HashMap<String, String> params) throws Throwable {
+	public int insEmpAnncAjax(HashMap<String, String> params) throws Throwable {
 		
-		return iempannc.uptEmpAnncAjax(params);
+		return iempannc.insEmpAnncAjax(params);
 	}
 
 	@Override
-	public int uptEmpQual(HashMap<String, Object> empQual) throws Throwable {
+	public int insEmpQual(HashMap<String, Object> empQual) throws Throwable {
 		// TODO Auto-generated method stub
-		return  iempannc.uptEmpQual(empQual);
+		return  iempannc.insEmpQual(empQual);
 	}
 
 	@Override
@@ -51,9 +51,9 @@ public class EmpAnncService implements IEmpAnncService {
 	}
 
 	@Override
-	public int uptAttchFile(HashMap<String, String> params) throws Throwable {
+	public int insAttchFile(HashMap<String, String> params) throws Throwable {
 		
-		return iempannc.uptAttchFile(params);
+		return iempannc.insAttchFile(params);
 	}
 
 	/*

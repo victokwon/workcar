@@ -37,8 +37,33 @@
 <select id="qaulList" parameterType="hashmap" resultType="hashmap">
 	SELECT EQ.QUAL_NO, QU.QUAL_NAME
 	FROM EMP_QUAL EQ JOIN QUAL QU ON (EQ.QUAL_NO = QU.QUAL_NO) 
-	WHERE EQ.EMP_NO = #{EMP_NO}
-		
+	WHERE EQ.EMP_NO = #{EMP_NO}		
 </select>
+
+
+
+<update id="uptEmpAnncAjax">
+UPDATE EMP_ANNC SET EMP_TITLE = #{EMP_TITLE}, SECTOR_NO = #{SECTOR_NO}, EMP_PER = #{EMP_PER}, EMP_GBN = #{EMP_GBN}, PAY_LOW = #{PAY_LOW}, PAY_HIGH = #{PAY_HIGH}, 
+GRADU = #{GRADU}, CARR = #{CARR}, CARR_Y = #{CARR_Y}, DTL= #{DTL}, REG_DATE = #{REG_DATE}, DLINE = #{DLINE}, REGION_NO = #{REGION_NO}, MAJOR = #{MAJOR}, RECRUIT = #{RECRUIT}, CITY_NO = #{CITY_NO}, 
+EMP_DOC = #{EMP_DOC}, EMP_PRCS = #{EMP_PRCS}
+WHERE EMP_NO = #{EMP_NO}
+</update>
+
+
+
+<update id="uptEmpQual">
+UPDATE EMP_QUAL SET QUAL_NO = #{QUAL_NO}, QUAL_NAME = #{QUAL_NAME}
+WHERE EMP_NO = #{EMP_NOO}
+</update>
+
+
+
+<update id="uptAttchFile">
+UPDATE EMP_ATTCH SET ATTCH_NAME = #{ATTCH_NAME}
+WHERE EMP_NO = #{EMP_NO}
+</update>
+
+
+
 
 </mapper>

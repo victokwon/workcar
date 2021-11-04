@@ -26,15 +26,15 @@ public class EmpAnncDAO implements IEmpAnncDAO {
 	}
 
 	@Override
-	public int uptEmpAnncAjax(HashMap<String, String> params) throws Throwable {
+	public int insEmpAnncAjax(HashMap<String, String> params) throws Throwable {
 		
-		return sqlSession.insert("empannc.uptEmpAnncAjax",params);
+		return sqlSession.insert("empannc.insEmpAnncAjax",params);
 	}
 
 	@Override
-	public int uptEmpQual(HashMap<String, Object> empQual) throws Throwable {
+	public int insEmpQual(HashMap<String, Object> empQual) throws Throwable {
 		
-		return sqlSession.insert("empannc.uptEmpQual",empQual);
+		return sqlSession.insert("empannc.insuptEmpQual",empQual);
 	}
 
 	@Override
@@ -50,9 +50,9 @@ public class EmpAnncDAO implements IEmpAnncDAO {
 	}
 
 	@Override
-	public int uptAttchFile(HashMap<String, String> params) throws Throwable {
+	public int insAttchFile(HashMap<String, String> params) throws Throwable {
 		
-		return sqlSession.insert("empannc.uptAttchFile",params);
+		return sqlSession.insert("empannc.insAttchFile",params);
 	}
 
 

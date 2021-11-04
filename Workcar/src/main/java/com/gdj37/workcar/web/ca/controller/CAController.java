@@ -309,9 +309,9 @@ public class CAController {
 		Map<String, Object> modelMap = new HashMap<String, Object>();
 		System.out.println(params);
 //		메일 보내기 설정
-		String host = "smtp.naver.com";
-		final String username = "victokwon93";
-		final String password = "vmfhwprxm!!";
+		String host = "smtp.gmail.com";
+		final String username = "victokwon1993";
+		final String password = "dlffurrj1!";
 //		메일 보낼 내용
 		String recipient = params.get("EM");
 		String title = "";
@@ -325,9 +325,11 @@ public class CAController {
 		Properties props = System.getProperties();
 
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.naver.com");
+		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "587");
+		props.put("mail.debug", "true");
+		props.put("mail.smtps.ssl.trust", "*");
 
 //        메일 보낼 준비 작업
 		switch (params.get("mailGbn")) {

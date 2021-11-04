@@ -24,7 +24,7 @@
 /* Style the tab content (and add height:100% for full page content) */
 .main_content {
     color: #555;
-    display: none;
+    /* display: none; */
     padding: 20px 20px;
     height: 350px;
     margin: 0 auto;
@@ -866,4 +866,8 @@ label {
   width: 70px;
   margin: 10px;
   float: right;
+}
+
+div#main_regi {
+display: flex;
 }
