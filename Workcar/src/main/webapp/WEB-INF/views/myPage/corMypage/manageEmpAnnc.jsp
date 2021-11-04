@@ -174,8 +174,8 @@
                                                     <div class="data">${data.VIEWS}회</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="text">지원자수</div>
-                                                    <div class="data">0건</div>
+                                                    <div class="text">근무지역</div>
+                                                    <div class="data">${data.REGION_NAME}.</div>
                                                 </div>
                                               <div class="row">
                                                     <div class="text">마감일</div>
@@ -208,26 +208,26 @@
                     
                 <div id="empAncLists2">       
                 <table class="job_post_tab">
-                   <c:forEach var ="data" items="${list}"> 
+                   <c:forEach var ="data2" items="${list}"> 
                         <tr id="dtlBody" >
                             <td jobPostNo="1">
                                 <div class="job_post_list">
                                     <div class="logo"></div>
                                     <div class="dtl_box">
-                                        <div class="job_post_title">공고 이름 : ${data.EMP_TITLE}</div>
+                                        <div class="job_post_title">공고 이름 : ${data2.EMP_TITLE}</div>
                                         <div class="job_post_state_dtl">
                                             <div class="col">
                                                 <div class="row">
                                                     <div class="text">회사명</div>
-                                                    <div class="data">${data.C_NAME}</div>
+                                                    <div class="data">${data2.C_NAME}</div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="text">모집인원</div>
-                                                    <div class="data">${data.EMP_PER}명</div>
+                                                    <div class="data">${data2.EMP_PER}명</div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="text">공고일</div>
-                                                    <div class="data">${data.REG_DATE}.</div>
+                                                    <div class="data">${data2.REG_DATE}.</div>
                                                 </div>
                                                 <div class="row">
 
@@ -236,15 +236,15 @@
                                             <div class="col">
                                                 <div class="row">
                                                     <div class="text">조회수</div>
-                                                    <div class="data">${data.VIEWS}회</div>
+                                                    <div class="data">${data2.VIEWS}회</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="text">지원자수</div>
-                                                    <div class="data">0건</div>
+                                                    <div class="text">근무지역</div>
+                                                    <div class="data">${data2.REGION_NAME}.</div>
                                                 </div>
                                               <div class="row">
                                                     <div class="text">마감일</div>
-                                                    <div class="data">${data.DLINE}.</div>
+                                                    <div class="data">${data2.DLINE}.</div>
                                                 </div>
                                                 <div class="row">
                                               
@@ -253,9 +253,9 @@
                                         </div>                                                          
                                     </div>
                                     <div class="button_container">
-                                        <div class="job_post_state">상태 : ${data.OPNCHK}</div>
-                                        <div class="button_box" eno="${data.EMP_NO}" rno="${data.MEM_NO}"> 
-                                            <button id="openResume">이력서 열람하기</button>
+                                        <div class="job_post_state">상태 : ${data2.OPNCHK}</div>
+                                        <div class="button_box" eno="${data2.EMP_NO}" rno="${data2.MEM_NO}"> 
+                                            <button id="openResume">지원자 보기</button>
                                         </div>
                                     </div>
                                 </div>
@@ -270,7 +270,7 @@
                     
           		<div id="resumeLists" >
                     <table class="job_post_resume" >                  
-                        <tr>
+<!--                         <tr>
                             <td jobPostNo="1">
                                 <div class="job_post_state">
                                     <div class="job_post_resume_title">공고명: </div>
@@ -288,21 +288,21 @@
                                         <div class="job_post_resume_state_dtl">
                                             <div class="col">
                                                 <div class="row">
-                                                    <div class="text">지원자</div>
+                                                    <div class="text">지원자 : </div>
                                                     <div class="data">지원자 이름</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="text">처리일</div>
+                                                    <div class="text">상태 : </div>
                                                     <div class="data">미처리</div>
                                                 </div>
                                             </div>
                                             <div class="col">
                                                 <div class="row">
-                                                    <div class="text">이력서</div>
+                                                    <div class="text">이력서 : </div>
                                                     <div class="data">이력서 제목</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="text">제출일</div>
+                                                    <div class="text">제출일 : </div>
                                                     <div class="data">2021.10.13.</div>
                                                 </div>
                                             </div>
@@ -317,7 +317,7 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                     </table>
                      <div class="job_post_add">
                       <button type="button" id ="goListBtn">목록으로 돌아가기</button>
@@ -436,7 +436,7 @@ function resumeLists() {
 	var param = $("#empancDtl").serialize();
 	
 	$.ajax({
-		url : "resumeLists",
+		url : "ancResumeLists",
 		data : param,
 		dataType : "json",
 		type : "post",
@@ -454,6 +454,69 @@ function resumeLists() {
 			}
 	});
 	
+}
+
+
+
+ function drawResumeList() {
+	
+	
+	var html = "";
+	
+	for(var rlist of rlist) {
+	
+			html += "		<tr RESUM_NO="+rlist.RESUME_NO+">                                       ";
+/* 			html += "		<td>                                                       ";
+			html += "		<div class='job_post_state'>                               ";
+			html += "		<div class='job_post_resume_title'>공고명: </div>          ";
+			html += "		<div class='job_post_resume_date'>                         ";
+			html += "		<div class='start'>공고일: "+2021.10.13+".</div>~          ";
+			html += "		<div class='end'>마감일: "+2021.10.13+".</div>             ";
+			html += "		<div class='dd'>+"D-day+"</div>                            ";
+			html += "		</div>                                                     ";
+			html += "		</div>                                                     ";
+			html += "		</td>                                                      "; */
+			html += "		<td>                                                       ";
+			html += "		<div class='job_post_resume_list'>                         ";
+			html += "		<div class='logo'></div>                                   ";
+			html += "		<div class='dtl_box'>                                      ";
+			html += "		<div class='job_post_resume_state_dtl'>                    ";
+			html += "		<div class='col'>                                          ";
+			html += "		<div class='row'>                                          ";
+			html += "		<div class='text'>지원자</div>                             ";
+			html += "		<div class='data'>"+지원자 이름+"</div>                   ";
+			html += "		</div>                                                     ";
+			html += "		<div class='row'>                                          ";
+			html += "		<div class='text'>처리상태</div>                           ";
+			html += "		<div class='data'>"+rlist.PRCSCHK+"</div>                             ";
+			html += "		</div>                                                     ";
+			html += "		</div>                                                     ";
+			html += "		<div class='col'>                                          ";
+			html += "		<div class='row'>                                          ";
+			html += "		<div class='text'>이력서</div>                             ";
+			html += "		<div class='data'>"+이력서 제목+"</div>                    ";
+			html += "		</div>                                                     ";
+			html += "		<div class='row'>                                          ";
+			html += "		<div class='text'>제출일</div>                             ";
+			html += "		<div class='data'>"+rlist.REG_DATE+"</div>                    ";
+			html += "		</div>                                                     ";
+			html += "		</div>                                                     ";
+			html += "		</div>                                                     ";
+			html += "		</div>                                                     ";
+			html += "		<div class='button_container'>                             ";
+			html += "		<div class='job_post_resume_state'>"+rlist.FINDCHK+ "</div>       ";
+			html += "		<div class='button_box'>                                   ";
+			html += "		<button id='openResume'>이력서 열람</button>                ";
+			html += "		</div>                                                     ";
+			html += "		</div>                                                     ";
+			html += "		</div>                                                     ";
+			html += "		</td>                                                      ";
+			html += " 		</tr>                                                      ";     
+	
+		}
+	
+			$(".job_post_resume").html(html);
+			
 }
 
 
