@@ -64,7 +64,7 @@ function linkGo(url){
 
 			<!-- 로고 -->
 			<div class="topnav-centered">
-				<div class="logo_img"></div>
+				<div class="logo_img" onclick="linkGo('mainpage')"></div>
 			</div>
 
 			<!-- 왼쪽 -->

@@ -65,7 +65,7 @@
 
 			<!-- 로고 -->
 			<div class="topnav-centered">
-				<div class="logo_img"></div>
+				<div class="logo_img" onclick="linkGo('mainpage')"></div>
 			</div>
 
 			<!-- 왼쪽 -->
@@ -1189,25 +1189,8 @@
 		$("#REGION").html(html);
 		$("#REGION").val(region);
 		
-		
 	}
-/* 	function drawRegion(list){
-		
-		var html = "";
-		
-		for(data of list) {
 
-		 	for(var i =0; i i++){
-		 		
-		 		var regid = i;
-	
-		 	}
-		 	html += '<option value="'+data.REGION_NO+'" id=REGION_NO'+regid+'>'+data.REGION_NAME +'</option>'
-		$("#REGION").html(html);
-	}
-	
-	} */
-	
 	
 
 	
