@@ -339,6 +339,17 @@
 		#{cityNo}
 		ORDER BY REGION_NO
 	</select>
+	
+	<select id="getEmployViewsTop1Cnt" parameterType="hashmap" resultType="Integer">
+		SELECT COUNT(DISTINCT EA.EMP_NO) AS CNT
+		FROM EMP_ANNC EA INNER JOIN
+		C_MEMBER CM
+		ON EA.MEM_NO = CM.MEM_NO
+		INNER JOIN C_INFO CI
+		ON CM.CORP_NO = CI.CORP_NO
+        WHERE DEl_CHK = 0
+        AND RECRUIT_GBN = 0
+	</select>
 	<select id="getEmployViewsTop1List" parameterType="hashmap"
 		resultType="hashmap">
 		SELECT E.EMP_NO, E.CORP_IMG, E.C_NAME, E.EMP_TITLE, SECTOR_NAME, DLINE,VIEWS

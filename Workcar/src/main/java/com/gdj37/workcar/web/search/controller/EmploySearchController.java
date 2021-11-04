@@ -64,7 +64,7 @@ public class EmploySearchController {
 		// 개수 취득
 		int cnt = iEmploySearchService.getEmpSch1Cnt(params);
 		// 페이징 정보 취득
-		PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 9);
+		PagingBean pb = iPagingService.getPagingBean(page, cnt, 9, 5);
 		params.put("startCnt", Integer.toString(pb.getStartCount()));
 		params.put("endCnt", Integer.toString(pb.getEndCount()));
 
@@ -178,13 +178,14 @@ public class EmploySearchController {
 	
 	@RequestMapping(value = "/EmployViewsTopList")
 	public ModelAndView EmployViewsTopList(@RequestParam HashMap<String, String> params, ModelAndView mav)throws Throwable {
-		int page = 1;
-
-		if (params.get("page") != null) {
-			page = Integer.parseInt(params.get("page"));
-		}
 		
-		mav.addObject("page", page);
+		  int page = 1;
+		  
+		  if (params.get("page") != null) { page =
+		  Integer.parseInt(params.get("page")); }
+		  
+		  mav.addObject("page", page);
+		 
 		mav.setViewName("TOPRANK/EmployViewsTopList");
 
 		return mav;
@@ -200,7 +201,7 @@ public class EmploySearchController {
 			// 페이지 취득
 			int page = Integer.parseInt(params.get("page"));
 			// 개수 취득
-			int cnt = iEmploySearchService.getEmpSch1Cnt(params);
+			int cnt = iEmploySearchService.getEmployViewsTop1Cnt(params);
 			// 페이징 정보 취득
 			PagingBean pb = iPagingService.getPagingBean(page, cnt, 3, 5);
 			params.put("startCnt", Integer.toString(pb.getStartCount()));

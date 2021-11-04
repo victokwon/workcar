@@ -17,6 +17,20 @@ body, html {
 }
 
 /* Style tab links */
+.main_h1_box {
+	margin: 0 auto;
+	width: 1000px;
+}
+
+.main_h1 {
+	background-color: #88a2f2;
+	color: white;
+	float: left;
+	cursor: pointer;
+	padding: 14px 16px;
+	width: 968px;
+}
+
 .main_button {
 	background-color: #555;
 	color: white;
@@ -35,9 +49,8 @@ body, html {
 
 .main_content {
 	color: white;
-
 	padding: 20px 20px;
-	margin: 0 auto;
+	margin: auto;
 	width: 1000px;
 	border-radius: 8px;
 }
@@ -127,12 +140,12 @@ body, html {
   font-weight: bold;
   font-size: 13px;
 } */
-.main_button_box {
-	margin: 0 auto;
-	/* margin-top: 50px; */
-	width: 1000px;
-}
 
+/* .main_button_box {
+  margin: 0 auto;
+  margin-top: 50px;
+  width: 1000px;
+} */
 main>.main_wrap {
 	font-size: 16px;
 	font-weight: bolder;
@@ -144,11 +157,6 @@ main>.main_wrap {
 /* 기본 */
 /* 검색 end */
 /* 상세검색 체크확인내용 */
-.main_section {
-	display: flex;
-	flex-direction: column;
-}
-
 .main_section, #more {
 	width: 800px;
 	background-color: #c4c7f2;
@@ -177,7 +185,6 @@ main>.main_wrap {
 	font-size: 17px;
 	border: 1px solid grey;
 	text-align: center;
-	font-size: 14px;
 }
 
 .main_section .radiobx, #more .radiobx {
@@ -300,9 +307,9 @@ table {
 }
 
 .card_list .content:hover {
-	cursor: pointer;
 	border: 8px solid #88a2f2;
 	margin: -8px 0px;
+	cursor: pointer;
 }
 
 .card_list .content img {
@@ -340,6 +347,9 @@ table {
 	max-width: 100%;
 }
 
+.content p {
+	font-size: 14px;
+}
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media screen and (max-width: 900px) {
 	.column {
@@ -419,14 +429,30 @@ input[disabled] {
 	font-size: 1.5em;
 	text-align: center;
 	display: inline-block;
-	margin: 60 px 0 px;
 }
+
+.column p {
+	font-size: 12px;
+}
+
+.column .column_div {
+	margin: 5px 0px;
+}
+
 .sn_overflow {
 	display: inline-block;
 	width: 270px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+.content_div{
+	margin-bottom:5px;
+	display:inline-flex;
+}
+.content_emp_no {
+	position: relative;
+	left: 100px;
 }
 #defaultOpen{
 	background-color:#88a2f2;

@@ -23,4 +23,6 @@ public interface IEmploySearchService {
 
 	public List<HashMap<String, String>> getEmployViewsTop1List(HashMap<String, String> params)throws Throwable;
 
+	public int getEmployViewsTop1Cnt(HashMap<String, String> params)throws Throwable;
+
 }

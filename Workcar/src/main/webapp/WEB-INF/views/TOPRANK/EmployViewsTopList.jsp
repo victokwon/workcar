@@ -15,9 +15,9 @@
 <link rel="stylesheet" type="text/css"
 	href="resources/css/common/sidebar.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/cinfosch/CInfosearch.css">
+	href="resources/css/empsch/topviews.css">
 <link rel="stylesheet" type="text/css"
-	href="resources/css/cinfosch/paging.css">
+	href="resources/css/empsch/paging.css">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -43,8 +43,8 @@ $(document).ready(function(){
 	
 	$("#row_box").on("click","td",function(){
 		if($(this).attr("class") != "no_data"){
-			$("#corpno").val($(this).attr("corpno"))
-			let target = "corDetail"
+			$("#empno").val($(this).attr("empno"))
+			let target = "applyDetail"
 			$("#actionForm1").attr("action", target)
 			$("#actionForm1").submit()
 		}
@@ -124,14 +124,14 @@ function drawList(list,cnt) {
 		for(var data of list) {
 			html += '<td class="column" empno="'+data.EMP_NO+'">';
 			html += "<div class=\"content\">";
-			html += "<div class=\"content_div\"> "+ i++ +"</div>";
-			html += "<div>"+ data.EMP_NO +"</div>";
+			html += "<div class=\"content_div\"> 순위 : "+ i++ +"</div>";
+			html += "<span class=\"content_emp_no\"> 공고 번호 : "+ data.EMP_NO +"</span>";
 			html += "<img src=\"resources/images/common/logo.png\" />     ";
 				if(data.CORP_IMG != null){
 					"<img src=\"resources/images/upload/" + data.CORP_IMG + ".png\" />     ";				
 				}
 			html += "<h3>" + data.C_NAME + "</h3>"; 
-			html += "<span>" + data.EMP_TITLE + "</span>";
+			html += "<span class=\"sn_overflow\">" + data.EMP_TITLE + "</span>";
 			html += "</div>";
 			html += "</td>";
 	
@@ -310,6 +310,15 @@ function linkGo(url){
 		
 		<div class="main_wrap">
 			<div class="main_h1_box">
+				<div class="main_button_box">
+					<button class="main_button"
+						 onclick="linkGo('EmploySearchList')" >채용 통합
+						검색</button>
+					<button class="main_button"
+						 onclick="linkGo('EmployViewsTopList')"  id="defaultOpen">채용 조회수 100</button>
+					<button class="main_button"
+						onclick="openPage('main_garde', this,'#88a2f2')">평점 100</button>
+				</div>
                 <h1 class="main_h1" onclick="linkGo('EmployViewsTopList')">채용 조회수 Top 100</h1>
             </div>
 			

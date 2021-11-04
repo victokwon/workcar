@@ -56,4 +56,9 @@ public class EmploySearchDAO implements IEmploySearchDAO{
 	public List<HashMap<String, String>> getEmployViewsTop1List(HashMap<String, String> params) throws Throwable {
 		return sqlSession.selectList("EmploySearch.getEmployViewsTop1List", params);
 	}
+
+	@Override
+	public int getEmployViewsTop1Cnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("EmploySearch.getEmployViewsTop1Cnt", params);
+	}
 }

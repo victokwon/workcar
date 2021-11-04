@@ -57,4 +57,9 @@ public class EmploySearchService implements IEmploySearchService{
 	public List<HashMap<String, String>> getEmployViewsTop1List(HashMap<String, String> params) throws Throwable {
 		return iEmploySearchDAO.getEmployViewsTop1List(params);
 	}
+
+	@Override
+	public int getEmployViewsTop1Cnt(HashMap<String, String> params) throws Throwable {
+		return iEmploySearchDAO.getEmployViewsTop1Cnt(params);
+	}
 }

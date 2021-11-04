@@ -181,7 +181,7 @@ function reloadList(){
 
 	
 	$.ajax({
-		url : "EmployViewsTopList",
+		url : "EmploySearchListAjax",
 		type : "post",
 		dataType : "json",
 		data : params,
@@ -212,7 +212,7 @@ function drawList(list,cnt) {
 					"<img src=\"resources/images/upload/" + data.CORP_IMG + ".png\" />     ";				
 				}
 			html += "<h3>" + data.C_NAME + "</h3>"; 
-			html += "<span>" + data.EMP_TITLE + "</span>";
+			html += "<span class=\"sn_overflow\">" + data.EMP_TITLE + "</span>";
 			html += "</div>";
 			html += "</td>";
 			
@@ -453,10 +453,10 @@ function linkGo(url){
 		<div class="main_wrap">
 			<div class="main_button_box">
 				<button class="main_button"
-					onclick="openPage('main_search', this, '#88a2f2')" id="defaultOpen" >채용 통합
+					onclick="linkGo('EmploySearchList')"  id="defaultOpen" >채용 통합
 					검색</button>
 				<button class="main_button"
-					onclick="openPage('main_hits', this,'#88a2f2')">조회수 100</button>
+					onclick="linkGo('EmployViewsTopList')">조회수 100</button>
 				<button class="main_button"
 					onclick="openPage('main_garde', this,'#88a2f2')">평점 100</button>
 			</div>
@@ -636,33 +636,6 @@ function linkGo(url){
 
 					</form>
 
-
-				<div id="main_hits" class="main_content">
-					<div class="main_margin"></div>
-					<div class="main_section">
-						<div class="vertical_menu">
-							<a href="#">
-								<div class="apply_content">지원자</div>
-							</a> <a href="#">
-								<div class="apply_content">지원자</div>
-							</a>
-						</div>
-						<div class="main_box"></div>
-					</div>
-				</div>
-
-				<div id="main_garde" class="main_content">
-					<div class="main_margin"></div>
-					<div class="main_section">
-						<div class="vertical_menu">
-							<a href="#">개인정보 설정</a> <a href="#">비밀번호 변경</a>
-						</div>
-						<div class="main_regi_contents">
-							<h3>Contact</h3>
-							<p>Get in touch, or swing by for a cup of coffee.</p>
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		</div>

@@ -1,5 +1,5 @@
 
-function openPage(pageName,elmnt,color) {
+/*function openPage(pageName,elmnt,color) {
     var i, tabcontent, tablinks;
     tabcontent = document.getElementsByClassName("main_content");
     for (i = 0; i < tabcontent.length; i++) {
@@ -16,7 +16,7 @@ function openPage(pageName,elmnt,color) {
   
   // Get the element with id="defaultOpen" and click on it
   document.getElementById("defaultOpen").click();
-
+*/
   function moreBtn(){
     if ($("#icon").attr("src") == "resources/images/empsch/up.png") {
         $("#icon").attr("src", "resources/images/empsch/down.png")
