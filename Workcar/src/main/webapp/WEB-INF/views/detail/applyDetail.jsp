@@ -24,7 +24,9 @@
 	<script type="text/javascript" src="resources\script\detail\resumeApply.js"></script>
     <script src="resources/script/detail/header.js"></script>
     <script type="text/javascript" src="resources/script/detail/apply_dtl_paging.js"></script>
-   	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=	8ccb33b4781aed7d9d9321c853fa3055&libraries=services"></script>
+   <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e5a7222e84f43da6e7dad790c0611a4f&libraries=services"></script> -->
+    <script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ccb33b4781aed7d9d9321c853fa3055&libraries=services"></script> 
    	
 	<script type="text/javascript"
 	src="resources\script\detail\ReportPop.js"></script>	
@@ -33,29 +35,30 @@
 	<link rel="stylesheet" type="text/css"
    href="resources\css\manage\pop.css">		
    	
-	<script type="text/javascript">
-
-	</script>
 	<script>
 	 $(function () {
 		 $("#goList").on("click",function(){
 			 $("#empListForm").attr("action", "EmploySearchList")
 			 $("#empListForm").submit()
 		 })
-	/* 	 $(".cNameBox").on("click", function(){
-			 $("#")
-			 $("#empListForm").attr("action", "applyDetail")
+	 /* 	 $("#cNameBox").on("click", function(){
+			 let corpNo = $(this).attr("cNo")
+			 $("#corpNo").val(corpNo)
+			 $("#empListForm").attr("action", "corDetail")
 			 $("#empListForm").submit()
-		 }) */
-		 
+		 })  */
+		 $(".star_rating").each(function(idx){
+				let score = $(this).attr("score")
+					html = ''
+				for(let i = 0; i<Math.round(score); i++){
+					html+= '	    <span class="fa fa-star checked"></span>             '
+				}
+				for(let i = 0; i<5-Math.round(score); i++){
+					html+= '	    <span class="fa fa-star"></span>             '
+				}
+				$(this).html(html)
+			})
 
-	/* 	 function adjustHeight() {
-			  var textEle = $(".apply_dtl");
-			  textEle[0].style.height = 'auto';
-			  var textEleHeight = textEle.prop('scrollHeight');
-			  textEle.css('height', textEleHeight);
-			};
-			adjustHeight(); */
 	 });
 		 function linkGo(url){
 		 		location.href = url
@@ -217,6 +220,7 @@
    <form action="#" id="empListForm" method="post">
    		<input type="hidden" id="memNo" name="memNo" value="${sMNo }">
       	<input type="hidden" id="page" name="page" value="${param.page}">
+      	<input type="hidden" id="corpNo" name="corpno" value="">
       	<input type="hidden" id="empNo" name="empno" value="${param.empno }">
 		<input type="hidden" id="sectorNo" name="sectorNo" value="${param.sectorNo }">
 		<input type="hidden" id="startDate" name="startDate" value="${param.startDate }">
@@ -266,7 +270,7 @@
             	        <div class="input_box">
                            <div class="c_name">
 	                              <div class="text"><b>기업명</b></div>
-	                              <div class="input" id="cNameBox" cname="${applyinfo.C_NAME}" cno="${applyinfo.CORP_NO}"><b>${applyinfo.C_NAME}</b></div>
+	                              <div class="input" id="cNameBox" cname="${applyinfo.C_NAME}" cNo="${applyinfo.CORP_NO}"><b>${applyinfo.C_NAME}</b></div>
                            </div>
                            <div class="sector">
 	                              <div class="text">직종</div>
@@ -304,100 +308,37 @@
                 <hr>
                 <div class="main_detail_2">
                     <div class="apply_dtl">
-                   <%--  ${fn:replace(applyinfo.DTL, '\\r\\n', '.<br>')} --%>
                    ${applyinfo.DTL}
                     </div>
                 </div>
-				<script>
-					
-						$(function () {
-							
-							
-						    		for (var i=1; i<=  ${rating.TOTAL}; i++) { 
-						    		$(".total_rating"+i).addClass("checked");
-						    		}
-						    		
-						    		for (var i=1; i<=  ${rating.WLB}; i++) { 
-							    	$(".work_rating"+i).addClass("checked");
-							    	}
-						    		for (var i=1; i<=  ${rating.PROMO}; i++) { 
-							    	$(".promotion_rating"+i).addClass("checked");
-							    	}
-						    		for (var i=1; i<=  ${rating.CULTURE}; i++) { 
-							    		$(".culture_rating"+i).addClass("checked");
-							    		}
-						    		for (var i=1; i<=  ${rating.WFARE}; i++) { 
-							    		$(".welfare_rating"+i).addClass("checked");
-							    		}
-						    		for (var i=1; i<=  ${rating.MGM}; i++) { 
-							    		$(".management_rating"+i).addClass("checked");
-							    		}
-						});
-					</script>
 					<div class="main_rating">
 						<h3>총 평점</h3>
-						<div class="star_rating total_rating">
-							<span class="fa fa-star total_rating1"></span>
-							<span class="fa fa-star total_rating2"></span>
-							<span class="fa fa-star total_rating3"></span> 
-							<span class="fa fa-star total_rating4"></span>
-							<span class="fa fa-star total_rating5"></span>
-							<span> ${rating.TOTAL}</span>
+						<div class="star_rating total_rating" score="${rating.TOTAL }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>업무와 삶의 균형</h3>
-						<div class="star_rating work_rating">
-							<span class="fa fa-star work_rating1 "></span>
-							<span class="fa fa-star work_rating2"></span>
-							<span class="fa fa-star work_rating3"></span> 
-							<span class="fa fa-star work_rating4"></span>
-							<span class="fa fa-star work_rating5"></span>
-							<span> ${rating.WLB}</span>
+						<div class="star_rating work_rating" score="${rating.WLB }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>승진기회 및 가능성</h3>
-						<div class="star_rating promotion_rating">
-							<span class="fa fa-star promotion_rating1 "></span>
-							<span class="fa fa-star promotion_rating2"></span>
-							<span class="fa fa-star promotion_rating3"></span> 
-							<span class="fa fa-star promotion_rating4"></span>
-							<span class="fa fa-star promotion_rating5"></span>
-							<span> ${rating.PROMO}</span>
+						<div class="star_rating promotion_rating" score="${rating.PROMO_POSS }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>사내문화</h3>
-						<div class="star_rating culture_rating">
-							<span class="fa fa-star culture_rating1 "></span>
-							<span class="fa fa-star culture_rating2"></span>
-							<span class="fa fa-star culture_rating3"></span> 
-							<span class="fa fa-star culture_rating4"></span>
-							<span class="fa fa-star culture_rating5"></span>
-							<span> ${rating.CULTURE}</span>
+						<div class="star_rating culture_rating" score="${rating.C_CULT }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>복지 및 급여</h3>
-						<div class="star_rating welfare_rating">
-							<span class="fa fa-star welfare_rating1 "></span>
-							<span class="fa fa-star welfare_rating2"></span>
-							<span class="fa fa-star welfare_rating3"></span> 
-							<span class="fa fa-star welfare_rating4"></span>
-							<span class="fa fa-star welfare_rating5"></span>
-							<span> ${rating.WFARE}</span>
+						<div class="star_rating welfare_rating" score="${rating.WFARE_PAY }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>경영진</h3>
-						<div class="star_rating management_rating">
-							<span class="fa fa-star management_rating1 "></span>
-							<span class="fa fa-star management_rating2"></span>
-							<span class="fa fa-star management_rating3"></span> 
-							<span class="fa fa-star management_rating4"></span>
-							<span class="fa fa-star management_rating5"></span>
-							<span> ${rating.MGM}</span>
+						<div class="star_rating management_rating" score="${rating.MGM }">
 						</div>
 					</div>
             </div>
