@@ -18,7 +18,8 @@
 		regexp_replace(m.phone,'(.{3})(.+)(.{4})','\1-\2-\3') as
 		phone, m.email
 		as email, cm.pos as pos,
-		cs.REG_DATE
+		cs.REG_DATE,
+		CORP_IMG
 		from member m join c_member cm on
 		m.mem_no = cm.mem_no
 		join c_info ci on ci.corp_no = cm.corp_no

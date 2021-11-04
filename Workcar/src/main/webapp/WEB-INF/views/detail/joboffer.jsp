@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
     <link rel="stylesheet" href="resources/css/common/default.css">
-    <link rel="stylesheet" href="resources/css/detail/header.css">
+    <link rel="stylesheet" href="resources/css/common/header.css">
     <link rel="stylesheet" href="resources/css/detail/sidebar.css">
     <link rel="stylesheet" href="resources/css/detail/footer.css">
     
@@ -17,13 +17,18 @@
     <script type="text/javascript"
 		src="resources/script/jquery/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript" src="resources/script/detail/joboffer_dtl_paging.js"></script>
-		
+	<script>
+	function linkGo(url){
+ 		location.href = url
+ 	}
+	</script>	
    
 </head>
 <body>
 <form action="#" id="actionForm" method="post">
 	<input type="hidden" id="page" name="page" value="${page}">
-	<input type="hidden" id="sNo" name="sNo" value="">
+	<input type="hidden" id="sNo" name="sNo" value="${param.sNo}">
+	<input type="hidden" id="empno" name="empno" value="${param.empno}">
 </form>
 <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -57,7 +62,7 @@
 		<div class="topnav">
 
 			<!-- 로고 -->
-			<div class="topnav-centered">
+			<div class="topnav-centered" onclick="linkGo('mainpage')">
 				<div class="logo_img"></div>
 			</div>
 

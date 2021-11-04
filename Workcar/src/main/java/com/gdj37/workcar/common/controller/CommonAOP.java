@@ -40,6 +40,8 @@ public class CommonAOP {
 	
 	@Pointcut("execution(* com.gdj37.workcar..HRSearchController.*(..))" 
 			 + "&& !execution(* com.gdj37.workcar..HRSearchController.*Ajax(..))"
+			 + "||execution(* com.gdj37.workcar..PersonController.*(..))" 
+			 + "&& !execution(* com.gdj37.workcar..PersonController.*Ajax(..))"
 			)
 	public void hrSch() {}
 	

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="resources/css/common/default.css">
-<link rel="stylesheet" href="resources/css/detail/header.css">
+<link rel="stylesheet" href="resources/css/common/header.css">
 <link rel="stylesheet" href="resources/css/detail/sidebar.css">
 <link rel="stylesheet" href="resources/css/detail/footer.css">
 <link rel="stylesheet" href="resources/css/detail/detail.css">
@@ -146,7 +146,7 @@
 		<main class="main">
 			<div class="left_main_menu">
 				<div class="vertical-menu">
-					<a href="#" class="active">Home</a>
+					<a href="#" class="active">List</a>
 					<div class="mySlides"></div>
 				</div>
 				<div class="page1"></div>
@@ -155,7 +155,8 @@
 			<div class="main_profile">
 				<div class="main_profile_div">
 					<div class="main_title">
-						<p>${corpor_info.C_NAME}</p>
+						<img src="${corpor_info.CORP_IMG}" alt="" class="">
+						<h1>${corpor_info.C_NAME}</h1>
 					</div>
 				</div>
 				<div>
@@ -275,7 +276,6 @@
 			</div>
 			<hr>
 			<div class="right_main_menu">
-				<button class="right_main_apply">지원하기</button>
 				<p>담당자 정보</p>
 				<p>성명 : ${corpor_info.NAME}</p>
 				<p>직책 : ${corpor_info.POS}</p>
@@ -336,6 +336,9 @@
 			</div>
 			<!-- 모달창 -->
 			<script type="text/javascript">
+			function linkGo(url){
+				location.href = url
+			}
 			$(function () {
 				
 						$(".work_modal_rating1").on("click",function () {	
