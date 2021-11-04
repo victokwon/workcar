@@ -33,6 +33,7 @@ public class CommonAOP {
 		+ "&& !execution(* com.gdj37.workcar..imemAttndController.*Ajax(..))" 
 		+ "|| execution(* com.gdj37.workcar..ResumeController.*(..))"
 		+ "&& !execution(* com.gdj37.workcar..ResumeController.*Ajax(..))"
+		+ "&& !execution(* com.gdj37.workcar..ResumeController.empResumDtl(..))"
 			)
 	public void imem() {}
 	
@@ -40,7 +41,7 @@ public class CommonAOP {
 			+ "&& !execution(* com.gdj37.workcar..cmemAttndController.*Ajax(..))"
 			+ "|| execution(* com.gdj37.workcar..cmemActController.*(..))"
 			+ "&& !execution(* com.gdj37.workcar..cmemActController.*Ajax(..))"
-			+ "&& !execution(* com.gdj37.workcar..ResumeController.empResumDtl(..))"
+			+ "|| execution(* com.gdj37.workcar..ResumeController.empResumDtl(..))"
 			)
 	public void cmem() {}
 	
