@@ -196,7 +196,7 @@
                   
                     
                 <div id="empAncLists2">       
-                <table class="job_post_tab">
+                <table class="resume_post_tab">
                    <c:forEach var ="data2" items="${list}"> 
                         <tr id="dtlBody" >
                             <td jobPostNo="1">
@@ -259,7 +259,7 @@
                     
           		<div id="resumeLists" >
                     <table class="job_post_resume" >                  
-<!--                         <tr>
+                        <tr>
                             <td jobPostNo="1">
                                 <div class="job_post_state">
                                     <div class="job_post_resume_title">공고명: </div>
@@ -306,7 +306,7 @@
                                     </div>
                                 </div>
                             </td>
-                        </tr> -->
+                        </tr>
                     </table>
                      <div class="job_post_add">
                       <button type="button" id ="goListBtn">목록으로 돌아가기</button>
@@ -394,10 +394,7 @@ $(document).ready(function(){
 		
 		$("#empancDtl").attr("action","empAncDtl");
 		$("#empancDtl").submit();
-		
-
-		
-		
+			
 	});
 	
 	$(".job_post_tab").on("click","#delDtl",function(){
@@ -420,6 +417,17 @@ $(document).ready(function(){
 });
 
 
+$(".resume_post_tab").on("click","#openDtl",function(){
+	$("#EMP_NO").val($(this).parent().attr("eno"));
+	$("#MEM_NO").val($(this).parent().attr("rno"));
+	
+	$("#empancDtl").attr("action","empAncDtl");
+	$("#empancDtl").submit();
+		
+});
+
+
+
 function resumeLists() {
 	
 	var param = $("#empancDtl").serialize();
@@ -434,6 +442,7 @@ function resumeLists() {
 				console.log("리스트 불러오기 성공");
 				$("#resumeLists").show();
 				$("#empAncLists").hide();
+				drawResumeList();
 			} else {
 			alert ("이력서 목록을 불러오는 중 에러가 발생했습니다.");
 			}
@@ -473,17 +482,17 @@ function resumeLists() {
 			html += "		<div class='col'>                                          ";
 			html += "		<div class='row'>                                          ";
 			html += "		<div class='text'>지원자</div>                             ";
-			html += "		<div class='data'>"+지원자 이름+"</div>                   ";
+			html += "		<div class='data'>"+rlist.NAME+"</div>                 	 ";
 			html += "		</div>                                                     ";
 			html += "		<div class='row'>                                          ";
 			html += "		<div class='text'>처리상태</div>                           ";
-			html += "		<div class='data'>"+rlist.PRCSCHK+"</div>                             ";
+			html += "		<div class='data'>"+rlist.PRCSCHK+"</div>                  ";
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		<div class='col'>                                          ";
 			html += "		<div class='row'>                                          ";
 			html += "		<div class='text'>이력서</div>                             ";
-			html += "		<div class='data'>"+이력서 제목+"</div>                    ";
+			html += "		<div class='data'>"+rlist.RSUME_NAME+"</div>                    ";
 			html += "		</div>                                                     ";
 			html += "		<div class='row'>                                          ";
 			html += "		<div class='text'>제출일</div>                             ";
@@ -493,7 +502,7 @@ function resumeLists() {
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		<div class='button_container'>                             ";
-			html += "		<div class='job_post_resume_state'>"+rlist.FINDCHK+ "</div>       ";
+			html += "		<div class='job_post_resume_state'>"+rlist.FINDCHK+ "</div> ";
 			html += "		<div class='button_box'>                                   ";
 			html += "		<button id='openResume'>이력서 열람</button>                ";
 			html += "		</div>                                                     ";
