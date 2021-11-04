@@ -411,6 +411,9 @@ table .button_container .button_box button
  .star_rating_list .checked{
 	color: gold;
 } 
+ .star_rating .checked{
+	color: gold;
+} 
 	
 
 	

@@ -84,6 +84,7 @@ public class ResumeController {
 				params.put("memNo", String.valueOf(session.getAttribute("sMNo")));
 //               이력서 숫자 카운트
 				int cnt = iResumeService.getResumeCnt(params);
+				List<HashMap<String, String>> list = iResumeService.resumeList(params);
 				HashMap<String, String> data = iResumeService.getResumeDtl(params);
 				List<HashMap<String, String>> work = iResumeService.resumeDtlWork(params);
 				List<HashMap<String, String>> qual = iResumeService.resumeDtlQual(params);
@@ -97,6 +98,7 @@ public class ResumeController {
 
 				mav.addObject("CNT", cnt);
 				mav.addObject("DATA", data);
+				mav.addObject("LIST", list);
 
 				mav.addObject("WORK", work);
 				mav.addObject("LOC", loc);
