@@ -32,12 +32,11 @@ public class MngEmpAnc {
 		if(session.getAttribute("sMNo")!= null) {
 			String memberNo = String.valueOf(session.getAttribute("sMNo"));
 	//System.out.println("memberNO"+memberNo);
-		HashMap<String,String> data = imycorpser.cMemberDtl(memberNo);
+	//	HashMap<String,String> data = imycorpser.cMemberDtl(memberNo);
 		List<HashMap<String,String>> list = imngser.empAncList(memberNo);
-		List<HashMap<String,String>> list2 = imngser.empAncList(memberNo);
 		//System.out.println("list list"+ list.toString());
 		
-		mav.addObject("memdata",data);
+		//mav.addObject("memdata",data);
 		mav.addObject("list",list);
 		}
 		mav.setViewName("myPage/corMypage/manageEmpAnnc");

@@ -125,7 +125,6 @@
                     <!-- 이력서 리스트 메뉴 출력 -->
                     <a href="#" id="jobPost">채용공고 관리</a>
                     <a href="#" id="jobResume">받은 이력서</a>
-                     <a href="#" id="jobResume2">임시저장</a>
                 </div>
                 
                 <form action="#" id="empancDtl" method="post" >
@@ -152,7 +151,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="text">모집인원</div>
-                                                    <div class="data">${data.EMP_PER}명</div>
+                                                    <div class="data">${data.EMP_PER}명.</div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="text">공고일</div>
@@ -165,11 +164,11 @@
                                             <div class="col">
                                                 <div class="row">
                                                     <div class="text">조회수</div>
-                                                    <div class="data">${data.VIEWS}회</div>
+                                                    <div class="data">${data.VIEWS}회.</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="text">근무지역</div>
-                                                    <div class="data">${data.REGION_NAME}.</div>
+                                                    <div class="text">지원자</div>
+                                                    <div class="data">${data.CNT}명.</div>
                                                 </div>
                                               <div class="row">
                                                     <div class="text">마감일</div>
@@ -196,7 +195,7 @@
                            <div class="job_post_add">
                              <button type="button" id ="writeBtn">새로운 공고 작성</button>
                            </div>
-                    </div>                    
+                    </div>                     
                   
                   
                     
@@ -230,11 +229,11 @@
                                             <div class="col">
                                                 <div class="row">
                                                     <div class="text">조회수</div>
-                                                    <div class="data">${data2.VIEWS}회</div>
+                                                    <div class="data">${data2.VIEWS}회.</div>
                                                 </div>
                                                 <div class="row">
-                                                    <div class="text">근무지역</div>
-                                                    <div class="data">${data2.REGION_NAME}.</div>
+                                                    <div class="text">지원자</div>
+                                                    <div class="data">${data2.CNT}명.</div>
                                                 </div>
                                               <div class="row">
                                                     <div class="text">마감일</div>
@@ -264,54 +263,7 @@
                     
           		<div id="resumeLists" >
                     <table class="job_post_resume" >                  
-                        <tr>
-                            <td jobPostNo="1">
-                                <div class="job_post_state">
-                                    <div class="job_post_resume_title">공고명: </div>
-                                    <div class="job_post_resume_date">
-                                        <div class="start">공고일: 2021.10.13.</div>~
-                                        <div class="end">마감일: 2021.10.13.</div>
-                                        <div class="dd">D-day</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td jobPostResumeNo="1">
-                                <div class="job_post_resume_list">
-                                    <div class="logo"></div>
-                                    <div class="dtl_box">
-                                        <div class="job_post_resume_state_dtl">
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="text">지원자 : </div>
-                                                    <div class="data">지원자 이름</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="text">상태 : </div>
-                                                    <div class="data">미처리</div>
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="text">이력서 : </div>
-                                                    <div class="data">이력서 제목</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="text">제출일 : </div>
-                                                    <div class="data">2021.10.13.</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="button_container">
-                                        <div class="job_post_resume_state">모집중</div>
-                                        <div class="button_box">
-                                            <button>이력서</button>
-                                            <button>수정</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+
                     </table>
                      <div class="job_post_add">
                       <button type="button" id ="goListBtn">목록으로 돌아가기</button>
@@ -353,32 +305,6 @@
 
 $(document).ready(function(){
 	
-
-	$("#jobPost").click(function(){
-		
-		$("#resumeLists").hide();
-		$("#empAncLists1").show();
-		$("#empAncLists2").hide();
-		
-	});
-	
-	$("#jobResume").click(function(){
-		
-		$("#resumeLists").show();
-		$("#empAncLists1").hide();
-		$("#empAncLists2").hide();
-		
-	});
-	
-	$("#jobResume2").click(function(){
-		
-		$("#resumeLists").hide();
-		$("#empAncLists1").hide();
-		$("#empAncLists2").show();
-		
-	});
-	
-	
 	$(".main_button_box").click($(".button_box"),function(){
 		
 		linkGo(URL);
@@ -386,13 +312,83 @@ $(document).ready(function(){
 	});
 	
 	
+	
+	
+	// 사이드 메뉴 이동
+	$("#resumeLists").hide();
+	$("#empAncLists2").hide();
+	
+	
+	$("#jobPost").click(function(){
+		
+		$("#empAncLists1").show();
+		$("#empAncLists2").hide();
+		$("#resumeLists").hide();
+		
+	});
+	
+	$("#jobResume").click(function(){
+		
+		$("#empAncLists2").show();
+		$("#empAncLists1").hide();
+		$("#resumeLists").hide();
+		
+	});
+	
+
+	//채용 공고 열람	
+	$(".job_post_tab").on("click","#openDtl",function(){
+		$("#EMP_NO").val($(this).parent().attr("eno"));
+		$("#MEM_NO").val($(this).parent().attr("rno"));
+		
+		$("#empancDtl").attr("action","empAncDtl");
+		$("#empancDtl").submit();	
+	});
+	
+	
+	$(".job_post_tab").on("click","#delDtl",function(){
+		$("#EMP_NO").val($(this).parent().attr("eno"));
+		$("#MEM_NO").val($(this).parent().attr("rno"));
+		
+		if(confirm("삭제하시겠습니까?")) {			
+			 delEmpAnc();
+		}
+	});
+	
+	
+	// 채용 공고 작성
+	$("#writeBtn").click(function(){		
+		location.href ="empannc";
+	});
+
+
+//지원자 보기
+$(".resume_post_tab").on("click","#openResume",function(){
+	$("#EMP_NO").val($(this).parent().attr("eno"));
+	$("#MEM_NO").val($(this).parent().attr("rno"));
+	resumeLists();
+
+});
+
+
+//목록버튼
+$("#goListBtn").click(function(){
+	
+	$("#jobResume").click();
+	
+});	
+
+
+
+
 
 	
-	$("#jobPost").click();
+
+	
+ 	$("#jobPost").click(); 
 	
 	
-	btnchk =null;
-	
+//채용공고 열람	
 	$(".job_post_tab").on("click","#openDtl",function(){
 		$("#EMP_NO").val($(this).parent().attr("eno"));
 		$("#MEM_NO").val($(this).parent().attr("rno"));
@@ -402,6 +398,7 @@ $(document).ready(function(){
 			
 	});
 	
+//채용 공고 삭제
 	$(".job_post_tab").on("click","#delDtl",function(){
 		$("#EMP_NO").val($(this).parent().attr("eno"));
 		$("#MEM_NO").val($(this).parent().attr("rno"));
@@ -419,20 +416,18 @@ $(document).ready(function(){
 	});
 	
 
-});
 
 
-$(".resume_post_tab").on("click","#openDtl",function(){
-	$("#EMP_NO").val($(this).parent().attr("eno"));
-	$("#MEM_NO").val($(this).parent().attr("rno"));
+//메뉴이동
+$("#goListBtn").click(function(){
 	
-	$("#empancDtl").attr("action","empAncDtl");
-	$("#empancDtl").submit();
-		
+	$("#jobResume").click();
+	
 });
 
 
 
+//이력서 불러오기 
 function resumeLists() {
 	
 	var param = $("#empancDtl").serialize();
@@ -445,11 +440,15 @@ function resumeLists() {
 		success : function(res) {
 			if(res.result == "success") {
 				console.log("리스트 불러오기 성공");
+				console.log(res.rlist);	
+				drawResumeList(res.rlist);
+				
+				$("#empAncLists2").hide();
+				$("#empAncLists1").hide();
 				$("#resumeLists").show();
-				$("#empAncLists").hide();
-				drawResumeList();
+				
 			} else {
-			alert ("이력서 목록을 불러오는 중 에러가 발생했습니다.");
+				alert("에러가 발생했습니다");
 			}
 		
 			}, error : function(request,status,error) {
@@ -460,25 +459,15 @@ function resumeLists() {
 }
 
 
-
- function drawResumeList() {
+//이력서 목록
+ function drawResumeList(rlist) {
 	
 	
 	var html = "";
 	
-	for(var rlist of rlist) {
+	for(var rlists of rlist) {
 	
-			html += "		<tr RESUM_NO="+rlist.RESUME_NO+">                                       ";
-/* 			html += "		<td>                                                       ";
-			html += "		<div class='job_post_state'>                               ";
-			html += "		<div class='job_post_resume_title'>공고명: </div>          ";
-			html += "		<div class='job_post_resume_date'>                         ";
-			html += "		<div class='start'>공고일: "+2021.10.13+".</div>~          ";
-			html += "		<div class='end'>마감일: "+2021.10.13+".</div>             ";
-			html += "		<div class='dd'>+"D-day+"</div>                            ";
-			html += "		</div>                                                     ";
-			html += "		</div>                                                     ";
-			html += "		</td>                                                      "; */
+			html += "		<tr RESUM_NO="+rlists.RESUME_NO+">                                       ";
 			html += "		<td>                                                       ";
 			html += "		<div class='job_post_resume_list'>                         ";
 			html += "		<div class='logo'></div>                                   ";
@@ -486,51 +475,43 @@ function resumeLists() {
 			html += "		<div class='job_post_resume_state_dtl'>                    ";
 			html += "		<div class='col'>                                          ";
 			html += "		<div class='row'>                                          ";
-			html += "		<div class='text'>지원자</div>                             ";
-			html += "		<div class='data'>"+rlist.NAME+"</div>                 	 ";
+			html += "		<div class='text'>지원자 : </div>                             ";
+			html += "		<div class='data'> "+rlists.NAME+"</div>                 	 ";
 			html += "		</div>                                                     ";
 			html += "		<div class='row'>                                          ";
-			html += "		<div class='text'>처리상태</div>                           ";
-			html += "		<div class='data'>"+rlist.PRCSCHK+"</div>                  ";
+			html += "		<div class='text'>처리 : </div>                           ";
+			html += "		<div class='data'>"+rlists.PRCSCHK+"</div>                  ";
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		<div class='col'>                                          ";
 			html += "		<div class='row'>                                          ";
-			html += "		<div class='text'>이력서</div>                             ";
-			html += "		<div class='data'>"+rlist.RSUME_NAME+"</div>                    ";
+			html += "		<div class='text'>제목 : </div>                             ";
+			html += "		<div class='data'>"+rlists.RESUM_NAME+"</div>                    ";
 			html += "		</div>                                                     ";
 			html += "		<div class='row'>                                          ";
-			html += "		<div class='text'>제출일</div>                             ";
-			html += "		<div class='data'>"+rlist.REG_DATE+"</div>                    ";
+			html += "		<div class='text'>제출일 : </div>                             ";
+			html += "		<div class='data'>" +rlists.REG_DATE+"</div>                    ";
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		<div class='button_container'>                             ";
-			html += "		<div class='job_post_resume_state'>"+rlist.FINDCHK+ "</div> ";
+			html += "		<div class='job_post_resume_state'>상태 : "+rlists.FINDCHK+"</div> ";
 			html += "		<div class='button_box'>                                   ";
 			html += "		<button id='openResume'>이력서 열람</button>                ";
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		</td>                                                      ";
-			html += " 		</tr>                                                      ";     
-	
-		}
-	
-			$(".job_post_resume").html(html);
-			
+			html += " 		</tr>                                                      ";     	
+		}	
+			$(".job_post_resume").html(html);			
 }
 
-
-
-
+//이력서 삭제
 function delEmpAnc(){
-	
-	var param = $("#empancDtl").serialize();
-	
-	$.ajax({
-		
+	var param = $("#empancDtl").serialize();	
+	$.ajax({		
 		url : "delEmpAncAjax",
 		data : param,
 		type : "post",
@@ -546,19 +527,12 @@ function delEmpAnc(){
 		},
 		error : function(request,status,error) {
 			console.log(error);
-		}
-		
-	});
-	
-	
-	
+		}	
+	});	
 }
 
 
-function linkGo(URL){
-	location.herf = URL
-}
-
+ });
 </script>
 
 
