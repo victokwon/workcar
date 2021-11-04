@@ -9,9 +9,9 @@ public interface IEmpAnncDAO {
 
 	List<HashMap<String, String>> findRegionAjax(HashMap<String, String> params) throws Throwable;
 
-	int uptEmpAnncAjax(HashMap<String, String> params) throws Throwable;
+	int insEmpAnncAjax(HashMap<String, String> params) throws Throwable;
 
-	int uptEmpQual(HashMap<String, Object> empQual)throws Throwable;
+	int insEmpQual(HashMap<String, Object> empQual)throws Throwable;
 	/*
 	 * int uptEmpQual(HashMap<String, String> params) throws Throwable;
 	 */
@@ -20,7 +20,8 @@ public interface IEmpAnncDAO {
 
 	int uptEmpBox(HashMap<String, Object> prcsBox) throws Throwable;
 
-	int uptAttchFile(HashMap<String, String> params) throws Throwable;
+	int insAttchFile(HashMap<String, String> params) throws Throwable;
+
 
 	
 

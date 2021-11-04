@@ -14,16 +14,34 @@ public class EmpAnncDtlDAO implements IEmpAnncDtlDAO {
 	SqlSession sqlSession;
 
 	@Override
-	public HashMap<String, String> empAncDtl(HashMap<String, String> params) {
+	public HashMap<String, String> empAncDtl(HashMap<String, String> params) throws Throwable{
 		//sqlSession.selectOne("ancdtl.empAncDtl",params);
 		
 		return sqlSession.selectOne("ancdtl.empAncDtl",params);
 	}
 
 	@Override
-	public List<HashMap<String, String>> qaulList(HashMap<String, String> params) {
+	public List<HashMap<String, String>> qaulList(HashMap<String, String> params) throws Throwable {
 	
 		return sqlSession.selectList("ancdtl.qaulList",params);
+	}
+
+	@Override
+	public int uptEmpAnncAjax(HashMap<String, String> params) throws Throwable {
+		
+		return sqlSession.update("ancdtl.uptEmpAnncAjax",params);
+	}
+
+	@Override
+	public int uptAttchFile(HashMap<String, String> params) throws Throwable {
+		
+		return sqlSession.update("ancdtl.uptEmpAnncAjax",params);
+	}
+
+	@Override
+	public int uptEmpQual(HashMap<String, Object> empQual) throws Throwable {
+		
+		return sqlSession.update("ancdtl.uptEmpQual",empQual);
 	}
 	
 	

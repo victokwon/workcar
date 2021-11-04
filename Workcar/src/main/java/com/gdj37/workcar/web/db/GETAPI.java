@@ -19,6 +19,9 @@ public class GETAPI {
 	
 	
 	
+	public static ArrayList<DBDTO> dbdata;
+
+
 	public static String getTagvalue(String tag, Element eElement) {
 		
 		NodeList nList = eElement.getElementsByTagName(tag).item(0).getChildNodes();

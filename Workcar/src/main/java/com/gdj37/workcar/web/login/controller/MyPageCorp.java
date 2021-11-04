@@ -92,18 +92,13 @@ public class MyPageCorp {
 		Map<String,Object> modelMap = new HashMap<String,Object>();
 		
 		String result = "success";
-		
-		System.out.println("기업정보 수정AJax " + params);
 	
 		try {
 			
 			
 			int cnt = imycorpser.uptcpinfo(params);
 			
-			
-		
 
-			
 			if(cnt == 0 ) {
 				result ="failed";
 			}

@@ -25,6 +25,24 @@ public class EmpAnncDtlService implements IEmpAnncDtlService{
 		
 		return iempancdtl.qaulList(params);
 	}
+
+	@Override
+	public int uptEmpAnncAjax(HashMap<String, String> params) throws Throwable {
+		
+		return iempancdtl.uptEmpAnncAjax(params);
+	}
+
+	@Override
+	public int uptAttchFile(HashMap<String, String> params) throws Throwable {
+		
+		return iempancdtl.uptAttchFile(params);
+	}
+
+	@Override
+	public int uptEmpQual(HashMap<String, Object> empQual) throws Throwable {
+		
+		return iempancdtl.uptEmpQual(empQual);
+	}
 	
 	
 }

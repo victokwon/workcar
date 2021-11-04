@@ -183,9 +183,9 @@ tr {
   flex-direction: column;
 }
 
-.job_post_tab {
+/* .job_post_tab {
   display: none;
-}
+} */
 
 .job_post_list,
 .job_post_resume_list {
@@ -319,10 +319,10 @@ table .button_container .button_box button {
 .job_post_resume_date .end {
   padding: 0 5px;
 }
-.job_post_resume {
+/* .job_post_resume {
   display: table;
 }
-
+ */
 .dd {
   font-size: 15px;
   font-weight: bold;
@@ -361,6 +361,17 @@ table .button_container .button_box button {
   margin: 20px auto 0 auto;
 }
 .job_post_add button {
-  width: 100%;
-  border: 0px;
+ height: 40px;
+ width: 170px;
+ border: 0px;
 }
+
+div#main_apply{
+	display:flex;
+}
+
+#openResume {
+	width: 85%;
+}
+
+

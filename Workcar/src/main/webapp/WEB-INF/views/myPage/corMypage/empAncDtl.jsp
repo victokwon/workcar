@@ -154,10 +154,12 @@
 					<div class="main_box">
 					<form action="#" id="uptForm1" method="post" class="form1" >
 						<input type="hidden" name="MEM_NO" value="${data.MEM_NO}">
+						<input type="hidden" name="EMP_NO" value="${data.EMP_NO}"/>
 						<div class="tilte">
 							<div class="header">
 								<div class="job_post_title">
-									<input type="text" value="${data.EMP_TITLE}" placeholder="공고이름을 입력하세요" class="headline" NAME="EMP_TITLE" id="EMP_TITLE" >
+									<input type="text" value="${data.EMP_TITLE}" placeholder="공고이름을 입력하세요" class="headline" 
+									NAME="EMP_TITLE" id="EMP_TITLE" style="width: 870px !important;">
 								</div>
 <!-- 								<div class="button_box">
 									<input type="button" id="saveBtn" value="임시저장"> <input
@@ -288,12 +290,13 @@
 						</form>
 
 						<form action="#" id="uptForm3" method="post">
+							<input type="hidden" name="EMP_NOO" value="${data.EMP_NO}"/>
 							<div class="content apply_dtl_lisence" id="resumeLisence">
 								<div class="dtl">
 									<div class="header">자격증</div>
 									<div class="con add_box">
 									<c:if test ="${!empty qlist}">
-									<c:set var="cntt" value ="0" />
+									<c:set var="cntt" value ="1" />
 										<c:forEach var="list" items="${qlist}">
 											<div class="input_box " id="qualInput${cntt}" no="cnt${cntt}" noName="qualNo">
 												<input type="button" class="minus_btn" id="delBtn" value="－">
@@ -620,12 +623,13 @@
 	
 	//자격증 개수 체크
   	 var cnt = ${cntt};
+
 	console.log("cntt값"+${cntt});
 	//파일 업로드 체크
-   var chkfileupt = 0;
+   	var chkfileupt = 0;
 
 		
-   // 자격증 1
+   // 자격증
 	$("#addBtn1").on("click", function () {
 	  
 	    
@@ -645,12 +649,32 @@
 	  cnt += 1
 	  
 	  }else{
-	  alert("자격증은 3개 이상 등록이 불가능합니다.")
+	  alert("자격증은 3개 이상 등록이 불가능합니다.");
+	  return false;
 	  }
 	});
 	
-	
-	
+	  $(".add_box").on("click", ".minus_btn", function () {
+		    $(this).parent().html("");
+		    cnt -= 1 ;
+		  });
+	  
+	  
+	  $(".list_wrap").on("click", "tr", function () {
+		  	if($(".pop-container").attr("btn") == "q"){
+		  		let target = $("#list_box").attr("no");
+		  	    $("#QUAL_NO"+target+"").val($(this).attr("qNo"));
+		  	    $("#QUAL_NAME"+target+"").val($(this).attr("qName"));
+		  	    $(".pop-container").hide();
+		  	}else if($(".pop-container").attr("btn") == "s"){
+		  	    $("#SECTOR_NAME").val($(this).attr("sName"));
+		  	    $("#SECTOR_NO").val($(this).attr("sNo"));
+		  	    $(".pop-container").hide();
+		  		}
+		 });
+	  
+	  
+	  
 	
 	//체크값 불러오기	
 		var doc = "${data.EMP_DOC}";
@@ -693,12 +717,18 @@
 	})();
 		
 
-/* 	//도시 체크
+ 	//도시 체크
+ 	
 	var city = "${data.CITY_NO}";
-	console.log("city값"+city);
 	var region = "${data.REGION_NO}";
-	var regionlenth;
-	for(var i =0; i<=15; i++) {
+
+	console.log("region 값 : "+ region);
+	
+	
+	$("#CITY").val(city);
+	findregionAjax();
+	
+/* 	for(var i =0; i<=15; i++) {
 		
 		var cityid = "CITY"+i;
 		console.log( document.getElementById(cityid).value);
@@ -706,22 +736,22 @@
 		document.getElementById(cityid).setAttribute("selected","selected");	
 		findregionAjax();
 		
-		console.log("renggggg"+$("option[name=REGION]").length);
+		console.log("region값 : " + region);
 		
 		break;
 		}
-	}
-	
+	} */
+/* 	
 	   $("select").each(function(idx) {
 		   if($(this).attr("selValue") != "") {
 			   $(this).val($(this).attr("selValue"));
 		   }
 	   });
+	 
 	 */
 	
-	
-/* 	
-	for(var i =0; i<20; i++) {
+/* 
+	for(var i =0; i<247; i++) {
 		findregionAjax();
 		var regionid = "REGION"+i;
 		console.log(regionid);
@@ -730,7 +760,7 @@
 			break;
 		
 		}
-	} */
+	}  */
 		
 
 	   if ($("#ATTCH_NAME").val() != "") {	 
@@ -1179,6 +1209,9 @@
 		}
 		
 		$("#REGION").html(html);
+		$("#REGION").val(region);
+		
+		
 	}
 /* 	function drawRegion(list){
 		
@@ -1198,18 +1231,7 @@
 	} */
 	
 	
- $(".list_wrap").on("click", "tr", function () {
-	  	if($(".pop-container").attr("btn") == "q"){
-	  		let target = $("#list_box").attr("no");
-	  	    $("#QUAL_NO"+target+"").val($(this).attr("qNo"));
-	  	    $("#QUAL_NAME"+target+"").val($(this).attr("qName"));
-	  	    $(".pop-container").hide();
-	  	}else if($(".pop-container").attr("btn") == "s"){
-	  	    $("#SECTOR_NAME").val($(this).attr("sName"));
-	  	    $("#SECTOR_NO").val($(this).attr("sNo"));
-	  	    $(".pop-container").hide();
-	  		}
-	 });
+
 	
 	
 	
