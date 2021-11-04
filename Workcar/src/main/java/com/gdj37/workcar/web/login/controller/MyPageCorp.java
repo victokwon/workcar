@@ -32,10 +32,14 @@ public class MyPageCorp {
 	@RequestMapping(value="/cmyinfopage")
 	public ModelAndView CorRegi(ModelAndView mav, HttpSession session) throws Throwable {
 		
-		if(session.getAttribute("sMNo") != null) {
+		if(session.getAttribute("sMNo") != null && ( session.getAttribute("sMTy") == null || Integer.parseInt(String.valueOf(session.getAttribute("sMTy"))) == 0)) {
+
+			
+			mav.setViewName("redirect:errorpage");
+		}
+		
+		else if(session.getAttribute("sMNo") != null) {
 		String memberNo = String.valueOf(session.getAttribute("sMNo"));
-		
-		
 		
 		HashMap<String,String> data = imycorpser.cMemberDtl(memberNo);
 		
@@ -276,11 +280,6 @@ public class MyPageCorp {
 		
 	
 	}
-	
-
-	
-	
-	
 	
 	
 }
