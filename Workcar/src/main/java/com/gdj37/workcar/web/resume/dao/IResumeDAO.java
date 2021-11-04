@@ -67,4 +67,8 @@ public interface IResumeDAO {
 
 	public int getResumeEmpCnt(HashMap<String, String> params)throws Throwable;
 
+	public List<HashMap<String, String>> empResumeList(HashMap<String, String> params)throws Throwable;
+
+	public int empResumeCnt(HashMap<String, String> params)throws Throwable;
+
 }

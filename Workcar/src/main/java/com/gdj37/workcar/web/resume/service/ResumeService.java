@@ -185,4 +185,14 @@ public class ResumeService implements IResumeService {
 	public int getResumeEmpCnt(HashMap<String, String> params) throws Throwable {
 		return iResumeDAO.getResumeEmpCnt(params);
 	}
+
+	@Override
+	public List<HashMap<String, String>> empResumeList(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.empResumeList(params);
+	}
+
+	@Override
+	public int empResumeCnt(HashMap<String, String> params) throws Throwable {
+		return iResumeDAO.empResumeCnt(params);
+	}
 }

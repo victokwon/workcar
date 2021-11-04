@@ -22,24 +22,34 @@
 		ORDER BY RESUM_NO
 	</select>
 	
-	<select id="empResumeList" parameterType="hashmap"
-		resultType="hashmap">
-		SELECT MEM_NO, R.RESUM_NO, OPN_CHK, RESUM_NAME,
-		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE,
-		TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE
-		FROM RESUM R
-		<if test="empNo neq '' and empNo neq null">
-			LEFT OUTER JOIN (SELECT RESUM_NO, EMP_NO FROM RESUM_SUPP WHERE EMP_NO = #{empNo}) RS
-            ON (R.RESUM_NO = RS.RESUM_NO)
-		</if>        
-		WHERE DEL_CHK = 0
-        AND MEM_NO = #{memNo}
-       	<if test="empNo neq '' and empNo neq null">
-            AND EMP_NO IS NULL   
-        </if>     
-		ORDER BY RESUM_NO
+	<select id="empResumeList" parameterType="hashmap" resultType="hashmap">
+		SELECT NAME, MEM_NO, RESUM_NO, OPN_CHK, RESUM_NAME, PRCSS_STATE,
+		    REG_DATE, CHN_DATE
+		FROM
+		    (
+		    SELECT NAME, R.MEM_NO, R.RESUM_NO, OPN_CHK, RESUM_NAME, PRCSS_STATE,
+		    TO_CHAR(RS.REG_DATE,'YYYY-MM-DD') AS REG_DATE,
+		    TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE,
+		    ROW_NUMBER() OVER (ORDER BY PRCSS_STATE, RS.REG_DATE desc) RNUM
+		    FROM RESUM_SUPP RS
+		    JOIN RESUM R
+		    ON (RS.RESUM_NO = R.RESUM_NO)
+		    JOIN MEMBER M
+		    ON (R.MEM_NO = M.MEM_NO)
+		    WHERE 1 = 1
+		    AND EMP_NO = #{empNo}
+		    ) RS
+		WHERE RS.RNUM BETWEEN #{startCnt} AND #{endCnt}
 	</select>
 
+	<select id="empResumeCnt" parameterType="hashmap"
+		resultType="int">
+		SELECT COUNT(*) AS CNT
+		FROM RESUM_SUPP
+		WHERE DEL_CHK = 0
+		AND EMP_NO = #{empNo}
+	</select>
+	
 	<update id="applyResume" parameterType="hashmap">
 		UPDATE RESUM SET
 		<choose>
@@ -59,8 +69,7 @@
 		SELECT COUNT(*) AS CNT
 		FROM RESUM
 		WHERE DEL_CHK = 0
-		AND MEM_NO
-		= #{memNo}
+		AND MEM_NO = #{memNo}
 	</select>
 
 	<!-- 이력서 상세보기 개인정보 -->
@@ -76,50 +85,78 @@
 	</select>
 	<select id="getResumeDtl" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT R.MEM_NO, RESUM_NO, OPN_CHK,OPN_CHK_NAME,
+		SELECT R.MEM_NO, R.RESUM_NO, OPN_CHK, OPN_CHK_NAME,
 		RESUM_NAME, CITY_NAME, GRADU_NAME,
 		REGION_NAME,
-		CITY_NO, R.REGION_NO,
-		GRADU,GENDER_NAME, BIRTH,R.SECTOR_NO, SECTOR_NAME,
-		NAME,
+		RE.CITY_NO, R.REGION_NO,
+		R.GRADU,GENDER_NAME, BIRTH,R.SECTOR_NO, SECTOR_NAME,
+		NAME, 
+		<if test="actGbn.toString() eq 'empResume'">
+    	    RS.PRCSS_STATE, RS.EMP_NO, TO_CHAR(RS.REG_DATE,'YYYY-MM-DD') AS APPLY_DATE, EMP_TITLE,
+            TO_CHAR(EA.DLINE,'YYYY-MM-DD') AS DLINE,
+        </if>
 		REGEXP_REPLACE(PHONE,'(.{3})(.+)(.{4})','\1-\2-\3') PHONE, EMAIL,PROF_PIC,
-		PAY_GBN, PAY_MIN, PAY_MAX,
-		TO_CHAR(REG_DATE,'YYYY-MM-DD') AS REG_DATE,
-		TO_CHAR(CHN_DATE,'YYYY-MM-DD') AS CHN_DATE,
-		CARR,
+		R.PAY_GBN, PAY_MIN, PAY_MAX,
+		TO_CHAR(R.REG_DATE,'YYYY-MM-DD') AS REG_DATE,
+		TO_CHAR(R.CHN_DATE,'YYYY-MM-DD') AS CHN_DATE,
+		R.CARR,
 		CARR_NAME,
 		CARR_PER
 		FROM RESUM R
 		JOIN MEMBER M
-		ON
-		(R.MEM_NO = M.MEM_NO)
+		ON (R.MEM_NO = M.MEM_NO)
 		JOIN I_MEMBER IM
 		ON (R.MEM_NO = IM.MEM_NO)
 		JOIN
-		(SELECT CITY_NAME, REGION_NAME, REGION_NO, RE.CITY_NO
-		FROM REGION RE
-		JOIN CITY C
-		ON(C.CITY_NO = RE.CITY_NO)) RE
-		ON (R.REGION_NO =
-		RE.REGION_NO)
-		JOIN (SELECT CAT_NAME GENDER_NAME, SCD_CAT FROM COMM_CODE
-		WHERE FST_CAT = 2) CMG
+			(
+			SELECT CITY_NAME, REGION_NAME, REGION_NO, RE.CITY_NO
+			FROM REGION RE
+			JOIN CITY C
+			ON(C.CITY_NO = RE.CITY_NO)
+			) RE
+		ON (R.REGION_NO = RE.REGION_NO)
+		JOIN 
+			(
+			SELECT CAT_NAME GENDER_NAME, SCD_CAT 
+			FROM COMM_CODE
+			WHERE FST_CAT = 2
+			) CMG
         ON (CMG.SCD_CAT = IM.GENDER)
-        JOIN (SELECT CAT_NAME GRADU_NAME, SCD_CAT FROM COMM_CODE
-        WHERE FST_CAT = 7) CMGR
+        JOIN 
+	        (
+	        SELECT CAT_NAME GRADU_NAME, SCD_CAT 
+	        FROM COMM_CODE
+	        WHERE FST_CAT = 7
+	        ) CMGR
 		ON (CMGR.SCD_CAT = R.GRADU)
-		JOIN (SELECT CAT_NAME CARR_NAME, SCD_CAT FROM COMM_CODE
-		WHERE FST_CAT = 6) CMC
+		JOIN 
+			(
+			SELECT CAT_NAME CARR_NAME, SCD_CAT 
+			FROM COMM_CODE
+			WHERE FST_CAT = 6
+			) CMC
 		ON (CMC.SCD_CAT = R.CARR)
-		JOIN (SELECT CAT_NAME
-		OPN_CHK_NAME, SCD_CAT FROM COMM_CODE WHERE FST_CAT = 4) CMO
-		ON
-		(CMO.SCD_CAT = R.OPN_CHK)
+		JOIN 
+			(
+			SELECT CAT_NAME
+			OPN_CHK_NAME, SCD_CAT 
+			FROM COMM_CODE 
+			WHERE FST_CAT = 4
+			) CMO
+		ON (CMO.SCD_CAT = R.OPN_CHK)
 		JOIN SECTOR S
 		ON (R.SECTOR_NO = S.SECTOR_NO)
-		WHERE DEL_CHK = 0
-		AND R.MEM_NO = #{memNo}
-		AND R.RESUM_NO =#{resumeNo}
+		<if test="actGbn.toString() eq 'empResume'">
+			JOIN RESUM_SUPP RS
+			ON (R.RESUM_NO = RS.RESUM_NO)
+			JOIN EMP_ANNC EA
+            ON (RS.EMP_NO = EA.EMP_NO)
+		</if>
+		WHERE R.DEL_CHK = 0
+		AND R.RESUM_NO = #{resumeNo}
+        <if test="actGbn.toString() eq 'empResume'">
+        	AND RS.EMP_NO = #{empNo}
+        </if>
 	</select>
 
 	<!-- 근무형태 -->
@@ -239,7 +276,6 @@
 		RESUM_SINTRO RS
 		ON (R.RESUM_NO = RS.RESUM_NO)
 		WHERE R.DEL_CHK = 0
-		AND
 		AND R.RESUM_NO = #{resumeNo}
 	</select>
 
@@ -605,4 +641,16 @@
 		#{resumeNo}
 		)
 	</insert>
+	
+	<update id="updateSupp" parameterType="hashmap">
+		UPDATE RESUM_SUPP
+		SET
+		FIND_CHK = 1
+		<if test="prcssState neq '' and prcssState neq null ">
+			, PRCSS_STATE = #{prcssState}
+		</if>
+		WHERE 1 = 1
+		AND EMP_NO = #{empNo}
+		AND RESUM_NO = #{resumeNo}
+	</update>
 </mapper>

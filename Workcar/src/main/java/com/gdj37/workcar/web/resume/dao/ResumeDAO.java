@@ -70,6 +70,9 @@ public class ResumeDAO implements IResumeDAO{
 
 	@Override
 	public HashMap<String, String> getResumeDtl(HashMap<String, String> params) throws Throwable {
+		if(params.get("actGbn")=="empResume"){
+			sqlSession.update("Resume_SQL.updateSupp",params);
+		}
 		return sqlSession.selectOne("Resume_SQL.getResumeDtl",params);
 	}
 
@@ -197,5 +200,17 @@ public class ResumeDAO implements IResumeDAO{
 	@Override
 	public int PA(HashMap<String, String> params) throws Throwable {
 		return sqlSession.insert("Resume_SQL.PA",params);
+	}
+
+	
+	
+	@Override
+	public List<HashMap<String, String>> empResumeList(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectList("Resume_SQL.empResumeList",params);
+	}
+
+	@Override
+	public int empResumeCnt(HashMap<String, String> params) throws Throwable {
+		return sqlSession.selectOne("Resume_SQL.empResumeCnt",params);
 	}
 }

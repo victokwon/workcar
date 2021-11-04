@@ -38,6 +38,9 @@ public class CommonAOP {
 			+ "&& !execution(* com.gdj37.workcar..cmemAttndController.*Ajax(..))"
 			+ "|| execution(* com.gdj37.workcar..cmemActController.*(..))"
 			+ "&& !execution(* com.gdj37.workcar..cmemActController.*Ajax(..))"
+			+ "|| execution(* com.gdj37.workcar..ResumeController.*(..))"
+			+ "&& !execution(* com.gdj37.workcar..ResumeController.*Ajax(..))"
+			+ "&& !execution(* com.gdj37.workcar..ResumeController.empResumDtl(..))"
 			)
 	public void cmem() {}
 	
@@ -45,6 +48,7 @@ public class CommonAOP {
 			 + "&& !execution(* com.gdj37.workcar..HRSearchController.*Ajax(..))"
 			 + "||execution(* com.gdj37.workcar..PersonController.*(..))" 
 			 + "&& !execution(* com.gdj37.workcar..PersonController.*Ajax(..))"
+			 + "||execution(* com.gdj37.workcar..ResumeController.empResumDtl(..))" 
 			)
 	public void hrSch() {}
 	

@@ -20,22 +20,56 @@
    href="resources\css\resume\resumeDtl.css">
 <link rel="stylesheet" type="text/css"
    href="resources\css\resume\floatRightNav.css">
+<link rel="stylesheet" type="text/css"
+   href="resources\css\Mypage\corMypage\empResumeDtl.css"> 
 
 <script type="text/javascript"
    src="resources\script\jquery\jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="resources\script\common\sidebar.js"></script>
 <script type="text/javascript">
    $(function() {
-      $("#resumeList").on("click","div",function(){
+	   
+      $("#empResumeList").on("click","div",function(){
          let resumeNo = $(this).attr("resumeNo")
          $("#resumeNo").val(resumeNo)
-         $("#actGbn").val("Dtl")
-         $("#empResumeGo").attr("action", "resumeDtl")
-         $("#resumeGo").submit()
+         $("#empResumeGo").attr("action", "empResumDtl")
+         $("#empResumeGo").submit()
       })
-
+      
+		$("select").each(function (idx) {
+			$(this).val($(this).attr("selValue"))
+		})
+		
+	$("#prePage").on("click",function(){
+		if($("#page").val() =="1"){
+			alert("첫 페이지 입니다.")
+		}else{
+			let page = Number($("#page").val()) - 1
+			$("#page").val(page)
+			$("#empResumeGo").attr("action", "empResumDtl")
+			$("#empResumeGo").submit()
+		}	
+	})
+	
+	$("#nextPage").on("click",function(){
+		if($("#page").val() < "${pb.maxPcount}"){
+			let page = Number($("#page").val()) + 1
+			$("#page").val(page)
+			$("#empResumeGo").attr("action", "empResumDtl")
+			$("#empResumeGo").submit()
+		}else{
+			alert("마지막 페이지 입니다.")
+		}	
+	})
+	
+	$("#prcssBtn").on("click",function(){
+		$("#prcssState").val($("#prcssStateVal").val())
+		$("#empResumeGo").attr("action", "empResumDtl")
+		$("#empResumeGo").submit()
+		location.reload()
+	})
+		
    })
-
    function linkGo(url) {
       location.href = url
    }
@@ -49,7 +83,10 @@
    <form action="#" id="empResumeGo" method="post">
       <input type="hidden" id="memNo" name="memNo" value="${sMNo}">
       <input type="hidden" id="resumeNo" name="resumeNo" value="${DATA.RESUM_NO }">
-      <input type="hidden" id="actGbn" name="actGbn" >
+      <input type="hidden" id="empNo" name="empNo" value="${DATA.EMP_NO }">
+      <input type="hidden" id="page" name="page" value="${page }">
+      <input type="hidden" id="prcssState" name="prcssState" value="${DATA.PRCSS_STATE }">
+      <input type="hidden" id="actGbn" name="empResume" >
    </form>
 
    <div id="mySidenav" class="sidenav">
@@ -166,59 +203,49 @@
       </div>
       <div class="main_info">
 	      
-	      <div class="vertical_menu">
-	               <table id="resumeList">
-	                  <c:forEach var="data" items="${LIST }">
-	                     <tr>
-	                        <td>
-	                           <div resumeNo="${data.RESUM_NO }">
-	                              <a href="#">${data.RESUM_NAME }</a>
-	                           </div>
-	                        </td>
-	                     </tr>
-	                  </c:forEach>
-	                  <c:if test="${CNT < 5  }">
-	                     <tr>
-	                        <td>
-	                           <div class="apply_list">
-	                              <a href="resumeDtlAdd" id="addBtn"> 추가 </a>
-	                           </div>
-	                        </td>
-	                     </tr>
-	                  </c:if>
-	               </table>
-	            </div>
-
          <div id="main_apply" class="main_content">
             <div class="vertical_menu">
-               <table id="resumeList">
-                  <c:forEach var="data" items="${LIST }">
-                     <tr>
-                        <td>
-                           <div resumeNo="${data.RESUM_NO }">
-                              <a href="#">${data.RESUM_NAME }</a>
-                           </div>
-                        </td>
+               <table id="empResumeList">
+               		<c:forEach var="data" items="${LIST }">
+	                     <tr>
+	                        <td>
+	                           <div class="apply_list" resumeNo=${data.RESUM_NO }>
+	                           		<a href="javascript:void(0)">${data.NAME } / 
+	                           		<c:set var="prcssState1" value="${fn:replace(data.PRCSS_STATE,'0','미처리') }"/>
+	                           		<c:set var="prcssState2" value="${fn:replace(prcssState1,'1','서류합격') }"/>
+	                           		<c:set var="prcssState3" value="${fn:replace(prcssState2,'2','불합격') }"/>
+	                           		${prcssState3 } 
+	                           		<%-- <br> ${data.RESUM_NAME }  --%>
+	                           		</a>
+	                           </div>
+	                        </td>
+	                     </tr>
+                     </c:forEach>
+                     <tr class="paging">
+                     	<td id="prePage">이전</td>
+                     	<td id="nextPage">다음</td>
                      </tr>
-                  </c:forEach>
                </table>
             </div>
             <!-- form 내부의 button 동작 막기 -->
             <div class="main_box">
+            	<div class="content apply_dtl_header emp_header" id="resumeName">
+                    <span class="apply_dtl_name">${DATA.EMP_TITLE }</span><br>
+                    <span class="apply_dtl_date">마감일 | ${DATA.DLINE}</span>
+            	</div>
                <div class="content apply_dtl_header" id="resumeName">
                   <div class="apply_dtl">
                      <span class="apply_dtl_name">${DATA.RESUM_NAME}</span><br> 
-                     <span class="apply_dtl_date">최종수정일 | ${DATA.CHN_DATE}</span>
-                     <span class="apply_dtl_date">&nbsp;[${DATA.OPN_CHK_NAME}]</span>
+                     <span class="apply_dtl_date">지원일 | ${DATA.APPLY_DATE}</span>
                   </div>
                   <div class="apply_btn">
-                  		<select id="" name="" selValue="${ DATA.PRCSS_STATE}">
+                  		<select id="prcssStateVal" selValue="${ DATA.PRCSS_STATE}">
                   			<option value="0">미처리</option>
                   			<option value="1">서류합격</option>
-                  			<option value="2">불합겨</option>
+                  			<option value="2">불합격</option>
                   		</select>
                      <button type="button" id="prcssBtn">처리</button>
-                     <button type="button" id="listBtn" onclick="linkBack()">뒤로</button>
+                     <button type="button" id="listBtn" onclick="linkGo('mngancpage')">목록</button>
                   </div>
                </div>
                <!-- form 설정 -->
@@ -265,7 +292,7 @@
                   </div>
                </div>
                <!-- form 설정 -->
-               <div class="content apply_dtl_hope" id="resumeHope">
+              <%--  <div class="content apply_dtl_hope" id="resumeHope">
                   <div class="dtl">
                      <div class="header">구직희망사항</div>
                      <div class="con">
@@ -315,7 +342,7 @@
                         </div>
                      </div>
                   </div>
-               </div>
+               </div> --%>
                
                <c:if test="${!empty QUAL}">
                   <div class="content apply_dtl_lisence" id="resumeLisence">
