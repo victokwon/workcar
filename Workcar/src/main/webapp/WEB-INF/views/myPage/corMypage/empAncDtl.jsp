@@ -12,7 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-	<link rel="stylesheet" href="resources/css/cormypage/empannc/default.css">
+	<link rel="stylesheet" type="text/css" href="resources/css/common/default.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/header.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css">
@@ -25,11 +25,11 @@
     <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/sector.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/empannc/qual.js"></script>
-    <script type="text/javascript">
-    	function linkGo(url) {
-			location.herf = url
-		}
-    </script>
+	<script type="text/javascript">
+	function linkGo(url){
+		location.href = url;
+	}
+	</script>
 </head>
 
 <body>

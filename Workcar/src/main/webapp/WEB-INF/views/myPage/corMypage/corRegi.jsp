@@ -6,12 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="resources/css/common/default.css">
-<link rel="stylesheet" type="text/css" href="resources\css\common\footer.css">
-<link rel="stylesheet" type="text/css" href="resources\css\common\header.css">
-<link rel="stylesheet" type="text/css" href="resources\css\common\sidebar.css">
-<link rel="stylesheet" href="resources/css/cormypage/corinfo/Mypage_regi_cor.css">
- <link rel="stylesheet" type="text/css" href="resources/css/cormypage/corinfo/csch.css" >
+<link rel="stylesheet" type="text/css" href="resources/css/common/default.css">
+<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css">
+<link rel="stylesheet" type="text/css" href="resources/css/common/header.css">
+<link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css">
+<link rel="stylesheet" type="text/css" href="resources/css/cormypage/corinfo/Mypage_regi_cor.css">
+<link rel="stylesheet" type="text/css" href="resources/css/cormypage/corinfo/csch.css" >
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>

@@ -10,7 +10,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="resources/css/cormypage/empannc/default.css">
+    <link rel="stylesheet" type="text/css" href="resources/css/common/default.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/header.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/footer.css">
 	<link rel="stylesheet" type="text/css" href="resources/css/common/sidebar.css">
@@ -20,11 +20,11 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="resources/script/cormypage/empannc/mainbox.js"></script>
     <script type="text/javascript" src="resources/script/cormypage/mngempanc/mngempanc.js"></script>
-    <script type="text/javascript">
-	    function linkGo(url){
-	    	location.href = url
-	    }
-    </script>
+	<script type="text/javascript">
+	function linkGo(url){
+		location.href = url;
+	}
+	</script>
 </head>
 
 <body>
@@ -304,15 +304,7 @@
 <script>
 
 $(document).ready(function(){
-	
-	$(".main_button_box").click($(".button_box"),function(){
 		
-		linkGo(URL);
-		
-	});
-	
-	
-	
 	
 	// 사이드 메뉴 이동
 	$("#resumeLists").hide();
@@ -380,12 +372,8 @@ $("#goListBtn").click(function(){
 
 
 
-
-
-	
-
-	
- 	$("#jobPost").click(); 
+//기본메뉴설정
+$("#jobPost").click(); 
 	
 	
 //채용공고 열람	
@@ -475,18 +463,18 @@ function resumeLists() {
 			html += "		<div class='job_post_resume_state_dtl'>                    ";
 			html += "		<div class='col'>                                          ";
 			html += "		<div class='row'>                                          ";
-			html += "		<div class='text'>지원자 : </div>                             ";
-			html += "		<div class='data'> "+rlists.NAME+"</div>                 	 ";
+			html += "		<div class='text'>지원자 : </div>                           ";
+			html += "		<div class='data'> "+rlists.NAME+"</div>                 	";
 			html += "		</div>                                                     ";
 			html += "		<div class='row'>                                          ";
 			html += "		<div class='text'>처리 : </div>                           ";
-			html += "		<div class='data'>"+rlists.PRCSCHK+"</div>                  ";
+			html += "		<div class='data'>"+rlists.PRCSCHK+"</div>                 ";
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		<div class='col'>                                          ";
 			html += "		<div class='row'>                                          ";
 			html += "		<div class='text'>제목 : </div>                             ";
-			html += "		<div class='data'>"+rlists.RESUM_NAME+"</div>                    ";
+			html += "		<div class='data'>"+rlists.RESUM_NAME+"</div>                 ";
 			html += "		</div>                                                     ";
 			html += "		<div class='row'>                                          ";
 			html += "		<div class='text'>제출일 : </div>                             ";
@@ -531,11 +519,9 @@ function delEmpAnc(){
 	});	
 }
 
-
  });
 </script>
 
 
 
 </html>
-<!-- main_content_button button  main_button_box-->
