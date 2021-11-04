@@ -55,6 +55,9 @@ $(document).ready(function() {
 		location.href = "testLogout";
 	}); */
 }); //document ready end
+function linkGo(url){
+		location.href = url
+	};
 </script>
 </head>
 <body>
@@ -120,7 +123,7 @@ $(document).ready(function() {
 		<div class="topnav">
 
 			<!-- 로고 -->
-			<div class="topnav-centered">
+			<div class="topnav-centered" onclick="linkGo('mainpage')">
 				<div class="logo_img"></div>
 			</div>
 
@@ -172,10 +175,6 @@ $(document).ready(function() {
     <main>
 
         <div class="main_button_box">
-            <!--<button class="main_button" onclick="openPage('main_regi', this)" id="defaultOpen">이용약관</button>
-            <button class="main_button" onclick="openPage('main_apply', this)" id="personalSpaceBtn">개인정보처리방침</button>
-            <button class="main_button" onclick="openPage('main_act', this)" id="ntcSpaceABListBtn">공지사항</button>
-            <button class="main_button" onclick="openPage('main_inter', this)" id="quesSpaceBtn">자주하는질문</button> -->
             <input type="button" class="main_button" onclick="openPage('main_regi', this)" value="이용약관" id="defaultOpen" />
             <input type="button" class="main_button" onclick="openPage('main_apply', this)" value="개인정보처리방침" id="personalSpaceBtn" />
             <input type="button" class="main_button" onclick="openPage('main_act', this)" value="공지사항" id="ntcSpaceABListBtn" />

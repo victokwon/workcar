@@ -52,7 +52,7 @@ public class SpaceAController {
     Map<String, Object> modelMap = new HashMap<>();
     int page = Integer.parseInt(params.get("page"));
     int cnt = this.iSpaceAService.getACnt(params);
-    PagingBean pb = this.iPagingService.getPagingBean(page, cnt, 5, 2);
+    PagingBean pb = this.iPagingService.getPagingBean(page, cnt, 5, 5);
     params.put("startCnt", Integer.toString(pb.getStartCount()));
     params.put("endCnt", Integer.toString(pb.getEndCount()));
     List<HashMap<String, String>> list = this.iSpaceAService.getAList(params);

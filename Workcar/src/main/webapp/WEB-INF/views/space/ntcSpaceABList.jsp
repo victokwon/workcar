@@ -81,16 +81,6 @@ $(document).ready(function() {
 		$("#actionForm").submit();
 	});
 	
-	//로그인
-	/* $("#loginBtn").on("click", function(){
-	    location.href = "testLogin";
-	});
-	 */
-	//로그아웃
-	/* $("#logoutBtn").on("click", function(){
-	    location.href = "testLogout";
-	}); */
-	
 	//검색
 	$("#searchBtn").on("click", function() {
 		$("#page").val("1");
@@ -164,7 +154,7 @@ function drawList(list) {
 	html += data.NOTICE_TITLE;
 	
 	if(data.ATTCH_NAME != null) {
-		html += "<img src=\"resources/images/freepik_attach1.png\" />";
+		html += "<img src=\"resources/images/space/freepik_attach1.png\" />";
 	}
 	
 	html += "</td>"; 
@@ -206,6 +196,9 @@ function drawPaging(pb) {
 	
 	$(".paging_wrap").html(html);
 }
+function linkGo(url){
+	location.href = url
+};
 </script>
 </head>
 <body>
@@ -270,7 +263,7 @@ function drawPaging(pb) {
     	<div class="topnav">
 
         <!-- 로고 -->
-        <div class="topnav-centered">
+        <div class="topnav-centered" onclick="linkGo('mainpage')">
         	<div class="logo_img"></div>
         </div>
 
@@ -321,13 +314,7 @@ function drawPaging(pb) {
     <!-- 클래스명, 아이디명 수정-->
     <!--  -->
     <main>
-
         <div class="main_button_box">
-            <!--<button type="button" class="main_button" onclick="openPage('main_regi', this)" id="mainSpaceBtn">이용약관</button>
-            <button type="button" class="main_button" onclick="openPage('main_apply', this)" id="personalSpaceBtn">개인정보처리방침</button>
-            <button type="button" class="main_button" onclick="openPage('main_act', this)" id="defaultOpen">공지사항</button>
-            <button type="button" class="main_button"  id="quesSpaceBtn">자주하는질문</button> 
-             onclick="openPage('main_inter', this)" -->
             <input type="button" class="main_button" onclick="openPage('main_regi', this)" value="이용약관" id="mainSpaceBtn" />
             <input type="button" class="main_button" onclick="openPage('main_apply', this)" value="개인정보처리방침" id="personalSpaceBtn" />
             <input type="button" class="main_button" onclick="openPage('main_act', this)" value="공지사항" id="defaultOpen" />
@@ -356,7 +343,6 @@ function drawPaging(pb) {
 						</div>
                         <div>
                              <table>
-
                                 <thead>
                                     <tr>
                                      	<th id="no">번호</th>

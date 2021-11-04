@@ -29,7 +29,12 @@ $(document).ready(function() {
 	$("#mainSpaceBtn").on("click", function() {
 		location.href = "mainSpace";
 	});
+	
+	
 }); //document ready end
+function linkGo(url){
+ 		location.href = url
+ 	};
 </script>
 </head>
 <body>
@@ -38,7 +43,7 @@ $(document).ready(function() {
     <div id="sdienav_ul">
     	<!-- 링크작업 -->
         <ul>
-        	<div id="">채용정보</div>
+        	<div id="" >채용정보</div>
             	<li id="">통합검색</li>
             	<li id="">조회수 100</li>
             	<li id="">평점 100</li>
@@ -94,7 +99,7 @@ $(document).ready(function() {
     	<div class="topnav">
 
         <!-- 로고 -->
-        <div class="topnav-centered">
+        <div class="topnav-centered" onclick="linkGo('mainpage')">
         	<div class="logo_img"></div>
         </div>
 

@@ -159,16 +159,12 @@ function checkVal(sel) {
 	} else {
 		return false;
 	}
-}
+};
 </script>
 </head>
 <body>
 <form id="fileForm" action="fileUploadAjax" method="post" enctype="multipart/form-data">
 	<input type="file" name="att" id="att" />
-	<!-- <input type="file" name="att2" id="att2" />
-	<input type="file" name="att3" id="att3" />
-	<input type="file" name="att4" id="att4" />
-	<input type="file" name="att5" id="att5" /> --> <!-- <= 첨부파일 갯수를 늘리고 싶으면 이것을 더 만들고 부가작업하면 됨. -->
 </form> <!-- 파일을 올리거나 있던 파일을 교체하기 위한 장치 -->
 <form action="ntcAB" id="backForm" method="post">
 	<input type="hidden" name="searchGbn" value="${param.searchGbn}" />

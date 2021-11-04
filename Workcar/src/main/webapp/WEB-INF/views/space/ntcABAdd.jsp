@@ -149,6 +149,9 @@ function checkVal(sel) {
 		return false;
 	}
 }
+function linkGo(url){
+	location.href = url
+};
 </script>
 </head>
 <body>
@@ -213,7 +216,7 @@ function checkVal(sel) {
     	<div class="topnav">
 
         <!-- 로고 -->
-        <div class="topnav-centered">
+        <div class="topnav-centered" onclick="linkGo('mainpage')">
         	<div class="logo_img"></div>
         </div>
 
@@ -268,10 +271,6 @@ function checkVal(sel) {
             <button type="button" class="main_button" onclick="openPage('main_apply', this)" id="personalSpaceBtn">개인정보처리방침</button>
             <button type="button" class="main_button" onclick="openPage('main_act', this)" id="ntcSpaceBtn">공지사항</button>
             <button type="button" class="main_button" onclick="openPage('main_inter', this)" id="quesSpaceBtn">자주하는질문</button> 
-            <!--<input type="button" class="main_button" value="이용약관" id="mainSpaceBtn" />
-            <input type="button" class="main_button" value="개인정보처리방침" id="personalSpaceBtn" />
-            <input type="button" class="main_button" value="공지사항" id="defaultOpen" />
-            <input type="button" class="main_button" value="자주하는질문" id="quesSpaceBtn" /> -->
         </div>
         <div class="main_info">
 			<div id="main_act" class="main_content">
