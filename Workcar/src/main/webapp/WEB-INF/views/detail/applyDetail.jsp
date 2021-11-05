@@ -304,8 +304,7 @@
                 <hr>
                 <div class="main_detail_2">
                     <div class="apply_dtl">
-                   <%--  ${fn:replace(applyinfo.DTL, '\\r\\n', '.<br>')} --%>
-                   ${applyinfo.DTL}
+                    ${fn:replace(applyinfo.DTL, '.', '.<br>')}
                     </div>
                 </div>
 				<script>
