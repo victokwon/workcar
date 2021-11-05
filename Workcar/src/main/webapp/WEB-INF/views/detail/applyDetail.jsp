@@ -72,7 +72,6 @@
 <div class="pop_wrap">
 	<div class="pop-container1"></div> 
 </div>
-	
 	<input type="hidden" id="userNo" no=${sMNo }>
 	<%@include file="/resources/jsp/header.jsp"%>	
 	

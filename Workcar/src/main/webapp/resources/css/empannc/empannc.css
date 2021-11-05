@@ -28,6 +28,11 @@ main {
   font-size: 17px;
   width: 25%;
 }
+form{
+	height: auto;
+	display: flex;
+	flex-direction: column;
+}
 
 .main_button:hover {
   background-color: #88a2f2;
@@ -38,9 +43,10 @@ main {
   padding: 20px 20px;
   height: 100%;
   margin: 0 auto;
-  width: 1200px;
+  width: 1000px;
   border-radius: 8px;
   margin-bottom: 20px;
+  display: flex;
 }
 
 .vertical_menu {
@@ -48,9 +54,11 @@ main {
 }
 
 .main_box {
+	  height: auto;
+  display: flex;
   margin: 0 20px;
-  width: 80%;
-  height: 100%;
+  width: 70%;
+  /* height: 100%; */
   justify-content: space-evenly;
   flex-direction: column;
   align-items: center;
@@ -199,6 +207,7 @@ main > .main_wrap {
 
 .main_box .apply_dtl_header {
   border-radius: 10px;
+  
 }
 
 .main_box .content .dtl {
@@ -260,9 +269,11 @@ form {
     padding: 0px;
     line-height: 50px;
 }
-
+.title{
+	height: auto;
+}
 .tilte .job_post_title > input {
-  height: 100%;
+/*   height: 100%; */
   border-radius: 10px;
   margin: auto;
   border: 0;
@@ -496,7 +507,7 @@ input#showName {
 .right {
   display: flex;
   flex-direction: column;
-  width: calc(40% - 200px);
+  width: 30%;
   margin: 0;
   padding: 0;
 }
@@ -645,7 +656,13 @@ input#showName {
 a#jobPost {
     margin: 1px 1px 10px 1px;
 }
-
-div#main_apply {
+#uptForm5{
+	margin-top: 60px;
+	}
+	#uptForm1{
+	position: relative;
+	}
+/* div#main_apply {
     width: 1200px;
 }
+ */

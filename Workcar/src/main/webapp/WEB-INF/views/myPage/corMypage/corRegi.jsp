@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@include file="/resources/jsp/header.jsp"%>
+
 
 <!DOCTYPE html>
 <html>
@@ -32,7 +32,7 @@ function linkGo(url){
 </script>
 
 <body>
-
+<%@include file="/resources/jsp/header.jsp"%>
 	<main>
 		<!-- Tab 버튼 태그 -->
 			<div class="main_button_box">
@@ -334,7 +334,7 @@ function linkGo(url){
         </div>
     </div>
 	
-<%@include file="/resources/jsp/footer.jsp"%>
 	
 </body>
+<%@include file="/resources/jsp/footer.jsp"%>
 </html>
