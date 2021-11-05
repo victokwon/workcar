@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@include file="/resources/jsp/header.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,8 +20,8 @@
 <script src="resources/script/Mypage/header.js"></script>
 <script src="resources/script/Mypage/Mypage_main_dp.js"></script>
 <script src="resources/script/cormypage/corinfo/Mypage_regi_cor.js"></script>
-<script src="resources/script/cormypage/corinfo/MyPage_regi_cor_event.js"></script>
- <script src="resources/script/cormypage/corinfo/csch.js"></script>
+<script src="resources/script/cormypage/corinfo/csch.js"></script>
+<script src="resources/script/cormypage/corinfo/corinfo.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="resources/script/jquery/jquery.form.js"></script>
@@ -29,87 +31,8 @@ function linkGo(url){
 }
 </script>
 
-</head>
 <body>
-	<!-- 사이드바 -->
-	<div id="mySidenav" class="sidenav">
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<div id="sdienav_ul">
-			<ul>
-				<div>채용정보</div>
-				<li>통합검색</li>
-				<li>조회수 100</li>
-				<li>평점 100</li>
-			</ul>
 
-			<ul>
-				<div>기업정보</div>
-				<li>통합검색</li>
-			</ul>
-			<ul>
-				<div>인재정보</div>
-				<li>통합검색</li>
-			</ul>
-			<ul>
-				<div>참여공간</div>
-				<li>공지사항</li>
-				<li>자주하는 질문</li>
-			</ul>
-		</div>
-	</div>
-	<div class="side_bcc" id="side_bcc"></div>
-	<!-- 사이드바 종료 -->
-	<header>
-		<!-- 네비게이션바 -->
-		<div class="topnav">
-
-			<!-- 로고 -->
-			<div class="topnav-centered">
-				<div class="logo_img" onclick="linkGo('mainpage')"></div>
-			</div>
-
-			<!-- 왼쪽 -->
-			<div class="hambuger" onclick="openNav()" id="hambuger_left">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-
-			<!-- 오른쪽 -->
-			<!-- 링크작업 -->
-			<c:choose>
-				<c:when test="${sMTy eq 0}">
-					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#iMemMypage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:when test="${sMTy eq 1 || sMTy eq 2}">
-					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#cMemMypage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:when test="${sMTy eq 3}">
-					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#mngMypage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="topnav-right">
-						<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
-					</div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</header>
 	<main>
 		<!-- Tab 버튼 태그 -->
 			<div class="main_button_box">
@@ -199,7 +122,6 @@ function linkGo(url){
 								<div class="content ">
 									<div class="dtl">
 										<button type="button" id="uptcpinfo">저장</button>
-										<!-- <button type="button">수정</button> -->
 										<div class="con">
 											<div class="company">
 												<div class="text">기업로고</div>
@@ -211,13 +133,7 @@ function linkGo(url){
 													<button type="button" id="delpictbtn">파일삭제</button>
 												</div>
 											</div>
-											<!--  <input type ="hidden" name ="CCORP_NO" value="${data.CORP_NO}"> -->
-<!-- 											<div class="company">
-												<div class="text">기업검색</div>
-												<div class="input">
-													<button type="button" id="cSchBtn">기업검색</button>
-												</div>
-											</div> -->
+
 											<div class="company">
 												<div class="text">기업명</div>
 												<div class="input">
@@ -279,14 +195,7 @@ function linkGo(url){
 													<input type="text" id="ADDR_DTL" name ="ADDR_DTL" placeholder="상세주소" value="${data.ADDR_DTL}">
 												</div>
 											</div>
-<!-- 											<div class="company">
-												<div class="text">업종</div>
-												<div class="input">
-													<select>
-														<option value="-1">업종 선택</option>
-													</select>
-												</div>
-											</div> -->
+
 											<div class="company">
 												<div class="text">홈페이지 주소</div>
 												<div class="input">
@@ -294,41 +203,8 @@ function linkGo(url){
 												</div>
 											</div>
 											<input type ="hidden" name ="CORP_IMG" id="CORP_IMG" value ="${data.CORP_IMG}">
-<!-- 											<div class="company">
-												<div class="text">중소기업 유무</div>
-												<div class="input">
-													<input name="middleCompany" type="radio"
-														id="middleCompany1"><label for="middleCompany1">유</label>
-													<input name="middleCompany" type="radio"
-														id="middleCompany2"><label for="middleCompany2">무</label>
-												</div>
-											</div>
-											<div class="company">
-												<div class="text">연매출</div>
-												<div class="input">
-													<input type="text" placeholder="연매출" readonly> 만원
-												</div>
-											</div>
-											<div class="company">
-												<div class="text">근로자수</div>
-												<div class="input">
-													<input type="text" placeholder="근로자수" readonly>
-												</div>
-											</div>
- -->
+
 										</div>
-										
-	<!-- 										<div class="apply_dtl_attch" id="resumeAttach">
-												<div class="dtl">
-													<div class="header">사업내용</div>
-													<div class="con add_box">
-														js를 통해 추가되는 내용
-														<div class="company">
-															<textarea></textarea>
-														</div>
-													</div>
-												</div>
-											</div> -->
 										
 
 										
@@ -345,34 +221,9 @@ function linkGo(url){
 		</div>
 				
 				
-<!-- 		<form action="">
-			<div class="apply_dtl_attch" id="resumeAttach">
-				<div class="dtl">
-					<div class="header">첨부파일</div>
-					<div class="con add_box">
-						js를 통해 추가되는 내용
-						<div class="file_box ">
-							<input type="button" class="minus_btn" id="delBtn"
-								value="－">
-							<div class="data_container file_container">
-								<div id="fileSNm">파일명</div>
-								<input type="hidden" id="fileLNm">
-								<button type="button">파일업로드</button>
-							</div>
-						</div>
-					
-						<input type="button" class="plus_btn" id="addBtn7"
-							value="＋">
-					</div>
-				</div>
-			</div>
-		</form> -->
+
 
 </div>					
-
-
-
-
 
 					<div class="main_box main_box_regi3">
 						<div class="main_box_title_position">
@@ -441,28 +292,7 @@ function linkGo(url){
 			</div>
 		</div>
 	</main>
-	<footer>
-		<!-- 링크작업 -->
-		<div class="inner_content">
-			<div id="ntc">공지사항</div>
-			<div id="paticp">참여마당</div>
-			<div id="pvc">개인정보처리방침</div>
-			<div id="tou">이용약관</div>
-		</div>
-		<div class="footer_dtl_wrap">
-			<div class="footer_dtl_contents">
-				<div class="footer_logo"></div>
-				<div class="footer_dtl_contents_1">명칭 (주)일력거 | 사업자등록번호
-					123-456-7891011</div>
-				<div class="footer_dtl_contents_2">등록일자 2021년 9월 ?일 | 발행
-					(주)일력거 | 편집 (주)일력거</div>
-				<div class="footer_dtl_contents_3">발행소 서울시 금천구 가산디지털2로 구디아카데미
-					| 전화번호 02-1234-5678</div>
-				<div class="copyright">©WorkRickshaw. All rights reserved.</div>
-			</div>
-		</div>
-	</footer>
-	
+
 	
 	<div class="pop-container">
         <div class="pop-out-container">
@@ -504,536 +334,7 @@ function linkGo(url){
         </div>
     </div>
 	
+<%@include file="/resources/jsp/footer.jsp"%>
 	
-	
-<script>
-
-$(document).ready(function(){
-	
-	// 파일폼 숨김처리
-	$("#fileFormh").hide();
-	//프로필사진 삭제버튼 숨김처리
-	$("#delpictbtn").hide();
-	// 현재 비밀번호 확인 체크
-	var chkpass = 0;
-	// 파일업로드 체크
-	var chkfileupt = 0;
-	
-	
-	//이미지 파일 체크
-	(function(){
-		var img = "${data.CORP_IMG}";
-	if(img != "") {
-		$("#logo").attr("src","resources/upload/"+img);
-	} else {
-		$("#logo").attr("src","resources/images/cmypage/profile.png");
-	}
-	})();
-	
-	
-	
-	//기본메뉴 설정
-	 $("#cmyinfopage").click(); 
-
-	
-	
-	if($("#CORP_IMG").val() != "") {
-		chkfileupt = 1;
-		$("#picuptbtn").html("수정하기");
-		$("#delpictbtn").show();
-	}
-	
-	
-	$("#empannc").on("click",function(){
-		location.href="/empannc";
-	});
-	$("#defaultmenu").on("click",function(){
-	location.href="/cmyinfopage";
-	});
-	
-	
-	// 프로필사진 업로드 버튼 이벤트 처리
-	$("#picuptbtn").on("click",function(e){
-		
-		e.preventDefault();
-		
-		$("#cprofile").click(); 
-		
-
-		
-	});
-	
-	
-	// 파일을 선택하면 수정 여부에 관계없이 업로드실행
-	$("#cprofile").on("change",function(){
-		
-		var fileForm = $("#cprofileForm");
-		
-		
-		fileForm.ajaxForm({
-			
-			success: function(res){
-				if(res.result == "SUCCESS"){
-					
-					if(res.fileName.length>0){
-						
-						$("#CORP_IMG").val(res.fileName[0]);
-						chkfileupt = 1;
-						
-						$("#logo").attr("src","resources/upload/"+res.fileName[0]);
-						
-						$("#picuptbtn").html("수정하기");
-						$("#delpictbtn").show();
-						
-
-					}
-				}else {
-					alert("저장실패");
-				}
-			},
-			error : function(req,status,error) {
-				alert("에러발생");
-			}
-			
-		});
-		
-			fileForm.submit();
-		
-	});
-	
-	
-	//파일삭제 버튼 누르면 원상복구하기
-	$("#delpictbtn").on("click",function(){
-		
-		$("#CORP_IMG").val("");
-		$("#delpictbtn").hide();
-		chkfileupt = 0;
-		$("#picuptbtn").html("사진올리기");
-		alert("삭제가 완료되었습니다.")
-		$("#logo").attr("src","resources/images/cmypage/profile.png");
-	});
-	
-
-
-
-// 탈퇴처리
-
- $("#outmember").on("click",function(){
-	 
-	 
-	 var param = $("#outpassform").serialize();
-	 
-
-	 if($("#outpasschk").val() == "") {
-		 alert("비밀번호를 입력하세요");
-		 return false;
-	 }
-	 
-		
-	 $.ajax({
-		 
-		 url : "outMemberAjax",
-		 data: param,
-		 dataType : "json",
-		 type : "post",
-		 success : function(res) {
-			 
-			 if(res.result == "success") {
-				 alert("회원탈퇴가 완료되었습니다. 메인페이지로 이동합니다.");
-				 $("#modal").modal("hide");
-				 sessionStorage.clear();
-				 location.href="/mainpage";
-				 
-			 }else {
-				 alert("비밀번호가 틀립니다.");
-			 }
-		 },
-		 error : function(request,status,error) {
-			 alert("오류발생");
-		 }
-		
-		 
-		 
-	 });
-	 
- });
-
-
-
-//비밀번호 변경 저장
-
-$("#chgePassBtn").on("click",function(e){
- 	
-	e.preventDefault();
-	
-	if(chkpass != 1 ) {
-		alert("현재 비밀번호 확인을 해주세요");
-		return false;
-	}
-	
-
-	newpasschk();
-	uptNewPass();
-	
-});
-
-//비밀번호 수정 Ajax
-
-function uptNewPass() {
-	
-	var param = $("#changePass").serialize();
-	
-	$.ajax({
-		
-		url : "uptNewPassAjax",
-		data : param,
-		dataType : "json",
-		type : "post",
-		success : function(res) {
-			
-			if(res.result =="success") {
-				alert("비밀번호가 수정되었습니다");
-				location.href="corRegi";
-			}else {
-				alert("비밀번호 수정 실패");
-			}
-		},
-		error : function(request,status,error) {
-			console.log(error);
-			alert("비밀번호가 틀립니다");
-		}
-		
-	});
-	
-	
-	
-}
-
-
-
-//비밀번호 수정 전 확인버튼 check
-
-$("#chkPassBtn").on("click",function(e){
-	
-	e.preventDefault();
-	
-	if($("#nowpass").val() == ""){
-		alert("비밀번호를 입력해주세요");
-		$("#nowpass").focus();
-		return false;
-	} else {
-		passchk();
-	}
-	
-	
-});
-
-
-
-
-//현재 비밀번호 확인 Ajax
-function passchk() {
-	
-	var param = $("#changePass").serialize();
-		
-	$.ajax({
-		
-		url : "ChnPassAJax",
-		data : param,
-		dataType: "json",
-		type : "post",
-		success : function(res) {
-			if(res.result =="success") {
-				alert("현재 비밀번호가 확인되었습니다.");
-				chkpass = 1;
-				$("#chkPassBtn").attr("disabled", true);
-				$("#chkPassBtn").val("확인완료");
-				$("#nowpass").hide();
-				return true;
-			}else {
-				alert("비밀번호가 틀립니다1");
-				$("#nowpass").val("");
-				$("#nowpass").focus();
-				return false;
-			}
-		},
-		error:function(request,status,error) {
-			console.log(error);
-			alert("비밀번호가 틀립니다0");
-		}
-		
-	});
-	}
-	
-
-//비밀번호 수정시 유효성체크
-
-function newpasschk() {
-	
-	if($("#newpass").val()=="" || $("#newpasschk").val()==""){
-		
-		alert("비밀번호 또는 확인란을 입력해주세요");	
-		return false;
-	} 
-	
-	
-if($("#newpass").val() == $("#newpasschk").val()) {
-		return true
-	}else{
-		alert("비밀번호 확인을 해주세요");
-		$("#newpass").val("");
-		$("#newpasschk").val("");
-		$("#newpass").focus();
-		return false;
-	}
-	
-	var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
-	
-	if(!getCheck.test($("#newpass").val())){
-		alert("비밀번호 형식이 올바르지 않습니다.");
-		$("#newpass").val("");
-		$("#newpasschk").val("");
-		$("#newpass").focus();
-		return false;
-	}
-	
-		return true;
-	
-}
-
-	
-//기업정보설정 저장
-$("#uptcpinfo").on("click",function(){
-	
-	if(!chkUptCpInfoChk()){
-		return false;
-	}else {
-	
-		if(confirm("수정하시겠습니까?"))
-			uptCpInfoAjax();
-		
-	}
-		
-
-	
-	
-});
-
-
-//기업정보 수정 Ajax
-
-function uptCpInfoAjax() {
-	
-	var params = $("#uptCpInfoForm").serialize();
-	
-	$.ajax({
-		
-		url :"uptCpInfoAjax",
-		data : params,
-		type: "post",
-		dataType:"json",
-		success:function(res){
-			if(res.result =="success") {
-				alert("수정완료되었습니다").
-				location.href="cmyinfopage";
-			}else if(res.result =="failed") {
-				alert("수정오류");
-			}
-		},
-		error:function(request,status,error) {
-			console.log(error);
-		}
-	});
-	
-}
-
-
-//기업정보수정 유효성 검사
-function chkUptCpInfoChk(){
-	
-	if(chkCpTel() && chkCpEmail() ) {	
-		return true;
-	}else {
-		return false;
-	}
-	
-	
-}
-	
-
-//기업전화번호 유효성 검사
-function chkCpTel(){
-	
-	var getCheck = RegExp(/^[0-9]{8,13}$/);
-	
-	if($("#CP_TEL").val() == "") {
-		alert("대표번호를 입력해 주세요");
-		$("#CP_TEL").focus();
-		return false;
-	}
-	
-	if(!getCheck.test($("#CP_TEL").val())){
-		alert("전화번호는 숫자만 입력 가능합니다.")
-		$("#CP_TEL").val("");
-		$("#CP_TEL").focus();
-		return false;
-	}
-	
-	return true;
-}
-
-
-//기업이메일 유효성 검사
-function chkCpEmail() {
-	
-	var getCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-	
-	if($("#CP_EMAIL").val() == ""){
-		alert("이메일을 입력해 주세요");
-		$("#CP_EMAIL").focus();
-		return false;
-	}
-	
-	if(!getCheck.test($("#CP_EMAIL").val())){
-		alert("이메일 형식에 맞게 입력해주세요");
-		$("#CP_EMAIL").val("");
-		$("#CP_EMAIL").focus();
-		return false;
-	}
-	return true;
-}
-
-
-
-
-// 개인정보 설정 저장
-$("#uptinfo").on("click",function(){
-	
-	if(!chkUptInfoChk())
-		return false;
-	
-	if(confirm("수정하시겠습니까?"))
-		uptInfoAjax();
-	
-});
-
-//유효성검사 개인정보설정
-function chkUptInfoChk() {
-	
-	if(chkName() && chkEmail() && chkPhone()){
-		return true;
-	} else {
-		return false;
-	}
-	
-}
-
-
-
-
-// 이름 유효성 검사
-function chkName() {
-
-	var getCheck = RegExp(/^[a-zA-Z0-9가-힣]{3,12}$/);
-	
-	if($("#C_NAME").val() == ""){
-		alert("이름을 입력해 주세요");
-		$("#C_NAME").focus();
-		return false;
-	}
-	
-	if(!getCheck.test($("#C_NAME").val())){
-		alert("이름형식에 맞게 입력해주세요");
-		$("#C_NAME").val("");
-		$("#C_NAME").focus();
-		return false;
-	}
-	
-	return true;
-}
-
-//휴대폰 유효성 검사
-function chkPhone() {
-	
-	var getCheck = RegExp(/^[0-9]{10,11}$/);
-	
-	if($("#C_PHONE").val() == ""){
-		alert("전화번호를 입력해 주세요");
-		$("#C_PHONE").focus();
-		return false;
-	}
-	
-	if(!getCheck.test($("#C_PHONE").val())){
-		alert("전화번호 형식에 맞게 입력해주세요");
-		$("#C_PHONE").val("");
-		$("#C_PHONE").focus();
-		return false;
-	}
-	
-	return true;
-}
-	
-
-// 이메일 유효성 검사
-function chkEmail() {
-	
-	var getCheck = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-	
-	if($("#C_EMAIL").val() == ""){
-		alert("이메일을 입력해 주세요");
-		$("#C_EMAIL").focus();
-		return false;
-	}
-	
-	if(!getCheck.test($("#C_EMAIL").val())){
-		alert("이메일 형식에 맞게 입력해주세요");
-		$("#C_EMAIL").val("");
-		$("#C_EMAIL").focus();
-		return false;
-	}
-	
-	return true;
-}
-
-
-
-
-// 개인정보 수정 Ajax
-function uptInfoAjax() {
-var params = $("#uptinfoc").serialize();
- $.ajax({
-	 data : params,
-	 type : "post",
-	 dataType : "json",
-	 url : "uptInfoAjax",
-	 success : function(res) {
-		 if(res.result =="success") {
-		 	alert("수정완료되었습니다.");
-		 	location.href="cmyinfopage";
-		 
-		 }else if (res.result =="failed"){
-			alert("수정오류")
-		 }
-	 },
-	error : function (request,status,error) {
-		console.log(error);
-		} 
- });
-}
-
-$("#schaddr").on("click",function(){
-	execDaumPostcode();
-	
-});
-
-
-
-});
-
-
-
-
-</script>
-
 </body>
 </html>

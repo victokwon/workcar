@@ -1,46 +1,107 @@
 $(document).ready(function(){
 
-		//파일 업로드 체크
-	   var chkfileupt = 0;
-
-		//자격증 개수 체크
-	   var cnt = 1;
-	   
 		
-		
-		
-		//자격증 
+   // 자격증
 	$("#addBtn1").on("click", function () {
 	  
 	    
 	    if(cnt <4){
 	    
-        let html = "";
-        html += '<div class="input_box " id="qualInput'+cnt+'" no="'+cnt+'" noName="qualNo">';
-        html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
-        html += '<div class="data_container">';
-        html += '<button type="button" id="qualBtn" no="'+cnt+'" >자격증검색</button>';
-        html += '<input class="qual_input" name="QUAL_NO" id="QUAL_NO'+cnt+'" type="hidden" readonly>';
-        html += '<input class="qual_input" name="QUAL_NAME" id="QUAL_NAME'+cnt+'" value="자격증 명" type="text" disabled style="width:200px; text-align: center; margin-left: 30px;">';
-        html += " </div>";
-        html += " </div>";
+       let html = "";
+       html += '<div class="input_box " id="qualInput'+cnt+'" no="'+cnt+'" noName="qualNo">';
+       html += '<input type="button" class="minus_btn" id="delBtn" value="－">';
+       html += '<div class="data_container">';
+       html += '<button type="button" id="qualBtn" no="'+cnt+'" >자격증검색</button>';
+       html += '<input class="qual_input" name="QUAL_NO" id="QUAL_NO'+cnt+'" type="hidden" readonly>';
+       html += '<input class="qual_input" name="QUAL_NAME" id="QUAL_NAME'+cnt+'" value="자격증 명" type="text" disabled style="width:200px; text-align: center; margin-left: 30px;">';
+       html += " </div>";
+       html += " </div>";
 	
 	  $(this).parent().prepend(html);
 	  cnt += 1
 	  
 	  }else{
-	  alert("자격증은 3개 이상 등록이 불가능합니다.")
+	  alert("자격증은 3개 이상 등록이 불가능합니다.");
+	  return false;
 	  }
 	});
-		
-	//삭제버튼	
+	
 	  $(".add_box").on("click", ".minus_btn", function () {
 		    $(this).parent().html("");
 		    cnt -= 1 ;
 		  });
+	  
+	  
+	  $(".list_wrap").on("click", "tr", function () {
+		  	if($(".pop-container").attr("btn") == "q"){
+		  		let target = $("#list_box").attr("no");
+		  	    $("#QUAL_NO"+target+"").val($(this).attr("qNo"));
+		  	    $("#QUAL_NAME"+target+"").val($(this).attr("qName"));
+		  	    $(".pop-container").hide();
+		  	}else if($(".pop-container").attr("btn") == "s"){
+		  	    $("#SECTOR_NAME").val($(this).attr("sName"));
+		  	    $("#SECTOR_NO").val($(this).attr("sNo"));
+		  	    $(".pop-container").hide();
+		  		}
+		 });
+	  
+	  
+	  
+	
+	//체크값 불러오기	
+		var doc = "${data.EMP_DOC}";
+		var prcs = "${data.EMP_PRCS}";
+
+		for(var i =0; i<=3; i++) {
+			var docVal = "EMP_DOC"+i;
+			for(var b =0; b<doc.length; b++) {
+
+				/* var doca = doc[b]; */
+				if(doc[b] == document.getElementById(docVal).value){						
+					document.getElementById(docVal).setAttribute("checked",true);			
+			}
+		}
+	}
+		
+		for(var i =0; i<=3; i++) {
+			var prcsVal = "EMP_PRCS"+i;
+			for(var b =0; b<doc.length; b++) {
+
+				/* var prcsa = prcs[b]; */
+
+				if(prcs[b] == document.getElementById(prcsVal).value){						
+					document.getElementById(prcsVal).setAttribute("checked",true);
+					
+			}
+		}
+	}
 		
 		
+	
+	//이미지 파일 체크
 		
+	(function(){
+		var img = "${data.ATTCH_NAME}";
+	if(img != "") {
+		$("#empFileShow").attr("src","resources/upload/"+img);
+	}
+	
+	})();
+		
+
+ 	//도시 체크
+ 	
+	var city = "${data.CITY_NO}";
+	var region = "${data.REGION_NO}";
+
+	console.log("region 값 : "+ region);
+	
+	
+	$("#CITY").val(city);
+	findregionAjax();
+	
+		
+
 	   if ($("#ATTCH_NAME").val() != "") {	 
 		   chkfileupt = 1;
 		   $("#showImgFileDiv").show();
@@ -55,9 +116,27 @@ $(document).ready(function(){
 		//파일폼 숨김처리
 		$("#empfile").hide();
 
+		//기본메뉴 설정, 메뉴이동
+		$("#defaultmenu2").click();
+		
+		$("#mypagecorp2").on("click", function() {
+			location.href = "/cmyinfopage";
+		});
+		
+		$("#defaultmenu2").on("click",function(){
+			location.href = "/mngancpage";
+		});
+	   
+		//파일이름정리
+		if($("#showName").val() != '') {
+			$("#showName").html($(this).val().substring($(this).val().lastIndexOf("\\")+1));
+		}
+		
+		
+		
 	   //업로드 파일 삭제처리
 	   $("#empFileUpDelBtn").on("click",function(){
-		  
+		  alert("첨부파일이 삭제되었습니다");
 		   chkfileupt = 0;
 		   $("#showImgFileDiv").hide();
 		   $("#empFileUpDelBtn").hide();
@@ -118,14 +197,14 @@ $(document).ready(function(){
 		
 		$("#uptBtn").on("click",function(){
 			
-			if(chkfinal()){ 
-			confirm("저장하시겠습니까?");
-			insEmpAnncAjax();
-			 } 
+		if(confirm("수정 하시겠습니까?")){
 			
-			
-	});
+			if(chkfinal()){
+				uptEmpAnncAjax();
+				}
+		}
 		
+	});
 		
 		
 		
@@ -162,21 +241,21 @@ $(document).ready(function(){
 	// 저장 Ajax
 	
 	
-	function insEmpAnncAjax() {
+	function uptEmpAnncAjax() {
 		
 
 		var param = $("#uptForm1, #uptForm2, #uptForm3, #uptForm4, #uptForm6, #findregionAjax, #uptForm7, #empFileForm").serialize();
 		
 		$.ajax({
 			
-			url : "insEmpAnncAjax",
+			url : "uptEmpAnncAjax",
 			type : "post",
 			data : param,
 			dataType : "json",
 			success : function(res) {
 				
 				if(res.result == "success") {
-					alert("저장에 성공했습니다.");
+					alert("수정이 완료되었습니다.");
 					location.href = "mainpage";
 				}else if (res.result =="failed") {
 					alert("오류가 발생했습니다");
@@ -204,7 +283,6 @@ $(document).ready(function(){
 		}
 	}
 	
-	
 	//날짜 입력 체크
 	function dateChk() {
 		
@@ -214,10 +292,12 @@ $(document).ready(function(){
 			alert("공고일 또는 마감일을 입력하여 주십시오");
 			return false;
 			
+		}else {
+			checkDate();
 		}
-		return true;
+			
+		
 	}
-	
 	
 	//날짜 유효성
 	function checkDate() {
@@ -241,6 +321,7 @@ $(document).ready(function(){
 		var ny = nowDate.getFullYear();
 		var nm = nowDate.getMonth() + 1;
 		var nd = nowDate.getDate();
+
 		if(y1>y2 || ((y2==ny) && (y2>ny+1)) || y1 < ny || m1 > m2 || ((y2==y1) && (m2<nm)) ) {
 			
 			alert("날짜의 범위가 유효하지 않습니다.");
@@ -252,7 +333,6 @@ $(document).ready(function(){
 	}
 	
 	
-
 	//지역 선택여부
 	function areaChk() {
 		if($("#CITY").val == -1 || $("#CITY").val == "") {
@@ -261,7 +341,6 @@ $(document).ready(function(){
 		}
 			return true;
 	}
-	
 	
 	
 	//공개 여부 체크
@@ -274,6 +353,8 @@ $(document).ready(function(){
 	
 		return true;	
 }
+	
+	
 	
 	
 	//모집인원 체크
@@ -425,7 +506,7 @@ $(document).ready(function(){
 	
 	
 	//근무지 검색 Ajax 
-		
+	
 	function findregionAjax() {
 
 		
@@ -456,7 +537,7 @@ $(document).ready(function(){
 		});
 	}
 	
-// 지역목록 출력 
+	// 지역목록 출력 
 	function drawRegion(list){
 		
 		var html = "";
@@ -467,23 +548,9 @@ $(document).ready(function(){
 		}
 		
 		$("#REGION").html(html);
+		$("#REGION").val(region);
+		
 	}
-	
-	
-	
-	
- $(".list_wrap").on("click", "tr", function () {
-	  	if($(".pop-container").attr("btn") == "q"){
-	  		let target = $("#list_box").attr("no");
-	  	    $("#QUAL_NO"+target+"").val($(this).attr("qNo"));
-	  	    $("#QUAL_NAME"+target+"").val($(this).attr("qName"));
-	  	    $(".pop-container").hide();
-	  	}else if($(".pop-container").attr("btn") == "s"){
-	  	    $("#SECTOR_NAME").val($(this).attr("sName"));
-	  	    $("#SECTOR_NO").val($(this).attr("sNo"));
-	  	    $(".pop-container").hide();
-	  		}
-	 });
 
 
 
