@@ -163,6 +163,7 @@ function checkVal(sel) {
 </script>
 </head>
 <body>
+<%@include file="/resources/jsp/header.jsp"%>
 <form id="fileForm" action="fileUploadAjax" method="post" enctype="multipart/form-data">
 	<input type="file" name="att" id="att" />
 </form> <!-- 파일을 올리거나 있던 파일을 교체하기 위한 장치 -->
@@ -182,6 +183,7 @@ function checkVal(sel) {
 		<c:when test="${!empty data.ATTCH_NAME}">
 		<!-- 첨부파일이 있는 경우 버튼을 숨긴다. -->
 			<input type="button" value="첨부파일선택" id="fileBtn" class="hide_btn" />
+			<input type="hidden" id="attNo" name="attNo" value="${data.ATTCH_NO}" />
 		</c:when>
 		<c:otherwise>
 			<input type="button" value="첨부파일선택" id="fileBtn" />
@@ -196,5 +198,6 @@ function checkVal(sel) {
 </form>
 <input type="button" value="수정" id="updateBtn" />
 <input type="button" value="취소" id="cancelBtn" />
+<%@include file="/resources/jsp/footer.jsp"%>
 </body>
 </html>
