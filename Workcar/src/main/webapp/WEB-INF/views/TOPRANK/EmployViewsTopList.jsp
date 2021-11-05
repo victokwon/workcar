@@ -221,7 +221,7 @@ function linkGo(url){
 				<div id="main_search" class="main_content">
 					<div class="search_top">
 						
-						<input type="hidden" name="corpno" id="corpno"/>
+						<input type="hidden" name="empno" id="empno"/>
 							
 							<input type="hidden" id="oldTxt" value="${param.searchTxt}" /> 
 							<input type="hidden" name="page" id="page" value="${page}" />
