@@ -79,8 +79,7 @@
 	</update>
 	<update id="AttchUpdate" parameterType="hashmap">
 		UPDATE NOTICE_ATTCH SET ATTCH_NAME = #{nFile}
-		WHERE NOTICE_NO = #{no}
-		AND MEM_NO = #{memNo}
+		WHERE ATTCH_NO = #{attNo}
 	</update>
 	<update id="ABDelete" parameterType="hashmap">
 		UPDATE NOTICE 
