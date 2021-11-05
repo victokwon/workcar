@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@include file="/resources/jsp/header.jsp"%>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="resources/css/cormypage/mngempanc/mngempanc.css">
     <link rel="stylesheet" href="resources/css/cormypage/mngempanc/floatRightNav.css"> 	
 <body>
-
+<%@include file="/resources/jsp/header.jsp"%>
     <main>
         <div id="test"></div>
 			<div class="main_button_box">

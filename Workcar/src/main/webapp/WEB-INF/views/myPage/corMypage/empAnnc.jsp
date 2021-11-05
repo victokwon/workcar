@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@include file="/resources/jsp/header.jsp"%>
+
 
 <!DOCTYPE html>
 
@@ -21,28 +21,28 @@
 
 
 <body>
+<%@include file="/resources/jsp/header.jsp"%>
     <main>
 
 		<div class="main_button_box">
-			<div class="main_button_box">
-				<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
-				<button type="button" class="main_button" onclick="linkGo('mngancpage')">이력서관리</button>
-				<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
-				<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
-			</div>
+		<div class="main_button_box">
+			<button type="button" class="main_button" onclick="linkGo('cmyinfopage')">계정관리</button>
+			<button type="button" class="main_button" onclick="linkGo('mngancpage')">채용공고</button>
+			<button type="button" class="main_button" onclick="linkGo('sendReq')">활동내역</button>
+			<button type="button" class="main_button" onclick="linkGo('cmemAttnd')">관심정보</button>
+		</div>
 
 			<div class="main_info">
 				<input type="hidden" name="MEM_NO" value="${data.MEM_NO}">
 
 				<div id="main_apply" class="main_content">
 
-					         <div class="vertical_menu">
+	<!-- 				         <div class="vertical_menu">
 
                  
-                    <a href="#" id="jobPost">채용공고 관리</a>
-                    
-                    <a href="#" id="jobResume">받은 이력서</a>
-                </div>
+                    <a href="mngancpage" id="jobPost">채용공고 관리</a>
+                    <a href="" id="jobResume">받은 이력서</a>
+                </div> -->
 
 					<div class="main_box">
 					<form action="#" id="uptForm1" method="post" class="form1" >
@@ -454,8 +454,8 @@
 <script type="text/javascript" src="resources/script/cormypage/empannc/sector.js"></script>
 <script type="text/javascript" src="resources/script/cormypage/empannc/qual.js"></script>
 <script type="text/javascript">
-  	function linkGo(url) {
-	location.herf = url
+function linkGo(url){
+	location.href = url
 }
  </script>
 </body>
