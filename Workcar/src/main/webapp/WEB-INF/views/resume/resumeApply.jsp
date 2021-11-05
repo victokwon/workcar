@@ -34,6 +34,7 @@
 </head>
 
 <body>
+<%@include file="/resources/jsp/header.jsp"%>
    <form action="#" id="resumeGo" method="post">
    													<!-- 바꿔줘야함 -->
       <input type="hidden" id="memNo" name="memNo" value="1">
@@ -79,6 +80,6 @@
             </div>
         </div>
     </div>
-
+<%@include file="/resources/jsp/footer.jsp"%>
 </body>
 </html>

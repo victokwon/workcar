@@ -38,112 +38,10 @@ function linkGo(url){
 <div class="pop_wrap">
 	<div class="pop-container"></div> 
 </div>	
+<%@include file="/resources/jsp/header.jsp"%>
+<input type="hidden" id="userNo" no=${sMNo }>
 
 <!-- 헤더 -->
-	<div id="mySidenav" class="sidenav">
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<div id="sdienav_ul">
-			<!-- 링크작업 -->
-			<ul>
-				<div onclick="linkGo(#)">채용정보</div>
-				<li onclick="linkGo(#)">통합검색</li>
-				<li onclick="linkGo(#)">조회수 100</li>
-				<li onclick="linkGo(#)">평점 100</li>
-			</ul> 
-			<ul>
-				<div onclick="linkGo(#)">기업정보</div>
-				<li onclick="linkGo(#)">통합검색</li>
-			</ul>
-			<ul>
-				<div onclick="linkGo(#)">인재정보</div>
-				<li onclick="linkGo(#)">통합검색</li>
-			</ul>
-			<ul>
-				<div onclick="linkGo(#)">참여공간</div>
-				<li onclick="linkGo(#)">공지사항</li>
-				<li onclick="linkGo(#)">자주하는 질문</li>
-			</ul>
-			<c:choose>
-				<c:when test="${sMTy eq 0}">
-					<ul>
-						<div onclick="linkGo(#)">마이페이지</div>
-						<li onclick="linkGo(#)">계정관리</li>
-						<li onclick="linkGo(#)">이력서관리</li>
-						<li onclick="linkGo(#)">활동내역</li>
-						<li onclick="linkGo(#)">관심정보</li>
-					</ul>
-				</c:when>
-				<c:when test="${sMTy eq 1 || sMTy eq 2}">
-					<ul>
-						<div onclick="linkGo(#)">마이페이지</div>
-						<li onclick="linkGo(#)">계정관리</li>
-						<li onclick="linkGo(#)">채용공고</li>
-						<li onclick="linkGo(#)">활동내역</li>
-						<li onclick="linkGo(#)">관심정보</li>
-					</ul>
-				</c:when>
-				<c:when test="${sMTy eq 3}">
-					<ul>
-						<div onclick="linkGo(#)">마이페이지</div>
-						<li onclick="linkGo(#)">계정관리</li>
-						<li onclick="linkGo(#)">회원관리</li>
-						<li onclick="linkGo(#)">신고관리</li>
-						<li onclick="linkGo(#)">평점관리</li>
-					</ul>
-				</c:when>
-			</c:choose>
-		</div>
-	</div>
-	<div class="side_bcc" id="side_bcc" onclick="closeNav()"></div>
-
-	<header>
-		<!-- 네비게이션바 -->
-		<div class="topnav">
-
-			<!-- 로고 -->
-			<div class="topnav-centered" onclick="linkGo('mainpage')">
-				<div class="logo_img"></div>
-			</div>
-
-			<!-- 왼쪽 -->
-			<div class="hambuger" onclick="openNav()" id="hambuger_left">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-
-			<!-- 오른쪽 -->
-			<!-- 링크작업 -->
-			<c:choose>
-				<c:when test="${sMTy eq 0}">
-					<div class="topnav-right">
-						<a href="cmyinfopage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:when test="${sMTy eq 1 || sMTy eq 2}">
-					<div class="topnav-right">
-						<a href="cmyinfopage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:when test="${sMTy eq 3}">
-					<div class="topnav-right">
-						<a href="cmyinfopage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="topnav-right">
-						<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
-					</div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</header>
 	<main>
 		<div id="test"></div>
 		<div class="main_button_box">
@@ -186,25 +84,5 @@ function linkGo(url){
 
 	</main>
 </body>
-<footer>
-		<!-- 링크작업 -->
-		<div class="inner_content">
-			<div id="ntc">공지사항</div>
-			<div id="paticp">참여마당</div>
-			<div id="pvc">개인정보처리방침</div>
-			<div id="tou">이용약관</div>
-		</div>
-		<div class="footer_dtl_wrap">
-			<div class="footer_dtl_contents">
-				<div class="footer_logo"></div>
-				<div class="footer_dtl_contents_1">명칭 (주)일력거 | 사업자등록번호
-					123-456-7891011</div>
-				<div class="footer_dtl_contents_2">등록일자 2021년 9월 ?일 | 발행
-					(주)일력거 | 편집 (주)일력거</div>
-				<div class="footer_dtl_contents_3">발행소 서울시 금천구 가산디지털2로 구디아카데미
-					| 전화번호 02-1234-5678</div>
-				<div class="copyright">©WorkRickshaw. All rights reserved.</div>
-			</div>
-		</div>
-	</footer>
+<%@include file="/resources/jsp/footer.jsp"%>
 </html>
