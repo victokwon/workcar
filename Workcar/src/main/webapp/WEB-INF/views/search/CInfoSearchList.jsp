@@ -195,113 +195,7 @@ function linkGo(url){
 </script>
 </head>
 <body>
-	<div id="mySidenav" class="sidenav">
-		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<div id="sdienav_ul">
-			<!-- 링크작업 -->
-			<ul>
-				<div id="">채용정보</div>
-				<li id="">통합검색</li>
-				<li id="">조회수 100</li>
-				<li id="">평점 100</li>
-			</ul>
-			<ul>
-				<div id="">기업정보</div>
-				<li id="">통합검색</li>
-			</ul>
-			<ul>
-				<div id="">인재정보</div>
-				<li id="">통합검색</li>
-			</ul>
-			<ul>
-				<div id="">참여공간</div>
-				<li id="">공지사항</li>
-				<li id="">자주하는 질문</li>
-			</ul>
-			<c:choose>
-				<c:when test="${sMTy eq 0}">
-					<ul>
-						<div id="">마이페이지</div>
-						<li id="">계정관리</li>
-						<li id="">이력서관리</li>
-						<li id="">활동내역</li>
-						<li id="">관심정보</li>
-					</ul>
-				</c:when>
-				<c:when test="${sMTy eq 1 || sMTy eq 2}">
-					<ul>
-						<div id="">마이페이지</div>
-						<li id="">계정관리</li>
-						<li id="">채용공고</li>
-						<li id="">활동내역</li>
-						<li id="">관심정보</li>
-					</ul>
-				</c:when>
-				<c:when test="${sMTy eq 3}">
-					<ul>
-						<div id="">마이페이지</div>
-						<li id="">계정관리</li>
-						<li id="">회원관리</li>
-						<li id="">신고관리</li>
-						<li id="">평점관리</li>
-					</ul>
-				</c:when>
-			</c:choose>
-		</div>
-	</div>
-	<div class="side_bcc" id="side_bcc" onclick="closeNav()"></div>
-
-	<header>
-		<!-- 네비게이션바 -->
-		<div class="topnav">
-
-			<!-- 로고 -->
-			<div class="topnav-centered" onclick="linkGo('mainpage')">
-				<div class="logo_img" ></div>
-			</div>
-
-			<!-- 왼쪽 -->
-			<div class="hambuger" onclick="openNav()" id="hambuger_left">
-				<div></div>
-				<div></div>
-				<div></div>
-			</div>
-
-			<!-- 오른쪽 -->
-			<!-- 링크작업 -->
-			<c:choose>
-				<c:when test="${sMTy eq 0}">
-					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#iMemMypage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:when test="${sMTy eq 1 || sMTy eq 2}">
-					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#cMemMypage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:when test="${sMTy eq 3}">
-					<div class="topnav-right">
-						<div class="alarm"></div>
-						<a href="#mngMypage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
-						<strong>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<div class="topnav-right">
-						<a href="login"><strong>로그인</strong></a> <a href="join"><strong>회원가입</strong></a>
-					</div>
-				</c:otherwise>
-			</c:choose>
-		</div>
-	</header>
+	<%@include file="/resources/jsp/header.jsp"%>
 
 	<main>
 		
@@ -361,18 +255,7 @@ function linkGo(url){
 			</div>
 		</div>
 	</main>
-	<footer>
-		<div class="inner_content">
-			<div>
-				<b>공지사항</b>
-			</div>
-			<div>참여마당</div>
-			<div>개인정보처리방침</div>
-			<div>이용약관</div>
-		</div>
-		<h2>Coding is too hard</h2>
-		<p>please make it complete within the time frame</p>
-	</footer>
+	<%@include file="/resources/jsp/footer.jsp"%>
 
 
 	<script type="text/javascript" src="resources/script/empsch/header.js"></script>
