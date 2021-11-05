@@ -178,15 +178,16 @@ function checkVal(sel) {
 	제목 <input type="text" id="title" name="title" value="${data.NOTICE_TITLE}" /><br/>
 	작성자 : ${data.NAME}<input type="hidden" name="memNo" value="${sMNo}" /><br/>
 	<textarea rows="5" cols="5" id="cntt" name="cntt">${data.NOTICE_CNTT}</textarea> 
-	첨부파일 :  
+	첨부파일 : 
+	<input type="hidden" id="attNo" name="attNo" value="${data.ATTCH_NO}" />
 	<c:choose>
 		<c:when test="${!empty data.ATTCH_NAME}">
 		<!-- 첨부파일이 있는 경우 버튼을 숨긴다. -->
 			<input type="button" value="첨부파일선택" id="fileBtn" class="hide_btn" />
-			<input type="hidden" id="attNo" name="attNo" value="${data.ATTCH_NO}" />
 		</c:when>
 		<c:otherwise>
 			<input type="button" value="첨부파일선택" id="fileBtn" />
+			
 		</c:otherwise>
 	</c:choose>
 	<c:set var="len" value="${fn:length(data.ATTCH_NAME)}"></c:set>
