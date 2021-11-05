@@ -243,13 +243,13 @@ tr {
 .job_post_state_dtl .row {
   display: flex;
   flex-direction: row;
-  width: 25%;
+  width: 33%;
   height: 100%;
 }
 .job_post_resume_state_dtl .row .text,
 .job_post_state_dtl .row .text {
   font-size: 10px;
-  width: 50px;
+   width: 60px; 
   border-right: 1px solid #333;
   text-align: center;
   margin: 5px 0;
@@ -370,8 +370,8 @@ div#main_apply{
 	display:flex;
 }
 
-#openResume {
-	width: 85%;
+.openResume {
+	width: 85% !important;
 }
 
 

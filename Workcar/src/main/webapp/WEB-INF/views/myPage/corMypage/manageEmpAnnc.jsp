@@ -119,8 +119,10 @@
             <div id="main_apply" class="main_content">
                 <div class="vertical_menu">
                     <form action="#" id="resumeGo">
-                        <input type="hidden" id="userNO">
-                        <input type="hidden" id="resumeNO">
+                        <input type="hidden" id="userNO" name="userNO">
+                        <input type="hidden" id="resumeNO" name="resumeNo">
+                        <input type="hidden" id="empNO" name="empNo">
+                        <input type="hidden" id="empResumePage" name="page">
                     </form>
                     <!-- 이력서 리스트 메뉴 출력 -->
                     <a href="#" id="jobPost">채용공고 관리</a>
@@ -157,9 +159,6 @@
                                                     <div class="text">공고일</div>
                                                     <div class="data">${data.REG_DATE}.</div>
                                                 </div>
-                                                <div class="row">
-
-                                                </div>
                                             </div>
                                             <div class="col">
                                                 <div class="row">
@@ -168,21 +167,25 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="text">지원자</div>
-                                                    <div class="data">${data.CNT}명.</div>
+													<c:choose>
+														<c:when test="${data.CNT > 0}">
+															<div class="data">${data.CNT}명.</div>
+														</c:when>
+														<c:otherwise>
+															<div class="data">없음</div>
+														</c:otherwise>
+													</c:choose>
                                                 </div>
                                               <div class="row">
                                                     <div class="text">마감일</div>
                                                     <div class="data">${data.DLINE}.</div>
-                                                </div>
-                                                <div class="row">
-                                              
                                                 </div>
                                             </div>
                                         </div>                                                          
                                     </div>
                                     <div class="button_container">
                                         <div class="job_post_state">상태 : ${data.OPNCHK}</div>
-                                        <div class="button_box" eno="${data.EMP_NO}" rno="${data.MEM_NO}"> 
+                                        <div class="button_box" eno="${data.EMP_NO}" mno="${data.MEM_NO}" > 
                                             <button id="openDtl">열람</button>
                                             <button id="delDtl">삭제</button>
                                         </div>
@@ -201,64 +204,60 @@
                     
                 <div id="empAncLists2">       
                 <table class="resume_post_tab">
-                   <c:forEach var ="data2" items="${list}"> 
-                        <tr id="dtlBody" >
-                            <td jobPostNo="1">
-                                <div class="job_post_list">
-                                    <div class="logo"></div>
-                                    <div class="dtl_box">
-                                        <div class="job_post_title">공고 이름 : ${data2.EMP_TITLE}</div>
-                                        <div class="job_post_state_dtl">
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="text">회사명</div>
-                                                    <div class="data">${data2.C_NAME}</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="text">모집인원</div>
-                                                    <div class="data">${data2.EMP_PER}명</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="text">공고일</div>
-                                                    <div class="data">${data2.REG_DATE}.</div>
-                                                </div>
-                                                <div class="row">
-
-                                                </div>
-                                            </div>
-                                            <div class="col">
-                                                <div class="row">
-                                                    <div class="text">조회수</div>
-                                                    <div class="data">${data2.VIEWS}회.</div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="text">지원자</div>
-                                                    <div class="data">${data2.CNT}명.</div>
-                                                </div>
-                                              <div class="row">
-                                                    <div class="text">마감일</div>
-                                                    <div class="data">${data2.DLINE}.</div>
-                                                </div>
-                                                <div class="row">
-                                              
-                                                </div>
-                                            </div>
-                                        </div>                                                          
-                                    </div>
-                                    <div class="button_container">
-                                        <div class="job_post_state">상태 : ${data2.OPNCHK}</div>
-                                        <div class="button_box" eno="${data2.EMP_NO}" rno="${data2.MEM_NO}"> 
-                                            <button id="openResume">지원자 보기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
+                   	<c:forEach var ="data2" items="${list}"> 
+	                   	<c:if test="${data2.CNT > 0 }">
+	                        <tr id="dtlBody" >
+	                            <td jobPostNo="1">
+	                                <div class="job_post_list">
+		                                    <div class="logo"></div>
+		                                    <div class="dtl_box">
+		                                        <div class="job_post_title">공고 이름 : ${data2.EMP_TITLE}</div>
+		                                        <div class="job_post_state_dtl">
+		                                            <div class="col">
+		                                                <div class="row">
+		                                                    <div class="text">회사명</div>
+		                                                    <div class="data">${data2.C_NAME}</div>
+		                                                </div>
+		                                                <div class="row">
+		                                                    <div class="text">모집인원</div>
+		                                                    <div class="data">${data2.EMP_PER}명</div>
+		                                                </div>
+		                                                <div class="row">
+		                                                    <div class="text">공고일</div>
+		                                                    <div class="data">${data2.REG_DATE}.</div>
+		                                                </div>
+		                                            </div>
+		                                            <div class="col">
+		                                                <div class="row">
+		                                                    <div class="text">조회수</div>
+		                                                    <div class="data">${data2.VIEWS}회.</div>
+		                                                </div>
+		                                                <div class="row">
+		                                                    <div class="text">지원자</div>
+		                                                    <div class="data">${data2.CNT}명.</div>
+		                                                </div>
+		                                              <div class="row">
+		                                                    <div class="text">마감일</div>
+		                                                    <div class="data">${data2.DLINE}.</div>
+		                                                </div>
+		                                            </div>
+		                                        </div>                                                          
+		                                    </div>
+		                                    <div class="button_container">
+		                                        <div class="job_post_state">상태 : ${data2.OPNCHK}</div>
+		                                        <div class="button_box" eno="${data2.EMP_NO}" mno="${data2.MEM_NO}" > 
+		                                            <button id="openResume" class="openResume">지원자 보기</button>
+		                                        </div>
+		                                    </div>
+		                                </div>
+		                            </td>
+		                        </tr>
+    	                    </c:if>
                        </c:forEach>
                     </table>
                            
 				</div>
-                    
+ 
                     
                     
           		<div id="resumeLists" >
@@ -331,21 +330,12 @@ $(document).ready(function(){
 	//채용 공고 열람	
 	$(".job_post_tab").on("click","#openDtl",function(){
 		$("#EMP_NO").val($(this).parent().attr("eno"));
-		$("#MEM_NO").val($(this).parent().attr("rno"));
+		$("#MEM_NO").val($(this).parent().attr("mno"));
 		
 		$("#empancDtl").attr("action","empAncDtl");
 		$("#empancDtl").submit();	
 	});
 	
-	
-	$(".job_post_tab").on("click","#delDtl",function(){
-		$("#EMP_NO").val($(this).parent().attr("eno"));
-		$("#MEM_NO").val($(this).parent().attr("rno"));
-		
-		if(confirm("삭제하시겠습니까?")) {			
-			 delEmpAnc();
-		}
-	});
 	
 	
 	// 채용 공고 작성
@@ -357,7 +347,9 @@ $(document).ready(function(){
 //지원자 보기
 $(".resume_post_tab").on("click","#openResume",function(){
 	$("#EMP_NO").val($(this).parent().attr("eno"));
-	$("#MEM_NO").val($(this).parent().attr("rno"));
+	$("#MEM_NO").val($(this).parent().attr("mno"));
+
+	
 	resumeLists();
 
 });
@@ -379,7 +371,7 @@ $("#jobPost").click();
 //채용공고 열람	
 	$(".job_post_tab").on("click","#openDtl",function(){
 		$("#EMP_NO").val($(this).parent().attr("eno"));
-		$("#MEM_NO").val($(this).parent().attr("rno"));
+		$("#MEM_NO").val($(this).parent().attr("mno"));
 		
 		$("#empancDtl").attr("action","empAncDtl");
 		$("#empancDtl").submit();
@@ -389,10 +381,11 @@ $("#jobPost").click();
 //채용 공고 삭제
 	$(".job_post_tab").on("click","#delDtl",function(){
 		$("#EMP_NO").val($(this).parent().attr("eno"));
-		$("#MEM_NO").val($(this).parent().attr("rno"));
+		$("#MEM_NO").val($(this).parent().attr("mno"));
 
 		if(confirm("삭제하시겠습니까?")) {			
 			 delEmpAnc();
+			 location.reload();
 		}
 	});
 	
@@ -485,9 +478,13 @@ function resumeLists() {
 			html += "		</div>                                                     ";
 			html += "		<div class='button_container'>                             ";
 			html += "		<div class='job_post_resume_state'>상태 : "+rlists.FINDCHK+"</div> ";
+		if(rlists.R_DEL_CHK=="1"){
+			html += "		<div class='job_post_resume_state'><b>삭제된 이력서</b></div> ";
+		}else {
 			html += "		<div class='button_box'>                                   ";
-			html += "		<button id='openResume'>이력서 열람</button>                ";
+			html += "		<button id='goResume' class='openResume' eno='"+rlists.EMP_NO+"' rno='"+rlists.RESUM_NO+"'>이력서 열람</button>                ";
 			html += "		</div>                                                     ";
+		}
 			html += "		</div>                                                     ";
 			html += "		</div>                                                     ";
 			html += "		</td>                                                      ";
@@ -495,6 +492,16 @@ function resumeLists() {
 		}	
 			$(".job_post_resume").html(html);			
 }
+
+
+//이력서 이동
+	$(".job_post_resume").on("click","#goResume",function(){
+		$("#empNO").val($(this).attr("eno"));
+		$("#resumeNO").val($(this).attr("rno"));
+		$("#resumeGo").attr("action", "empResumDtl")
+		$("#resumeGo").submit()
+	})
+
 
 //이력서 삭제
 function delEmpAnc(){

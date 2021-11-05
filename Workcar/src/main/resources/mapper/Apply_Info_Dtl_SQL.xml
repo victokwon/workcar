@@ -4,7 +4,7 @@
 
 	<select id="getinfo" parameterType="hashmap"
 		resultType="hashmap">
-		SELECT c_name, recruit_gbn, G.gradu,
+		SELECT c_name, recruit_gbn, G.gradu, c.corp_no,
 		major, CG.carr, PG.pay_gbn, pay_low,
 		pay_high, EG.emp_gbn,
 		dtl, addr, addr_dtl, CARR_Y,
@@ -53,14 +53,23 @@
 
 
 	<select id="rating" parameterType="hashmap" resultType="hashmap">
-		select to_char(TRUNC(avg(wlb))) WLB, to_char(TRUNC(avg(promo_poss))) PROMO,
-		to_char(TRUNC(avg(c_cult))) CULTURE, to_char(TRUNC(avg(wfare_pay)))
-		WFARE, to_char(TRUNC(avg(mgm))) MGM ,to_char(TRUNC(
-		sum(wlb+promo_poss+c_cult+wfare_pay+mgm)/count(wlb)/5)) TOTAL
-		from grade g join c_info ci on g.corp_no = ci.corp_no
-		where G.DEL_CHK =  0
-		AND G.PRCSS_GBN = 1
-		AND g.corp_no = #{corpNo}
+		SELECT 
+            CORP_NO, 
+            ROUND((WLB+PROMO_POSS+C_CULT+WFARE_PAY+MGM)/5) TOTAL,
+            WLB,PROMO_POSS,C_CULT,WFARE_PAY,MGM
+        FROM(
+            SELECT CORP_NO,
+            ROUND(SUM(WLB)/COUNT(WLB)) WLB,
+            ROUND(SUM(PROMO_POSS)/COUNT(PROMO_POSS)) PROMO_POSS,
+            ROUND(SUM(C_CULT)/COUNT(C_CULT)) C_CULT,
+            ROUND(SUM(WFARE_PAY)/COUNT(WFARE_PAY)) WFARE_PAY,
+            ROUND(SUM(MGM)/COUNT(MGM)) MGM
+            FROM GRADE
+            WHERE DEL_CHK = 0
+            AND PRCSS_GBN = 1
+            GROUP BY CORP_NO
+        )
+        WHERE corp_no = #{corpNo}
 	</select>
 
 	<update id="reviews" parameterType="hashmap">

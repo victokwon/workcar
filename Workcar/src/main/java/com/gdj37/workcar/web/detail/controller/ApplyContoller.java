@@ -67,7 +67,6 @@ public class ApplyContoller {
 			HashMap<String, String> rating = iApplyService.rating(params);
 			
 			List<HashMap<String, String>> qualList = iApplyService.getQualList(params);
-			System.out.println(qualList.toString());
 			
 			mav.addObject("qualno", qual);
 			mav.addObject("qualList", qualList);

@@ -26,9 +26,24 @@
 <script src="resources/script/Mypage/Mypage_main_dp.js"></script>
 <script type="text/javascript"
 	src="resources/script/detail/corpor_dtl_paging.js"></script>
-<script type="text/javascript"
-	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ccb33b4781aed7d9d9321c853fa3055&libraries=services"></script>
-
+ <script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8ccb33b4781aed7d9d9321c853fa3055&libraries=services"></script> 
+<script type="text/javascript">
+$(function () {
+	
+	$(".star_rating").each(function(idx){
+		let score = $(this).attr("score")
+			html = ''
+		for(let i = 0; i<Math.round(score); i++){
+			html+= '	    <span class="fa fa-star checked"></span>             '
+		}
+		for(let i = 0; i<5-Math.round(score); i++){
+			html+= '	    <span class="fa fa-star"></span>             '
+		}
+		$(this).html(html)
+	})
+})
+</script>
 </head>
 <body>
 	<form action="#" id="actionForm" method="post">
@@ -115,7 +130,7 @@
 					<div class="topnav-right">
 						<div class="alarm"></div>
 						<a href="#iMemMypage"><strong>마이페이지</strong></a>
-						<div class="profile"></div>
+						<div id="profile"></div>
 						<strong id="userNo" no=${sMNo }>${sMNm }님</strong> <a href="logout"><strong>로그아웃</strong></a>
 					</div>
 				</c:when>
@@ -155,7 +170,7 @@
 			<div class="main_profile">
 				<div class="main_profile_div">
 					<div class="main_title">
-						<img src="${corpor_info.CORP_IMG}" alt="" class="">
+						<div id="profile"></div>
 						<h1>${corpor_info.C_NAME}</h1>
 					</div>
 				</div>
@@ -171,14 +186,13 @@
 					</div>
 					<hr>
 					<div class="main_detail_2">
-						<button class="main_detail_repport">채용정보신고</button>
 						<p>근로자 수 ${corpor_info.WRK_CNT} 명</p>
 						<p>연매출 ${corpor_info.SALES_AMOUNT} 원</p>
 						<p>상장여부 ${corpor_info.LIST_CHK }</p>
 						<p>자본금</p>
 					</div>
 					<script>				
-						$(function () {
+					/* 	$(function () {
 						    		for (var i=1; i<=  ${rating.TOTAL}; i++) { 
 						    		$(".total_rating"+i).addClass("checked");
 						    		}
@@ -187,20 +201,20 @@
 							    	$(".work_rating"+i).addClass("checked");
 							    	}
 						    		
-						    		for (var i=1; i<=  ${rating.PROMO}; i++) { 
+						    		for (var i=1; i<=  ${rating.PROMO_POSS}; i++) { 
 							    	$(".promotion_rating"+i).addClass("checked");
 							    	}
 						    		
-						    		for (var i=1; i<=  ${rating.CULTURE}; i++) { 
+						    		for (var i=1; i<=  ${rating.C_CULT}; i++) { 
 							    		$(".culture_rating"+i).addClass("checked");
 							    		}
-						    		for (var i=1; i<=  ${rating.WFARE}; i++) { 
+						    		for (var i=1; i<=  ${rating.WFARE_PAY}; i++) { 
 							    		$(".welfare_rating"+i).addClass("checked");
 							    		}
 						    		for (var i=1; i<=  ${rating.MGM}; i++) { 
 							    		$(".management_rating"+i).addClass("checked");
 							    		}
-						});
+						}); */
 					</script>
 					<c:if test="${!empty sMNo }">
 						<button class="main_detail_repport main_report_status btn btn-primary"
@@ -208,68 +222,32 @@
 					</c:if>
 						<div class="main_rating">
 						<h3>총 평점</h3>
-						<div class="star_rating total_rating">
-							<span class="fa fa-star total_rating1"></span> <span
-								class="fa fa-star total_rating2"></span> <span
-								class="fa fa-star total_rating3"></span> <span
-								class="fa fa-star total_rating4"></span> <span
-								class="fa fa-star total_rating5"></span> <span>
-								${rating.TOTAL}</span>
+						<div class="star_rating total_rating" score="${rating.TOTAL }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>업무와 삶의 균형</h3>
-						<div class="star_rating work_rating">
-							<span class="fa fa-star work_rating1"></span> <span
-								class="fa fa-star work_rating2"></span> <span
-								class="fa fa-star work_rating3"></span> <span
-								class="fa fa-star work_rating4"></span> <span
-								class="fa fa-star work_rating5"></span> <span>
-								${rating.WLB}</span>
+						<div class="star_rating work_rating" score="${rating.WLB }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>승진기회 및 가능성</h3>
-						<div class="star_rating promotion_rating">
-							<span class="fa fa-star promotion_rating1 "></span> <span
-								class="fa fa-star promotion_rating2"></span> <span
-								class="fa fa-star promotion_rating3"></span> <span
-								class="fa fa-star promotion_rating4"></span> <span
-								class="fa fa-star promotion_rating5"></span> <span>
-								${rating.PROMO}</span>
+						<div class="star_rating promotion_rating" score="${rating.PROMO_POSS }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>사내문화</h3>
-						<div class="star_rating culture_rating">
-							<span class="fa fa-star culture_rating1 "></span> <span
-								class="fa fa-star culture_rating2"></span> <span
-								class="fa fa-star culture_rating3"></span> <span
-								class="fa fa-star culture_rating4"></span> <span
-								class="fa fa-star culture_rating5"></span> <span>
-								${rating.CULTURE}</span>
+						<div class="star_rating culture_rating" score="${rating.C_CULT }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>복지 및 급여</h3>
-						<div class="star_rating welfare_rating">
-							<span class="fa fa-star welfare_rating1 "></span> <span
-								class="fa fa-star welfare_rating2"></span> <span
-								class="fa fa-star welfare_rating3"></span> <span
-								class="fa fa-star welfare_rating4"></span> <span
-								class="fa fa-star welfare_rating5"></span> <span>
-								${rating.WFARE}</span>
+						<div class="star_rating welfare_rating" score="${rating.WFARE_PAY }">
 						</div>
 					</div>
 					<div class="main_rating">
 						<h3>경영진</h3>
-						<div class="star_rating management_rating">
-							<span class="fa fa-star management_rating1 "></span> <span
-								class="fa fa-star management_rating2"></span> <span
-								class="fa fa-star management_rating3"></span> <span
-								class="fa fa-star management_rating4"></span> <span
-								class="fa fa-star management_rating5"></span> <span>
-								${rating.MGM}</span>
+						<div class="star_rating management_rating" score="${rating.MGM }">
 						</div>
 					</div>
 				</div>
@@ -287,7 +265,7 @@
 				</p>
 				<div id="map" style="width: 100%; height: 350px;"></div>
 
-				<script>
+			 	<script>
 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
 					mapOption = {
 						center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -332,7 +310,7 @@
 										}
 									});
 					
-				</script>
+				</script> 
 			</div>
 			<!-- 모달창 -->
 			<script type="text/javascript">
