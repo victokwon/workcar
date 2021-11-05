@@ -10,10 +10,10 @@
 	<footer>
 		<!-- 링크작업 -->
 		<div class="inner_content">
-			<div id="ntc" onclick="linkGo'ntcSpaceABList'">공지사항</div>
-			<div id="pvc" onclick="linkGo'mainSpace'">참여공간</div>
-			<div id="pvc" onclick="linkGo'quesSpace'">자주하는질문</div>
-			<div id="tou" onclick="linkGo'mainSpace'">이용약관</div>
+			<div id="ntc" onclick="linkGo('ntcSpaceABList')">공지사항</div>
+			<div id="pvc" onclick="linkGo('mainSpace')">참여공간</div>
+			<div id="pvc" onclick="linkGo('quesSpace')">자주하는질문</div>
+			<div id="tou" onclick="linkGo('mainSpace')">이용약관</div>
 		</div>
 		<div class="footer_dtl_wrap">
 			<div class="footer_dtl_contents">
